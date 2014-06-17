@@ -1,0 +1,3 @@
+application_offres_homepage:
+    pattern:  /offres
+    defaults: { _controller: ApplicationOffresBundle:Default:index }

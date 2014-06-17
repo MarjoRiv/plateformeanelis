@@ -1,0 +1,3 @@
+application_annuaire_homepage:
+    pattern:  /annuaire
+    defaults: { _controller: ApplicationAnnuaireBundle:Default:index }

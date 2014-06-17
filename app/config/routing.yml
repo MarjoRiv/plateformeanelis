@@ -1,0 +1,14 @@
+application_offres:
+    resource: "@ApplicationOffresBundle/Resources/config/routing.yml"
+    prefix:   /
+
+application_annuaire:
+    resource: "@ApplicationAnnuaireBundle/Resources/config/routing.yml"
+    prefix:   /
+
+application_main:
+    resource: "@ApplicationMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+user_budle:
+    resource: "@AdminUserBundle/Resources/config/routing.yml"

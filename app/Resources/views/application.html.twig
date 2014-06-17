@@ -1,0 +1,236 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href='{{ asset('assets/demo/variations/default.css') }}' rel='stylesheet' type='text/css' media='all' id='styleswitcher'> 
+    
+            <link href='{{ asset('assets/demo/variations/default.css') }}' rel='stylesheet' type='text/css' media='all' id='headerswitcher'> 
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="{{ asset('assets/css/ie8.css') }}">
+        <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+        <script type="text/javascript" src="{{ asset('assets/plugins/charts-flot/excanvas.min.js') }}"></script>
+    <![endif]-->
+
+    <!-- The following CSS are included as plugins and can be removed if unused-->
+
+<link rel='stylesheet' type='text/css' href='{{ asset('assets/plugins/codeprettifier/prettify.css') }}' /> 
+<link rel='stylesheet' type='text/css' href='{{ asset('assets/plugins/form-toggle/toggles.css') }}' /> 
+<link rel='stylesheet' type='text/css' href='{{ asset('assets/fonts/glyphicons/css/glyphicons.min.css') }}' /> 
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div id="headerbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-brown">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-pencil"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Create Post
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-grape">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-group"></i></div>
+                            <div class="pull-right"><span class="badge">2</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Contacts
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-primary">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-envelope-o"></i></div>
+                            <div class="pull-right"><span class="badge">10</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Messages
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-inverse">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-camera"></i></div>
+                            <div class="pull-right"><span class="badge">3</span></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Gallery
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-midnightblue">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-cog"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Settings
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <a href="#" class="shortcut-tiles tiles-orange">
+                        <div class="tiles-body">
+                            <div class="pull-left"><i class="fa fa-wrench"></i></div>
+                        </div>
+                        <div class="tiles-footer">
+                            Plugins
+                        </div>
+                    </a>
+                </div>
+                            
+            </div>
+        </div>
+    </div>
+
+    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+        <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="right" title="Agrandir/Réduire le menu"></a>
+
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="index.php">ANELIS</a>
+        </div>
+
+        <ul class="nav navbar-nav pull-right toolbar">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">David Santiago <i class="fa fa-caret-down"></i></span><img src="assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+                <ul class="dropdown-menu userinfo arrow">
+                    <li class="username">
+                        <a href="#">
+                            <div class="pull-left"><img src="assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield"/></div>
+                            <div class="pull-right"><h5>Salut David !</h5></div>
+                        </a>
+                    </li>
+                    <li class="userlinks">
+                        <ul class="dropdown-menu">
+                            <li><a href="mon-profil.php">Voir mon Profil<i class="pull-right fa fa-pencil"></i></a></li>
+                            <li><a href="mon-compte.php">Mon Compte <i class="pull-right fa fa-cog"></i></a></li>
+                            <li><a href="faq.php">Aide <i class="pull-right fa fa-question-circle"></i></a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}" class="text-right">Déconnexion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><i class="fa fa-envelope"></i><span class="badge">1</span></a>
+                <ul class="dropdown-menu messages arrow">
+                    <li class="dd-header">
+                        <span>Vous avez 1 nouveau message</span>
+                        <span><a href="#">Tout marquer commu lu</a></span>
+                    </li>
+                    <div class="scrollthis">
+                        <li><a href="#" class="active">
+                            <span class="time">6 mins</span>
+                            <img src="assets/demo/avatar/doyle.png" alt="avatar" />
+                            <div><span class="name">Alan Doyle</span><span class="msg">Lorem ipsum.</span></div>
+                        </a></li>
+                        <li><a href="#">
+                            <span class="time">12 mins</span>
+                            <img src="assets/demo/avatar/paton.png" alt="avatar" />
+                            <div><span class="name">Polly Paton</span><span class="msg">Lorem ipsum.</span></div>
+                        </a></li>
+                        <li><a href="#">
+                            <span class="time">9 hrs</span>
+                            <img src="assets/demo/avatar/corbett.png" alt="avatar" />
+                            <div><span class="name">Simon Corbett</span><span class="msg">Lorem ipsum.</span></div>
+                        </a></li>
+                        <li><a href="#">
+                            <span class="time">2 days</span>
+                            <img src="assets/demo/avatar/tennant.png" alt="avatar" />
+                            <div><span class="name">David Tennant</span><span class="msg">Lorem ipsum.</span></div>
+                        </a></li>
+                        <li><a href="#">
+                            <span class="time">6 mins</span>
+                            <img src="assets/demo/avatar/doyle.png" alt="avatar" />
+                            <div><span class="name">Alan Doyle</span><span class="msg">Lorem ipsum.</span></div>
+                        </a></li>
+                        <li><a href="#">
+                            <span class="time">12 mins</span>
+                            <img src="assets/demo/avatar/paton.png" alt="avatar" />
+                            <div><span class="name">Polly Paton</span><span class="msg">Lorem ipsum.</span></div>
+                        </a></li>
+                    </div>
+                    <li class="dd-footer"><a href="#">Voir tous les messages</a></li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+
+    <div id="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <nav id="page-leftbar" role="navigation">
+                <!-- BEGIN SIDEBAR MENU -->
+            <ul class="acc-menu" id="sidebar">
+                <li id="search">
+                    <a href="javascript:;"><i class="fa fa-search opacity-control"></i></a>
+                     <form>
+                        <input type="text" class="search-query" placeholder="Search...">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </li>
+                <li class="divider"></li>
+                <li class="active"><a href="{{ path('application_main_homepage') }}"><i class="fa fa-home"></i> <span>Accueil</span></a></li>
+                <li><a href="{{ path('application_annuaire_homepage') }}"><i class="glyphicon glyphicon-search"></i> <span>Annuaire</span></a></li>
+                <li><a href="{{ path('application_offres_homepage') }}"><i class="glyphicon glyphicon-list"></i> <span>Offres d'emplois / stages</span></a></li>
+                <li><a href="messagerie.php"><i class="glyphicon glyphicon-envelope"></i> <span>Messagerie</span></a></li>
+                <li class="divider"></li>
+                <li><a href="maps-vector.php"><i class="fa fa-map-marker"></i> <span>Carte des ZZs</span></a></li>
+                <li><a href="gallery.php"><i class="fa fa-camera"></i> <span> Galerie Photo</span> </a></li>
+               
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </nav>
+
+{% block body %} {% endblock %}
+
+<footer role="contentinfo">
+        <div class="clearfix">
+            <ul class="list-unstyled list-inline pull-left">
+                <li>ANELIS &copy; 2014</li>
+            </ul>
+            <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
+        </div>
+    </footer>
+
+</div> <!-- page-container -->
+
+{% endblock %}
+
+{% block javascripts %}
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<script>!window.jQuery && document.write(unescape('%3Cscript src="assets/js/jquery-1.10.2.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript">!window.jQuery.ui && document.write(unescape('%3Cscript src="assets/js/jqueryui-1.10.3.min.js'))</script>
+-->
+
+<script type='text/javascript' src='{{ asset('assets/js/jquery-1.10.2.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/jqueryui-1.10.3.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/bootstrap.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/enquire.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/jquery.cookie.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/jquery.nicescroll.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/plugins/codeprettifier/prettify.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/plugins/easypiechart/jquery.easypiechart.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/plugins/sparklines/jquery.sparklines.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/plugins/form-toggle/toggle.min.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/placeholdr.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/js/application.js') }}'></script> 
+<script type='text/javascript' src='{{ asset('assets/demo/demo.js') }}'></script> 
+{% endblock %}
