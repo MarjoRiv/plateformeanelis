@@ -13,9 +13,11 @@ security:
     firewalls:
         main:
             pattern: ^/
+            switch_user: true
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
+                always_use_default_target_path: true
             logout:
                 path:   /logout
                 target: /login
@@ -29,4 +31,4 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/offres, role: ROLE_USER }
+        - { path: ^/, roles: ROLE_USER }

@@ -85,3 +85,8 @@ fos_user:
             from_email:
                 address:        noreply@bnei.fr
                 sender_name:    ANELIS - Bureau National des Élèves Ingénieurs
+
+# Pagination configuration            
+knp_paginator:
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
