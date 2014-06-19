@@ -117,8 +117,8 @@
                     </li>
                     <li class="userlinks">
                         <ul class="dropdown-menu">
-                            <li><a href="mon-profil.php">Voir mon Profil<i class="pull-right fa fa-pencil"></i></a></li>
-                            <li><a href="mon-compte.php">Mon Compte <i class="pull-right fa fa-cog"></i></a></li>
+                            <li><a href="{{ path('user_show_profile', { 'id' : app.user.id }) }}">Voir mon Profil<i class="pull-right fa fa-pencil"></i></a></li>
+                            <li><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}">Mon Compte <i class="pull-right fa fa-cog"></i></a></li>
                             <li><a href="faq.php">Aide <i class="pull-right fa fa-question-circle"></i></a></li>
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}" class="text-right">Déconnexion</a></li>
@@ -191,7 +191,16 @@
                 <li class="divider"></li>
                 <li><a href="maps-vector.php"><i class="fa fa-map-marker"></i> <span>Carte des ZZs</span></a></li>
                 <li><a href="gallery.php"><i class="fa fa-camera"></i> <span> Galerie Photo</span> </a></li>
-               
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="divider"></li>
+                <li><a href="javascript:;"><i class="fa fa-briefcase"></i> <span>Administration</span></a>
+                    <ul class="acc-menu">
+                        <li><a href="{{ path('admin_social_homepage') }}">Social</a></li>
+                        <li><a href="{{ path('admin_parcours_homepage') }}">Parcours</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+
             </ul>
             <!-- END SIDEBAR MENU -->
         </nav>

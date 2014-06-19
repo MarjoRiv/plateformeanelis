@@ -1,0 +1,19 @@
+admin_social_homepage:
+    pattern:  /admin/social
+    defaults: { _controller: AdminSocialBundle:Default:index }
+
+admin_social_add:
+    pattern:  /admin/social/add
+    defaults: { _controller: AdminSocialBundle:Default:add }
+
+admin_social_edit:
+    pattern:  /admin/social/edit/{id}
+    defaults: { _controller: AdminSocialBundle:Default:edit }
+    requirements:
+        id: \d*
+
+admin_social_delete:
+    pattern:  /admin/social/delete/{id}
+    defaults: { _controller: AdminSocialBundle:Default:delete }
+    requirements:
+        id: \d*

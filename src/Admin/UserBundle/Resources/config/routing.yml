@@ -1,3 +1,15 @@
+user_show_profile:
+    pattern:  /profil/{id}
+    defaults: { _controller: "AdminUserBundle:Profil:show" }
+    requirements:
+        id: \d*
+
+user_edit_profile:
+    pattern:  /profil/{id}/edit
+    defaults: { _controller: "AdminUserBundle:Profil:edit" }
+    requirements:
+        id: \d*
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

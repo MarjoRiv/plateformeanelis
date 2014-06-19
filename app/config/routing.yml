@@ -1,3 +1,11 @@
+admin_social:
+    resource: "@AdminSocialBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin_parcours:
+    resource: "@AdminParcoursBundle/Resources/config/routing.yml"
+    prefix:   /
+
 application_offres:
     resource: "@ApplicationOffresBundle/Resources/config/routing.yml"
     prefix:   /

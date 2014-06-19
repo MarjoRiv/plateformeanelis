@@ -1,0 +1,220 @@
+{% extends "::application.html.twig" %} 
+
+{% block body %}
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="index.php">Plateforme</a></li>
+                <li>Profil</li>
+                <li class="active">{{ user.surname }} {{ user.name }}</li>
+            </ol>
+
+            <h1>Profil</h1>
+        </div>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-midnightblue">
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="assets/demo/avatar/johansson.png" alt="" class="pull-left" style="margin: 0 20px 20px 0">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed">
+                                            <h3><strong>{{ app.user.surname }} {{ app.user.name }} </strong></h3>
+                                            <!-- <thead>
+                                                <tr>
+                                                    <th width="50%"></th>
+                                                    <th width="50%"></th>
+                                                </tr>
+                                            </thead> -->
+                                            <tbody>
+                                                <tr>
+                                                    <td>Web</td>
+                                                    <td><a href="{{ user.website }}" target="_blank">{{ user.website }}</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email</td>
+                                                    <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone</td>
+                                                    <td>{{ app.user.telephone }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Métier</td>
+                                                    <td>Développeur</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Entreprise</td>
+                                                    <td>Michelin</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Social</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>
+                                                        <a href="#" class="btn btn-xs"><i class="fa fa-facebook"></i></a>
+                                                        <a href="#" class="btn btn-xs"><i class="fa fa-twitter"></i></a>
+                                                        <a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>
+                                                        <a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>
+                                                        <a href="#" class="btn btn-xs"><i class="fa fa-linkedin"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3>À propos</h3>
+                                    <p>
+                                        {{ user.biography }}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="tab-container tab-success">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#home1" data-toggle="tab">Parcours Professionnel</a></li>
+                                            <li class=""><a href="#profile2" data-toggle="tab">Parcours Scolaire</a></li>
+                                            <li class=""><a href="#profile1" data-toggle="tab">Parcours Associatif</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active clearfix" id="home1">
+                                                <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
+                                                    <ul class="timeline">
+                                                        <li class="timeline-orange">
+                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                            <div class="timeline-body">
+                                                                <div class="timeline-header">
+                                                                    <span class="date">Lundi 21 Novembre 2013</span>
+                                                                </div>
+                                                                <div class="timeline-content">
+                                                                    <h3>Entreprise</h3>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
+                                                    <ul class="timeline">
+                                                        <li class="timeline-success">
+                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                            <div class="timeline-body">
+                                                                <div class="timeline-header">
+                                                                    <span class="date">Lundi 21 Decembre 2013</span>
+                                                                </div>
+                                                                <div class="timeline-content">
+                                                                    <h3>Entreprise</h3>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane active clearfix" id="profile2">
+                                                <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
+                                                    <ul class="timeline">
+                                                        <li class="timeline-orange">
+                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                            <div class="timeline-body">
+                                                                <div class="timeline-header">
+                                                                    <span class="date">Lundi 21 Novembre 2013</span>
+                                                                </div>
+                                                                <div class="timeline-content">
+                                                                    <h3>Ecole</h3>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
+                                                    <ul class="timeline">
+                                                        <li class="timeline-success">
+                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                            <div class="timeline-body">
+                                                                <div class="timeline-header">
+                                                                    <span class="date">Lundi 21 Decembre 2013</span>
+                                                                </div>
+                                                                <div class="timeline-content">
+                                                                    <h3>Ecole</h3>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="tab-pane" id="profile1">
+                                                <div class="tab-pane active clearfix" id="home1">
+                                                <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
+                                                    <ul class="timeline">
+                                                        <li class="timeline-orange">
+                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                            <div class="timeline-body">
+                                                                <div class="timeline-header">
+                                                                    <span class="date">Lundi 21 Novembre 2013</span>
+                                                                </div>
+                                                                <div class="timeline-content">
+                                                                    <h3>Association</h3>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
+                                                    <ul class="timeline">
+                                                        <li class="timeline-success">
+                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                            <div class="timeline-body">
+                                                                <div class="timeline-header">
+                                                                    <span class="date">Lundi 21 Decembre 2013</span>
+                                                                </div>
+                                                                <div class="timeline-content">
+                                                                    <h3>Club</h3>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
+{% endblock %}

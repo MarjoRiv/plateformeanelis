@@ -2,6 +2,7 @@
 
 namespace Admin\UserBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -26,6 +27,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotNull(
+     *     message = "Le nom est obligatoire."
+     * )
      */
     private $name;
 
@@ -33,6 +37,9 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="surname", type="string", length=255)
+     * @Assert\NotNull(
+     *     message = "Le prénom est obligatoire"
+     * )
      */
     private $surname;
 
@@ -42,13 +49,6 @@ class User extends BaseUser
      * @ORM\Column(name="address", type="text")
      */
     private $address;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="checked", type="boolean")
-     */
-    private $checked;
 
     /**
      * @var string
@@ -63,6 +63,20 @@ class User extends BaseUser
      * @ORM\Column(name="avatar", type="string", length=255)
      */
     private $avatar;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=255)
+     */
+    private $website;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="biography", type="text")
+     */
+    private $biography;
 
     public function __construct()
     {
@@ -227,5 +241,51 @@ class User extends BaseUser
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return User
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set biography
+     *
+     * @param string $biography
+     * @return User
+     */
+    public function setBiography($biography)
+    {
+        $this->biography = $biography;
+
+        return $this;
+    }
+
+    /**
+     * Get biography
+     *
+     * @return string 
+     */
+    public function getBiography()
+    {
+        return $this->biography;
     }
 }

@@ -1,0 +1,3 @@
+admin_parcours_homepage:
+    pattern:  /admin/parcours
+    defaults: { _controller: AdminParcoursBundle:Default:index }
