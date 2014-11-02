@@ -15,7 +15,7 @@ class LogManager extends BaseManager {
     }
     
     public function getNamespaceEntity() {
-        return 'AdminUserBundle:User';
+        return 'ApplicationUserBundle:User';
     }
     
     public function saveLog($description, User $user = null) {

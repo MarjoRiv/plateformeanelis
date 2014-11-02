@@ -24,6 +24,10 @@ class AppKernel extends Kernel
             new Application\OffresBundle\ApplicationOffresBundle(),
             new Admin\ParcoursBundle\AdminParcoursBundle(),
             new Admin\SocialBundle\AdminSocialBundle(),
+            new Application\TaskBundle\ApplicationTaskBundle(),
+            new Admin\MailingBundle\AdminMailingBundle(),
+            new Application\MailingBundle\ApplicationMailingBundle(),
+            new Application\SocialBundle\ApplicationSocialBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

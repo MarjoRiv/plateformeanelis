@@ -1,57 +1,55 @@
 {% extends "::application.html.twig" %} 
-
-
 {% form_theme form 'AdminUserBundle:Form:user.html.twig' %}
-
 {% block body %}
 <div id="page-content">
-    <div id='wrap'>
-        <div id="page-heading">
-            <ol class="breadcrumb">
-                <li><a href="index.php">Plateforme</a></li>
-                <li class="active">Mon Compte</li>
-            </ol>
-
-            <h1>Mon Compte</h1>
-        </div>
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h4>Mon Compte</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="domtabs">
-                                    <div class="row">
-                                            <div class="tab-container tab-left tab-danger">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#home2" data-toggle="tab">Profil</a></li>
-                                                    <li><a href="#profile2" data-toggle="tab">Parcours</a></li>
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <div class="tab-pane active" id="home2">
-
-                        {{ form_widget(form) }}
-
-                                                </div>
-                                                    <div class="tab-pane" id="profile2">
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores porro eveniet debitis quas sed harum nobis libero voluptatibus dolorum odio at veniam aut id corrupti hic esse quisquam fugiat. Asperiores in eveniet sapiente error fuga tenetur ex ea dignissimos voluptas ab molestiae eos totam quo dolorem maxime illo neque quia itaque.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div id='wrap'>
+    <div id="page-heading">
+      <ol class="breadcrumb">
+        <li><a href="index.php">Plateforme</a></li>
+        <li class="active">Mon Compte</li>
+      </ol>
+      <h1>Mon Compte</h1>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h4>Mon Compte</h4>
             </div>
-
-        </div> <!-- container -->
-    </div> <!--wrap -->
-</div> <!-- page-content -->
+            <div class="panel-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="domtabs">
+                  <div class="row">
+                    <div class="tab-container tab-left tab-danger">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
+                        <li><a href="#social" data-toggle="tab">Social</a></li>
+                        <li><a href="#parcours" data-toggle="tab">Parcours</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="profil">
+                          {{ form_widget(form) }}
+                        </div>
+                        <div class="tab-pane" id="social">
+                          <p>Ici le formulaire du social</p>
+                        </div>
+                        <div class="tab-pane" id="parcours">
+                          <p>Ici le formulaire du parcours</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- container -->
+  </div>
+  <!--wrap -->
+</div>
+<!-- page-content -->
 {% endblock %}

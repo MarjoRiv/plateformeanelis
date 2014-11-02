@@ -1,0 +1,3 @@
+application_social_homepage:
+    pattern:  /profil/social@
+    defaults: { _controller: ApplicationSocialBundle:Default:index }

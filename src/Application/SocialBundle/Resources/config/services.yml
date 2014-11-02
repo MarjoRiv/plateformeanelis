@@ -1,0 +1,7 @@
+parameters:
+#    application_social.example.class: Application\SocialBundle\Example
+
+services:
+#    application_social.example:
+#        class: %application_social.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

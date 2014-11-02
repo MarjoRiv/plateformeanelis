@@ -1,0 +1,7 @@
+parameters:
+#    application_task.example.class: Application\TaskBundle\Example
+
+services:
+#    application_task.example:
+#        class: %application_task.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

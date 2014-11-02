@@ -1,0 +1,10 @@
+application_mailing_homepage:
+    pattern:  /profil/ml
+    defaults: { _controller: ApplicationMailingBundle:Default:index }
+
+application_mailing_abonnement:
+   pattern: /profil/ml/setAbonnement
+   defaults: { _controller: "ApplicationMailingBundle:UserConfig:setAbonnement" }
+application_mailing_desabonnement:
+   pattern: /profil/ml/desabonnement
+   defaults: { _controller: "ApplicationMailingBundle:UserConfig:deleteAbonnement" }

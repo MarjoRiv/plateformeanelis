@@ -1,0 +1,53 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Mailing List - Administration {% endblock %}
+
+{% block body %}
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <ol class="breadcrumb">
+                <li><a href="#">Plateforme</a></li>
+                <li>Administration</li>
+                <li class="active">Mailing</li>
+            </ol>
+            <h1>Gestion des mailing-lists</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Gestion des mailing-lists</h4>
+                            <div class="options">
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                        <div class="pull-right"><a href="{{ path('admin_mailing_mailinglist_add') }}" class="btn btn-primary">Ajouter une mailing-list</a></div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+
+                                        <th>Nom</th>
+                                        <th>Nombre d'abonnés</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for ML in mailingLists %}
+                                    <tr>
+                                        <td>{{ ML.name }}</td>
+                                        <td>{{ ML.abonnes | length }}</td>
+                                        <td><a href="{{ path('admin_mailing_mailinglist_edit', { 'id' : ML.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a> <a href="{{ path('aadmin_mailing_mailinglist_delete', { 'id' : ML.id }) }}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- container -->
+    </div><!--wrap -->
+</div><!-- page-content -->
+{% endblock %}
