@@ -17,17 +17,13 @@ class Social
 
     /**
      * @var string
-     * @Assert\NotNull(
-     *     message = "Le nom est obligatoire."
-     * )
      */
-    private $nom;
+    private $name;
 
     /**
      * @var string
      */
     private $class;
-
 
     /**
      * Get id
@@ -40,26 +36,26 @@ class Social
     }
 
     /**
-     * Set nom
+     * Set name
      *
-     * @param string $nom
+     * @param string $name
      * @return Social
      */
-    public function setNom($nom)
+    public function setName($name)
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get name
      *
      * @return string 
      */
-    public function getNom()
+    public function getName()
     {
-        return $this->nom;
+        return $this->name;
     }
 
     /**
@@ -84,4 +80,5 @@ class Social
     {
         return $this->class;
     }
+
 }

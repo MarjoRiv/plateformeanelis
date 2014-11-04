@@ -78,6 +78,11 @@ class User extends BaseUser
      */
     private $biography;
 
+    /**
+     *@ORM\OneToMany(targetEntity="Application\SocialBundle\Entity\UserSocial", mappedBy="user", cascade={"persist"})
+     */
+    private $userSocials;
+
     public function __construct()
     {
         parent::__construct();
@@ -288,4 +293,38 @@ class User extends BaseUser
     {
         return $this->biography;
     }
+
+     /**
+     * Add userSocials
+     *
+     * @param  \Application\SocialBundle\Entity\UserSocial $userSocials
+     * @return User
+     */
+    public function addUserSocial(\Application\SocialBundle\Entity\UserSocial $userSocials)
+    {
+        $this->userSocials[] = $userSocials;
+
+        return $this;
+    }
+
+    /**
+     * Remove userSocials
+     *
+     * @param \Application\SocialBundle\Entity\UserSocial $userSocials
+     */
+    public function removeUserSocial(\Application\SocialBundle\Entity\UserSocial $userSocials)
+    {
+        $this->userSocials->removeElement($userSocials);
+    }
+
+    /**
+     * Get userSocials
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserSocials()
+    {
+        return $this->userSocials;
+    }
+
 }

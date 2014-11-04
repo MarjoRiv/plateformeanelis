@@ -8,7 +8,7 @@ Admin\SocialBundle\Entity\Social:
             generator:
                 strategy: AUTO
     fields:
-        nom:
+        name:
             type: string
             length: 255
         class:

@@ -1,12 +1,13 @@
 <?php
 
-namespace Admin\SocialBundle\Form;
+namespace Application\SocialBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Admin\SocialBundle\Form\SocialType;
 
-class SocialType extends AbstractType
+class MachinType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,12 +16,12 @@ class SocialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                'required' => true
-                ))
-            ->add('class', 'text', array(
-                'required' => false
-                ))
+            ->add('userSocials', 'collection', array(
+                'type' => new UserSocialType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false
+            ))
         ;
     }
     
@@ -30,7 +31,8 @@ class SocialType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\SocialBundle\Entity\Social'
+            // Lier ce type avec l'user ? useless visiblement ...
+            //'data_class' => "Admin\UserBundle\Entity\User"
         ));
     }
 
@@ -39,6 +41,6 @@ class SocialType extends AbstractType
      */
     public function getName()
     {
-        return 'admin_socialbundle_social';
+        return 'application_socialbundle_usersocial';
     }
 }

@@ -2,13 +2,13 @@
 
 <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
 {{ form_errors(form) }}
-    <div class="form-group{% if form_errors(form.nom) is not empty %} has-error{% endif %}">
-        {{ form_label(form.nom, "Nom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+    <div class="form-group{% if form_errors(form.name) is not empty %} has-error{% endif %}">
+        {{ form_label(form.name, "Nom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
         <div class="col-sm-6">
-            {{ form_widget(form.nom, { 'attr' : { 'class' : 'form-control' } }) }}
+            {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
         </div>
         <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.nom)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+            <p class="help-block">{{ form_errors(form.name)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
         </div>
     </div>
     <div class="form-group{% if form_errors(form.class) is not empty %} has-error{% endif %}">

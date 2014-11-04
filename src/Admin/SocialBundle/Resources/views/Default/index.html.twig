@@ -30,7 +30,7 @@
                                     <tr>
 
                                         <th>{{ knp_pagination_sortable(sociaux, 'Id', 't.id') }}</th>
-                                        <th>{{ knp_pagination_sortable(sociaux, 'Nom', 't.nom') }}</th>
+                                        <th>{{ knp_pagination_sortable(sociaux, 'Nom', 't.name') }}</th>
                                         <th>{{ knp_pagination_sortable(sociaux, 'Classe CSS', 't.class') }}</th>
                                         <th></th>
                                     </tr>
@@ -39,7 +39,7 @@
                                 {% for social in sociaux %}
                                     <tr>
                                         <td>{{ social.id }}</td>
-                                        <td>{{ social.nom }}</td>
+                                        <td>{{ social.name }}</td>
                                         <td>{{ social.class }}</td>
                                         <td><a href="{{ path('admin_social_edit', { 'id' : social.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a> <a href="{{ path('admin_social_delete', { 'id' : social.id }) }}"><span class="glyphicon glyphicon-trash"></span></a></td>
                                     </tr>
