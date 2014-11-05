@@ -5,6 +5,7 @@ namespace Admin\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Application\SocialBundle\Form\UserSocialType;
 
 class UserType extends AbstractType
 {
@@ -33,6 +34,13 @@ class UserType extends AbstractType
             ->add('biography', 'textarea', array(
                 'required' => false,
                 ))
+            ->add('userSocials', 'collection', array(
+                'type' => new UserSocialType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+
+            ))
         ;
     }
     

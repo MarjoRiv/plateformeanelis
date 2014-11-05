@@ -25,6 +25,13 @@ class Social
      */
     private $class;
 
+
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * Get id
      *

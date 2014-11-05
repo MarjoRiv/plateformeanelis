@@ -302,6 +302,7 @@ class User extends BaseUser
      */
     public function addUserSocial(\Application\SocialBundle\Entity\UserSocial $userSocials)
     {
+        $userSocials->setUser($this);
         $this->userSocials[] = $userSocials;
 
         return $this;

@@ -9,7 +9,8 @@ use Admin\SocialBundle\Form\SocialType;
 
 class UserSocialType extends AbstractType
 {
-        /**
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -20,7 +21,7 @@ class UserSocialType extends AbstractType
                 'class' => 'Admin\SocialBundle\Entity\Social',
                 'property' => 'name',
                 'required' => false,
-                'empty_value' => false
+                'empty_value' => false,
             ))
             ->add('value', 'text')
         ;

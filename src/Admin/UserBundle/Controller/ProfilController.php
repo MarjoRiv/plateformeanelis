@@ -31,7 +31,8 @@ class ProfilController extends Controller
         }
 
         $manager = new UserManager($this);
-    
+        
+        $entity = new UserType();
         $form = $this->createForm(new UserType(), $user);
         $formHandler = new UserHandler($form, $this->get('request'), $manager);
             

@@ -1,5 +1,6 @@
 {% block admin_userbundle_user_widget %}
 
+<script type='text/javascript' src='/PLANELIS/web/assets/js/jquery-1.10.2.min.js'></script> 
 
 <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
 {{ form_errors(form) }}
@@ -75,7 +76,25 @@
             <p class="help-block">{{ form_errors(form.biography)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
         </div>
     </div>
+    <div id="social-fields-list">
+    {% for social in form.userSocials %}
+
+    <div class="form-group">
+        {{ form_widget(social.social, { 'attr' : { 'class' : 'col-sm-3 input-sm' } }) }}
+        <div class="col-sm-6">
+            {{ form_widget(social.value, { 'attr' : { 'class' : 'form-control' } }) }}
+        </div>
+
+    </div>
+
+    {% endfor %}
     {{ form_rest(form) }}
+    </div>
+    
+    <div id="admin_userbundle_user_userSocials" data-prototype="{% filter escape %}{% include 'prototype.twig' with { 'item': form.userSocials.vars.prototype } %}{% endfilter %}"></div>
+    Il faut modifier la gueule du dataprototype pour la mise en forme
+    <a href="#" id="add-another-social">Add another social{{ form.userSocials | length }}</a>
+
     <div style="text-align: center;">
         <div class="btn-toolbar">
             <button class="btn-primary btn">Enregistrer</button>
@@ -84,4 +103,20 @@
     </div>
 </form>
 
+<script type="text/javascript">
+    // garde une trace du nombre de champs social qui ont été affichés
+    var emailCount = '{{ form.userSocials | length }}';
+
+    jQuery(document).ready(function() {
+        jQuery('#add-another-social').click(function() {
+            var emailList = jQuery('#admin_userbundle_user_userSocials');
+            var newWidget = emailList.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, emailCount);
+            emailCount++;
+            var newLi = jQuery('<div class="form-group"></div>').html(newWidget);
+            newLi.appendTo(jQuery('#social-fields-list'));
+            return false;
+        });
+    })
+</script>
 {% endblock %}
