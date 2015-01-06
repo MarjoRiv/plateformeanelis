@@ -21,10 +21,14 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <img src="assets/demo/avatar/johansson.png" alt="" class="pull-left" style="margin: 0 20px 20px 0">
+                                    {% if user.avatar.extension is empty %}
+                        <img src="{{ asset(user.avatar.defaultWebPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; width: 100px; height: 100px;"/>
+                    {% else %}
+                        <img src="{{ asset(user.avatar.webPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; width: 100px; height: 100px;"/>
+                    {% endif %}
                                     <div class="table-responsive">
                                         <table class="table table-condensed">
-                                            <h3><strong>{{ app.user.surname }} {{ app.user.name }} </strong></h3>
+                                            <h3><strong>{{ user.surname }} {{ user.name }} </strong></h3>
                                             <!-- <thead>
                                                 <tr>
                                                     <th width="50%"></th>
@@ -52,17 +56,22 @@
                                                     <td>Entreprise</td>
                                                     <td>Michelin</td>
                                                 </tr>
+                                                {% if user.socialFacebook is not empty or user.socialTwitter is not empty or user.socialLinkedin is not empty %}
                                                 <tr>
                                                     <td>Social</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-xs"><i class="fa fa-skype"></i></a>
-                                                        <a href="#" class="btn btn-xs"><i class="fa fa-facebook"></i></a>
-                                                        <a href="#" class="btn btn-xs"><i class="fa fa-twitter"></i></a>
-                                                        <a href="#" class="btn btn-xs"><i class="fa fa-dribbble"></i></a>
-                                                        <a href="#" class="btn btn-xs"><i class="fa fa-tumblr"></i></a>
-                                                        <a href="#" class="btn btn-xs"><i class="fa fa-linkedin"></i></a>
+                                                        {% if user.socialFacebook is not empty %}
+                                                        <a href="{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook" target="_blank"></i></a>
+                                                        {% endif %}
+                                                        {% if user.socialTwitter is not empty %}
+                                                        <a href="{{ user.socialTwitter }}" class="btn btn-xs"><i class="fa fa-twitter"></i></a>
+                                                        {% endif %}
+                                                        {% if user.socialLinkedin is not empty %}
+                                                        <a href="{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
+                                                {% endif %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -70,7 +79,9 @@
                                 <div class="col-md-6">
                                     <h3>À propos</h3>
                                     <p>
+                                        
                                         {{ user.biography }}
+                                        
                                     </p>
                                 </div>
                             </div>

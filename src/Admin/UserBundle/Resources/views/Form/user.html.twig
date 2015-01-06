@@ -3,6 +3,19 @@
 <script type='text/javascript' src='/PLANELIS/web/assets/js/jquery-1.10.2.min.js'></script> 
 
 <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+            <div class="panel-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="domtabs">
+                  <div class="row">
+                    <div class="tab-container tab-left tab-danger">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
+                        <li><a href="#social" data-toggle="tab">Social</a></li>
+                        <li><a href="#parcours" data-toggle="tab">Parcours</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="profil">
+
 {{ form_errors(form) }}
     <div class="form-group{% if form_errors(form.username) is not empty %} has-error{% endif %}">
         {{ form_label(form.username, "Login*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
@@ -40,6 +53,25 @@
             <p class="help-block">{{ form_errors(form.surname)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
         </div>
     </div>
+    <div class="form-group{% if form_errors(form.promotion) is not empty %} has-error{% endif %}">
+        {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
+        </div>
+        <div class="col-md-3 has-error">
+            <p class="help-block">{{ form_errors(form.promotion)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+        </div>
+    </div>
+    <div class="form-group{% if form_errors(form.filiere) is not empty %} has-error{% endif %}">
+        {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
+        </div>
+        <div class="col-md-3 has-error">
+            <p class="help-block">{{ form_errors(form.filiere)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+        </div>
+    </div>
+
     <div class="form-group{% if form_errors(form.address) is not empty %} has-error{% endif %}">
         {{ form_label(form.address, "Adresse", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
         <div class="col-sm-6">
@@ -76,47 +108,65 @@
             <p class="help-block">{{ form_errors(form.biography)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
         </div>
     </div>
-    <div id="social-fields-list">
-    {% for social in form.userSocials %}
 
-    <div class="form-group">
-        {{ form_widget(social.social, { 'attr' : { 'class' : 'col-sm-3 input-sm' } }) }}
+    <div class="form-group{% if form_errors(form.avatar) is not empty %} has-error{% endif %}">
+        {{ form_label(form.avatar, "Avatar", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
         <div class="col-sm-6">
-            {{ form_widget(social.value, { 'attr' : { 'class' : 'form-control' } }) }}
+            {{ form_widget(form.avatar.input, { 'attr' : { 'class' : 'form-control' } }) }}
         </div>
-
+        <div class="col-md-3 has-error">
+            <p class="help-block">{{ form_errors(form.avatar)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+        </div>
     </div>
 
-    {% endfor %}
-    {{ form_rest(form) }}
-    </div>
     
-    <div id="admin_userbundle_user_userSocials" data-prototype="{% filter escape %}{% include 'prototype.twig' with { 'item': form.userSocials.vars.prototype } %}{% endfilter %}"></div>
-    Il faut modifier la gueule du dataprototype pour la mise en forme
-    <a href="#" id="add-another-social">Add another social{{ form.userSocials | length }}</a>
 
-    <div style="text-align: center;">
-        <div class="btn-toolbar">
-            <button class="btn-primary btn">Enregistrer</button>
-            <button class="btn-default btn">Annuler</button>
+    </div>
+                        <div class="tab-pane" id="social">
+                       
+    <div id="social-fields-list">
+<div class="form-group{% if form_errors(form.socialFacebook) is not empty %} has-error{% endif %}">
+        {{ form_label(form.socialFacebook, "Facebook", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.socialFacebook, { 'attr' : { 'class' : 'form-control' } }) }}
+        </div>
+        <div class="col-md-3 has-error">
+            <p class="help-block">{{ form_errors(form.socialFacebook)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
         </div>
     </div>
+<div class="form-group{% if form_errors(form.socialTwitter) is not empty %} has-error{% endif %}">
+        {{ form_label(form.socialTwitter, "Twitter", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.socialTwitter, { 'attr' : { 'class' : 'form-control' } }) }}
+        </div>
+        <div class="col-md-3 has-error">
+            <p class="help-block">{{ form_errors(form.socialTwitter)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+        </div>
+    </div>
+<div class="form-group{% if form_errors(form.socialLinkedin) is not empty %} has-error{% endif %}">
+        {{ form_label(form.socialLinkedin, "Linkedin", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.socialLinkedin, { 'attr' : { 'class' : 'form-control' } }) }}
+        </div>
+        <div class="col-md-3 has-error">
+            <p class="help-block">{{ form_errors(form.socialLinkedin)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+        </div>
+    </div>
+    </div>
+
+     </div>
+                        <div class="tab-pane" id="parcours">
+                          <p>Ici le formulaire du parcours</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {{ form_rest(form) }} 
+            <p class="text-right"><button class="btn-primary btn">Enregistrer</button></p>
+
+            </div>
 </form>
 
-<script type="text/javascript">
-    // garde une trace du nombre de champs social qui ont été affichés
-    var emailCount = '{{ form.userSocials | length }}';
-
-    jQuery(document).ready(function() {
-        jQuery('#add-another-social').click(function() {
-            var emailList = jQuery('#admin_userbundle_user_userSocials');
-            var newWidget = emailList.attr('data-prototype');
-            newWidget = newWidget.replace(/__name__/g, emailCount);
-            emailCount++;
-            var newLi = jQuery('<div class="form-group"></div>').html(newWidget);
-            newLi.appendTo(jQuery('#social-fields-list'));
-            return false;
-        });
-    })
-</script>
 {% endblock %}

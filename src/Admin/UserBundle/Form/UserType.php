@@ -5,7 +5,7 @@ namespace Admin\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Application\SocialBundle\Form\UserSocialType;
+use Application\MainBundle\Form\ImageType;
 
 class UserType extends AbstractType
 {
@@ -22,6 +22,20 @@ class UserType extends AbstractType
             ->add('email', 'email')
             ->add('name', 'text')
             ->add('surname', 'text')
+            ->add('promotion', 'choice', array(
+                'choices' => $this->lstPromotions(),
+                'required'  => false,
+            ))
+            ->add('filiere', 'choice', array(
+                'choices'   => array(
+                    'F1' => 'F1',
+                    'F2' => 'F2',
+                    'F3' => 'F3',
+                    'F4' => 'F4',
+                    'F5' => 'F5',
+                    'FI' => 'FI',
+                ),
+            ))
             ->add('address', 'textarea', array(
                 'required' => false,
                 ))
@@ -34,13 +48,16 @@ class UserType extends AbstractType
             ->add('biography', 'textarea', array(
                 'required' => false,
                 ))
-            ->add('userSocials', 'collection', array(
-                'type' => new UserSocialType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-
-            ))
+            ->add('avatar', new ImageType())
+            ->add('socialFacebook', 'text', array(
+                'required' => false,
+                ))
+            ->add('socialTwitter', 'text', array(
+                'required' => false,
+                ))
+            ->add('socialLinkedin', 'text', array(
+                'required' => false,
+                ))
         ;
     }
     
@@ -60,5 +77,14 @@ class UserType extends AbstractType
     public function getName()
     {
         return 'admin_userbundle_user';
+    }
+
+    public function lstPromotions() {
+        $result;
+
+        for ($i = 1995 ; $i <= date('Y') ; $i++) {
+            $result["".$i] = $i;
+        }
+        return $result;
     }
 }

@@ -1,7 +1,3 @@
-application_social:
-    resource: "@ApplicationSocialBundle/Resources/config/routing.yml"
-    prefix:   /
-
 application_mailing:
     resource: "@ApplicationMailingBundle/Resources/config/routing.yml"
     prefix:   /
@@ -12,10 +8,6 @@ admin_mailing:
 
 application_task:
     resource: "@ApplicationTaskBundle/Resources/config/routing.yml"
-    prefix:   /
-
-admin_social:
-    resource: "@AdminSocialBundle/Resources/config/routing.yml"
     prefix:   /
 
 admin_parcours:

@@ -1,7 +1,0 @@
-application_social_homepage:
-    pattern:  /profil/social
-    defaults: { _controller: ApplicationSocialBundle:Default:index }
-
-application_social_new:
-    pattern:  /profil/social/new
-    defaults: { _controller: ApplicationSocialBundle:Default:new }

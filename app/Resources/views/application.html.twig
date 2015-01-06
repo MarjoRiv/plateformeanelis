@@ -26,77 +26,7 @@
 {% block content %}
 
 
-    <div id="headerbar">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-sm-2">
-                    <a href="#" class="shortcut-tiles tiles-brown">
-                        <div class="tiles-body">
-                            <div class="pull-left"><i class="fa fa-pencil"></i></div>
-                        </div>
-                        <div class="tiles-footer">
-                            Create Post
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-sm-2">
-                    <a href="#" class="shortcut-tiles tiles-grape">
-                        <div class="tiles-body">
-                            <div class="pull-left"><i class="fa fa-group"></i></div>
-                            <div class="pull-right"><span class="badge">2</span></div>
-                        </div>
-                        <div class="tiles-footer">
-                            Contacts
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-sm-2">
-                    <a href="#" class="shortcut-tiles tiles-primary">
-                        <div class="tiles-body">
-                            <div class="pull-left"><i class="fa fa-envelope-o"></i></div>
-                            <div class="pull-right"><span class="badge">10</span></div>
-                        </div>
-                        <div class="tiles-footer">
-                            Messages
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-sm-2">
-                    <a href="#" class="shortcut-tiles tiles-inverse">
-                        <div class="tiles-body">
-                            <div class="pull-left"><i class="fa fa-camera"></i></div>
-                            <div class="pull-right"><span class="badge">3</span></div>
-                        </div>
-                        <div class="tiles-footer">
-                            Gallery
-                        </div>
-                    </a>
-                </div>
 
-                <div class="col-xs-6 col-sm-2">
-                    <a href="#" class="shortcut-tiles tiles-midnightblue">
-                        <div class="tiles-body">
-                            <div class="pull-left"><i class="fa fa-cog"></i></div>
-                        </div>
-                        <div class="tiles-footer">
-                            Settings
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-6 col-sm-2">
-                    <a href="#" class="shortcut-tiles tiles-orange">
-                        <div class="tiles-body">
-                            <div class="pull-left"><i class="fa fa-wrench"></i></div>
-                        </div>
-                        <div class="tiles-footer">
-                            Plugins
-                        </div>
-                    </a>
-                </div>
-                            
-            </div>
-        </div>
-    </div>
 
     <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
         <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="right" title="Agrandir/Réduire le menu"></a>
@@ -107,12 +37,24 @@
 
         <ul class="nav navbar-nav pull-right toolbar">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">David Santiago <i class="fa fa-caret-down"></i></span><img src="assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+                <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">{{ app.user.surname }} {{ app.user.name }}<i class="fa fa-caret-down"></i></span>
+                {% if app.user.avatar.extension is empty %}
+                                <img src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ app.user.username }}" />
+                            {% else %}
+                                <img src="{{ asset(app.user.avatar.webPath) }}" alt="{{ app.user.username }}" />
+                            {% endif %}
+                </a>
                 <ul class="dropdown-menu userinfo arrow">
                     <li class="username">
                         <a href="#">
-                            <div class="pull-left"><img src="assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield"/></div>
-                            <div class="pull-right"><h5>Salut David !</h5></div>
+                            <div class="pull-left">
+                            {% if app.user.avatar.extension is empty %}
+                                <img src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ app.user.username }}" />
+                            {% else %}
+                                <img src="{{ asset(app.user.avatar.webPath) }}" alt="{{ app.user.username }}" />
+                            {% endif %}
+                            </div>
+                            <div class="pull-right"><h5>Salut {{ app.user.surname }} !</h5></div>
                         </a>
                     </li>
                     <li class="userlinks">
@@ -124,48 +66,6 @@
                             <li><a href="{{ path('fos_user_security_logout') }}" class="text-right">Déconnexion</a></li>
                         </ul>
                     </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><i class="fa fa-envelope"></i><span class="badge">1</span></a>
-                <ul class="dropdown-menu messages arrow">
-                    <li class="dd-header">
-                        <span>Vous avez 1 nouveau message</span>
-                        <span><a href="#">Tout marquer commu lu</a></span>
-                    </li>
-                    <div class="scrollthis">
-                        <li><a href="#" class="active">
-                            <span class="time">6 mins</span>
-                            <img src="assets/demo/avatar/doyle.png" alt="avatar" />
-                            <div><span class="name">Alan Doyle</span><span class="msg">Lorem ipsum.</span></div>
-                        </a></li>
-                        <li><a href="#">
-                            <span class="time">12 mins</span>
-                            <img src="assets/demo/avatar/paton.png" alt="avatar" />
-                            <div><span class="name">Polly Paton</span><span class="msg">Lorem ipsum.</span></div>
-                        </a></li>
-                        <li><a href="#">
-                            <span class="time">9 hrs</span>
-                            <img src="assets/demo/avatar/corbett.png" alt="avatar" />
-                            <div><span class="name">Simon Corbett</span><span class="msg">Lorem ipsum.</span></div>
-                        </a></li>
-                        <li><a href="#">
-                            <span class="time">2 days</span>
-                            <img src="assets/demo/avatar/tennant.png" alt="avatar" />
-                            <div><span class="name">David Tennant</span><span class="msg">Lorem ipsum.</span></div>
-                        </a></li>
-                        <li><a href="#">
-                            <span class="time">6 mins</span>
-                            <img src="assets/demo/avatar/doyle.png" alt="avatar" />
-                            <div><span class="name">Alan Doyle</span><span class="msg">Lorem ipsum.</span></div>
-                        </a></li>
-                        <li><a href="#">
-                            <span class="time">12 mins</span>
-                            <img src="assets/demo/avatar/paton.png" alt="avatar" />
-                            <div><span class="name">Polly Paton</span><span class="msg">Lorem ipsum.</span></div>
-                        </a></li>
-                    </div>
-                    <li class="dd-footer"><a href="#">Voir tous les messages</a></li>
                 </ul>
             </li>
         </ul>
@@ -195,7 +95,6 @@
                 <li class="divider"></li>
                 <li><a href="javascript:;"><i class="fa fa-briefcase"></i> <span>Administration</span></a>
                     <ul class="acc-menu">
-                        <li><a href="{{ path('admin_social_homepage') }}">Social</a></li>
                         <li><a href="{{ path('admin_parcours_homepage') }}">Parcours</a></li>
                         <li><a href="{{ path('admin_mailing_homepage') }}">Mailing List</a></li>
                     </ul>

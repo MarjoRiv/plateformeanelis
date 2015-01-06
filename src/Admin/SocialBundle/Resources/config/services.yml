@@ -1,7 +1,0 @@
-parameters:
-#    admin_social.example.class: Admin\SocialBundle\Example
-
-services:
-#    admin_social.example:
-#        class: %admin_social.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

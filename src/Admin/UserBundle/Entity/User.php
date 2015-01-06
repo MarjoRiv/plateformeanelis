@@ -2,9 +2,11 @@
 
 namespace Admin\UserBundle\Entity;
 
+use Symfony\Component\Validator\Constraints; // To check
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Application\MainBundle\Entity\Image;
 
 /**
  * User
@@ -46,6 +48,20 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="promotion", type="string", length=255)
+     */
+    private $promotion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filiere", type="string", length=255)
+     */
+    private $filiere;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="address", type="text")
      */
     private $address;
@@ -58,9 +74,8 @@ class User extends BaseUser
     private $telephone;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="avatar", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Application\MainBundle\Entity\Image", cascade={"persist"})
+     * @Constraints\Valid()
      */
     private $avatar;
 
@@ -74,14 +89,30 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="socialFacebook", type="string", length=255)
+     */
+    private $socialFacebook;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="socialTwitter", type="string", length=255)
+     */
+    private $socialTwitter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="socialLinkedin", type="string", length=255)
+     */
+    private $socialLinkedin;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="biography", type="text")
      */
     private $biography;
-
-    /**
-     *@ORM\OneToMany(targetEntity="Application\SocialBundle\Entity\UserSocial", mappedBy="user", cascade={"persist"})
-     */
-    private $userSocials;
 
     public function __construct()
     {
@@ -92,11 +123,20 @@ class User extends BaseUser
         $this->address = "";
         $this->checked = true;
         $this->telephone = "";
-        $this->avatar = "";
+        $this->website = "";
+        $this->option = "";
+        $this->filiere = "";
+        $this->getSocialFacebook    = "";
+        $this->getSocialTwitter     = "";
+        $this->getSocialLinkedin    = "";
 
         $this->enabled = true;
         $this->expired = false;
         $this->locked = false;
+
+        $this->avatar = new Image();
+        $this->avatar->setMandatory(false);
+        $this->avatar->setFilter(Image::$FILTER_USER_AVATAR);
     }
 
 
@@ -228,10 +268,10 @@ class User extends BaseUser
     /**
      * Set avatar
      *
-     * @param string $avatar
+     * @param \Application\MainBundle\Entity\Image $avatar
      * @return User
      */
-    public function setAvatar($avatar)
+    public function setAvatar(\Application\MainBundle\Entity\Image $avatar = null)
     {
         $this->avatar = $avatar;
 
@@ -241,7 +281,7 @@ class User extends BaseUser
     /**
      * Get avatar
      *
-     * @return string 
+     * @return \Application\MainBundle\Entity\Image 
      */
     public function getAvatar()
     {
@@ -294,38 +334,121 @@ class User extends BaseUser
         return $this->biography;
     }
 
-     /**
-     * Add userSocials
+
+
+    /**
+     * Set socialFacebook
      *
-     * @param  \Application\SocialBundle\Entity\UserSocial $userSocials
+     * @param string $socialFacebook
      * @return User
      */
-    public function addUserSocial(\Application\SocialBundle\Entity\UserSocial $userSocials)
+    public function setSocialFacebook($socialFacebook)
     {
-        $userSocials->setUser($this);
-        $this->userSocials[] = $userSocials;
+        $this->socialFacebook = $socialFacebook;
 
         return $this;
     }
 
     /**
-     * Remove userSocials
+     * Get socialFacebook
      *
-     * @param \Application\SocialBundle\Entity\UserSocial $userSocials
+     * @return string 
      */
-    public function removeUserSocial(\Application\SocialBundle\Entity\UserSocial $userSocials)
+    public function getSocialFacebook()
     {
-        $this->userSocials->removeElement($userSocials);
+        return $this->socialFacebook;
     }
 
     /**
-     * Get userSocials
+     * Set socialTwitter
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param string $socialTwitter
+     * @return User
      */
-    public function getUserSocials()
+    public function setSocialTwitter($socialTwitter)
     {
-        return $this->userSocials;
+        $this->socialTwitter = $socialTwitter;
+
+        return $this;
     }
 
+    /**
+     * Get socialTwitter
+     *
+     * @return string 
+     */
+    public function getSocialTwitter()
+    {
+        return $this->socialTwitter;
+    }
+
+    /**
+     * Set socialLinkedin
+     *
+     * @param string $socialLinkedin
+     * @return User
+     */
+    public function setSocialLinkedin($socialLinkedin)
+    {
+        $this->socialLinkedin = $socialLinkedin;
+
+        return $this;
+    }
+
+    /**
+     * Get socialLinkedin
+     *
+     * @return string 
+     */
+    public function getSocialLinkedin()
+    {
+        return $this->socialLinkedin;
+    }
+
+    /**
+     * Set promotion
+     *
+     * @param string $promotion
+     * @return User
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    /**
+     * Get promotion
+     *
+     * @return string 
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
+    }
+
+
+    /**
+     * Set filiere
+     *
+     * @param string $filiere
+     * @return User
+     */
+    public function setFiliere($filiere)
+    {
+        $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    /**
+     * Get filiere
+     *
+     * @return string 
+     */
+    public function getFiliere()
+    {
+        return $this->filiere;
+    }
 }
