@@ -38,6 +38,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="maritalName", type="string", length=255)
+     */
+    private $maritalName;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="surname", type="string", length=255)
      * @Assert\NotNull(
      *     message = "Le prénom est obligatoire"
@@ -114,21 +121,46 @@ class User extends BaseUser
      */
     private $biography;
 
+    /**
+     * @var date $birthday
+     *
+     * @ORM\Column(name="birthday", type="string", length=255)
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="maritalStatus", type="string", length=255)
+     */
+    private $maritalStatus;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="childrenNumber", type="string", length=255)
+     */
+    private $childrenNumber;
+
+
     public function __construct()
     {
         parent::__construct();
 
-        $this->name = "";
-        $this->surname = "";
-        $this->address = "";
-        $this->checked = true;
-        $this->telephone = "";
-        $this->website = "";
-        $this->option = "";
-        $this->filiere = "";
+        $this->name                 = "";
+        $this->maritalName          = "";
+        $this->surname              = "";
+        $this->address              = "";
+        $this->checked              = true;
+        $this->telephone            = "";
+        $this->website              = "";
+        $this->option               = "";
+        $this->filiere              = "";
         $this->getSocialFacebook    = "";
         $this->getSocialTwitter     = "";
         $this->getSocialLinkedin    = "";
+        $this->maritalStatus        = "";
+        $this->childrenNumber       = "";
 
         $this->enabled = true;
         $this->expired = false;
@@ -450,5 +482,97 @@ class User extends BaseUser
     public function getFiliere()
     {
         return $this->filiere;
+    }
+
+    /**
+     * Set maritalName
+     *
+     * @param string $maritalName
+     * @return User
+     */
+    public function setMaritalName($maritalName)
+    {
+        $this->maritalName = $maritalName;
+
+        return $this;
+    }
+
+    /**
+     * Get maritalName
+     *
+     * @return string 
+     */
+    public function getMaritalName()
+    {
+        return $this->maritalName;
+    }
+
+    /**
+     * Set maritalStatus
+     *
+     * @param string $maritalStatus
+     * @return User
+     */
+    public function setMaritalStatus($maritalStatus)
+    {
+        $this->maritalStatus = $maritalStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get maritalStatus
+     *
+     * @return string 
+     */
+    public function getMaritalStatus()
+    {
+        return $this->maritalStatus;
+    }
+
+    /**
+     * Set childrenNumber
+     *
+     * @param string $childrenNumber
+     * @return User
+     */
+    public function setChildrenNumber($childrenNumber)
+    {
+        $this->childrenNumber = $childrenNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get childrenNumber
+     *
+     * @return string 
+     */
+    public function getChildrenNumber()
+    {
+        return $this->childrenNumber;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime 
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
     }
 }

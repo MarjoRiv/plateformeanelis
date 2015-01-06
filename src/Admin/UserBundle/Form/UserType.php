@@ -19,13 +19,20 @@ class UserType extends AbstractType
             ->add('username', 'text', array(
                 'required' => true
                 ))
-            ->add('email', 'email')
-            ->add('name', 'text')
-            ->add('surname', 'text')
+            ->add('email', 'email', array(
+                'required' => true
+                ))
+            ->add('name', 'text', array(
+                'required' => true
+                ))
+            ->add('maritalName', 'text')
+            ->add('surname', 'text', array(
+                'required' => true
+                ))
             ->add('promotion', 'choice', array(
                 'choices' => $this->lstPromotions(),
                 'required'  => false,
-            ))
+                ))
             ->add('filiere', 'choice', array(
                 'choices'   => array(
                     'F1' => 'F1',
@@ -34,8 +41,8 @@ class UserType extends AbstractType
                     'F4' => 'F4',
                     'F5' => 'F5',
                     'FI' => 'FI',
-                ),
-            ))
+                    ),
+                ))
             ->add('address', 'textarea', array(
                 'required' => false,
                 ))
@@ -57,6 +64,27 @@ class UserType extends AbstractType
                 ))
             ->add('socialLinkedin', 'text', array(
                 'required' => false,
+                ))
+            /*
+            ->add('birthday', 'birthday', array(
+                'widget' => 'choice',
+                'input' => 'string',
+                ))*/
+            ->add('birthday', 'text', array(
+                'required' => 'false',
+            ))
+
+            ->add('maritalStatus', 'choice', array(
+                'choices'   => array(
+                    'Célibataire' => 'Célibataire',
+                    'En couple' => 'En couple',
+                    'Fiancé(e)' => 'Fiancé(e)',
+                    'Marié(e)' => 'Marié(e)',
+                    'En union libre' => 'En union libre',
+                    ),
+                ))
+            ->add('childrenNumber', 'text', array(
+                'required' => false
                 ))
         ;
     }

@@ -5,45 +5,27 @@
   <div id='wrap'>
     <div id="page-heading">
       <ol class="breadcrumb">
-        <li><a href="index.php">Plateforme</a></li>
-        <li class="active">Mon Compte</li>
+        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+        <li><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}">Mon Compte</a></li>
+        <li class="active">Mes abonnements</li>
       </ol>
-      <h1>Mon Compte</h1>
+      <h1>Mailing List</h1>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h4>Mon Compte</h4>
-            </div>
-            <div class="panel-body">
-              <div class="tab-content">
-                <div class="tab-pane active" id="domtabs">
-                  <div class="row">
-                    <div class="tab-container tab-left tab-danger">
-                      <ul class="nav nav-tabs">
-                        <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
-                        <li><a href="#social" data-toggle="tab">Social</a></li>
-                        <li><a href="#parcours" data-toggle="tab">Parcours</a></li>
-                        <li><a href="#mailinglist" data-toggle="tab">Mailing</a></li>
-                      </ul>
-                      <div class="tab-content">
-                        <div class="tab-pane" id="profil">
-                        </div>
-                        <div class="tab-pane" id="social">
-                          <p>Ici le formulaire du social</p>
-                        </div>
-                        <div class="tab-pane" id="parcours">
-                          <p>Ici le formulaire du parcours</p>
-                        </div>
-                        <div class="tab-pane active" id="mailinglist">
 
-                            <!-- page-content -->
-                            <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
-                            {{ form_errors(form) }}
-                                <div class="form-group">
-                                    {{ form_label(form.choices, "Abonnements", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+
+
+<div class="container">
+
+<div class="panel panel-midnightblue">
+    <div class="panel-heading">
+          <h4>Gestion des abonnements</h4>
+    </div>
+    <div class="panel-body collapse in">
+        <form class="form-horizontal  row-border" method="post" {{ form_enctype(form) }}>
+            <div class="form-group">
+                {{ form_errors(form) }}
+                {{ form_label(form.choices, "Abonnements", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                <div class="col-sm-9">
                                     <div class="col-sm-6">
                                         <ul class="list-unstyled">
                                         {% for choice in form.choices %}
@@ -51,29 +33,31 @@
                                         {% endfor %}
                                         </ul>
                                     </div>
-                                </div>
-
-                                {{ form_rest(form) }}
-                                <div style="text-align: center;">
-                                    <div class="btn-toolbar">
-                                        <button class="btn-primary btn">Enregistrer</button>
-                                        <button class="btn-default btn">Annuler</button>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                {{ form_rest(form) }}
+
             </div>
-          </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="btn-toolbar">
+                        <button class="btn-primary btn">Enregistrer</button>
+                        <button class="btn-default btn">Annuler</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <!-- container -->
+</div>
+
+
+
+            
+
+        </div>
+
+
+
   </div>
   <!--wrap -->
 </div>

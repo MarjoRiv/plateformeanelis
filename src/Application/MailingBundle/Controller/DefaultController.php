@@ -13,7 +13,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        echo "haha";
         $manager = new UserConfigManager($this);
         $config = $manager->getUserConfig($this->getUser());
         $form = $this->createForm(new UserConfigType(), $config);
