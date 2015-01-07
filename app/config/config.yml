@@ -118,3 +118,9 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         # Your other blocks
+sonata_admin:
+    title:      Administration
+    title_logo: assets/img/anelis-logo.png
+
+imports:
+    - { resource: @AdminUserBundle/Resources/config/admin.xml }
