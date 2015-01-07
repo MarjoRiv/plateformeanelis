@@ -108,4 +108,9 @@ class MailingList {
         return $this->abonnes;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }

@@ -149,4 +149,10 @@ class UserConfig {
     {
         return $this->id;
     }
+
+    public function __toString()
+    {
+        return ("un certain nombre");
+    }
+
 }

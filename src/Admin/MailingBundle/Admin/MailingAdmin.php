@@ -30,6 +30,12 @@ class MailingAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('abonnes', 'actions', array(
+                'actions' => array(
+                    'view' => array(),
+                    'edit' => array(),
+                )
+            ))
         ;
     }
 }
