@@ -25,11 +25,6 @@ class MailingList {
     private $name = "inconnu";
     
     /**
-     * @ORM\Column(type="boolean")      
-     */
-    private $checked = false;
-    
-    /**
      * Utilisateurs de la plateforme abonnés à cette ML
      * 
      * @ORM\ManyToMany(targetEntity="Application\MailingBundle\Entity\UserConfig", mappedBy="choices")
@@ -78,28 +73,6 @@ class MailingList {
         return $this->name;
     }
 
-    /**
-     * Set checked
-     *
-     * @param boolean $checked
-     * @return MailingList
-     */
-    public function setChecked($checked)
-    {
-        $this->checked = $checked;
-
-        return $this;
-    }
-
-    /**
-     * Get checked
-     *
-     * @return boolean 
-     */
-    public function getChecked()
-    {
-        return $this->checked;
-    }
 
    
     /**
