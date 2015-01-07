@@ -1,0 +1,11 @@
+services:
+    sonata.admin.mailing:
+        class: Admin\MailingBundle\Admin\MailingAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "MailingLists" }
+        arguments:
+            - ~
+            - Admin\MailingBundle\Entity\MailingList
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminMailingBundle]]

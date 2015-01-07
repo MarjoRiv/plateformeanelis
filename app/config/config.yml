@@ -124,3 +124,4 @@ sonata_admin:
 
 imports:
     - { resource: @AdminUserBundle/Resources/config/admin.xml }
+    - { resource: @AdminMailingBundle/Resources/config/admin.xml }
