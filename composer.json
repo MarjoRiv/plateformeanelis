@@ -22,7 +22,9 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "jms/security-extra-bundle" : "dev-master",
         "jms/serializer-bundle": "0.12.0",
-        "friendsofsymfony/elastica-bundle": "3.0.4"
+        "friendsofsymfony/elastica-bundle": "3.0.4",
+        "sonata-project/admin-bundle": "~2.3",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
