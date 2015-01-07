@@ -2,6 +2,8 @@
 
 **SEO** friendly Symfony2 paginator to paginate everything
 
+[![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
+
 Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
 component introduces a different way for pagination handling. You can read more about the
 internal logic on the given documentation link.
@@ -29,7 +31,7 @@ chapter of documentation.
 - Does not require initializing specific adapters
 - Can be customized in any way needed, etc.: pagination view, event subscribers.
 - Possibility to add custom filtering, sorting functionality depending on request parameters.
-- Separation of conserns, paginator is responsible for generating the pagination view only,
+- Separation of concerns, paginator is responsible for generating the pagination view only,
 pagination view - for representation purposes.
 
 **Note:** using multiple paginators requires setting the **alias** in order to keep non
@@ -49,7 +51,7 @@ Pretty simple with [Composer](http://packagist.org), add:
 ```json
 {
     "require": {
-        "knplabs/knp-paginator-bundle": "dev-master"
+        "knplabs/knp-paginator-bundle": "~2.4"
     }
 }
 ```

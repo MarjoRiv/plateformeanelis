@@ -21,14 +21,14 @@ class LoginController extends ContainerAware
     {
         $form = $this->container->get('form.factory')->create('user_login');
 
-        return $this->container->get('templating')->renderResponse('AdminUserBundle:Security:login.html.twig', array(
-            'form'  => $form->createView(),
+        return $this->container->get('templating')->renderResponse('CsrfFormLoginBundle:Login:login.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 
     public function afterLoginAction()
     {
-        return $this->container->get('templating')->renderResponse('AdminUserBundle:Security:after_login.html.twig');
+        return $this->container->get('templating')->renderResponse('CsrfFormLoginBundle:Login:after_login.html.twig');
     }
 
     public function loginCheckAction()

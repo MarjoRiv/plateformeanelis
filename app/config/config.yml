@@ -79,14 +79,34 @@ fos_user:
             enabled:    false
             from_email:
                 address:        noreply@bnei.fr
-                sender_name:    ANELIS - Bureau National des Élèves Ingénieurs
+                sender_name:    ANELIS 
     resetting:
         email:
             from_email:
                 address:        noreply@bnei.fr
-                sender_name:    ANELIS - Bureau National des Élèves Ingénieurs
+                sender_name:    ANELIS 
 
 # Pagination configuration            
 knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        afsy:
+            client: default
+            types:
+                User:
+                    mappings: ~
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model:  Admin\UserBundle\Entity\User
+                        provider: ~
+                        listener: ~ # by default, listens to "insert", "update" and "delete" 
+                        finder: ~
+                        #repository: Application\AnnuaireBundle\Entity\UserRepository

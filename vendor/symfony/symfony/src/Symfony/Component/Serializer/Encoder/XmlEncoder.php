@@ -14,7 +14,7 @@ namespace Symfony\Component\Serializer\Encoder;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 /**
- * Encodes XML data
+ * Encodes XML data.
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  * @author John Wards <jwards@whiteoctober.co.uk>
@@ -22,6 +22,9 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
  */
 class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, DecoderInterface, NormalizationAwareInterface
 {
+    /**
+     * @var \DOMDocument
+     */
     private $dom;
     private $format;
     private $context;
@@ -77,7 +80,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
         libxml_clear_errors();
 
         $dom = new \DOMDocument();
-        $dom->loadXML($data, LIBXML_NONET);
+        $dom->loadXML($data, LIBXML_NONET | LIBXML_NOBLANKS);
 
         libxml_use_internal_errors($internalErrors);
         libxml_disable_entity_loader($disableEntities);
@@ -120,21 +123,21 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     /**
      * {@inheritdoc}
      */
-     public function supportsEncoding($format)
-     {
-         return 'xml' === $format;
-     }
-
-     /**
-     * {@inheritdoc}
-     */
-     public function supportsDecoding($format)
-     {
-         return 'xml' === $format;
-     }
+    public function supportsEncoding($format)
+    {
+        return 'xml' === $format;
+    }
 
     /**
-     * Sets the root node name
+     * {@inheritdoc}
+     */
+    public function supportsDecoding($format)
+    {
+        return 'xml' === $format;
+    }
+
+    /**
+     * Sets the root node name.
      *
      * @param string $name root node name
      */
@@ -144,7 +147,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     }
 
     /**
-     * Returns the root node name
+     * Returns the root node name.
+     *
      * @return string
      */
     public function getRootNodeName()
@@ -217,7 +221,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     }
 
     /**
-     * Checks the name is a valid xml element name
+     * Checks the name is a valid xml element name.
      *
      * @param string $name
      *
@@ -305,7 +309,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
             return $node->nodeValue;
         }
 
-        if (1 === $node->childNodes->length && XML_TEXT_NODE === $node->firstChild->nodeType) {
+        if (1 === $node->childNodes->length && in_array($node->firstChild->nodeType, array(XML_TEXT_NODE, XML_CDATA_SECTION_NODE))) {
             return $node->firstChild->nodeValue;
         }
 
@@ -335,7 +339,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     }
 
     /**
-     * Parse the data and convert it to DOMElements
+     * Parse the data and convert it to DOMElements.
      *
      * @param \DOMNode     $parentNode
      * @param array|object $data
@@ -364,7 +368,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
                         /**
                          * Create nodes to append to $parentNode based on the $key of this array
                          * Produces <xml><item>0</item><item>1</item></xml>
-                         * From array("item" => array(0,1));
+                         * From array("item" => array(0,1));.
                          */
                         foreach ($data as $subData) {
                             $append = $this->appendNode($parentNode, $subData, $key);
@@ -440,7 +444,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     }
 
     /**
-     * Tests the value being passed and decide what sort of element to create
+     * Tests the value being passed and decide what sort of element to create.
      *
      * @param \DOMNode $node
      * @param mixed    $val

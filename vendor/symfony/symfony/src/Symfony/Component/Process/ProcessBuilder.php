@@ -32,7 +32,7 @@ class ProcessBuilder
     private $outputDisabled = false;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string[] $arguments An array of arguments
      */
@@ -129,7 +129,7 @@ class ProcessBuilder
     }
 
     /**
-     * Sets an environment variable
+     * Sets an environment variable.
      *
      * Setting a variable overrides its previous value. Use `null` to unset a
      * defined environment variable.
@@ -146,6 +146,17 @@ class ProcessBuilder
         return $this;
     }
 
+    /**
+     * Adds a set of environment variables.
+     *
+     * Already existing environment variables with the same name will be
+     * overridden by the new values passed to this method. Pass `null` to unset
+     * a variable.
+     *
+     * @param array $variables The variables
+     *
+     * @return ProcessBuilder
+     */
     public function addEnvironmentVariables(array $variables)
     {
         $this->env = array_replace($this->env, $variables);
@@ -176,7 +187,7 @@ class ProcessBuilder
      *
      * To disable the timeout, set this value to null.
      *
-     * @param float|null
+     * @param float|null $timeout
      *
      * @return ProcessBuilder
      *
@@ -219,7 +230,7 @@ class ProcessBuilder
     /**
      * Disables fetching output and error output from the underlying process.
      *
-     * @return Process
+     * @return ProcessBuilder
      */
     public function disableOutput()
     {
@@ -231,7 +242,7 @@ class ProcessBuilder
     /**
      * Enables fetching output and error output from the underlying process.
      *
-     * @return Process
+     * @return ProcessBuilder
      */
     public function enableOutput()
     {

@@ -41,7 +41,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('trusted_proxies')
                     ->beforeNormalization()
-                        ->ifTrue(function ($v) { return !is_array($v) && !is_null($v); })
+                        ->ifTrue(function ($v) { return !is_array($v) && null !== $v; })
                         ->then(function ($v) { return is_bool($v) ? array() : preg_split('/\s*,\s*/', $v); })
                     ->end()
                     ->prototype('scalar')
@@ -291,7 +291,7 @@ class Configuration implements ConfigurationInterface
         $organizeUrls = function ($urls) {
             $urls += array(
                 'http' => array(),
-                'ssl'  => array(),
+                'ssl' => array(),
             );
 
             foreach ($urls as $i => $url) {
@@ -442,10 +442,15 @@ class Configuration implements ConfigurationInterface
                     ->info('validation configuration')
                     ->canBeEnabled()
                     ->children()
-                        ->scalarNode('cache')->end()
+                        ->scalarNode('cache')
+                            ->beforeNormalization()
+                                // Can be removed in 3.0, once ApcCache support is dropped
+                                ->ifString()->then(function ($v) { return 'apc' === $v ? 'validator.mapping.cache.apc' : $v; })
+                            ->end()
+                        ->end()
                         ->booleanNode('enable_annotations')->defaultFalse()->end()
                         ->arrayNode('static_method')
-                            ->defaultValue(array('loadClassMetadata'))
+                            ->defaultValue(array('loadValidatorMetadata'))
                             ->prototype('scalar')->end()
                             ->treatFalseLike(array())
                             ->validate()
@@ -457,14 +462,29 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('strict_email')->defaultFalse()->end()
                         ->enumNode('api')
                             ->values(array('2.4', '2.5', '2.5-bc', 'auto'))
-                            ->defaultValue('auto')
                             ->beforeNormalization()
+                                // XML/YAML parse as numbers, not as strings
                                 ->ifTrue(function ($v) { return is_scalar($v); })
                                 ->then(function ($v) { return (string) $v; })
                             ->end()
                         ->end()
                     ->end()
                 ->end()
+            ->end()
+            ->validate()
+                ->ifTrue(function ($v) { return !isset($v['validation']['api']) || 'auto' === $v['validation']['api']; })
+                ->then(function ($v) {
+                    // This condition is duplicated in ValidatorBuilder. This
+                    // duplication is necessary in order to know the desired
+                    // API version already during container configuration
+                    // (to adjust service classes etc.)
+                    // See https://github.com/symfony/symfony/issues/11580
+                    $v['validation']['api'] = PHP_VERSION_ID < 50309
+                        ? '2.4'
+                        : '2.5-bc';
+
+                    return $v;
+                })
             ->end()
         ;
     }

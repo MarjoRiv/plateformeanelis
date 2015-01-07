@@ -83,14 +83,15 @@ Marks a class as service:
     use JMS\DiExtraBundle\Annotation\Service;
 
     /**
-     * @Service("some.service.id", parent="another.service.id", public=false)
+     * @Service("some.service.id", parent="another.service.id", public=false, environments = {"prod", "test", "dev"})
      */
     class Listener
     {
     }
 
 If you do not explicitly define a service id, then we will generated a sensible default
-based on the fully qualified class name for you.
+based on the fully qualified class name for you. By default, the class will be loaded in all environments
+unless you explicitly specify an environment via the ``environments`` attribute.
 
 @Tag
 ~~~~
@@ -130,6 +131,30 @@ Automatically registers a method as listener to a certain event:
     {
         /**
          * @Observe("kernel.request", priority = 255)
+         */
+        public function onKernelRequest()
+        {
+            // ...
+        }
+    }
+
+It's also possible to use constants:
+
+.. code-block :: php
+
+    <?php
+
+    use JMS\DiExtraBundle\Annotation\Observe;
+    use JMS\DiExtraBundle\Annotation\Service;
+    use Symfony\Component\HttpKernel\KernelEvents;
+
+    /**
+     * @Service
+     */
+    class RequestListener
+    {
+        /**
+         * @Observe(KernelEvents::REQUEST, priority = 255)
          */
         public function onKernelRequest()
         {

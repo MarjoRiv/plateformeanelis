@@ -1,6 +1,13 @@
 ﻿UPGRADE FROM 2.4 to 2.5
 =======================
 
+FrameworkBundle
+---------------
+
+* The `Symfony\Bundle\FrameworkBundle\Console\Descriptor\Descriptor::renderTable()`
+  method expects the table to be an instance of `Symfony\Component\Console\Helper\Table`
+  instead of `Symfony\Component\Console\Helper\TableHelper`.
+
 Routing
 -------
 
@@ -43,6 +50,18 @@ Form
    ```
    public function getErrors($deep = false, $flatten = true)
    {
+   ```
+
+   Before:
+
+   ```
+   {% if form.vars.errors %}
+   ```
+
+   After:
+
+   ```
+   {% if form.vars.errors|length %}
    ```
 
 PropertyAccess
@@ -114,7 +133,7 @@ Validator
    Also you have to add to your composer.json:
 
    ```
-   "egulias/email-validator": "1.1.*"
+   "egulias/email-validator": "~1.2"
    ```
 
  * `ClassMetadata::getGroupSequence()` now returns `GroupSequence` instances
@@ -226,3 +245,26 @@ Validator
        ->getValidator();
    ```
 
+
+Yaml Component
+--------------
+
+ * The way Yaml handles duplicate keys in an array was changed from `rewrite with the
+   last element` behavior to ignoring all the elements with the same key after the first one.
+
+   Example:
+
+   ```
+   parentElement:
+       firstChild: foo
+       secondChild: 123
+       firstChild: bar
+   ```
+
+   Before:
+
+   This would be parsed in an array like this: `["parentElement" => ["firstChild" => "bar", "secondChild" => 123]]`
+
+   After:
+
+   The first value is used: `["parentElement" => ["firstChild" => "foo", "secondChild" => 123]]`

@@ -18,6 +18,26 @@ class ProfilController extends Controller
 
     public function showAction(User $user)
     {
+
+
+        $type = $this->get('fos_elastica.index.afsy.user');
+
+        $query_part = new \Elastica\Query\Bool();
+        $query_part->addShould(
+            new \Elastica\Query\Term(array('name' => array('value' => 'Santiago', 'boost' => 3)))
+        );
+        $filters = new \Elastica\Filter\Bool();
+        $filters->addMust(
+            new \Elastica\Filter\Term(array('id' => '1'))
+        );
+
+        $query = new \Elastica\Query\Filtered($query_part, $filters);
+
+        $type->search($query);
+
+        //print_r($type);
+
+
         return $this->render('AdminUserBundle:Profile:show.html.twig', array(
             'user' => $user));
     }
