@@ -28,8 +28,14 @@ class NewslettersAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            //->addIdentifier('email')
-            ->add('name')
+            ->addIdentifier('name')
+            // add custom action links
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                )
+            ))
         ;
     }
 }
