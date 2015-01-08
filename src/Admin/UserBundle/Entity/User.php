@@ -162,11 +162,13 @@ class User extends BaseUser
         $this->checked              = true;
         $this->telephone            = "";
         $this->website              = "";
-        $this->option               = "";
+        $this->promotion            = "";
         $this->filiere              = "";
-        $this->getSocialFacebook    = "";
-        $this->getSocialTwitter     = "";
-        $this->getSocialLinkedin    = "";
+        $this->socialFacebook       = "";
+        $this->socialTwitter        = "";
+        $this->socialLinkedin       = "";
+        $this->biography            = "";
+        $this->birthday             = "";
         $this->maritalStatus        = "";
         $this->childrenNumber       = "";
 
