@@ -150,6 +150,11 @@ class User extends BaseUser
      */
     protected $newsletters;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="user")
+     */
+    private $cotisations;
+
 
     public function __construct()
     {
@@ -181,6 +186,7 @@ class User extends BaseUser
         $this->avatar->setFilter(Image::$FILTER_USER_AVATAR);
 
         $this->newsletters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cotisations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -632,6 +638,39 @@ class User extends BaseUser
     public function getNewsletters()
     {
         return $this->newsletters;
+    }
+
+    /**
+     * Add cotisations
+     *
+     * @param \Application\CotisationBundle\Entity\Cotisation $cotisations
+     * @return AssociationType
+     */
+    public function addCotisations(\Application\CotisationBundle\Entity\Cotisation $cotisations)
+    {
+        $this->cotisations[] = $cotisations;
+
+        return $this;
+    }
+
+    /**
+     * Remove cotisations
+     *
+     * @param \Application\CotisationBundle\Entity\Cotisation $cotisations
+     */
+    public function removeCotisations(\Application\CotisationBundle\Entity\Cotisation $cotisations)
+    {
+        $this->cotisations->removeElement($cotisations);
+    }
+
+    /**
+     * Get cotisations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCotisations()
+    {
+        return $this->cotisations;
     }
 
 
