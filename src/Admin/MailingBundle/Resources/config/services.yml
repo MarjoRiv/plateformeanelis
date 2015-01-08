@@ -1,7 +1,0 @@
-parameters:
-#    admin_mailing.example.class: Admin\MailingBundle\Example
-
-services:
-#    admin_mailing.example:
-#        class: %admin_mailing.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

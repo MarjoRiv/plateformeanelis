@@ -61,7 +61,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('user_show_profile', { 'id' : app.user.id }) }}">Voir mon Profil<i class="pull-right fa fa-eye"></i></a></li>
                             <li><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}">Mon Compte <i class="pull-right fa fa-pencil"></i></a></li>
-                            <li><a href="{{ path('application_mailing_homepage') }}">Newsletters<i class="pull-right fa fa-envelope"></i></a></li>
                             <li><a href="faq.php">Aide <i class="pull-right fa fa-question-circle"></i></a></li>
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout') }}" class="text-right">Déconnexion</a></li>
@@ -97,7 +96,6 @@
                 <li><a href="javascript:;"><i class="fa fa-briefcase"></i> <span>Administration</span></a>
                     <ul class="acc-menu">
                         <li><a href="{{ path('admin_parcours_homepage') }}">Parcours</a></li>
-                        <li><a href="{{ path('admin_mailing_homepage') }}">Mailing List</a></li>
                     </ul>
                 </li>
                 {% endif %}

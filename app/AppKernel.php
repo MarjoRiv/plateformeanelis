@@ -26,8 +26,6 @@ class AppKernel extends Kernel
             new Application\OffresBundle\ApplicationOffresBundle(),
             new Admin\ParcoursBundle\AdminParcoursBundle(),
             new Application\TaskBundle\ApplicationTaskBundle(),
-            new Admin\MailingBundle\AdminMailingBundle(),
-            new Application\MailingBundle\ApplicationMailingBundle(),
             // SONATA
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
