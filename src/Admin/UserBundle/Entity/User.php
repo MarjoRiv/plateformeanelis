@@ -144,6 +144,12 @@ class User extends BaseUser
      */
     private $childrenNumber;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Admin\UserBundle\Entity\Newsletters", inversedBy="users")
+     * @ORM\JoinTable(name="newsletters_user", joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}, inverseJoinColumns={@ORM\JoinColumn(name="newsletters_id", referencedColumnName="id")})
+     */
+    protected $newsletters;
+
 
     public function __construct()
     {
@@ -171,6 +177,8 @@ class User extends BaseUser
         $this->avatar = new Image();
         $this->avatar->setMandatory(false);
         $this->avatar->setFilter(Image::$FILTER_USER_AVATAR);
+
+        $this->newsletters = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -577,4 +585,52 @@ class User extends BaseUser
     {
         return $this->birthday;
     }
+
+    /**
+     * Set Newsletters
+     *
+     * @param \Doctrine\Common\Collections\Collection $newsletters
+     * @return User
+     */
+    public function setNewsletters(\Doctrine\Common\Collections\Collection $newsletters = null)
+    {
+        $this->newsletters = $newsletters;
+    
+        return $this;
+    }
+
+    /**
+     * Add Newsletters
+     *
+     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
+     * @return User
+     */
+    public function addNewsletters(\Admin\UserBundle\Entity\Newsletters $newsletters)
+    {
+        $this->newsletters[] = $newsletters;
+
+        return $this;
+    }
+
+    /**
+     * Remove Newsletters
+     *
+     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
+     */
+    public function removeNewsletters(\Admin\UserBundle\Entity\Newsletters $newsletters)
+    {
+        $this->newsletters->removeElement($newsletters);
+    }
+
+    /**
+     * Get Newsletters
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNewsletters()
+    {
+        return $this->newsletters;
+    }
+
+
 }

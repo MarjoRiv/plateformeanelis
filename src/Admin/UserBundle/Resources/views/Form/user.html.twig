@@ -12,6 +12,7 @@
                         <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
                         <li><a href="#social" data-toggle="tab">Social</a></li>
                         <li><a href="#perso" data-toggle="tab">Perso</a></li>
+                        <li><a href="#newsletters" data-toggle="tab">Newsletters</a></li>
                       </ul>
                       <div class="tab-content">
                         <div class="tab-pane active" id="profil">
@@ -198,6 +199,26 @@
         </div>
     </div>
 
+
+
+
+
+                        </div>
+                        <div class="tab-pane" id="newsletters">
+                            <div class="form-group">
+                {{ form_label(form.newsletters, "Abonnements", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                <div class="col-sm-9">
+                                    <div class="col-sm-6">
+                                        <ul class="list-unstyled">
+                                        {% for newsletter in form.newsletters %}
+                                            <li>{{ form_widget(newsletter) }} {{ form_label(newsletter) }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                </div>
+
+
+            </div>
                         </div>
                       </div>
                     </div>

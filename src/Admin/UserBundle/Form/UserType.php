@@ -86,6 +86,13 @@ class UserType extends AbstractType
             ->add('childrenNumber', 'text', array(
                 'required' => false
                 ))
+            ->add('newsletters', 'entity', array(
+                    'class' => 'AdminUserBundle:Newsletters',
+                    'property' => 'name',
+                    "multiple" => true,
+                    'required' => false,
+                    'expanded' => true
+            ))
         ;
     }
     
