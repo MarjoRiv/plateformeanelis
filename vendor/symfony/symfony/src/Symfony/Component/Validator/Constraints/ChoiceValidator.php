@@ -64,6 +64,7 @@ class ChoiceValidator extends ConstraintValidator
                 if (!in_array($_value, $choices, $constraint->strict)) {
                     $this->buildViolation($constraint->multipleMessage)
                         ->setParameter('{{ value }}', $this->formatValue($_value))
+                        ->setCode(Choice::NO_SUCH_CHOICE_ERROR)
                         ->setInvalidValue($_value)
                         ->addViolation();
 
@@ -77,6 +78,7 @@ class ChoiceValidator extends ConstraintValidator
                 $this->buildViolation($constraint->minMessage)
                     ->setParameter('{{ limit }}', $constraint->min)
                     ->setPlural((int) $constraint->min)
+                    ->setCode(Choice::TOO_FEW_ERROR)
                     ->addViolation();
 
                 return;
@@ -86,6 +88,7 @@ class ChoiceValidator extends ConstraintValidator
                 $this->buildViolation($constraint->maxMessage)
                     ->setParameter('{{ limit }}', $constraint->max)
                     ->setPlural((int) $constraint->max)
+                    ->setCode(Choice::TOO_MANY_ERROR)
                     ->addViolation();
 
                 return;
@@ -93,6 +96,7 @@ class ChoiceValidator extends ConstraintValidator
         } elseif (!in_array($value, $choices, $constraint->strict)) {
             $this->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
+                ->setCode(Choice::NO_SUCH_CHOICE_ERROR)
                 ->addViolation();
         }
     }

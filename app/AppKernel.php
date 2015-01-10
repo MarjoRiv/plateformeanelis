@@ -19,23 +19,19 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new FOS\UserBundle\FOSUserBundle (),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle (),
             new Admin\UserBundle\AdminUserBundle(),
             new Application\MainBundle\ApplicationMainBundle(),
             new Application\AnnuaireBundle\ApplicationAnnuaireBundle(),
-            new Application\OffresBundle\ApplicationOffresBundle(),
-            new Admin\ParcoursBundle\AdminParcoursBundle(),
-            new Application\TaskBundle\ApplicationTaskBundle(),
-            // SONATA
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Application\CotisationBundle\ApplicationCotisationBundle(),
+            //new Application\CotisationBundle\ApplicationCotisationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

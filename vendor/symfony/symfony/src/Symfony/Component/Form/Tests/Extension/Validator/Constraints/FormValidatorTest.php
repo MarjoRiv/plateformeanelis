@@ -224,11 +224,14 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
 
         $this->validator->validate($form, new Form());
 
+        $is2Dot4Api = Validation::API_VERSION_2_4 === $this->getApiVersion();
+
         $this->buildViolation('invalid_message_key')
             ->setParameter('{{ value }}', 'foo')
             ->setParameter('{{ foo }}', 'bar')
             ->setInvalidValue('foo')
-            ->setCode(Form::ERR_INVALID)
+            ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+            ->setCause($is2Dot4Api ? null : $form->getTransformationFailure())
             ->assertRaised();
     }
 
@@ -258,11 +261,14 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
 
         $this->validator->validate($form, new Form());
 
+        $is2Dot4Api = Validation::API_VERSION_2_4 === $this->getApiVersion();
+
         $this->buildViolation('invalid_message_key')
             ->setParameter('{{ value }}', 'foo')
             ->setParameter('{{ foo }}', 'bar')
             ->setInvalidValue('foo')
-            ->setCode(Form::ERR_INVALID)
+            ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+            ->setCause($is2Dot4Api ? null : $form->getTransformationFailure())
             ->assertRaised();
     }
 
@@ -292,10 +298,13 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
 
         $this->validator->validate($form, new Form());
 
+        $is2Dot4Api = Validation::API_VERSION_2_4 === $this->getApiVersion();
+
         $this->buildViolation('invalid_message_key')
             ->setParameter('{{ value }}', 'foo')
             ->setInvalidValue('foo')
-            ->setCode(Form::ERR_INVALID)
+            ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+            ->setCause($is2Dot4Api ? null : $form->getTransformationFailure())
             ->assertRaised();
     }
 
@@ -551,7 +560,30 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
         $this->buildViolation('Extra!')
             ->setParameter('{{ extra_fields }}', 'foo')
             ->setInvalidValue(array('foo' => 'bar'))
+            ->setCode(Form::NO_SUCH_FIELD_ERROR)
             ->assertRaised();
+    }
+
+    public function testNoViolationIfAllowExtraData()
+    {
+        $context = $this->getMockExecutionContext();
+
+        $form = $this
+            ->getBuilder('parent', null, array('allow_extra_fields' => true))
+            ->setCompound(true)
+            ->setDataMapper($this->getDataMapper())
+            ->add($this->getBuilder('child'))
+            ->getForm();
+
+        $form->bind(array('foo' => 'bar'));
+
+        $context->expects($this->never())
+            ->method('addViolation');
+        $context->expects($this->never())
+            ->method('addViolationAt');
+
+        $this->validator->initialize($context);
+        $this->validator->validate($form, new Form());
     }
 
     /**

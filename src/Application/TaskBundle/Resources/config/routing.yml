@@ -1,7 +1,0 @@
-application_task_homepage:
-    pattern:  /task/
-    defaults: { _controller: ApplicationTaskBundle:Default:index }
-
-application_task_new:
-    pattern:  /task/new
-    defaults: { _controller: ApplicationTaskBundle:Default:new }

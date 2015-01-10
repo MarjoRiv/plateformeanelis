@@ -350,6 +350,19 @@ class Crawler extends \SplObjectStorage
     }
 
     /**
+     * Slices the list of nodes by $offset and $length.
+     *
+     * @param int $offset
+     * @param int $length
+     *
+     * @return Crawler A Crawler instance with the sliced nodes
+     */
+    public function slice($offset = 0, $length = -1)
+    {
+        return new static(iterator_to_array(new \LimitIterator($this, $offset, $length)), $this->uri);
+    }
+
+    /**
      * Reduces the list of nodes by calling an anonymous function.
      *
      * To remove a node from the list, the anonymous function must return false.
@@ -517,6 +530,22 @@ class Crawler extends \SplObjectStorage
         $node = $this->getNode(0);
 
         return $node->hasAttribute($attribute) ? $node->getAttribute($attribute) : null;
+    }
+
+    /**
+     * Returns the node name of the first node of the list.
+     *
+     * @return string The node name
+     *
+     * @throws \InvalidArgumentException When current node is empty
+     */
+    public function nodeName()
+    {
+        if (!count($this)) {
+            throw new \InvalidArgumentException('The current node list is empty.');
+        }
+
+        return $this->getNode(0)->nodeName;
     }
 
     /**

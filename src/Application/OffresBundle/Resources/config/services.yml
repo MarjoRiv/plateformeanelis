@@ -1,7 +1,0 @@
-parameters:
-#    application_offres.example.class: Application\OffresBundle\Example
-
-services:
-#    application_offres.example:
-#        class: %application_offres.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

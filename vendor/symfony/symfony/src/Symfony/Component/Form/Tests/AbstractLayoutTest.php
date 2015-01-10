@@ -290,6 +290,108 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
+    public function testLabelFormatName()
+    {
+        $form = $this->factory->createNamedBuilder('myform')
+            ->add('myfield', 'text')
+            ->getForm();
+        $view = $form->get('myfield')->createView();
+        $html = $this->renderLabel($view, null, array('label_format' => 'form.%name%'));
+
+        $this->assertMatchesXpath($html,
+'/label
+    [@for="myform_myfield"]
+    [.="[trans]form.myfield[/trans]"]
+'
+        );
+    }
+
+    public function testLabelFormatId()
+    {
+        $form = $this->factory->createNamedBuilder('myform')
+            ->add('myfield', 'text')
+            ->getForm();
+        $view = $form->get('myfield')->createView();
+        $html = $this->renderLabel($view, null, array('label_format' => 'form.%id%'));
+
+        $this->assertMatchesXpath($html,
+'/label
+    [@for="myform_myfield"]
+    [.="[trans]form.myform_myfield[/trans]"]
+'
+        );
+    }
+
+    public function testLabelFormatAsFormOption()
+    {
+        $options = array('label_format' => 'form.%name%');
+
+        $form = $this->factory->createNamedBuilder('myform', 'form', null, $options)
+            ->add('myfield', 'text')
+            ->getForm();
+        $view = $form->get('myfield')->createView();
+        $html = $this->renderLabel($view);
+
+        $this->assertMatchesXpath($html,
+'/label
+    [@for="myform_myfield"]
+    [.="[trans]form.myfield[/trans]"]
+'
+        );
+    }
+
+    public function testLabelFormatOverriddenOption()
+    {
+        $options = array('label_format' => 'form.%name%');
+
+        $form = $this->factory->createNamedBuilder('myform', 'form', null, $options)
+            ->add('myfield', 'text', array('label_format' => 'field.%name%'))
+            ->getForm();
+        $view = $form->get('myfield')->createView();
+        $html = $this->renderLabel($view);
+
+        $this->assertMatchesXpath($html,
+'/label
+    [@for="myform_myfield"]
+    [.="[trans]field.myfield[/trans]"]
+'
+        );
+    }
+
+    public function testLabelFormatOnButton()
+    {
+        $form = $this->factory->createNamedBuilder('myform')
+            ->add('mybutton', 'button')
+            ->getForm();
+        $view = $form->get('mybutton')->createView();
+        $html = $this->renderWidget($view, array('label_format' => 'form.%name%'));
+
+        $this->assertMatchesXpath($html,
+'/button
+    [@type="button"]
+    [@name="myform[mybutton]"]
+    [.="[trans]form.mybutton[/trans]"]
+'
+        );
+    }
+
+    public function testLabelFormatOnButtonId()
+    {
+        $form = $this->factory->createNamedBuilder('myform')
+            ->add('mybutton', 'button')
+            ->getForm();
+        $view = $form->get('mybutton')->createView();
+        $html = $this->renderWidget($view, array('label_format' => 'form.%id%'));
+
+        $this->assertMatchesXpath($html,
+'/button
+    [@type="button"]
+    [@name="myform[mybutton]"]
+    [.="[trans]form.myform_mybutton[/trans]"]
+'
+        );
+    }
+
     public function testErrors()
     {
         $form = $this->factory->createNamed('name', 'text');
@@ -532,14 +634,14 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testSingleChoiceWithNonRequiredEmptyValue()
+    public function testSingleChoiceNonRequiredWithPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'choice', '&a', array(
             'choices' => array('&a' => 'Choice&A', '&b' => 'Choice&B'),
             'multiple' => false,
             'expanded' => false,
             'required' => false,
-            'empty_value' => 'Select&Anything&Not&Me',
+            'placeholder' => 'Select&Anything&Not&Me',
         ));
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
@@ -556,14 +658,14 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testSingleChoiceRequiredWithEmptyValue()
+    public function testSingleChoiceRequiredWithPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'choice', '&a', array(
             'choices' => array('&a' => 'Choice&A', '&b' => 'Choice&B'),
             'required' => true,
             'multiple' => false,
             'expanded' => false,
-            'empty_value' => 'Test&Me',
+            'placeholder' => 'Test&Me',
         ));
 
         // The "disabled" attribute was removed again due to a bug in the
@@ -583,7 +685,7 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testSingleChoiceRequiredWithEmptyValueViaView()
+    public function testSingleChoiceRequiredWithPlaceholderViaView()
     {
         $form = $this->factory->createNamed('name', 'choice', '&a', array(
             'choices' => array('&a' => 'Choice&A', '&b' => 'Choice&B'),
@@ -595,7 +697,7 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         // The "disabled" attribute was removed again due to a bug in the
         // BlackBerry 10 browser.
         // See https://github.com/symfony/symfony/pull/7678
-        $this->assertWidgetMatchesXpath($form->createView(), array('empty_value' => ''),
+        $this->assertWidgetMatchesXpath($form->createView(), array('placeholder' => ''),
 '/select
     [@name="name"]
     [@required="required"]
@@ -662,13 +764,13 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testMultipleChoiceSkipsEmptyValue()
+    public function testMultipleChoiceSkipsPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'choice', array('&a'), array(
             'choices' => array('&a' => 'Choice&A', '&b' => 'Choice&B'),
             'multiple' => true,
             'expanded' => false,
-            'empty_value' => 'Test&Me',
+            'placeholder' => 'Test&Me',
         ));
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
@@ -728,13 +830,13 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testSingleChoiceExpandedWithEmptyValue()
+    public function testSingleChoiceExpandedWithPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'choice', '&a', array(
             'choices' => array('&a' => 'Choice&A', '&b' => 'Choice&B'),
             'multiple' => false,
             'expanded' => true,
-            'empty_value' => 'Test&Me',
+            'placeholder' => 'Test&Me',
         ));
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
@@ -813,10 +915,10 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testCountryWithEmptyValue()
+    public function testCountryWithPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'country', 'AT', array(
-            'empty_value' => 'Select&Country',
+            'placeholder' => 'Select&Country',
             'required' => false,
         ));
 
@@ -869,11 +971,11 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testDateTimeWithEmptyValueGlobal()
+    public function testDateTimeWithPlaceholderGlobal()
     {
         $form = $this->factory->createNamed('name', 'datetime', null, array(
             'input' => 'string',
-            'empty_value' => 'Change&Me',
+            'placeholder' => 'Change&Me',
             'required' => false,
         ));
 
@@ -1081,12 +1183,12 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testDateChoiceWithEmptyValueGlobal()
+    public function testDateChoiceWithPlaceholderGlobal()
     {
         $form = $this->factory->createNamed('name', 'date', null, array(
             'input' => 'string',
             'widget' => 'choice',
-            'empty_value' => 'Change&Me',
+            'placeholder' => 'Change&Me',
             'required' => false,
         ));
 
@@ -1108,13 +1210,13 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testDateChoiceWithEmptyValueOnYear()
+    public function testDateChoiceWithPlaceholderOnYear()
     {
         $form = $this->factory->createNamed('name', 'date', null, array(
             'input' => 'string',
             'widget' => 'choice',
             'required' => false,
-            'empty_value' => array('year' => 'Change&Me'),
+            'placeholder' => array('year' => 'Change&Me'),
         ));
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
@@ -1215,11 +1317,11 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testBirthDayWithEmptyValue()
+    public function testBirthDayWithPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'birthday', '1950-01-01', array(
             'input' => 'string',
-            'empty_value' => '',
+            'placeholder' => '',
             'required' => false,
         ));
 
@@ -1656,11 +1758,11 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testTimeWithEmptyValueGlobal()
+    public function testTimeWithPlaceholderGlobal()
     {
         $form = $this->factory->createNamed('name', 'time', null, array(
             'input' => 'string',
-            'empty_value' => 'Change&Me',
+            'placeholder' => 'Change&Me',
             'required' => false,
         ));
 
@@ -1681,12 +1783,12 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testTimeWithEmptyValueOnYear()
+    public function testTimeWithPlaceholderOnYear()
     {
         $form = $this->factory->createNamed('name', 'time', null, array(
             'input' => 'string',
             'required' => false,
-            'empty_value' => array('hour' => 'Change&Me'),
+            'placeholder' => array('hour' => 'Change&Me'),
         ));
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
@@ -1736,10 +1838,10 @@ abstract class AbstractLayoutTest extends \Symfony\Component\Form\Test\FormInteg
         );
     }
 
-    public function testTimezoneWithEmptyValue()
+    public function testTimezoneWithPlaceholder()
     {
         $form = $this->factory->createNamed('name', 'timezone', null, array(
-            'empty_value' => 'Select&Timezone',
+            'placeholder' => 'Select&Timezone',
             'required' => false,
         ));
 
