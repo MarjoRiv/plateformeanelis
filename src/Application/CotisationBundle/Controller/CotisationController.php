@@ -5,6 +5,7 @@ namespace Application\CotisationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Application\CotisationBundle\Entity\Cotisation;
 use Application\CotisationBundle\Manager\CotisationManager;
+use Application\CotisationBundle\Manager\InvoiceManager;
 use Application\CotisationBundle\Form\CotisationType;
 use Application\CotisationBundle\Form\CotisationHandler;
 
@@ -18,11 +19,12 @@ class CotisationController extends Controller
 
     public function addAction() {
         $manager = new CotisationManager($this);
+        $invoiceManager = new InvoiceManager($this);
         $cotisation = new Cotisation();
         $cotisation->setUser($this->get('security.context')->getToken()->getUser());
     
         $form = $this->createForm(new CotisationType(), $cotisation);
-        $formHandler = new CotisationHandler($form, $this->get('request'), $manager);
+        $formHandler = new CotisationHandler($form, $this->get('request'), $manager, $invoiceManager);
             
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('application_cotisation_homepage'));

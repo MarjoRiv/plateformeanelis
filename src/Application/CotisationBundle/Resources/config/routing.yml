@@ -5,3 +5,9 @@ application_cotisation_homepage:
 application_cotisation_new:
     path:     /cotisation/new
     defaults: { _controller: ApplicationCotisationBundle:Cotisation:add }
+
+application_cotisation_invoice_get:
+    path:     /cotisation/invoice/{id}
+    defaults: { _controller: ApplicationCotisationBundle:Invoice:get }
+    requirements:
+        id: \d*

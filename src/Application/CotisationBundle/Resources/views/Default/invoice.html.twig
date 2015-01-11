@@ -1,0 +1,115 @@
+{% extends "::application.html.twig" %} 
+
+{% block body %}
+  <div id="page-content">
+    <div id='wrap'>
+      <div id="page-heading">
+        <ol class="breadcrumb">
+          <li><a href="index.php">Plateforme</a></li>
+          <li><a href="{{ path('application_cotisation_homepage') }}" title="Cotisation">Cotisation</a></li>
+          <li class="active">Facture n° {{ invoice.id }}</li>
+        </ol>
+
+        <h1>Gestion des cotisations</h1>
+      </div>
+      <div class="container">
+
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+            <!-- <div class="panel-heading">
+              <h4>Invoice</h4>
+            </div> -->
+            <div class="panel-body">
+              <div class="clearfix">
+                <div class="pull-left">
+                  <h4>Facture n° <br>
+                    <strong>{{ invoice.id }}</strong>
+                  </h4>
+                </div>
+                <div class="pull-right">
+                  <h4 class="text-right"><img src="{{ asset('assets/img/anelis-logo.png') }}" alt="ANELIS" style="width: 224px; height: 72px;"></h4>
+                  <strong>ANELIS</strong><br>
+                      ISIMA, Campus des Cézeaux<br>
+                      63170 Aubière<br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 style="background: #85c744; padding: 5px 10px; color: #fff; border-radius: 1px; margin: 20px 0 20px; text-align:center">Facture</h3>
+                  <div class="pull-left">
+                    <address>
+                      <strong>{{ invoice.cotisation.user.name }} {{ invoice.cotisation.user.surname }}</strong><br>
+                      {{ invoice.cotisation.user.address|nl2br }}
+                    </address>
+                  </div>
+                  <div class="pull-right">
+                    <ul class="text-right list-unstyled">
+                      <li><strong>Date:</strong> {{ invoice.date|date("d/m/Y") }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                      <thead>
+                        <th>#</th>
+                        <th>Article</th>
+                        <th>Description</th>
+                        <th>Quantité</th>
+                        <th>Coût unitaire</th>
+                        <th>Total</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Cotisation</td>
+                          <td>Type : <strong>{{ invoice.cotisation.nameCotisation }}</strong></td>
+                          <td>1</td>
+                          <td>{{ invoice.cotisation.priceCotisation }} &euro;</td>
+                          <td>{{ invoice.cotisation.priceCotisation }} &euro;</td>
+                        </tr>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                  <p class="text-right">TVA: Non applicable</p>
+                  <hr>
+                  <h3 class="text-right">{{ invoice.cotisation.priceCotisation }} &euro;</h3>
+                </div>
+              </div>
+              <div class="panel-footer hidden-print">
+                <div class="pull-right">
+                  <a href="#" class="btn btn-inverse"><i class="fa fa-print"></i></a>
+                  <a href="#" class="btn btn-primary">Payer</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      
+
+
+
+    </div> <!-- container -->
+
+  </div>
+
+</div> <!--wrap -->
+</div> <!-- page-content -->
+
+{% endblock %}

@@ -48,24 +48,21 @@ class Cotisation
      */
     private $priceCotisation;
 
-    
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="payed", type="boolean")
-     */
-    private $payed;
-
     /**
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="cotisations")
      */
     private $user;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Application\CotisationBundle\Entity\Invoice", mappedBy="cotisation", cascade={"persist"})
+     */
+    protected $invoice;
+
+
 
     public function __construct()
     {
         $this->payed = false;
-        $this->machin = "";
         $this->typeCotisation = NULL;
     }
 
@@ -267,5 +264,28 @@ class Cotisation
     public function getPriceCotisation()
     {
         return $this->priceCotisation;
+    }
+
+    /**
+     * Set invoice
+     *
+     * @param \Application\CotisationBundle\Entity\Invoice $invoice
+     * @return Cotisation
+     */
+    public function setInvoice(\Application\CotisationBundle\Entity\Invoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return \Application\CotisationBundle\Entity\Invoice 
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
     }
 }

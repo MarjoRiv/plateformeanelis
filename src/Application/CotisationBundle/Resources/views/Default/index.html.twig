@@ -35,14 +35,15 @@
                               </tr>
                           </thead>
                           <tbody>
+                            {% set cotisationNumbers = 1 %}
                             {% for cotisation in app.user.cotisations %}
-                              {% set cotisationNumbers = 1 %}
+                              
                             <tr>
-                              <td>1</td>
+                              <td>{{ cotisationNumbers }}</td>
                               <td>{{ cotisation.year|date("Y") }}</td>
                               <td>{{ cotisation.typeCotisation.name }}</td>
                               <td>{{ cotisation.priceCotisation }} €</td>
-                              <td><i class="fa fa-eye"></i></td>
+                              <td><a href="{{ path("application_cotisation_invoice_get", { "id" : cotisation.invoice.id }) }}"><i class="fa fa-eye"></i></a></td>
                           </tr>
                             {% set cotisationNumbers = cotisationNumbers + 1 %}
                           {% endfor %}
