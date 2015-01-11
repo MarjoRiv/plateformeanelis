@@ -150,6 +150,11 @@ class User extends BaseUser
      */
     protected $newsletters;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="user")
+     */
+    private $cotisations;
+
 
     public function __construct()
     {
@@ -635,4 +640,60 @@ class User extends BaseUser
         return $this->newsletters;
     }
 
+
+    /**
+     * Add newsletters
+     *
+     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
+     * @return User
+     */
+    public function addNewsletter(\Admin\UserBundle\Entity\Newsletters $newsletters)
+    {
+        $this->newsletters[] = $newsletters;
+
+        return $this;
+    }
+
+    /**
+     * Remove newsletters
+     *
+     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
+     */
+    public function removeNewsletter(\Admin\UserBundle\Entity\Newsletters $newsletters)
+    {
+        $this->newsletters->removeElement($newsletters);
+    }
+
+    /**
+     * Add cotisations
+     *
+     * @param \Application\CotisationBundle\Entity\Cotisation $cotisations
+     * @return User
+     */
+    public function addCotisation(\Application\CotisationBundle\Entity\Cotisation $cotisations)
+    {
+        $this->cotisations[] = $cotisations;
+
+        return $this;
+    }
+
+    /**
+     * Remove cotisations
+     *
+     * @param \Application\CotisationBundle\Entity\Cotisation $cotisations
+     */
+    public function removeCotisation(\Application\CotisationBundle\Entity\Cotisation $cotisations)
+    {
+        $this->cotisations->removeElement($cotisations);
+    }
+
+    /**
+     * Get cotisations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCotisations()
+    {
+        return $this->cotisations;
+    }
 }

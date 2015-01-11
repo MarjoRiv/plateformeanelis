@@ -1,0 +1,67 @@
+{% extends "::application.html.twig" %} 
+
+
+{% block body %}
+
+    <div id="page-content">
+      <div id='wrap'>
+        <div id="page-heading">
+          <ol class="breadcrumb">
+            <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+            <li><a href="{{ path('application_cotisation_homepage') }}" title="Cotisation">Cotisation</a></li>
+            <li class="active">Nouvelle cotisation</li>
+        </ol>
+        <h1>Nouvelle cotisation</h1>
+    </div>
+    <div class="container">
+
+        <div class="panel panel-midnightblue">
+            <div class="panel-heading">
+              <h4>Nouvelle cotisation</h4>
+          </div>
+          <div class="panel-body collapse in">
+            <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+                <div class="form-group">
+                    {{ form_label(form.typeCotisation, "Type*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                    <div class="col-sm-6">
+                        {{ form_widget(form.typeCotisation, { 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.year, "Année*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                    <div class="col-sm-6">
+                        {{ form_widget(form.year, { 'attr' : { 'class' : 'form-control' } }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_errors(form) }}
+                    {{ form_rest(form) }}
+
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="btn-toolbar">
+                                <button class="btn-primary btn">Enregistrer</button>
+                                <button class="btn-default btn">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--wrap -->
+</div>
+<!-- page-content -->
+<script>
+        global = {
+            locale   : '{{ app.request.locale }}'
+        }
+</script>
+
+
+{% endblock %}

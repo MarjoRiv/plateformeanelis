@@ -1,0 +1,65 @@
+{% extends "::application.html.twig" %} 
+
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div id="page-heading">
+                <ol class="breadcrumb">
+                    <li><a href="index.php">Plateforme</a></li>
+                    <li class="active">Cotisation</li>
+                </ol>
+
+                <h1>Gestion des cotisations</h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Historique des cotisations</h4>
+                            <div class="options">
+
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p class="text-right"><a href="{{ path('application_cotisation_new') }}" title="Nouvelle cotisation"><button class="btn-primary btn">Nouvelle cotisation</button></a></p>
+                            <p>Vous n'êtes pas actuellement cotisant bla bla bla.</p>
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Année</th>
+                                  <th>Type</th>
+                                  <th>Prix</th>
+                                  <th>Facture</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            {% for cotisation in app.user.cotisations %}
+                              {% set cotisationNumbers = 1 %}
+                            <tr>
+                              <td>1</td>
+                              <td>{{ cotisation.year|date("Y") }}</td>
+                              <td>{{ cotisation.typeCotisation.name }}</td>
+                              <td>{{ cotisation.priceCotisation }} €</td>
+                              <td><i class="fa fa-eye"></i></td>
+                          </tr>
+                            {% set cotisationNumbers = cotisationNumbers + 1 %}
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+</div>
+</div>
+
+</div> <!--wrap -->
+</div> <!-- page-content -->
+
+{% endblock %}

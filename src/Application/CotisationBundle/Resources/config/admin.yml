@@ -1,0 +1,21 @@
+services:
+    sonata.admin.cotisationtype:
+        class: Application\CotisationBundle\Admin\TypeCotisationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Type de Cotisation" }
+        arguments:
+            - ~
+            - Application\CotisationBundle\Entity\TypeCotisation
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationCotisationBundle]]
+    sonata.admin.cotisation:
+        class: Application\CotisationBundle\Admin\CotisationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Cotisation" }
+        arguments:
+            - ~
+            - Application\CotisationBundle\Entity\Cotisation
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationCotisationBundle]]

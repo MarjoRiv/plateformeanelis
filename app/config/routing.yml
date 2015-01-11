@@ -1,6 +1,6 @@
-#application_cotisation:
-#    resource: "@ApplicationCotisationBundle/Resources/config/routing.yml"
-#    prefix:   /
+application_cotisation:
+    resource: "@ApplicationCotisationBundle/Resources/config/routing.yml"
+    prefix:   /
 
 application_annuaire:
     resource: "@ApplicationAnnuaireBundle/Resources/config/routing.yml"
