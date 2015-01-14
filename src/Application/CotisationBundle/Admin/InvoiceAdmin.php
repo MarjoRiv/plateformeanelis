@@ -32,6 +32,7 @@ class InvoiceAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+        ->add('payed')
         ;
     }
 

@@ -32,6 +32,7 @@ class CotisationAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+        ->add('invoice.payed')
         ;
     }
 
