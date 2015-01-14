@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('ApplicationMainBundle:Default:index.html.twig');
     }
+
+    public function aideAction()
+    {
+        return $this->render('ApplicationMainBundle:Default:aide.html.twig');
+    }
 }
