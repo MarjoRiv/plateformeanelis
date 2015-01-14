@@ -33,6 +33,7 @@
                           <th>Année</th>
                           <th>Type</th>
                           <th>Prix</th>
+                          <th>Statut</th>
                           <th>Facture</th>
                         </tr>
                       </thead>
@@ -45,6 +46,7 @@
                               <td>{{ cotisation.year|date("Y") }}</td>
                               <td>{{ cotisation.typeCotisation.name }}</td>
                               <td>{{ cotisation.priceCotisation }} €</td>
+                              <td>{% if cotisation.invoice.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">Impayé</button>{% endif %}</td>
                               <td><a href="{{ path("application_cotisation_invoice_get", { "id" : cotisation.invoice.id }) }}"><i class="fa fa-eye"></i></a></td>
                             </tr>
                             {% set cotisationNumbers = cotisationNumbers + 1 %}
