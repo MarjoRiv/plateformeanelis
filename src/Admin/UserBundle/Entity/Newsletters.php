@@ -102,4 +102,9 @@ class Newsletters
     {
         return $this->name;
     }
+
+    public function getUsersNumber()
+    {
+      return count($this->getUsers());
+    }
 }

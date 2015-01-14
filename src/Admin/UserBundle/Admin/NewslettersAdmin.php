@@ -29,6 +29,8 @@ class NewslettersAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('users', 'string', array('label' => 'Abonnés', 'template' => 'AdminUserBundle:Admin:abonnes_list.html.twig'))
+            ->add('Nb', 'string', array('label' => 'Nombre d\'abonnés', 'template' => 'AdminUserBundle:Admin:nb_abonnes.html.twig'))
             // add custom action links
             ->add('_action', 'actions', array(
                 'actions' => array(
