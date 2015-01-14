@@ -7,14 +7,15 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class CotisationAdmin extends Admin
+class InvoiceAdmin extends Admin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('year', 'date', array('label' => 'Année'))
-            ->add('typeCotisation', 'entity', array(
+            //->add('id')
+            ->add('payed')
+            /*->add('typeCotisation', 'entity', array(
                 'class' => 'ApplicationCotisationBundle:TypeCotisation',
                 'property' => 'name',
                 'label' => "Nom",
@@ -23,7 +24,7 @@ class CotisationAdmin extends Admin
                 'class' => 'AdminUserBundle:User',
                 'property' => 'name',
                 'label' => "Nom",
-            ))
+            ))*/
         ;
     }
 
@@ -38,9 +39,8 @@ class CotisationAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('user')
-            ->add('year')
-            ->add('invoice.id', null, array('label' => 'n° Facture'))
+            ->add('id')
+            ->add('payed')
             // add custom action links
             ->add('_action', 'actions', array(
                 'actions' => array(

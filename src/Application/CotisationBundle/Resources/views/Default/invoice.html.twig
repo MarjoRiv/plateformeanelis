@@ -1,5 +1,7 @@
 {% extends "::application.html.twig" %} 
 
+{% block title %}Facture{% endblock %}
+
 {% block body %}
   <div id="page-content">
     <div id='wrap'>
@@ -9,9 +11,8 @@
           <li><a href="{{ path('application_cotisation_homepage') }}" title="Cotisation">Cotisation</a></li>
           <li class="active">Facture n° {{ invoice.id }}</li>
         </ol>
-
-        <h1>Gestion des cotisations</h1>
       </div>
+
       <div class="container">
 
 
@@ -25,9 +26,13 @@
             <div class="panel-body">
               <div class="clearfix">
                 <div class="pull-left">
-                  <h4>Facture n° <br>
-                    <strong>{{ invoice.id }}</strong>
-                  </h4>
+                  <h4>Facture n° <strong>{{ invoice.id }}</strong></h4>
+                      {% if invoice.payed %}
+                      <span class="btn btn-success">Payé</span>
+                      {% else %}
+                      <span class="btn btn-danger">Impayé</span>
+                      {% endif %}
+
                 </div>
                 <div class="pull-right">
                   <h4 class="text-right"><img src="{{ asset('assets/img/anelis-logo.png') }}" alt="ANELIS" style="width: 224px; height: 72px;"></h4>
@@ -88,9 +93,18 @@
               </div>
               <div class="panel-footer hidden-print">
                 <div class="pull-right">
-                  <a href="#" class="btn btn-inverse"><i class="fa fa-print"></i></a>
-                  <a href="#" class="btn btn-primary">Payer</a>
+                  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                  <input type="hidden" name="cmd" value="_s-xclick">
+                  <input type="hidden" name="hosted_button_id" value="M2LFT36X5JHZC">
+                  <input type="hidden" name="on0" value="Cotisation">
+                  <input type="hidden" name="os0" value="{% if invoice.cotisation.priceCotisation == 10 %}Membre{% elseif invoice.cotisation.priceCotisation == 20 %}Membre bienfaiteur 20{% elseif invoice.cotisation.priceCotisation == 25 %}Membre bienfaiteur 25{% elseif invoice.cotisation.priceCotisation == 30 %}Membre bienfaiteur 30{% elseif invoice.cotisation.priceCotisation == 40 %}Membre bienfaiteur 40{% elseif invoice.cotisation.priceCotisation == 50 %}Membre bienfaiteur 50{% else %}Membre{% endif %}">
+                  <input type="hidden" name="currency_code" value="EUR">
+                  <button class="btn-primary btn">Payer</button>
+                  </form>
                 </div>
+
+
+
               </div>
             </div>
           </div>
