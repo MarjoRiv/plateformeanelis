@@ -1,234 +1,228 @@
 {% block admin_userbundle_user_widget %}
 
-<script type='text/javascript' src='/PLANELIS/web/assets/js/jquery-1.10.2.min.js'></script> 
+    <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+        <div class="panel-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="domtabs">
+              <div class="row">
+                <div class="tab-container tab-left tab-danger">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
+                    <li><a href="#social" data-toggle="tab">Social</a></li>
+                    <li><a href="#perso" data-toggle="tab">Perso</a></li>
+                    <li><a href="#newsletters" data-toggle="tab">Newsletters</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="profil">
 
-<form class="form-horizontal" method="post" {{ form_enctype(form) }}>
-            <div class="panel-body">
-              <div class="tab-content">
-                <div class="tab-pane active" id="domtabs">
-                  <div class="row">
-                    <div class="tab-container tab-left tab-danger">
-                      <ul class="nav nav-tabs">
-                        <li class="active"><a href="#profil" data-toggle="tab">Profil</a></li>
-                        <li><a href="#social" data-toggle="tab">Social</a></li>
-                        <li><a href="#perso" data-toggle="tab">Perso</a></li>
-                        <li><a href="#newsletters" data-toggle="tab">Newsletters</a></li>
-                      </ul>
-                      <div class="tab-content">
-                        <div class="tab-pane active" id="profil">
-
-{{ form_errors(form) }}
-    <div class="form-group{% if form_errors(form.username) is not empty %} has-error{% endif %}">
-        {{ form_label(form.username, "Login*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.username, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.username)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.email) is not empty %} has-error{% endif %}">
-        {{ form_label(form.email, "Email*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.email, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.email)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.name) is not empty %} has-error{% endif %}">
-        {{ form_label(form.name, "Nom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3">
-            <p class="help-block">{{ form_errors(form.name)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.maritalName) is not empty %} has-error{% endif %}">
-        {{ form_label(form.maritalName, "Nom Marital", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.maritalName, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3">
-            <p class="help-block">{{ form_errors(form.maritalName)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.surname) is not empty %} has-error{% endif %}">
-        {{ form_label(form.surname, "Prénom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.surname)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.promotion) is not empty %} has-error{% endif %}">
-        {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.promotion)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.filiere) is not empty %} has-error{% endif %}">
-        {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.filiere)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-
-    <div class="form-group{% if form_errors(form.address) is not empty %} has-error{% endif %}">
-        {{ form_label(form.address, "Adresse", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.address, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.address)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.telephone) is not empty %} has-error{% endif %}">
-        {{ form_label(form.telephone, "Téléphone", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.telephone, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.telephone)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.website) is not empty %} has-error{% endif %}">
-        {{ form_label(form.website, "Site Web", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.website, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.website)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.biography) is not empty %} has-error{% endif %}">
-        {{ form_label(form.biography, "Biographie", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.biography, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.biography)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-
-    <div class="form-group{% if form_errors(form.avatar) is not empty %} has-error{% endif %}">
-        {{ form_label(form.avatar, "Avatar", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            <span class="btn btn-default btn-file">
-                            <span class="fileinput-new">Choisir le fichier</span>
-                            {{ form_widget(form.avatar.input, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </span>
-            
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.avatar)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-
-    
-
-    </div>
-                        <div class="tab-pane" id="social">
-                       
-    <div id="social-fields-list">
-<div class="form-group{% if form_errors(form.socialFacebook) is not empty %} has-error{% endif %}">
-        {{ form_label(form.socialFacebook, "Facebook", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.socialFacebook, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.socialFacebook)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-<div class="form-group{% if form_errors(form.socialTwitter) is not empty %} has-error{% endif %}">
-        {{ form_label(form.socialTwitter, "Twitter", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.socialTwitter, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.socialTwitter)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-<div class="form-group{% if form_errors(form.socialLinkedin) is not empty %} has-error{% endif %}">
-        {{ form_label(form.socialLinkedin, "Linkedin", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.socialLinkedin, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.socialLinkedin)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    </div>
-
-     </div>
-                        <div class="tab-pane" id="perso">
-    <div class="form-group{% if form_errors(form.maritalStatus) is not empty %} has-error{% endif %}">
-        {{ form_label(form.maritalStatus, "Statut Marital", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.maritalStatus, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.maritalStatus)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-    <div class="form-group{% if form_errors(form.childrenNumber) is not empty %} has-error{% endif %}">
-        {{ form_label(form.childrenNumber, "Nombre d'enfant(s)", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.childrenNumber, { 'attr' : { 'class' : 'form-control' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.childrenNumber)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-
-    <div class="form-group{% if form_errors(form.birthday) is not empty %} has-error{% endif %}">
-        {{ form_label(form.birthday, "Date de naissance", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-        <div class="col-sm-6">
-            {{ form_widget(form.birthday, { 'attr': {'class': "form-control", 'placeholder': 'dd/MM/YYYY' } }) }}
-        </div>
-        <div class="col-md-3 has-error">
-            <p class="help-block">{{ form_errors(form.birthday)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-        </div>
-    </div>
-
-
-
-
-
+                        {{ form_errors(form) }}
+                        <div class="form-group{% if form_errors(form.username) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.username, "Login*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.username, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.username)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="newsletters">
-                            <div class="form-group">
-                {{ form_label(form.newsletters, "Abonnements", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                <div class="col-sm-9">
-                                    <div class="col-sm-6">
-                                        <ul class="list-unstyled">
+                        <div class="form-group{% if form_errors(form.email) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.email, "Email*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.email, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.email)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.name) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.name, "Nom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3">
+                                <p class="help-block">{{ form_errors(form.name)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.maritalName) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.maritalName, "Nom Marital", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.maritalName, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3">
+                                <p class="help-block">{{ form_errors(form.maritalName)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.surname) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.surname, "Prénom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.surname)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.promotion) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.promotion)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.filiere) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.filiere)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group{% if form_errors(form.address) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.address, "Adresse", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.address, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.address)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.telephone) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.telephone, "Téléphone", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.telephone, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.telephone)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.website) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.website, "Site Web", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.website, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.website)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.biography) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.biography, "Biographie", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.biography, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.biography)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group{% if form_errors(form.avatar) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.avatar, "Avatar", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">Choisir le fichier</span>
+                                    {{ form_widget(form.avatar.input, { 'attr' : { 'class' : 'form-control' } }) }}
+                                </span>
+
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.avatar)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="tab-pane" id="social">
+
+                        <div id="social-fields-list">
+                            <div class="form-group{% if form_errors(form.socialFacebook) is not empty %} has-error{% endif %}">
+                                {{ form_label(form.socialFacebook, "Facebook", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.socialFacebook, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                                </div>
+                                <div class="col-md-3 has-error">
+                                    <p class="help-block">{{ form_errors(form.socialFacebook)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group{% if form_errors(form.socialTwitter) is not empty %} has-error{% endif %}">
+                                {{ form_label(form.socialTwitter, "Twitter", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.socialTwitter, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                                </div>
+                                <div class="col-md-3 has-error">
+                                    <p class="help-block">{{ form_errors(form.socialTwitter)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group{% if form_errors(form.socialLinkedin) is not empty %} has-error{% endif %}">
+                                {{ form_label(form.socialLinkedin, "Linkedin", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.socialLinkedin, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                                </div>
+                                <div class="col-md-3 has-error">
+                                    <p class="help-block">{{ form_errors(form.socialLinkedin)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="perso">
+                        <div class="form-group{% if form_errors(form.maritalStatus) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.maritalStatus, "Statut Marital", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.maritalStatus, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.maritalStatus)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group{% if form_errors(form.childrenNumber) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.childrenNumber, "Nombre d'enfant(s)", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.childrenNumber, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.childrenNumber)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group{% if form_errors(form.birthday) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.birthday, "Date de naissance", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.birthday, { 'attr': {'class': "form-control", 'placeholder': 'dd/MM/YYYY' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.birthday)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="newsletters">
+                        <div class="form-group">
+                            {{ form_label(form.newsletters, "Abonnements", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-9">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled">
                                         {% for newsletter in form.newsletters %}
                                             <li>{{ form_widget(newsletter) }} {{ form_label(newsletter) }}</li>
                                         {% endfor %}
-                                        </ul>
-                                    </div>
-                </div>
+                                    </ul>
+                                </div>
+                            </div>
 
 
-            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-            {{ form_rest(form) }} 
-            <p class="text-right"><button class="btn-primary btn">Enregistrer</button></p>
-
             </div>
+
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }} 
+<p class="text-right"><button class="btn-primary btn">Enregistrer</button></p>
+
+</div>
 </form>
 
 {% endblock %}

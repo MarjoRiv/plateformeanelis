@@ -1,5 +1,6 @@
 {% extends "::application.html.twig" %} 
 {% form_theme form 'AdminUserBundle:Form:user.html.twig' %}
+{% block title %}Mon Compte{% endblock %}
 {% block body %}
 <div id="page-content">
   <div id='wrap'>
@@ -10,7 +11,8 @@
       </ol>
       <h1>Mon Compte</h1>
     </div>
-    <div class="container">
+
+    <div class="container">      
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-primary">
