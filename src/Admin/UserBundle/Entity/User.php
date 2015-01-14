@@ -126,7 +126,7 @@ class User extends BaseUser
     /**
      * @var date $birthday
      *
-     * @ORM\Column(name="birthday", type="string", length=255)
+     * @ORM\Column(name="birthday", type="date", length=255)
      */
     private $birthday;
 
@@ -140,7 +140,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="childrenNumber", type="string", length=255)
+     * @ORM\Column(name="childrenNumber", type="integer", length=255)
      */
     private $childrenNumber;
 
@@ -175,7 +175,7 @@ class User extends BaseUser
         $this->biography            = "";
         $this->birthday             = "";
         $this->maritalStatus        = "";
-        $this->childrenNumber       = "";
+        $this->childrenNumber       = 0;
 
         $this->enabled = true;
         $this->expired = false;

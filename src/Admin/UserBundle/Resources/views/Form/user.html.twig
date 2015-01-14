@@ -190,7 +190,7 @@
                         <div class="form-group{% if form_errors(form.birthday) is not empty %} has-error{% endif %}">
                             {{ form_label(form.birthday, "Date de naissance", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
-                                {{ form_widget(form.birthday, { 'attr': {'class': "form-control", 'placeholder': 'dd/MM/YYYY' } }) }}
+                                {{ form_widget(form.birthday, { 'attr': {'class': "form-control" } }) }}
                             </div>
                             <div class="col-md-3 has-error">
                                 <p class="help-block">{{ form_errors(form.birthday)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
@@ -224,5 +224,18 @@
 
 </div>
 </form>
+<script src="{{ asset('assets/moment.js') }}"></script>
+<script src="{{ asset('assets/pikaday.js') }}"></script>
+<script>
 
+    var picker = new Pikaday({
+        field: document.getElementById('admin_userbundle_user_birthday'),
+        format: 'YYYY-MM-DD',
+        yearRange: [1970,2015],
+        onSelect: function() {
+            console.log(this.getMoment().format('YYYY-MM-DD'));
+        }
+    });
+
+</script>
 {% endblock %}

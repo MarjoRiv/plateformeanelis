@@ -70,7 +70,10 @@ class UserType extends AbstractType
                 'widget' => 'choice',
                 'input' => 'string',
                 ))*/
-            ->add('birthday', 'text', array(
+            ->add('birthday', 'date', array(
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
                 'required' => 'false',
             ))
 
@@ -83,7 +86,7 @@ class UserType extends AbstractType
                     'En union libre' => 'En union libre',
                     ),
                 ))
-            ->add('childrenNumber', 'text', array(
+            ->add('childrenNumber', 'integer', array(
                 'required' => false
                 ))
             ->add('newsletters', 'entity', array(
