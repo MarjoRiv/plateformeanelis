@@ -38,7 +38,7 @@
                       </thead>
                       <tbody>
                         {% set cotisationNumbers = 1 %}
-                          {% for cotisation in app.user.cotisations %}
+                          {% for cotisation in app.user.cotisations|reverse %}
                             
                             <tr>
                               <td>{{ cotisationNumbers }}</td>
