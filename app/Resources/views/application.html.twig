@@ -46,7 +46,7 @@
                 </a>
                 <ul class="dropdown-menu userinfo arrow">
                     <li class="username">
-                        <a href="#">
+                        <a href="{{ path('user_show_profile', { 'id' : app.user.id }) }}">
                             <div class="pull-left">
                             {% if app.user.avatar.extension is empty %}
                                 <img src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ app.user.username }}" />
