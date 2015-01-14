@@ -24,6 +24,7 @@ class CotisationAdmin extends Admin
                 'property' => 'name',
                 'label' => "Nom",
             ))
+            ->add('invoice.payed', 'sonata_type_boolean', array('transform' => true))
         ;
     }
 
@@ -38,9 +39,13 @@ class CotisationAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('user')
-            ->add('year')
-            ->add('invoice.id', null, array('label' => 'n° Facture'))
+            ->add('user',null, array('label' => "Pseudo"))
+            ->add('user.name',null,array('label' => "Nom"))
+            ->add('user.surname',null,array('label' => "Prénom"))
+            ->add('year','date',array('format' => 'y'))
+            ->add('priceCotisation',null,array('label' => "Tarif Cotisation"))
+            ->add('invoice.id', null, array('label' => "n° Facture"))
+            ->add('invoice.payed',null,array('label' => "Payé ?"))
             // add custom action links
             ->add('_action', 'actions', array(
                 'actions' => array(
