@@ -786,4 +786,14 @@ class User extends BaseUser
     {
         return $this->country;
     }
+
+    public function isCotisant()
+    {
+        $cotisations = array_reverse($this->getCotisations()->toArray());
+        foreach ($cotisations as $value) {
+            if ($value->getYear()->format('Y') == date('Y') && $value->getInvoice()->getPayed())
+                return true;
+        }
+        return false;
+    }
 }
