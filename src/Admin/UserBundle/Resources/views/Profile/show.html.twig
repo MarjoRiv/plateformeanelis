@@ -1,35 +1,35 @@
 {% extends "::application.html.twig" %} 
 
 {% block title %}{{ user.surname }} {{ user.name }}{% endblock %}
-{% block body %}
-<div id="page-content">
-    <div id='wrap'>
-        <div id="page-heading">
-            <ol class="breadcrumb">
-                <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-                <li>Profil</li>
-                <li class="active">{{ user.surname }} {{ user.name }}</li>
-            </ol>
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                        <li>Profil</li>
+                        <li class="active">{{ user.surname }} {{ user.name }}</li>
+                    </ol>
 
-            <h1>Profil</h1>
-        </div>
-        <div class="container">
+                    <h1>Profil</h1>
+                </div>
+                <div class="container">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-midnightblue">
-                        <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-body">
 
-                            <div class="row">
-                                <div class="col-md-6">
-                    {% if user.avatar.extension is empty %}
-                        <img src="{{ asset(user.avatar.defaultWebPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; width: 100px; height: 100px;"/>
-                    {% else %}
-                        <img src="{{ asset(user.avatar.webPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; width: 100px; height: 100px;"/>
-                    {% endif %}
-                                    <div class="table-responsive">
-                                        <table class="table table-condensed">
-                                            <h3><strong>{{ user.surname }} {{ user.name }} </strong></h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% if user.avatar.extension is empty %}
+                                                <img src="{{ asset(user.avatar.defaultWebPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; width: 100px; height: 100px;"/>
+                                                {% else %}
+                                                <img src="{{ asset(user.avatar.webPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; width: 100px; height: 100px;"/>
+                                            {% endif %}
+                                            <div class="table-responsive">
+                                                <table class="table table-condensed">
+                                                    <h3><strong>{{ user.surname }} {{ user.name }} </strong></h3>
                                             <!-- <thead>
                                                 <tr>
                                                     <th width="50%"></th>
@@ -46,7 +46,7 @@
                                                     <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Phone</td>
+                                                    <td>Téléphone</td>
                                                     <td>{{ app.user.telephone }}</td>
                                                 </tr>
                                                 <tr>
@@ -58,20 +58,32 @@
                                                     <td>Michelin</td>
                                                 </tr>
                                                 {% if user.socialFacebook is not empty or user.socialTwitter is not empty or user.socialLinkedin is not empty %}
-                                                <tr>
-                                                    <td>Social</td>
-                                                    <td>
-                                                        {% if user.socialFacebook is not empty %}
-                                                        <a href="{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook" target="_blank"></i></a>
-                                                        {% endif %}
-                                                        {% if user.socialTwitter is not empty %}
-                                                        <a href="{{ user.socialTwitter }}" class="btn btn-xs"><i class="fa fa-twitter"></i></a>
-                                                        {% endif %}
-                                                        {% if user.socialLinkedin is not empty %}
-                                                        <a href="{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
-                                                        {% endif %}
-                                                    </td>
-                                                </tr>
+                                                    <tr>
+                                                        <td>Social</td>
+                                                        <td>
+                                                            {% if user.socialFacebook is not empty %}
+                                                                {% if app.user.isCotisant %}
+                                                                    <a href="{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                    {% else %}
+                                                                    <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if user.socialTwitter is not empty %}
+                                                                {% if app.user.isCotisant %}
+                                                                    <a href="{{ user.socialTwitter }}" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                    {% else %}
+                                                                    <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if user.socialLinkedin is not empty %}
+                                                                {% if app.user.isCotisant %}
+                                                                    <a href="{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                    {% else %}
+                                                                    <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
                                                 {% endif %}
                                             </tbody>
                                         </table>
@@ -80,7 +92,7 @@
                                 <div class="col-md-6">
                                     <h3>À propos</h3>
                                     <p>
-                                        
+
                                         {{ user.biography }}
                                         
                                     </p>
@@ -174,42 +186,42 @@
                                             
                                             <div class="tab-pane" id="profile1">
                                                 <div class="tab-pane active clearfix" id="home1">
-                                                <div class="col-md-12">
-                                                    <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
-                                                    <ul class="timeline">
-                                                        <li class="timeline-orange">
-                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                            <div class="timeline-body">
-                                                                <div class="timeline-header">
-                                                                    <span class="date">Lundi 21 Novembre 2013</span>
+                                                    <div class="col-md-12">
+                                                        <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
+                                                        <ul class="timeline">
+                                                            <li class="timeline-orange">
+                                                                <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                                <div class="timeline-body">
+                                                                    <div class="timeline-header">
+                                                                        <span class="date">Lundi 21 Novembre 2013</span>
+                                                                    </div>
+                                                                    <div class="timeline-content">
+                                                                        <h3>Association</h3>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="timeline-content">
-                                                                    <h3>Association</h3>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
 
-                                                <div class="col-md-12">
-                                                    <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
-                                                    <ul class="timeline">
-                                                        <li class="timeline-success">
-                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                            <div class="timeline-body">
-                                                                <div class="timeline-header">
-                                                                    <span class="date">Lundi 21 Decembre 2013</span>
+                                                    <div class="col-md-12">
+                                                        <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
+                                                        <ul class="timeline">
+                                                            <li class="timeline-success">
+                                                                <div class="timeline-icon"><i class="fa fa-group"></i></div>
+                                                                <div class="timeline-body">
+                                                                    <div class="timeline-header">
+                                                                        <span class="date">Lundi 21 Decembre 2013</span>
+                                                                    </div>
+                                                                    <div class="timeline-content">
+                                                                        <h3>Club</h3>
+                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="timeline-content">
-                                                                    <h3>Club</h3>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                             </div>
                                         </div>
@@ -222,11 +234,26 @@
                     </div>
                 </div>
             </div>
-            
-
-
-
-        </div> <!-- container -->
-    </div> <!--wrap -->
-</div> <!-- page-content -->
+        </div> 
+    </div>
+</div> 
+{% if not app.user.isCotisant %}
+    <div class="modal fade" id="cotisationNeeded" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Cotisation requise</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Information</h4>
+                    <p>Il est nécessaire de <strong><a href="{{ path('application_cotisation_homepage') }}" title="Cotisation">cotiser</a></strong> pour accéder à cette information.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
