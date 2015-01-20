@@ -115,7 +115,10 @@
                                 <span class="label label-default">{{ result.filiere }}</span>
                                 <span class="label label-default">{{ result.promotion }}</span>
                                 <hr style="margin:8px auto">
-                                <span class="badge badge-primary">Cotisant</span>
+                                {% if result.isCotisant %}
+                                    <span class="badge badge-primary">Cotisant</span>
+                                {% else %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
