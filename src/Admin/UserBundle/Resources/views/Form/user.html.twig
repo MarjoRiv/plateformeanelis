@@ -89,6 +89,37 @@
                                 <p class="help-block">{{ form_errors(form.address)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
                             </div>
                         </div>
+
+                        <div class="form-group{% if form_errors(form.postalcode) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.postalcode, "Code postal", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.postalcode, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.postalcode)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group{% if form_errors(form.city) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.city, "Ville", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.city, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.city)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group{% if form_errors(form.country) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.country, "Pays", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.country, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.country)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
+
                         <div class="form-group{% if form_errors(form.telephone) is not empty %} has-error{% endif %}">
                             {{ form_label(form.telephone, "Téléphone", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">

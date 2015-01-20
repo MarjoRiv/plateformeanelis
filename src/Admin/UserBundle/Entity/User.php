@@ -78,6 +78,27 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="postalcode", type="string", length=255)
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="telephone", type="string", length=255)
      */
     private $telephone;
@@ -695,5 +716,74 @@ class User extends BaseUser
     public function getCotisations()
     {
         return $this->cotisations;
+    }
+
+    /**
+     * Set postalcode
+     *
+     * @param string $postalcode
+     * @return User
+     */
+    public function setPostalcode($postalcode)
+    {
+        $this->postalcode = $postalcode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalcode
+     *
+     * @return string 
+     */
+    public function getPostalcode()
+    {
+        return $this->postalcode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return User
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

@@ -46,6 +46,15 @@ class UserType extends AbstractType
             ->add('address', 'textarea', array(
                 'required' => false,
                 ))
+            ->add('postalcode', 'text', array(
+                'required' => false,
+                ))
+            ->add('city', 'text', array(
+                'required' => false,
+                ))
+            ->add('country', 'text', array(
+                'required' => false
+                ))
             ->add('telephone', 'text', array(
                 'required' => false,
                 ))
