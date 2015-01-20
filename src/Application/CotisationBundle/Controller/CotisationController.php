@@ -27,7 +27,19 @@ class CotisationController extends Controller
         $formHandler = new CotisationHandler($form, $this->get('request'), $manager, $invoiceManager);
             
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('application_cotisation_homepage'));
+            // Getting the last id invoice inserted 
+            $repository = $this->getDoctrine()
+                ->getRepository('ApplicationCotisationBundle:Invoice');
+            $query = $repository->createQueryBuilder('p')
+                ->orderBy('p.id', 'DESC')
+                ->getQuery();
+
+            $invoices = $query->getResult();
+            $last_cotisation_id = $invoices[0]->getId();
+
+            return $this->redirect($this->generateUrl('application_cotisation_invoice_get', array(
+                'id' => $last_cotisation_id
+               )));
         }
         else {
             return $this->render('ApplicationCotisationBundle:Default:add.html.twig', array(
