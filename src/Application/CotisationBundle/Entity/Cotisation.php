@@ -127,53 +127,6 @@ class Cotisation
         return $this->typeCotisation->name;
     }
 
-
-    /**
-     * Set dateStart
-     *
-     * @param \DateTime $dateStart
-     * @return Cotisation
-     */
-    public function setDateStart($dateStart)
-    {
-        $this->dateStart = $dateStart;
-
-        return $this;
-    }
-
-    /**
-     * Get dateStart
-     *
-     * @return \DateTime 
-     */
-    public function getDateStart()
-    {
-        return $this->dateStart;
-    }
-
-    /**
-     * Set dateEnd
-     *
-     * @param \DateTime $dateEnd
-     * @return Cotisation
-     */
-    public function setDateEnd($dateEnd)
-    {
-        $this->dateEnd = $dateEnd;
-
-        return $this;
-    }
-
-    /**
-     * Get dateEnd
-     *
-     * @return \DateTime 
-     */
-    public function getDateEnd()
-    {
-        return $this->dateEnd;
-    }
-
     /**
      * Set user
      *
