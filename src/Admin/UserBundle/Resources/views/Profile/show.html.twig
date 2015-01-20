@@ -43,7 +43,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Email</td>
+                                                    {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
                                                     <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                                                    {% else %}
+                                                    <td><a data-toggle="modal" href="#cotisationNeeded">Inaccessible</a></td>
+                                                    {% endif %}
                                                 </tr>
                                                 <tr>
                                                     <td>Téléphone</td>
@@ -62,21 +66,21 @@
                                                         <td>Social</td>
                                                         <td>
                                                             {% if user.socialFacebook is not empty %}
-                                                                {% if app.user.isCotisant %}
+                                                                {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
                                                                     <a href="{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialTwitter is not empty %}
-                                                                {% if app.user.isCotisant %}
+                                                                {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
                                                                     <a href="{{ user.socialTwitter }}" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialLinkedin is not empty %}
-                                                                {% if app.user.isCotisant %}
+                                                                {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
                                                                     <a href="{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
