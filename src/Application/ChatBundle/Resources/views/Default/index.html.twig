@@ -25,134 +25,20 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="panel-chat well" id="chat">
-                                                <div class="chat-message me">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/avatar00_0002_scottwills_cat.png" alt="">
+                                                {% for message in messages %}
+                                                    <div class="chat-message {% if app.user == message.user %}me{% else %}{% if message.user.id is divisible by(2) %}{% if message.user.promotion is divisible by(2) %}chat-primary{% else %}chat-indigo{% endif %}{% else %}{% if message.user.promotion is divisible by(2) %}midnightblue{% else %}chat-success{% endif %}{% endif %}{% endif %}">
+                                                        <div class="chat-contact">
+                                                            {% if message.user.avatar.extension is empty %}
+                                                                <img src="{{ asset(message.user.avatar.defaultWebPath) }}" alt="{{ message.user.username }}" style="width: 40px; height: 40px;" />
+                                                                {% else %}
+                                                                <img src="{{ asset(message.user.avatar.webPath) }}" alt="{{ message.user.username }}" style="width: 40px; height: 40px;" />
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="chat-text">
+                                                            {{ message.message }}
+                                                        </div>
                                                     </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-primary">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/potter.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-indigo">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/tennant.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message me">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/avatar00_0002_scottwills_cat.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message me">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/avatar00_0002_scottwills_cat.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-midnightblue">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/johansson.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message chat-success">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/jobs.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-message me">
-                                                    <div class="chat-contact">
-                                                        <img src="assets/demo/avatar/avatar00_0002_scottwills_cat.png" alt="">
-                                                    </div>
-                                                    <div class="chat-text">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, esse, nobis aut odit dignissimos alias.
-                                                    </div>
-                                                </div>
+                                                {% endfor %}
                                             </div>
                                             <form method="post" class="form-inline" {{ form_enctype(form) }}>
                                                 <p class="text-danger"><strong>{{ form_errors(form.message)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</strong></p>
