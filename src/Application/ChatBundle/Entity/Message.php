@@ -3,6 +3,7 @@
 namespace Application\ChatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
@@ -33,6 +34,9 @@ class Message
      * @var string
      *
      * @ORM\Column(name="message", type="text")
+     * @Assert\NotNull(
+     *     message = "Tu comptais seriously envoyer un message vide ? Haha :P"
+     * )
      */
     private $message;
 
