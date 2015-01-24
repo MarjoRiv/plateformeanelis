@@ -26,18 +26,22 @@
                                         <div class="col-md-12">
                                             <div class="panel-chat well" id="chat">
                                                 {% for message in messages %}
+                                                    {% if message.enabled == true %}
                                                     <div class="chat-message {% if app.user == message.user %}me{% else %}{% if message.user.id is divisible by(2) %}{% if message.user.promotion is divisible by(2) %}chat-primary{% else %}chat-indigo{% endif %}{% else %}{% if message.user.promotion is divisible by(2) %}midnightblue{% else %}chat-success{% endif %}{% endif %}{% endif %}">
                                                         <div class="chat-contact">
+                                                            <a href="{{ path('user_show_profile', { 'id' : message.user.id }) }}">
                                                             {% if message.user.avatar.extension is empty %}
                                                                 <img src="{{ asset(message.user.avatar.defaultWebPath) }}" alt="{{ message.user.username }}" style="width: 40px; height: 40px;" />
                                                                 {% else %}
                                                                 <img src="{{ asset(message.user.avatar.webPath) }}" alt="{{ message.user.username }}" style="width: 40px; height: 40px;" />
                                                             {% endif %}
+                                                            </a>
                                                         </div>
                                                         <div class="chat-text">
                                                             {{ message.message }}
                                                         </div>
                                                     </div>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </div>
                                             <form method="post" class="form-inline" {{ form_enctype(form) }}>

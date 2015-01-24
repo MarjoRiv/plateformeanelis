@@ -40,6 +40,7 @@ class MessageHandler
 
     public function onSuccess(Message $message) {
         $message->setDate(new \DateTime('now'));
+        $message->setEnabled(true);
         $this->manager->persist($message);
         $this->manager->flush();
     }
