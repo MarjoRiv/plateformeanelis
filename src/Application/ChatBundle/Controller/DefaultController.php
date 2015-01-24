@@ -20,8 +20,7 @@ class DefaultController extends Controller
         $handler = new MessageHandler($form, $this->get('request'), $em);
         if ($handler->process())
         {
-            // Le mec a bien posté son commentaire
-            //return $this->indexAction();            
+            // Le mec a bien posté son commentaire    
         }
 
         $messages = $this->getDoctrine()->getRepository('ApplicationChatBundle:Message')->findAll();
