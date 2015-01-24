@@ -1,3 +1,7 @@
+application_chat:
+    resource: "@ApplicationChatBundle/Resources/config/routing.yml"
+    prefix:   /
+
 application_cotisation:
     resource: "@ApplicationCotisationBundle/Resources/config/routing.yml"
     prefix:   /
