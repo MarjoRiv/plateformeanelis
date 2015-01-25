@@ -200,16 +200,16 @@ class User extends BaseUser
         $this->postalcode           = "";
         $this->city                 = "";
         $this->country              = "";
-        $this->enabled = true;
-        $this->expired = false;
-        $this->locked = false;
+        $this->enabled              = true;
+        $this->expired              = false;
+        $this->locked               = false;
 
-        $this->avatar = new Image();
+        $this->avatar               = new Image();
         $this->avatar->setMandatory(false);
         $this->avatar->setFilter(Image::$FILTER_USER_AVATAR);
 
-        $this->newsletters = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->cotisations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->newsletters          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cotisations          = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
