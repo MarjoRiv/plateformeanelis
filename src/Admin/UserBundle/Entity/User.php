@@ -194,10 +194,12 @@ class User extends BaseUser
         $this->socialTwitter        = "";
         $this->socialLinkedin       = "";
         $this->biography            = "";
-        $this->birthday             = "";
+        $this->birthday             = new \DateTime();
         $this->maritalStatus        = "";
         $this->childrenNumber       = 0;
-
+        $this->postalcode           = "";
+        $this->city                 = "";
+        $this->country              = "";
         $this->enabled = true;
         $this->expired = false;
         $this->locked = false;
