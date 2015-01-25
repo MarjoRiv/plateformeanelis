@@ -61,6 +61,15 @@
                                 <p class="help-block">{{ form_errors(form.surname)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
                             </div>
                         </div>
+                        <div class="form-group{% if form_errors(form.genre) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.genre, "Sexe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.genre, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-3 has-error">
+                                <p class="help-block">{{ form_errors(form.genre)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                            </div>
+                        </div>
                         <div class="form-group{% if form_errors(form.promotion) is not empty %} has-error{% endif %}">
                             {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">

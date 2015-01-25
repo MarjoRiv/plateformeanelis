@@ -176,6 +176,13 @@ class User extends BaseUser
      */
     private $cotisations;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="genre", type="string", length=255)
+     */
+    private $genre;
+
 
     public function __construct()
     {
@@ -200,6 +207,7 @@ class User extends BaseUser
         $this->postalcode           = "";
         $this->city                 = "";
         $this->country              = "";
+        $this->genre                = "";
         $this->enabled              = true;
         $this->expired              = false;
         $this->locked               = false;
@@ -798,4 +806,28 @@ class User extends BaseUser
         }
         return false;
     }
+
+    /**
+     * Set genre
+     *
+     * @param string $genre
+     * @return User
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Get genre
+     *
+     * @return string 
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
 }

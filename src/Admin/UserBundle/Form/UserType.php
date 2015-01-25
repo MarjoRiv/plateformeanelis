@@ -43,6 +43,12 @@ class UserType extends AbstractType
                     'FI' => 'FI',
                     ),
                 ))
+            ->add('genre', 'choice', array(
+                'choices' => array(
+                    'M' => 'M',
+                    'F' => 'F',
+                    ),
+                ))
             ->add('address', 'textarea', array(
                 'required' => false,
                 ))
