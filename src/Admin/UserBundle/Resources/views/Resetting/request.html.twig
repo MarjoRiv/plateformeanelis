@@ -1,0 +1,39 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+	{% block title %}Mot de passe oublié{% endblock %}
+
+		{% block optbody %}
+			class="focusedform"
+		{% endblock %}
+
+		{% block content %}
+			<div class="verticalcenter">
+				<a href="index.php"><img src="{{ asset('assets/img/anelis-logo.png') }}" alt="Logo" class="brand" /></a>
+				<div class="panel panel-primary">
+					<div class="panel-body">
+						<h4 class="text-center" style="margin-bottom: 25px;">Mot de passe oublié</h4>
+
+
+						<form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
+							<div class="form-group">
+								<label for="username">Nom d'utilisateur</label>
+								<input type="text" id="username" name="username" required="required" class="form-control" />
+								{% if invalid_username is defined %}
+									<span class="help-block">Nom d'utilisateur incorrect</span>
+								{% endif %}
+							</div>
+
+							
+						</div>
+						<div class="panel-footer">
+							<div class="pull-right">
+								<button class="btn btn-default">Réinitialiser</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			{% endblock %}
