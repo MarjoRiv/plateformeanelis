@@ -1,28 +1,40 @@
+
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block content %}
+	{% block title %}Nouveau mot de passe{% endblock %}
 
-	<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST">
-	    
-		<div class="form-group">
-			{{ form_label(form.plainPassword.first) }}
-		    {{ form_widget(form.plainPassword.first, { 'attr' : { 'class' : 'form-control' } }) }}
-		    <span class="help-block">{{ form_errors(form.plainPassword.first) }}</span>
-		</div>
-		
-		<div class="form-group">
-			{{ form_label(form.plainPassword.second) }}
-		    {{ form_widget(form.plainPassword.second, { 'attr' : { 'class' : 'form-control' } }) }}
-		    <span class="help-block">{{ form_errors(form.plainPassword.second) }}</span>
-		</div>
-		
-		{{ form_widget(form) }}
-	    
-	    <div>
-	        <input class="btn btn-default" type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
-	    </div>
-	</form>
-		
-{% endblock content %}
+		{% block optbody %}
+			class="focusedform"
+		{% endblock %}
+
+		{% block content %}
+			<div class="verticalcenter">
+				<a href="index.php"><img src="{{ asset('assets/img/anelis-logo.png') }}" alt="Logo" class="brand" /></a>
+				<div class="panel panel-primary">
+					<div class="panel-body">
+						<h4 class="text-center" style="margin-bottom: 25px;">Nouveau mot de passe</h4>
+						<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST">
+							<div class="form-group">
+								{{ form_label(form.plainPassword.first) }}
+								{{ form_widget(form.plainPassword.first, { 'attr' : { 'class' : 'form-control' } }) }}
+								<span class="help-block">{{ form_errors(form.plainPassword.first) }}</span>
+							</div>
+
+							<div class="form-group">
+								{{ form_label(form.plainPassword.second) }}
+								{{ form_widget(form.plainPassword.second, { 'attr' : { 'class' : 'form-control' } }) }}
+								<span class="help-block">{{ form_errors(form.plainPassword.second) }}</span>
+							</div>
+							{{ form_widget(form) }}
+							<div>
+								<input class="btn btn-success" type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			{% endblock %}
