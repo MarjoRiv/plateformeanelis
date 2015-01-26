@@ -14,26 +14,30 @@
 				<div class="panel panel-primary">
 					<div class="panel-body">
 						<h4 class="text-center" style="margin-bottom: 25px;">Mot de passe oublié</h4>
-
-
+						{% if invalid_username is defined %}
+							<div class="text-center"><span class="alert-danger">Nom d'utilisateur incorrect</span></div>
+						{% endif %}
 						<form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
 							<div class="form-group">
-								<label for="username">Nom d'utilisateur</label>
-								<input type="text" id="username" name="username" required="required" class="form-control" />
-								{% if invalid_username is defined %}
-									<span class="help-block">Nom d'utilisateur incorrect</span>
-								{% endif %}
-							</div>
-
-							
-						</div>
-						<div class="panel-footer">
-							<div class="pull-right">
-								<button class="btn btn-default">Réinitialiser</a>
+								<div class="col-sm-12">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+										<input type="text" id="username" name="username" required="required" class="form-control" placeholder="Nom d'utilisateur" />
+									</div>
 								</div>
 							</div>
+
+					</div>
+					<div class="panel-footer">
+						<div class="pull-right">
+							<button class="btn btn-success">Réinitialiser</button>
+						</div>
 						</form>
+						<div class="pull-left">
+							<a href="{{ path('fos_user_security_login') }}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Retour</a>
+						</div>
 					</div>
 				</div>
+			</div>
 
-			{% endblock %}
+		{% endblock %}
