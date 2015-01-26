@@ -20,7 +20,7 @@ class ProfilController extends Controller
     {
 
 
-        $type = $this->get('fos_elastica.index.afsy.user');
+       /* $type = $this->get('fos_elastica.index.afsy.user');
 
         $query_part = new \Elastica\Query\Bool();
         $query_part->addShould(
@@ -33,7 +33,7 @@ class ProfilController extends Controller
 
         $query = new \Elastica\Query\Filtered($query_part, $filters);
 
-        $type->search($query);
+        $type->search($query);*/
 
         //print_r($type);
 
