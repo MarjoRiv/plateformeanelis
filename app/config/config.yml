@@ -84,12 +84,12 @@ fos_user:
         confirmation:
             enabled:    false
             from_email:
-                address:        noreply@anelis.org
+                address:        mailing@anelis.org
                 sender_name:    ANELIS
     resetting:
         email:
             from_email:
-                address:        noreply@anelis.org
+                address:        mailing@anelis.org
                 sender_name:    ANELIS 
 
 fos_elastica:
