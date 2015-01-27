@@ -15,21 +15,28 @@ class CareerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('typeCareer', 'entity', array(
+                        'class' => 'ApplicationCareerBundle:TypeCareer',
+                        'property' => 'name',
+                        'required' => true
+            ))
+            ->add('institution', 'text', array(
+                'required' => true
+            ))
+            ->add('position', 'text', array(
+                'required' => true,
+            ))
             ->add('date', 'datetime', array(
                 'required' => true,
                 'widget' => 'single_text',
                 'format' => 'yyyy',
                 'data' => new \DateTime("now")
             ))
-            ->add('title', 'text', array(
-                'required' => false,
-            ))
             ->add('description', 'text', array(
-                'required' => false))
-            ->add('typeCareer', 'entity', array(
-                    'class' => 'ApplicationCareerBundle:TypeCareer',
-                    'property' => 'name',
-                    'required' => true
+                'required' => false
+            ))
+            ->add('localisation', 'text', array(
+                'required' => true,
             ))
         ;
     }

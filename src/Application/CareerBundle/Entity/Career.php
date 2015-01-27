@@ -24,9 +24,23 @@ class Career
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="localisation", type="string", length=255)
      */
-    private $title;
+    private $localisation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="institution", type="string", length=255)
+     */
+    private $institution;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="position", type="string", length=255)
+     */
+    private $position;
 
     /**
      * @var string
@@ -62,29 +76,6 @@ class Career
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Career
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**
@@ -178,5 +169,74 @@ class Career
     public function getTypeCareer()
     {
         return $this->typeCareer;
+    }
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     * @return Career
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set localisation
+     *
+     * @param string $localisation
+     * @return Career
+     */
+    public function setLocalisation($localisation)
+    {
+        $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    /**
+     * Get localisation
+     *
+     * @return string 
+     */
+    public function getLocalisation()
+    {
+        return $this->localisation;
+    }
+
+    /**
+     * Set institution
+     *
+     * @param string $institution
+     * @return Career
+     */
+    public function setInstitution($institution)
+    {
+        $this->institution = $institution;
+
+        return $this;
+    }
+
+    /**
+     * Get institution
+     *
+     * @return string 
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
     }
 }

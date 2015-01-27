@@ -30,9 +30,12 @@
                       <thead>
                         <tr>
                           <th>#</th>
+                          <th>Type</th>
                           <th>Année</th>
+                          <th>Etablissement</th>
                           <th>Titre</th>
-                          <th>Description</th>
+                          <th>Localisation</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -41,9 +44,14 @@
                             
                             <tr>
                               <td>{{ careerNumbers }}</td>
+                              <td>{{ career.typeCareer.name }}</td>
                               <td>{{ career.date|date("Y") }}</td>
-                              <td>{{ career.title }}</td>
-                              <td>{{ career.description }} €</td>
+                              <td>{{ career.institution }}</td>
+                              <td>{{ career.position }}</td>
+                              <td>{{ career.localisation }}</td>
+                              <td>
+                        <a href="{{ path('application_career_edit', { 'id' : career.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a> <a data-confirm href="{{ path('application_career_delete', { 'id' : career.id }) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                              </td>
                             </tr>
                             {% set careerNumbers = careerNumbers + 1 %}
                             {% endfor %}

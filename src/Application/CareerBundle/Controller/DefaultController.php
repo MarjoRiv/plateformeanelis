@@ -20,16 +20,39 @@ class DefaultController extends Controller
         $manager = new CareerManager($this);
         $career = new Career();
         $career->setUser($this->get('security.context')->getToken()->getUser());
-    
+        
         $form = $this->createForm(new CareerType(), $career);
         $formHandler = new CareerHandler($form, $this->get('request'), $manager);
-            
+        
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));
         }
 
-        return $this->render('ApplicationCareerBundle:Default:add.html.twig', array(
+        return $this->render('ApplicationCareerBundle:Career:add.html.twig', array(
             "form" => $form->createView(),
-        ));
+            ));
+    }
+
+    public function editAction(Career $career) {
+        $manager = new CareerManager($this);
+        
+        $form = $this->createForm(new CareerType(), $career);
+        $formHandler = new CareerHandler($form, $this->get('request'), $manager);
+        
+        if ($formHandler->process()) {
+            return $this->redirect($this->generateUrl('application_career_homepage'));
+        }
+
+        return $this->render('ApplicationCareerBundle:Career:edit.html.twig', array(
+            "form" => $form->createView(),
+            ));
+    }
+
+    public function deleteAction(Career $career) {
+        $manager = new CareerManager($this);
+        $manager->remove($career);
+        $manager->flush();
+        
+        return $this->redirect($this->generateUrl('application_career_homepage'));
     }
 }
