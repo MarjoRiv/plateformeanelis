@@ -11,3 +11,9 @@ services:
         arguments: ["%fos_user.model.user.class%"]
         tags:
             - { name: form.type, alias: admin_user_registration }
+
+    anelis_user.change_password.form.type:
+        class: Admin\UserBundle\Form\ChangePasswordFormType
+        arguments: ["%fos_user.model.user.class%"]
+        tags:
+            - { name: form.type, alias: anelis_user_change_password }

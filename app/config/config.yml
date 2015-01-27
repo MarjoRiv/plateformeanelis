@@ -91,6 +91,10 @@ fos_user:
             from_email:
                 address:        mailing@anelis.org
                 sender_name:    ANELIS 
+    change_password:
+        form:
+            type: anelis_user_change_password
+            name: anelis_user_change_password
 
 fos_elastica:
     clients:
