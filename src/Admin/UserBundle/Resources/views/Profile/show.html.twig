@@ -96,144 +96,71 @@
                                 <div class="col-md-6">
                                     <h3>À propos</h3>
                                     <p>
-
                                         {{ user.biography }}
-                                        
                                     </p>
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+                            {% if careers is not empty %}
+                                <div class="row">
                                 <div class="col-md-12">
                                     <div class="tab-container tab-success">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#home1" data-toggle="tab">Parcours Professionnel</a></li>
-                                            <li class=""><a href="#profile2" data-toggle="tab">Parcours Scolaire</a></li>
-                                            <li class=""><a href="#profile1" data-toggle="tab">Parcours Associatif</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active clearfix" id="home1">
-                                                <div class="col-md-12">
-                                                    <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
-                                                    <ul class="timeline">
-                                                        <li class="timeline-orange">
-                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                            <div class="timeline-body">
-                                                                <div class="timeline-header">
-                                                                    <span class="date">Lundi 21 Novembre 2013</span>
-                                                                </div>
-                                                                <div class="timeline-content">
-                                                                    <h3>Entreprise</h3>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
-                                                    <ul class="timeline">
-                                                        <li class="timeline-success">
-                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                            <div class="timeline-body">
-                                                                <div class="timeline-header">
-                                                                    <span class="date">Lundi 21 Decembre 2013</span>
-                                                                </div>
-                                                                <div class="timeline-content">
-                                                                    <h3>Entreprise</h3>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                {% set lastCareerType = '' %}
+                                {% set topbar = '' %}
+                                {% set nbIteration = 0 %}
+                                {% for career in careers %}
+                                    {% if lastCareerType != career.typeCareer.id %}
+                                        {% set lastCareerType = career.typeCareer.id %}
+                                            {% if nbIteration == 0 %}
+                                                {% set topbar = topbar ~ '<li class="active"><a href="#' ~ career.typeCareer.id ~ '" data-toggle="tab">Parcours ' ~ career.typeCareer.name ~ '</a></li>' %}
+                                                {% set nbIteration = nbIteration + 1 %}
+                                            {% else %}
+                                                {% set topbar = topbar ~ '<li><a href="#' ~ career.typeCareer.id ~ '" data-toggle="tab">Parcours ' ~ career.typeCareer.name ~ '</a></li>' %}
+                                            {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ topbar|raw }}
+                                </ul>
+                                <div class="tab-content">
+                                {% set lastCareerType = '' %}
+                                {% set content = '' %}
+                                {% set nbIteration = 0 %}
+                                {% set nbColor = 0 %}
+                                {% for career in careers %}
+                                    {% set nbColor = nbColor + 1 %}
+                                    {% if lastCareerType != career.typeCareer.id %}
+                                        {% if nbIteration == 0 %}
+                                            <div class="tab-pane active clearfix" id="{{career.typeCareer.id}}">
+                                        {% else %}
                                             </div>
-
-                                            <div class="tab-pane active clearfix" id="profile2">
-                                                <div class="col-md-12">
-                                                    <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
+                                            <div class="tab-pane clearfix" id="{{career.typeCareer.id}}">
+                                        {% endif %}
+                                        {% set nbIteration = nbIteration + 1 %}
+                                        {% set lastCareerType = career.typeCareer.id %}
+                                    {% endif %}
+                                    <div class="col-md-12">
+                                                    <h4 class="timeline-month"><span>{{ career.date|date('m') }}</span> <span>{{ career.date|date('Y') }}</span></h4>
                                                     <ul class="timeline">
-                                                        <li class="timeline-orange">
+                                                        <li class="timeline-{% if nbColor is divisible by(2) %}orange{% else %}success{% endif %}">
                                                             <div class="timeline-icon"><i class="fa fa-group"></i></div>
                                                             <div class="timeline-body">
                                                                 <div class="timeline-header">
-                                                                    <span class="date">Lundi 21 Novembre 2013</span>
+                                                                    <span class="date">{{ career.date|date('d-m-Y') }}</span>
                                                                 </div>
+                                                                <div class="pull-right">{{ career.localisation }}</div>
                                                                 <div class="timeline-content">
-                                                                    <h3>Ecole</h3>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
+                                                                    <h3>{{ career.position }}</h3>
+                                                                    <p>{{ career.description }}</p>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
-
-                                                <div class="col-md-12">
-                                                    <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
-                                                    <ul class="timeline">
-                                                        <li class="timeline-success">
-                                                            <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                            <div class="timeline-body">
-                                                                <div class="timeline-header">
-                                                                    <span class="date">Lundi 21 Decembre 2013</span>
-                                                                </div>
-                                                                <div class="timeline-content">
-                                                                    <h3>Ecole</h3>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="tab-pane" id="profile1">
-                                                <div class="tab-pane active clearfix" id="home1">
-                                                    <div class="col-md-12">
-                                                        <h4 class="timeline-month"><span>Novembre</span> <span>2013</span></h4>
-                                                        <ul class="timeline">
-                                                            <li class="timeline-orange">
-                                                                <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                                <div class="timeline-body">
-                                                                    <div class="timeline-header">
-                                                                        <span class="date">Lundi 21 Novembre 2013</span>
-                                                                    </div>
-                                                                    <div class="timeline-content">
-                                                                        <h3>Association</h3>
-                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <h4 class="timeline-month"><span>Decembre</span> <span>2013</span></h4>
-                                                        <ul class="timeline">
-                                                            <li class="timeline-success">
-                                                                <div class="timeline-icon"><i class="fa fa-group"></i></div>
-                                                                <div class="timeline-body">
-                                                                    <div class="timeline-header">
-                                                                        <span class="date">Lundi 21 Decembre 2013</span>
-                                                                    </div>
-                                                                    <div class="timeline-content">
-                                                                        <h3>Club</h3>
-                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-
-
+                            {% endif %}
                         </div>
                     </div>
                 </div>

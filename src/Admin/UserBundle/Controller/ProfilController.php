@@ -11,6 +11,7 @@ use Application\MainBundle\Manager\LogManager;
 
 class ProfilController extends Controller
 {
+
     public function indexAction()
     {
         return $this->render('AdminUserBundle:Default:index.html.twig');
@@ -18,28 +19,27 @@ class ProfilController extends Controller
 
     public function showAction(User $user)
     {
+        $careers = $user->getCareers()->toArray();
 
+        usort($careers, function ($a, $b) {
+            return strcmp($a->getTypeCareer()->getId(), $b->getTypeCareer()->getId());
+        });
 
-       /* $type = $this->get('fos_elastica.index.afsy.user');
-
-        $query_part = new \Elastica\Query\Bool();
-        $query_part->addShould(
-            new \Elastica\Query\Term(array('name' => array('value' => 'Santiago', 'boost' => 3)))
-        );
-        $filters = new \Elastica\Filter\Bool();
-        $filters->addMust(
-            new \Elastica\Filter\Term(array('id' => '1'))
-        );
-
-        $query = new \Elastica\Query\Filtered($query_part, $filters);
-
-        $type->search($query);*/
-
-        //print_r($type);
-
-
+        // C'est trier sur les id des typeCareers
+        // Du coup, dans la vue
+        //
+        // set lastCareerType = '';
+        // for career in careers
+        //      if career.getTypeCareer.name != lastCareerType
+        //          On fait un nouvel "onglet"
+        //      endif
+        //      On affiche la career normal au KLM
+        //      set lastCareerType = career.getTypeCareer.name
+        // endfor
+        //echo $careers[0]->getPosition();
         return $this->render('AdminUserBundle:Profile:show.html.twig', array(
-            'user' => $user));
+            'user' => $user,
+            'careers' => $careers));
     }
 
     public function editAction(User $user) {
