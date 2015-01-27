@@ -1,3 +1,7 @@
+application_career:
+    resource: "@ApplicationCareerBundle/Resources/config/routing.yml"
+    prefix:   /
+
 application_chat:
     resource: "@ApplicationChatBundle/Resources/config/routing.yml"
     prefix:   /

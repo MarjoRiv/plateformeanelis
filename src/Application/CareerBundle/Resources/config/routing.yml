@@ -1,0 +1,7 @@
+application_career_homepage:
+    path:     /career
+    defaults: { _controller: ApplicationCareerBundle:Default:index }
+
+application_career_new:
+    path:     /career/new
+    defaults: { _controller: ApplicationCareerBundle:Default:add }

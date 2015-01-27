@@ -1,0 +1,71 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Mes parcours{% endblock %}
+
+  {% block body %}
+    <div id="page-content">
+      <div id='wrap'>
+        <div id="page-heading">
+          <ol class="breadcrumb">
+            <li><a href="index.php">Plateforme</a></li>
+            <li class="active">Parcours</li>
+          </ol>
+
+          <h1>Mes Parcours</h1>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h4>Historique des parcours</h4>
+                  <div class="options">
+
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <p class="text-right"><a href="{{ path('application_career_new') }}" title="Nouveau Parcour"><button class="btn-primary btn">Nouveau Parcours</button></a></p>
+                  {% if app.user.careers|length > 0 %}
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Année</th>
+                          <th>Titre</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set careerNumbers = 1 %}
+                          {% for career in app.user.careers|reverse %}
+                            
+                            <tr>
+                              <td>{{ careerNumbers }}</td>
+                              <td>{{ career.date|date("Y") }}</td>
+                              <td>{{ career.title }}</td>
+                              <td>{{ career.description }} €</td>
+                            </tr>
+                            {% set careerNumbers = careerNumbers + 1 %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        {% else %}
+                        <p class="text-danger"><strong>Aucun parcours n'a été trouvé pour votre profil.</strong></p>
+                      {% endif %}
+                      
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div> <!--wrap -->
+      </div> <!-- page-content -->
+
+    {% endblock %}

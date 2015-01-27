@@ -183,6 +183,13 @@ class User extends BaseUser
      */
     private $genre;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Application\CareerBundle\Entity\Career", mappedBy="user")
+     */
+    private $careers;
+
+    
+
 
     public function __construct()
     {
@@ -830,4 +837,36 @@ class User extends BaseUser
         return $this->genre;
     }
 
+    /**
+     * Add careers
+     *
+     * @param \Application\CareerBundle\Entity\Career $careers
+     * @return User
+     */
+    public function addCareer(\Application\CareerBundle\Entity\Career $careers)
+    {
+        $this->careers[] = $careers;
+
+        return $this;
+    }
+
+    /**
+     * Remove careers
+     *
+     * @param \Application\CareerBundle\Entity\Career $careers
+     */
+    public function removeCareer(\Application\CareerBundle\Entity\Career $careers)
+    {
+        $this->careers->removeElement($careers);
+    }
+
+    /**
+     * Get careers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCareers()
+    {
+        return $this->careers;
+    }
 }

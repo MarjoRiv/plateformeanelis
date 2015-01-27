@@ -35,6 +35,7 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Application\CotisationBundle\ApplicationCotisationBundle(),
             new Application\ChatBundle\ApplicationChatBundle(),
+            new Application\CareerBundle\ApplicationCareerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
