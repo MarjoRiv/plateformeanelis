@@ -869,4 +869,32 @@ class User extends BaseUser
     {
         return $this->careers;
     }
+
+
+    public function getLastCareer()
+    {
+        $careers = $this->getCareers()->toArray();
+
+        usort($careers, function ($a, $b) {
+            return strcmp($a->getTypeCareer()->getId(), $b->getTypeCareer()->getId());
+        });
+
+        if (count($careers) > 0) {
+            $lastCareer = $careers[0];
+            $lastCareerTypeId = $careers[0]->getTypeCareer()->getId();
+            foreach($careers as $career) {
+                if ($career->getTypeCareer()->getId() != $lastCareerTypeId) {
+                    break;
+                }
+                if ($career->getDate() > $lastCareer->getDate()) {
+                    $lastCareer = $career;
+                }
+            }
+            return "". $lastCareer->getPosition() . " chez <strong>" . $lastCareer->getInstitution() . "</strong>";
+
+        }
+        
+
+        return "";
+    }
 }
