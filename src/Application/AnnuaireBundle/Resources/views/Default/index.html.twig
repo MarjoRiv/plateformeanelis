@@ -125,6 +125,10 @@
                 </div>
             </div>
                     {%  endfor %}
+                {% else %}
+                {% if formSubmited == true %}
+                <p class="alert-danger text-center">Aucun résultat suivant vos critères n'a été trouvé. Désolé :(</p>
+                {% endif %}
                 {% endif %}
                     
                 

@@ -25,14 +25,17 @@ class UserController extends Controller
             );
         $userSearchForm->handleRequest($request);
         $results = null;
-        if ($userSearchForm->isValid()) {   
+        $formSubmited = false;
+        if ($userSearchForm->isValid()) {
             $userSearch = $userSearchForm->getData();
-            $results = $this->getSearchRepository()->searchUsers($userSearch);
+            $results = $this->getSearchRepository()->searchUsers($userSearch); 
+            $formSubmited = true;
         }
 
         return $this->render('ApplicationAnnuaireBundle:Default:index.html.twig', array(
             'results' => $results,
-            'form' => $userSearchForm->createView()
+            'form' => $userSearchForm->createView(),
+            'formSubmited' => $formSubmited,
         ));
     }
 

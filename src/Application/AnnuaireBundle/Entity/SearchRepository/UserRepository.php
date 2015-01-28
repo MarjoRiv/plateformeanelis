@@ -11,7 +11,7 @@ class UserRepository extends Repository
     public function getQueryForSearch(UserSearch $userSearch)
     {
         $boolQuery = new \Elastica\Query\Bool();
-        if ($userSearch != '') {
+        if ($userSearch != '' && ($userSearch->getName() != '' || $userSearch->getSurname() != null || $userSearch->getPromotion() != null || $userSearch->getFiliere() != null)) {
             $queryName = new \Elastica\Query\Match();
             if ($userSearch->getName() != null) {
                 $queryName->setFieldQuery('name', $userSearch->getName());
@@ -35,7 +35,10 @@ class UserRepository extends Repository
                 $boolQuery->addMust($querySurname);
             }
         } else {
-            $query = new \Elastica\Query\MatchAll();
+            //$query = new \Elastica\Query\MatchAll();
+            $queryVide = new \Elastica\Query\Match();
+            $queryVide->setFieldQuery('name', 'Vide');
+            $boolQuery->addMust($queryVide);
         }
           
             
