@@ -26,7 +26,7 @@ class GeoSearchType extends AbstractType
             ->add('city', 'text', array(
                 'required' => false,
             ))
-            ->add('country', 'text', array(
+            ->add('country', 'country', array(
                 'required' => false,
             ))
         ;
