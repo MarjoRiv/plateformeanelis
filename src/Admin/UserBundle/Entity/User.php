@@ -890,7 +890,7 @@ class User extends BaseUser
                     $lastCareer = $career;
                 }
             }
-            return "". $lastCareer->getPosition() . " chez <strong>" . $lastCareer->getInstitution() . "</strong>";
+            return "". $lastCareer->getPosition() . ", <strong>" . $lastCareer->getInstitution() . "</strong>";
 
         }
         
