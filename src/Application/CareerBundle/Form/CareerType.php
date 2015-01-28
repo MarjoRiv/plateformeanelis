@@ -26,12 +26,18 @@ class CareerType extends AbstractType
             ->add('position', 'text', array(
                 'required' => true,
             ))
-            ->add('date', 'datetime', array(
+            ->add('date', 'date', array(
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
+                'required' => 'false',
+            ))
+            /*->add('date', 'datetime', array(
                 'required' => true,
                 'widget' => 'single_text',
                 'format' => 'yyyy',
                 'data' => new \DateTime("now")
-            ))
+            ))*/
             ->add('description', 'text', array(
                 'required' => false
             ))
