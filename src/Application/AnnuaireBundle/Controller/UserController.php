@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Application\AnnuaireBundle\Model\UserSearch;
 use Application\AnnuaireBundle\Form\Type\UserSearchType;
+use Application\AnnuaireBundle\Model\GeoSearch;
+use Application\AnnuaireBundle\Form\Type\GeoSearchType;
 
 class UserController extends Controller
 {
@@ -24,6 +26,20 @@ class UserController extends Controller
                 )
             );
         $userSearchForm->handleRequest($request);
+
+        $geoSearch = new GeoSearch();
+        $geoSearchForm = $this->get('form.factory')
+            ->createNamed(
+                '',
+                new GeoSearchType(),
+                $geoSearch,
+                array(
+                    'action' => $this->generateUrl('application_annuaire_homepage'),
+                    'method' => 'GET'
+                    )
+            );
+        $geoSearchForm->handleRequest($request);
+
         $results = null;
         $formSubmited = false;
         if ($userSearchForm->isValid()) {
@@ -32,9 +48,16 @@ class UserController extends Controller
             $formSubmited = true;
         }
 
+        if ($geoSearchForm->isValid()) {
+            $geoSearch = $geoSearchForm->getData();
+            $results = $this->getSearchRepository()->searchGeoUsers($geoSearch);
+            $formSubmited = true;
+        }
+
         return $this->render('ApplicationAnnuaireBundle:Default:index.html.twig', array(
             'results' => $results,
             'form' => $userSearchForm->createView(),
+            'formm' => $geoSearchForm->createView(),
             'formSubmited' => $formSubmited,
         ));
     }

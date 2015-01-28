@@ -1,16 +1,17 @@
 <?php
 namespace Application\AnnuaireBundle\Form\Type;
-use Application\AnnuaireBundle\Model\UserSearch;
+use Application\AnnuaireBundle\Model\GeoSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserSearchType extends AbstractType
+class GeoSearchType extends AbstractType
 {
     protected $perPage = 5;
     protected $perPageChoices = array(2,5,10);
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // the perPage choices list is hard coded. In a real project, you won't do like that
@@ -19,26 +20,14 @@ class UserSearchType extends AbstractType
             $perPageChoices[$choice] = 'Display '.$choice.' items';
         }
         $builder
-            ->add('name', 'text', array(
+            ->add('postalcode', 'text', array(
                 'required' => false,
             ))
-            ->add('surname', 'text', array(
+            ->add('city', 'text', array(
                 'required' => false,
             ))
-            ->add('filiere', 'choice', array(
-                'choices'   => array(
-                    '' => '',
-                    'F1' => 'F1',
-                    'F2' => 'F2',
-                    'F3' => 'F3',
-                    'F4' => 'F4',
-                    'F5' => 'F5',
-                    'FI' => 'FI',
-                    ),
-            ))
-            ->add('promotion', 'choice', array(
-                'choices' => $this->lstPromotions(),
-                'required'  => false,
+            ->add('country', 'text', array(
+                'required' => false,
             ))
         ;
     }
@@ -47,20 +36,12 @@ class UserSearchType extends AbstractType
         $resolver->setDefaults(array(
             // avoid to pass the csrf token in the url (but it's not protected anymore)
             'csrf_protection' => false,
-            'data_class' => 'Application\AnnuaireBundle\Model\UserSearch'
+            'data_class' => 'Application\AnnuaireBundle\Model\GeoSearch'
         ));
     }
     public function getName()
     {
-        return 'user_search_type';
+        return 'geo_search_type';
     }
 
-    public function lstPromotions() {
-        $result;
-
-        for ($i = 1995 ; $i <= date('Y') ; $i++) {
-            $result["".$i] = $i;
-        }
-        return $result;
-    }
 }

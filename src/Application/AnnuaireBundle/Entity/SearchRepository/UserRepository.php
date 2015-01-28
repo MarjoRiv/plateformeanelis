@@ -3,6 +3,7 @@ namespace Application\AnnuaireBundle\Entity\SearchRepository;
 
 use FOS\ElasticaBundle\Repository;
 use Application\AnnuaireBundle\Model\UserSearch;
+use Application\AnnuaireBundle\Model\GeoSearch;
 /**
  * This class contains all the elastica queries
  */
@@ -12,8 +13,8 @@ class UserRepository extends Repository
     {
         $boolQuery = new \Elastica\Query\Bool();
         if ($userSearch != '' && ($userSearch->getName() != '' || $userSearch->getSurname() != null || $userSearch->getPromotion() != null || $userSearch->getFiliere() != null)) {
-            $queryName = new \Elastica\Query\Match();
             if ($userSearch->getName() != null) {
+                $queryName = new \Elastica\Query\Match();
                 $queryName->setFieldQuery('name', $userSearch->getName());
                 $queryName->setFieldFuzziness('name', 0.7);
                 $queryName->setFieldMinimumShouldMatch('name', '80%');
@@ -45,19 +46,44 @@ class UserRepository extends Repository
         return $boolQuery;
     }
 
+    public function getQueryForGeoSearch(GeoSearch $geoSearch)
+    {
+        $boolQuery = new \Elastica\Query\Bool();
+        if ($geoSearch != '' && ($geoSearch->getPostalcode() != '' || $geoSearch->getCity() != null || $geoSearch->getCountry() != null)) {
+            if ($geoSearch->getPostalcode() != null) {
+                $queryPostalCode = new \Elastica\Query\Match();
+                $queryPostalCode->setFieldQuery('postalcode', $geoSearch->getPostalcode());
+                $boolQuery->addShould($queryPostalCode);
+            }
+            if ($geoSearch->getCity() != null) {
+                $queryCity = new \Elastica\Query\Match();
+                $queryCity->setFieldQuery('city', $geoSearch->getCity());
+                $boolQuery->addShould($queryCity);
+            }
+            if ($geoSearch->getCountry() != null) {
+                $queryCountry = new \Elastica\Query\Match();
+                $queryCountry->setFieldQuery('country', $geoSearch->getCountry());
+                $boolQuery->addMust($queryCountry);
+            }
+        } else {
+            $queryVide = new \Elastica\Query\Match();
+            $queryVide->setFieldQuery('name', 'Vide');
+            $boolQuery->addMust($queryVide);
+        }
+            
+        return $boolQuery;
+    }
+
     public function searchUsers(UserSearch $articleSearch)
     {
         $query = $this->getQueryForSearch($articleSearch);
         return $this->find($query);
     }
 
-    public function searchActiveCategories()
+    public function searchGeoUsers(GeoSearch $geoSearch)
     {
-        $query = new \Elastica\Query(new \Elastica\Query\MatchAll());
-        $publishedQuery = new \Elastica\Query(new \Elastica\Query\Term(array('published'=>true)));
-        $hasChildQuery = new \Elastica\Query\HasChild($publishedQuery);
-        $hasChildQuery->setType('article');
-        $query->setQuery($hasChildQuery);
+        $query = $this->getQueryForGeoSearch($geoSearch);
         return $this->find($query);
     }
+
 }

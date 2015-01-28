@@ -1,141 +1,160 @@
 {% extends "::application.html.twig" %} 
 
 {% block title %}Annuaire{% endblock %}
-{% block body %}
-    <div id="page-content">
-        <div id='wrap'>
-            <div id="page-heading">
-                <ol class="breadcrumb">
-                    <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-                    <li class="active">Annuaire</li>
-                </ol>
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                        <li class="active">Annuaire</li>
+                    </ol>
 
-                <h1>Annuaire</h1>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h4>
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#rechercheZZ" data-toggle="tab">Rechercher un ZZ</a></li>
-                                    <li><a href="#rechercheEntreprise" data-toggle="tab">Rechercher une entreprise</a></li>
-
-                                </ul>
-                            </h4>
-                            <div class="options">
-                                <a href="#"><i class="fa fa-cogs"></i></a>
+                    <h1>Annuaire</h1>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#rechercheZZ" data-toggle="tab">Rechercher un ZZ</a></li>
+                                        <li><a href="#rechercheGeoloc" data-toggle="tab">Recherche Géolocalisé</a></li>
+                                    </ul>
+                                </h4>
+                                <div class="options">
+                                    <a href="#"><i class="fa fa-cogs"></i></a>
+                                </div>
                             </div>
-                        </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="rechercheZZ">
+                                        <form class="form-horizontal" method="get" {{ form_enctype(form) }}>
+                                            <div class="col-xs-6">
+                                                {{ form_errors(form) }}
+                                                <div class="form-group">
+                                                    {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
 
-                        <div class="panel-body">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="rechercheZZ">
-                                    <form class="form-horizontal" method="get" {{ form_enctype(form) }}>
-                                    <div class="col-xs-6">
-                                        
-                                            {{ form_errors(form) }}
-                                            <div class="form-group">
-                                            {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                <div class="col-sm-6">
-                                                {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
-
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                            {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                <div class="col-sm-6">
-                                                {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
-
+                                            <div class="col-xs-6"><form class="form-horizontal">
+                                                <div class="form-group">
+                                                    {{ form_label(form.name, "Nom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ form_label(form.surname, "Prénom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                    </div>
-                                    <div class="col-xs-6"><form class="form-horizontal">
-                                        <div class="form-group">
-                                            {{ form_label(form.name, "Nom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                            <div class="col-sm-6">
-                                                {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
+
+
+                                            <div style="text-align: center;">
+                                                <div class="btn-toolbar">
+                                                    <button class="btn-primary btn">Rechercher</button>
+                                                </div>
+                                            </div>
+
+                                            {{ form_rest(form) }} 
+                                        </div>
+                                    </form>
+
+                                        <div class="tab-pane" id="rechercheGeoloc">
+
+                                            <form class="form-horizontal" method="get" {{ form_enctype(formm) }}>
+                                                <div class="col-xs-6">
+                                                    {{ form_errors(formm) }}
+                                                    <div class="form-group">
+                                                        {{ form_label(formm.country, "Pays", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                        <div class="col-sm-6">
+                                                            {{ form_widget(formm.country, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6"><form class="form-horizontal">
+                                                    {{ form_errors(formm) }}
+                                                    <div class="form-group">
+                                                        {{ form_label(formm.city, "Ville", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                        <div class="col-sm-6">
+                                                            {{ form_widget(formm.city, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{ form_label(formm.postalcode, "Code Postal", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                        <div class="col-sm-6">
+                                                            {{ form_widget(formm.postalcode, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="text-align: center;">
+                                                <div class="btn-toolbar">
+                                                    <button class="btn-primary btn">Rechercher</button>
+                                                </div>
+                                            </div>
+
+                                            {{ form_rest(formm) }} 
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            {{ form_label(form.surname, "Prénom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                            <div class="col-sm-6">
-                                                {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
+                                    </div>
+                                </div>
+                                {% if results is not empty %}
+                                    {% for result in results %}
+                                        <div class="col-sm-4">
+                                            <div class="panel panel-sky">
+                                                <div class="panel-heading" style="text-align: center;">
+                                                    <h4>{{ result.name }} {{ result.surname }}</h4>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="media">
+
+                                                        <a class="pull-left" href="{{ path("user_show_profile", { "id" : result.id }) }}">
+                                                            {% if result.avatar is not empty %}
+                                                                <img class="media-object dp img-circle" src="{{ asset(result.avatar.webPath) }}" alt="{{ result.username }}" style="width: 100px;height:100px;" />
+                                                                {% else %}
+                                                                <img class="media-object dp img-circle" src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ result.username }}" style="width: 100px;height:100px;" />
+                                                            {% endif %}
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <h5>Travaille chez <a href="#">Michelin</a></h5>
+                                                            <hr style="margin:8px auto">
+                                                            <span class="label label-default">{{ result.filiere }}</span>
+                                                            <span class="label label-default">{{ result.promotion }}</span>
+                                                            <hr style="margin:8px auto">
+                                                            {% if result.isCotisant %}
+                                                                <span class="badge badge-primary">Cotisant</span>
+                                                                {% else %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
-                                    </div>
+                                        {%  endfor %}
+                                        {% else %}
+                                        {% if formSubmited == true %}
+                                            <p class="alert-danger text-center">Aucun résultat suivant vos critères n'a été trouvé. Désolé :(</p>
+                                        {% endif %}
+                                    {% endif %}
 
 
-                                    <div style="text-align: center;">
-                                        <div class="btn-toolbar">
-                                            <button class="btn-primary btn">Rechercher</button>
-                                        </div>
-                                    </div>
-                                    
-                                    {{ form_rest(form) }} 
+                                </div>
                             </div>
 
+                        </div> <!--wrap -->
+                    </div> <!-- page-content -->
 
-
-
-
-                            
-                            <div class="tab-pane" id="rechercheEntreprise">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, porro eveniet debitis quas sed harum nobis libero voluptatibus dolorum odio at veniam aut id corrupti hic esse quisquam fugiat.
-
-                            </div>
-                            
-                        </div>
-
-
-
-                    </div>
-                </div>
-                {% if results is not empty %}
-                    {% for result in results %}
-                <div class="col-sm-4">
-                <div class="panel panel-sky">
-                    <div class="panel-heading" style="text-align: center;">
-                        <h4>{{ result.name }} {{ result.surname }}</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="media">
-                            
-                            <a class="pull-left" href="{{ path("user_show_profile", { "id" : result.id }) }}">
-                                {% if result.avatar is not empty %}
-                                <img class="media-object dp img-circle" src="{{ asset(result.avatar.webPath) }}" alt="{{ result.username }}" style="width: 100px;height:100px;" />
-                                {% else %}
-                                <img class="media-object dp img-circle" src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ result.username }}" style="width: 100px;height:100px;" />
-                                {% endif %}
-                            </a>
-                            <div class="media-body">
-                                <h5>Travaille chez <a href="#">Michelin</a></h5>
-                                <hr style="margin:8px auto">
-                                <span class="label label-default">{{ result.filiere }}</span>
-                                <span class="label label-default">{{ result.promotion }}</span>
-                                <hr style="margin:8px auto">
-                                {% if result.isCotisant %}
-                                    <span class="badge badge-primary">Cotisant</span>
-                                {% else %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-                    {%  endfor %}
-                {% else %}
-                {% if formSubmited == true %}
-                <p class="alert-danger text-center">Aucun résultat suivant vos critères n'a été trouvé. Désolé :(</p>
-                {% endif %}
-                {% endif %}
-                    
-                
-            </div>
-        </div>
-
-    </div> <!--wrap -->
-</div> <!-- page-content -->
-
-{% endblock %}
+                {% endblock %}
