@@ -25,7 +25,8 @@ class UserType extends AbstractType
             ->add('name', 'text', array(
                 'required' => true
                 ))
-            ->add('maritalName', 'text')
+            ->add('maritalName', 'text', array(
+                'required' => false))
             ->add('surname', 'text', array(
                 'required' => true
                 ))

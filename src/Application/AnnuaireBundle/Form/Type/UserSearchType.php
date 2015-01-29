@@ -26,6 +26,7 @@ class UserSearchType extends AbstractType
                 'required' => false,
             ))
             ->add('filiere', 'choice', array(
+                'required' => false,
                 'choices'   => array(
                     '' => '',
                     'F1' => 'F1',
