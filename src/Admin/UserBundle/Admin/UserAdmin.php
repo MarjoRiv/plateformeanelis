@@ -16,6 +16,7 @@ class UserAdmin extends Admin
             ->add('username', 'text', array('label' => 'Username*'))
             ->add('email', 'text', array('label' => 'Email*'))
             ->add('name', 'text', array('label' => 'Nom'))
+            ->add('surname', 'text', array('label' => 'Prénom'))
             ->add('maritalName', 'text', array('label' => 'Nom Marital'))
             ->add('promotion', 'choice', array(
                 'choices' => $this->lstPromotions()
@@ -36,7 +37,7 @@ class UserAdmin extends Admin
             ->add('biography', 'text', array('label' => 'Biographie'))
             ->add('maritalStatus', 'text', array('label' => 'Statut marial'))
             ->add('childrenNumber', 'text', array('label' => 'Nombre d\'enfants'))
-            ->add('birthday', 'text', array('label' => 'Date de naissance'))
+            ->add('birthday', 'birthday', array('label' => 'Date de naissance'))
             ->add('biography', 'text', array('label' => 'Biographie'))
             ->add('socialFacebook', 'text', array('label' => 'Facebook'))
             ->add('socialTwitter', 'text', array('label' => 'Twitter'))
@@ -57,6 +58,7 @@ class UserAdmin extends Admin
         $datagridMapper
             ->add('promotion')
             ->add('filiere')
+            ->add('name')
         ;
     }
 
