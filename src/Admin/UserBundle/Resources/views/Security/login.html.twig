@@ -18,7 +18,7 @@ Identification
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
         <div class="panel-body">
-            <h4 class="text-center" style="margin-bottom: 25px;">S'identifier ou <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></h4>
+            <h4 class="text-center" style="margin-bottom: 25px;">S'identifier</h4>
             {% if error %}
                 <div class="alert alert-danger">Erreur login et/ou password</div>
             {% endif %}
