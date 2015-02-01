@@ -77,7 +77,7 @@ class UserRepository extends Repository
     public function searchUsers(UserSearch $articleSearch)
     {
         $query = $this->getQueryForSearch($articleSearch);
-        return $this->find($query);
+        return $this->find($query, 200);
     }
 
     public function searchGeoUsers(GeoSearch $geoSearch)
