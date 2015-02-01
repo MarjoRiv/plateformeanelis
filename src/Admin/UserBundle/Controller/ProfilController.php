@@ -25,18 +25,6 @@ class ProfilController extends Controller
             return strcmp($a->getTypeCareer()->getId(), $b->getTypeCareer()->getId());
         });
 
-        // C'est trier sur les id des typeCareers
-        // Du coup, dans la vue
-        //
-        // set lastCareerType = '';
-        // for career in careers
-        //      if career.getTypeCareer.name != lastCareerType
-        //          On fait un nouvel "onglet"
-        //      endif
-        //      On affiche la career normal au KLM
-        //      set lastCareerType = career.getTypeCareer.name
-        // endfor
-        //echo $careers[0]->getPosition();
         return $this->render('AdminUserBundle:Profile:show.html.twig', array(
             'user' => $user,
             'careers' => $careers));
