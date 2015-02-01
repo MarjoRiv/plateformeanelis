@@ -8,7 +8,9 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ApplicationMainBundle:Default:index.html.twig');
+        $users = $this->getDoctrine()->getRepository('AdminUserBundle:User')->findAll();
+        return $this->render('ApplicationMainBundle:Default:index.html.twig', array(
+            'users' => count($users)));
     }
 
     public function aideAction()
