@@ -59,7 +59,7 @@ class UserSearchType extends AbstractType
     public function lstPromotions() {
         $result;
 
-        for ($i = 1995 ; $i <= date('Y') ; $i++) {
+        for ($i = 1995 ; $i <= date('Y')+2 ; $i++) {
             $result["".$i] = $i;
         }
         return $result;
