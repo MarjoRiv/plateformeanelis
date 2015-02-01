@@ -9,16 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class GeoSearchType extends AbstractType
 {
-    protected $perPage = 5;
-    protected $perPageChoices = array(2,5,10);
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // the perPage choices list is hard coded. In a real project, you won't do like that
-        $perPageChoices = array();
-        foreach($this->perPageChoices as $choice){
-            $perPageChoices[$choice] = 'Display '.$choice.' items';
-        }
         $builder
             ->add('postalcode', 'text', array(
                 'required' => false,
