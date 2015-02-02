@@ -1,40 +1,42 @@
 {% extends "::application.html.twig" %} 
 
 {% block title %}Accueil{% endblock %}
-{% block body %}
-<div id="page-content">
-    <div id='wrap'>
-        <div id="page-heading" class="hidden-print">
-            <ol class="breadcrumb">
-                <li class="active">Accueil</li>
-            </ol>
-
-            <h1>Bienvenue</h1>
-        </div>
-
-        <div class="container">
-
-        <div class="row">
-                <div class="col-md-7">
-                    <div class="panel panel-primary">
-                      <div class="panel-heading">
-                            <h4>Bienvenue</h4>
-                      </div>
-                      <div class="panel-body">
-                        <p>
-                            Lorem ipsum sin adequat<br><br><br><br><br>
-                        </p>
-                      </div>
-                    </div>
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading" class="hidden-print">
+                    <ol class="breadcrumb">
+                        <li class="active">Accueil</li>
+                    </ol>
+                    <h1>Bienvenue</h1>
                 </div>
-                <div class="col-md-5">
-                    <div class="panel panel-primary">
-                      <div class="panel-heading">
+        {% if "@poste.isima.fr" in app.user.email %}
+                        <div class="alert alert-dismissable alert-danger">
+                            <strong>Attention :</strong> Vous utilisez une adresse @poste.isima.fr, n'hésitez pas à la <a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}" title"Edition du profil">changer</a>.
+                        </div>
+                    {% endif %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="panel panel-primary">
+                              <div class="panel-heading">
+                                <h4>Bienvenue</h4>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Lorem ipsum sin adequat<br><br><br><br><br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="panel panel-primary">
+                          <div class="panel-heading">
                             <h4>Prochains évènements</h4>
-                      </div>
-                      <div class="panel-body">
+                        </div>
+                        <div class="panel-body">
                             <p>07/02/2014 : Gala des 20 ans de l'ISIMA</p>
-                      </div>
+                        </div>
                     </div>
                 </div>
             </div>
