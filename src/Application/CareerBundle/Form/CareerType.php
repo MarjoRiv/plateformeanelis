@@ -30,7 +30,7 @@ class CareerType extends AbstractType
                 'widget' => 'single_text',
                 // this is actually the default format for single_text
                 'format' => 'yyyy-MM-dd',
-                'required' => 'false',
+                'required' => 'true',
             ))
             /*->add('date', 'datetime', array(
                 'required' => true,
@@ -39,7 +39,7 @@ class CareerType extends AbstractType
                 'data' => new \DateTime("now")
             ))*/
             ->add('description', 'text', array(
-                'required' => false
+                'required' => true
             ))
             ->add('localisation', 'text', array(
                 'required' => true,

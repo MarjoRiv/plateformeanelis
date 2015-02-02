@@ -1,7 +1,7 @@
 <?php
 
 namespace Application\CareerBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +25,9 @@ class Career
      * @var string
      *
      * @ORM\Column(name="localisation", type="string", length=255)
+     * @Assert\NotNull(
+     *     message = "Ville obligatoire."
+     * )
      */
     private $localisation;
 
@@ -32,6 +35,9 @@ class Career
      * @var string
      *
      * @ORM\Column(name="institution", type="string", length=255)
+     * @Assert\NotNull(
+     *     message = "Etablissement obligatoire."
+     * )
      */
     private $institution;
 
@@ -39,6 +45,9 @@ class Career
      * @var string
      *
      * @ORM\Column(name="position", type="string", length=255)
+     * @Assert\NotNull(
+     *     message = "Poste obligatoire."
+     * )
      */
     private $position;
 
@@ -46,6 +55,9 @@ class Career
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotNull(
+     *     message = "Description obligatoire."
+     * )
      */
     private $description;
 
@@ -53,6 +65,9 @@ class Career
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\NotNull(
+     *     message = "Date obligatoire."
+     * )
      */
     private $date;
 

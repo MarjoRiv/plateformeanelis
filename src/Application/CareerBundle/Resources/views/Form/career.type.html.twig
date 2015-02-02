@@ -1,44 +1,59 @@
 {% block application_careerbundle_career_widget %}
-<form class="form-horizontal" method="post" {{ form_enctype(form) }}>
-                    <div class="form-group">
-                        {{ form_label(form.typeCareer, "Type*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                        <div class="col-sm-6">
-                            {{ form_widget(form.typeCareer, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.institution, "Etablissement*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                        <div class="col-sm-6">
-                            {{ form_widget(form.institution, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.position, "Poste*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                        <div class="col-sm-6">
-                            {{ form_widget(form.position, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.date, "Date*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                        <div class="col-sm-6">
-                            {{ form_widget(form.date, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.description, "Description*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                        <div class="col-sm-6">
-                            {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.localisation, "Ville*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                        <div class="col-sm-6">
-                            {{ form_widget(form.localisation, { 'attr' : { 'class' : 'form-control' } }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_errors(form) }}
-                        {{ form_rest(form) }}
+    <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+        <div class="form-group">
+            {{ form_label(form.typeCareer, "Type*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+            <div class="col-sm-6">
+                {{ form_widget(form.typeCareer, { 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.institution, "Etablissement*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+            <div class="col-sm-6">
+                {{ form_widget(form.institution, { 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+            <div class="col-md-3 has-error">
+                <p class="help-block">{{ form_errors(form.institution)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.position, "Poste*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+            <div class="col-sm-6">
+                {{ form_widget(form.position, { 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+            <div class="col-md-3 has-error">
+                <p class="help-block">{{ form_errors(form.position)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.date, "Date*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+            <div class="col-sm-6">
+                {{ form_widget(form.date, { 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+            <div class="col-md-3 has-error">
+                <p class="help-block">{{ form_errors(form.date)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description, "Description*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+            <div class="col-sm-6">
+                {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+            <div class="col-md-3 has-error">
+                <p class="help-block">{{ form_errors(form.description)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.localisation, "Ville*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+            <div class="col-sm-6">
+                {{ form_widget(form.localisation, { 'attr' : { 'class' : 'form-control' } }) }}
+            </div>
+            <div class="col-md-3 has-error">
+                <p class="help-block">{{ form_errors(form.localisation)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_errors(form) }}
+            {{ form_rest(form) }}
 
-                    </div>
-{% endblock %}
+        </div>
+    {% endblock %}
