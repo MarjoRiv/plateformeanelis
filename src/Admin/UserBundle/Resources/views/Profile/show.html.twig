@@ -51,6 +51,7 @@
                                                     <td><a data-toggle="modal" href="#cotisationNeeded">Inaccessible</a></td>
                                                     {% endif %}
                                                 </tr>
+                                                {% if user.telephone is not empty and user.telephone != "" %}
                                                 <tr>
                                                     <td>Téléphone</td>
                                                     {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
@@ -59,6 +60,7 @@
                                                     <td><a data-toggle="modal" href="#cotisationNeeded">Inaccessible</a></td>
                                                     {% endif %}
                                                 </tr>
+                                                {% endif %}
                                                 {% if user.getLastCareer is not empty and user.getLastCareer != '' %}
                                                 <tr>
                                                     <td>Métier</td>
