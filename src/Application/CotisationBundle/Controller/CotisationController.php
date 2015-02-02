@@ -47,4 +47,20 @@ class CotisationController extends Controller
             ));
         }
     }
+
+    public function deleteAction(Cotisation $cotisation) {
+
+        if ($cotisation->getUser() == $this->get('security.context')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
+            $managerInvoice = new InvoiceManager($this);
+            $managerInvoice->remove($cotisation->getInvoice());
+
+            $managerCotisation = new CotisationManager($this);
+            $managerCotisation->remove($cotisation);
+
+            $managerInvoice->flush();
+            $managerCotisation->flush();   
+        }
+        
+        return $this->redirect($this->generateUrl('application_cotisation_homepage'));
+    }
 }
