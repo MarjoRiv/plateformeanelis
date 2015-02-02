@@ -14,8 +14,9 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="profil">
-
-                        {{ form_errors(form) }}
+                        {% if form_errors(form) is not empty %}
+                        <div class="alert alert-dismissable alert-danger">{{ form_errors(form)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</div>
+                        {% endif %}
                         <div class="form-group{% if form_errors(form.username) is not empty %} has-error{% endif %}">
                             {{ form_label(form.username, "Login*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
