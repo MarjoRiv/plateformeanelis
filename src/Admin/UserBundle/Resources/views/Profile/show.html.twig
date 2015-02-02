@@ -37,10 +37,12 @@
                                                 </tr>
                                             </thead> -->
                                             <tbody>
+                                                {% if user.website is not empty and user.website != "" %}
                                                 <tr>
                                                     <td>Web</td>
                                                     <td><a href="{{ user.website }}" target="_blank">{{ user.website }}</a></td>
                                                 </tr>
+                                                {% endif %}
                                                 <tr>
                                                     <td>Email</td>
                                                     {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
@@ -57,14 +59,18 @@
                                                     <td><a data-toggle="modal" href="#cotisationNeeded">Inaccessible</a></td>
                                                     {% endif %}
                                                 </tr>
+                                                {% if user.getLastCareer is not empty and user.getLastCareer != '' %}
                                                 <tr>
                                                     <td>Métier</td>
-                                                    <td>Développeur</td>
+                                                    <td>{{ user.getLastCareer|split(',')[0]|raw }}</td>
                                                 </tr>
+                                                {% endif %}
+                                                {% if user.getLastCareer is not empty and user.getLastCareer != '' %}
                                                 <tr>
                                                     <td>Entreprise</td>
-                                                    <td>Michelin</td>
+                                                    <td>{{ user.getLastCareer|split(',')[1]|raw }}</td>
                                                 </tr>
+                                                {% endif %}
                                                 {% if user.socialFacebook is not empty or user.socialTwitter is not empty or user.socialLinkedin is not empty %}
                                                     <tr>
                                                         <td>Social</td>
