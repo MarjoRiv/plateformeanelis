@@ -14,9 +14,6 @@ class InvoiceController extends Controller
             ->find($id);
 
         if (!$invoice || $invoice->getCotisation()->getUser() != $this->get('security.context')->getToken()->getUser()) {
-            /*throw $this->createNotFoundException(
-                'No invoice found for id '.$id
-            );*/
             return $this->redirect($this->generateUrl('application_cotisation_homepage'));
         }
 
