@@ -36,14 +36,18 @@ class UserRepository extends Repository
                 $boolQuery->addMust($querySurname);
             }
         } else {
-            //$query = new \Elastica\Query\MatchAll();
             $queryVide = new \Elastica\Query\Match();
             $queryVide->setFieldQuery('name', 'Vide');
             $boolQuery->addMust($queryVide);
         }
           
-            
-        return $boolQuery;
+        $query = new \Elastica\Query();
+        $query->addSort(array('filiere' => array('order' => 'asc')));
+        $query->addSort(array('name' => array('order' => 'asc')));
+        $query->addSort(array('surname' => array('order' => 'asc')));
+        $query->setQuery($boolQuery);
+
+        return $query;
     }
 
     public function getQueryForGeoSearch(GeoSearch $geoSearch)
@@ -70,8 +74,14 @@ class UserRepository extends Repository
             $queryVide->setFieldQuery('name', 'Vide');
             $boolQuery->addMust($queryVide);
         }
-            
-        return $boolQuery;
+        
+        $query = new \Elastica\Query();
+        $query->addSort(array('filiere' => array('order' => 'asc')));
+        $query->addSort(array('name' => array('order' => 'asc')));
+        $query->addSort(array('surname' => array('order' => 'asc')));
+        $query->setQuery($boolQuery);
+
+        return $query;
     }
 
     public function searchUsers(UserSearch $articleSearch)
@@ -83,7 +93,7 @@ class UserRepository extends Repository
     public function searchGeoUsers(GeoSearch $geoSearch)
     {
         $query = $this->getQueryForGeoSearch($geoSearch);
-        return $this->find($query);
+        return $this->find($query, 200);
     }
 
 }
