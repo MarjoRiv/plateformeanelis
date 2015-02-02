@@ -54,6 +54,9 @@ class DefaultController extends Controller
     }
 
     public function deleteAction(Career $career) {
+        if ($career->getUser() != $this->get('security.context')->getToken()->getUser()) {
+            return $this->redirect($this->generateUrl('application_career_homepage'));
+        }
         $manager = new CareerManager($this);
         $manager->remove($career);
         $manager->flush();
