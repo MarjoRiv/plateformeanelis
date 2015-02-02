@@ -34,6 +34,11 @@ class DefaultController extends Controller
     }
 
     public function editAction(Career $career) {
+
+        if ($career->getUser() != $this->get('security.context')->getToken()->getUser()) {
+            return $this->redirect($this->generateUrl('application_career_homepage'));
+        }
+        
         $manager = new CareerManager($this);
         
         $form = $this->createForm(new CareerType(), $career);
