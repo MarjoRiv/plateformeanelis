@@ -51,7 +51,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Téléphone</td>
-                                                    <td>{{ app.user.telephone }}</td>
+                                                    {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
+                                                    <td>{{ user.telephone }}</td>
+                                                    {% else %}
+                                                    <td><a data-toggle="modal" href="#cotisationNeeded">Inaccessible</a></td>
+                                                    {% endif %}
                                                 </tr>
                                                 <tr>
                                                     <td>Métier</td>
