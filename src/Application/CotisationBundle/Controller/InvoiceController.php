@@ -9,16 +9,15 @@ use Application\CotisationBundle\Manager\InvoiceManager;
 class InvoiceController extends Controller
 {
     public function getAction($id) {
-        // Il faut vérifier que le mec puisse pas afficher la facture 
-        // de quelqu'un d'autre !!
         $invoice = $this->getDoctrine()
             ->getRepository('ApplicationCotisationBundle:Invoice')
             ->find($id);
 
-        if (!$invoice) {
-            throw $this->createNotFoundException(
+        if (!$invoice || $invoice->getCotisation()->getUser() != $this->get('security.context')->getToken()->getUser()) {
+            /*throw $this->createNotFoundException(
                 'No invoice found for id '.$id
-            );
+            );*/
+            return $this->redirect($this->generateUrl('application_cotisation_homepage'));
         }
 
         return $this->render('ApplicationCotisationBundle:Default:invoice.html.twig', array(
