@@ -17,9 +17,10 @@ class UserAdmin extends Admin
             ->add('email', 'text', array('label' => 'Email*'))
             ->add('name', 'text', array('label' => 'Nom'))
             ->add('surname', 'text', array('label' => 'Prénom'))
-            ->add('maritalName', 'text', array('label' => 'Nom Marital'))
+            ->add('maritalName', 'text', array('label' => 'Nom Marital', 'required' => false))
             ->add('promotion', 'choice', array(
-                'choices' => $this->lstPromotions()
+                'choices' => $this->lstPromotions(),
+                'required' => false,
             ))
             ->add('filiere', 'choice', array(
                 'choices' => array(
@@ -31,24 +32,29 @@ class UserAdmin extends Admin
                     'FI' => 'FI',
                     )
             ))
-            ->add('address', 'text', array('label' => 'Adresse'))
-            ->add('telephone', 'text', array('label' => 'Téléphone'))
-            ->add('website', 'text', array('label' => 'Site Web'))
-            ->add('biography', 'text', array('label' => 'Biographie'))
-            ->add('maritalStatus', 'text', array('label' => 'Statut marial'))
-            ->add('childrenNumber', 'text', array('label' => 'Nombre d\'enfants'))
-            ->add('birthday', 'birthday', array('label' => 'Date de naissance'))
-            ->add('biography', 'text', array('label' => 'Biographie'))
-            ->add('socialFacebook', 'text', array('label' => 'Facebook'))
-            ->add('socialTwitter', 'text', array('label' => 'Twitter'))
-            ->add('socialLinkedin', 'text', array('label' => 'Linkedin'))
+            ->add('address', 'text', array('label' => 'Adresse', 'required' => false))
+            ->add('telephone', 'text', array('label' => 'Téléphone', 'required' => false))
+            ->add('website', 'text', array('label' => 'Site Web', 'required' => false))
+            ->add('biography', 'text', array('label' => 'Biographie', 'required' => false))
+            ->add('maritalStatus', 'text', array('label' => 'Statut marial', 'required' => false))
+            ->add('childrenNumber', 'text', array('label' => 'Nombre d\'enfants', 'required' => false))
+            ->add('birthday', 'birthday', array('label' => 'Date de naissance', 'required' => false))
+            ->add('biography', 'text', array('label' => 'Biographie', 'required' => false))
+            ->add('socialFacebook', 'text', array('label' => 'Facebook', 'required' => false))
+            ->add('socialTwitter', 'text', array('label' => 'Twitter', 'required' => false))
+            ->add('socialLinkedin', 'text', array('label' => 'Linkedin', 'required' => false))
+            ->add('socialGoogle', 'text', array('label' => 'Google', 'required' => false))
+            ->add('socialYoutube', 'text', array('label' => 'Youtube', 'required' => false))
+            ->add('socialInstagram', 'text', array('label' => 'Instagram', 'required' => false))
             ->add('newsletters', 'entity', array(
                 'class' => 'AdminUserBundle:Newsletters',
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => true,
                 'label' => "Name",
+                'required' => false,
             ))
+            ->add('checked')
         ;
     }
 

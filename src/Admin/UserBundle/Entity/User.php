@@ -140,6 +140,27 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="socialGoogle", type="string", length=255)
+     */
+    private $socialGoogle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="socialYoutube", type="string", length=255)
+     */
+    private $socialYoutube;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="socialInstagram", type="string", length=255)
+     */
+    private $socialInstagram;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="biography", type="text")
      */
     private $biography;
@@ -191,8 +212,7 @@ class User extends BaseUser
     /**
      * @var string
      * @Assert\Email(
-     *     message = "Adresse email invalide",
-     *     checkMX = true
+     *     message = "Adresse email invalide"
      * )
      */
     protected $email;
@@ -216,6 +236,9 @@ class User extends BaseUser
         $this->socialFacebook       = "";
         $this->socialTwitter        = "";
         $this->socialLinkedin       = "";
+        $this->socialGoogle         = "";
+        $this->socialYoutube        = "";
+        $this->socialInstagram      = "";
         $this->biography            = "";
         $this->birthday             = new \DateTime();
         $this->maritalStatus        = "";
@@ -905,5 +928,74 @@ class User extends BaseUser
         
 
         return "";
+    }
+
+    /**
+     * Set socialGoogle
+     *
+     * @param string $socialGoogle
+     * @return User
+     */
+    public function setSocialGoogle($socialGoogle)
+    {
+        $this->socialGoogle = $socialGoogle;
+
+        return $this;
+    }
+
+    /**
+     * Get socialGoogle
+     *
+     * @return string 
+     */
+    public function getSocialGoogle()
+    {
+        return $this->socialGoogle;
+    }
+
+    /**
+     * Set socialYoutube
+     *
+     * @param string $socialYoutube
+     * @return User
+     */
+    public function setSocialYoutube($socialYoutube)
+    {
+        $this->socialYoutube = $socialYoutube;
+
+        return $this;
+    }
+
+    /**
+     * Get socialYoutube
+     *
+     * @return string 
+     */
+    public function getSocialYoutube()
+    {
+        return $this->socialYoutube;
+    }
+
+    /**
+     * Set socialInstagram
+     *
+     * @param string $socialInstagram
+     * @return User
+     */
+    public function setSocialInstagram($socialInstagram)
+    {
+        $this->socialInstagram = $socialInstagram;
+
+        return $this;
+    }
+
+    /**
+     * Get socialInstagram
+     *
+     * @return string 
+     */
+    public function getSocialInstagram()
+    {
+        return $this->socialInstagram;
     }
 }

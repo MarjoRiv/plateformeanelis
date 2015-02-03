@@ -204,6 +204,33 @@
                                     <p class="help-block">{{ form_errors(form.socialLinkedin)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
                                 </div>
                             </div>
+                            <div class="form-group{% if form_errors(form.socialGoogle) is not empty %} has-error{% endif %}">
+                                {{ form_label(form.socialGoogle, "Google", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.socialGoogle, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                                </div>
+                                <div class="col-md-3 has-error">
+                                    <p class="help-block">{{ form_errors(form.socialGoogle)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group{% if form_errors(form.socialYoutube) is not empty %} has-error{% endif %}">
+                                {{ form_label(form.socialYoutube, "Youtube", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.socialYoutube, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                                </div>
+                                <div class="col-md-3 has-error">
+                                    <p class="help-block">{{ form_errors(form.socialYoutube)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group{% if form_errors(form.socialInstagram) is not empty %} has-error{% endif %}">
+                                {{ form_label(form.socialInstagram, "Instagram", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.socialInstagram, { 'attr': {'class': "form-control", 'placeholder': 'http://' } }) }}
+                                </div>
+                                <div class="col-md-3 has-error">
+                                    <p class="help-block">{{ form_errors(form.socialInstagram)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

@@ -78,6 +78,16 @@ class UserType extends AbstractType
             ->add('socialLinkedin', 'text', array(
                 'required' => false,
                 ))
+            ->add('socialGoogle', 'text', array(
+                'required' => false,
+                ))
+            ->add('socialYoutube', 'text', array(
+                'required' => false,
+                ))
+            ->add('socialInstagram', 'text', array(
+                'required' => false,
+                ))
+
             /*
             ->add('birthday', 'birthday', array(
                 'widget' => 'choice',
