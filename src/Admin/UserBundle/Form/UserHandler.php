@@ -39,6 +39,7 @@ class UserHandler
     }
 
     public function onSuccess(User $user) {
+        
         $this->manager->persist($user);
         $this->manager->flush();
     }

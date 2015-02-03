@@ -188,13 +188,22 @@ class User extends BaseUser
      */
     private $careers;
 
+    /**
+     * @var string
+     * @Assert\Email(
+     *     message = "Adresse email invalide",
+     *     checkMX = true
+     * )
+     */
+    protected $email;
+
     
 
 
     public function __construct()
     {
         parent::__construct();
-
+        $this->email                = "";
         $this->name                 = "";
         $this->maritalName          = "";
         $this->surname              = "";
