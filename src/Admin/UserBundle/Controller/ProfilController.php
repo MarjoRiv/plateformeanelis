@@ -21,9 +21,21 @@ class ProfilController extends Controller
     {
         $careers = $user->getCareers()->toArray();
 
-        usort($careers, function ($a, $b) {
-            return strcmp($a->getTypeCareer()->getId(), $b->getTypeCareer()->getId());
+        usort($careers, function($a, $b) {
+            if ($a->getTypeCareer()->getId() == $b->getTypeCareer()->getId())
+            {
+                if($a->getDate() == $b->getDate()) return 0;
+                return ($a->getDate() < $b->getDate()) ? -1 : 1;
+            }
+            else
+                return ($a->getTypeCareer()->getId() < $b->getTypeCareer()->getId()) ? -1 : 1;
         });
+
+        $careers = array_reverse($careers);
+
+        /*usort($careers, function ($a, $b) {
+            return strcmp($a->getTypeCareer()->getId(), $b->getTypeCareer()->getId());
+        });*/
 
         return $this->render('AdminUserBundle:Profile:show.html.twig', array(
             'user' => $user,
