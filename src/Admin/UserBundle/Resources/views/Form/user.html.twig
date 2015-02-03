@@ -158,11 +158,11 @@
                         </div>
 
                         <div class="form-group{% if form_errors(form.avatar) is not empty %} has-error{% endif %}">
-                            {{ form_label(form.avatar, "Avatar", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            {{ form_label(form.avatar, "Photo de profil", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
                                 <span class="btn btn-default btn-file">
                                     <span class="fileinput-new">Choisir le fichier</span>
-                                    {{ form_widget(form.avatar.input, { 'attr' : { 'class' : 'form-control' } }) }}
+                                    {{ form_widget(form.avatar.input) }}
                                 </span>
 
                             </div>
