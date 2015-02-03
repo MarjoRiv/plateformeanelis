@@ -79,21 +79,21 @@
                                                         <td>
                                                             {% if user.socialFacebook is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if not "http://" in user.socialFacebook %}http://{% endif %}{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialFacebook %}http://{% endif %}{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialTwitter is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if not "http://" in user.socialTwitter%}http://{% endif %}{{ user.socialTwitter }}" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialTwitter%}http://{% endif %}{{ user.socialTwitter }}" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialLinkedin is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if not "http://" in user.socialLinkedin%}http://{% endif %}{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialLinkedin%}http://{% endif %}{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
                                                                 {% endif %}
