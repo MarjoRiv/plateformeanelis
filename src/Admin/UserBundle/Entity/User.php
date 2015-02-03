@@ -217,6 +217,13 @@ class User extends BaseUser
      */
     protected $email;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="checked", type="boolean")
+     */
+    protected $checked;
+
     
 
 
