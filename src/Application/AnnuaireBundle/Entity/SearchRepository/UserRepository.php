@@ -57,12 +57,12 @@ class UserRepository extends Repository
             if ($geoSearch->getPostalcode() != null) {
                 $queryPostalCode = new \Elastica\Query\Match();
                 $queryPostalCode->setFieldQuery('postalcode', $geoSearch->getPostalcode());
-                $boolQuery->addShould($queryPostalCode);
+                $boolQuery->addMust($queryPostalCode);
             }
             if ($geoSearch->getCity() != null) {
                 $queryCity = new \Elastica\Query\Match();
                 $queryCity->setFieldQuery('city', $geoSearch->getCity());
-                $boolQuery->addShould($queryCity);
+                $boolQuery->addMust($queryCity);
             }
             if ($geoSearch->getCountry() != null) {
                 $queryCountry = new \Elastica\Query\Match();
