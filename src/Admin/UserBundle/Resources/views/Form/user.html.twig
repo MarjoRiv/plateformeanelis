@@ -13,17 +13,16 @@
                     <li><a href="#newsletters" data-toggle="tab">Newsletters</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="profil">
-                        {% if form_errors(form) is not empty %}
-                        <div class="alert alert-dismissable alert-danger">{{ form_errors(form)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</div>
-                        {% endif %}
-                        <div class="form-group{% if form_errors(form.username) is not empty %} has-error{% endif %}">
-                            {{ form_label(form.username, "Login*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                    {% if form_errors(form.birthday) or form_errors(form.email) is not empty %}
+                        <div class="alert alert-dismissable alert-danger">
+                            <strong>Attention :</strong> Ce formulaire contient des erreurs. Vérifiez tous les onglets.
+                        </div>
+                    {% endif %}
+                    <div class="tab-pane active" id="profil">    
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Login</label>
                             <div class="col-sm-6">
-                                {{ form_widget(form.username, { 'attr' : { 'class' : 'form-control' } }) }}
-                            </div>
-                            <div class="col-md-3 has-error">
-                                <p class="help-block">{{ form_errors(form.username)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                <input type="text" class="form-control" placeholder="{{ app.user.username }}" disabled>
                             </div>
                         </div>
                         <div class="form-group{% if form_errors(form.email) is not empty %} has-error{% endif %}">
@@ -231,11 +230,13 @@
                         <div class="form-group{% if form_errors(form.birthday) is not empty %} has-error{% endif %}">
                             {{ form_label(form.birthday, "Date de naissance", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
-                                {{ form_widget(form.birthday, { 'attr': {'class': "form-control" } }) }}
+                                {{ form_widget(form.birthday, { 'attr': {'class': "form-control", 'placeholder': 'yyyy-MM-dd' } }) }}
                             </div>
+                            {% if form_errors(form.birthday) is not empty %}
                             <div class="col-md-3 has-error">
-                                <p class="help-block">{{ form_errors(form.birthday)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                <p class="help-block">Format: yyyy/MM/dd</p>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="tab-pane" id="newsletters">
@@ -265,18 +266,11 @@
 
 </div>
 </form>
-<script src="{{ asset('assets/moment.js') }}"></script>
-<script src="{{ asset('assets/pikaday.js') }}"></script>
 <script>
-
-    var picker = new Pikaday({
-        field: document.getElementById('admin_userbundle_user_birthday'),
-        format: 'YYYY-MM-DD',
-        yearRange: [1970,2015],
-        onSelect: function() {
-            console.log(this.getMoment().format('YYYY-MM-DD'));
-        }
-    });
-
+if (!Modernizr.inputtypes['date']) {
+    $('input[type=date]').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });   
+}
 </script>
 {% endblock %}
