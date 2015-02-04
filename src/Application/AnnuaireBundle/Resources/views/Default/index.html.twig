@@ -18,8 +18,8 @@
                             <div class="panel-heading">
                                 <h4>
                                     <ul class="nav nav-tabs">
-                                        <li class="active"><a href="#rechercheZZ" data-toggle="tab">Rechercher un ZZ</a></li>
-                                        <li><a href="#rechercheGeoloc" data-toggle="tab">Recherche Géolocalisée</a></li>
+                                        <li{% if geoform != true %} class="active"{% endif %}><a href="#rechercheZZ" data-toggle="tab">Rechercher un ZZ</a></li>
+                                        <li{% if geoform == true %} class="active"{% endif %}><a href="#rechercheGeoloc" data-toggle="tab">Recherche Géolocalisée</a></li>
                                     </ul>
                                 </h4>
                                 <div class="options">
@@ -28,7 +28,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="rechercheZZ">
+                                    <div class="tab-pane{% if geoform != true %} active{% endif %}" id="rechercheZZ">
                                         <form class="form-horizontal" method="get" {{ form_enctype(form) }}>
                                             <div class="col-xs-6">
                                                 {{ form_errors(form) }}
@@ -72,7 +72,7 @@
                                         </div>
                                     </form>
 
-                                        <div class="tab-pane" id="rechercheGeoloc">
+                                        <div class="tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
 
                                             <form class="form-horizontal" method="get" {{ form_enctype(formm) }}>
                                                 <div class="col-xs-6">

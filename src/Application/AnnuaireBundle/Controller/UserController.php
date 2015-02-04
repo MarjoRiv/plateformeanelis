@@ -42,6 +42,7 @@ class UserController extends Controller
 
         $results = null;
         $formSubmited = false;
+        $geoform = false;
         if ($userSearchForm->isValid()) {
             $userSearch = $userSearchForm->getData();
             $results = $this->getSearchRepository()->searchUsers($userSearch); 
@@ -52,6 +53,7 @@ class UserController extends Controller
             $geoSearch = $geoSearchForm->getData();
             $results = $this->getSearchRepository()->searchGeoUsers($geoSearch);
             $formSubmited = true;
+            $geoform = true;
         }
 
         return $this->render('ApplicationAnnuaireBundle:Default:index.html.twig', array(
@@ -59,6 +61,7 @@ class UserController extends Controller
             'form' => $userSearchForm->createView(),
             'formm' => $geoSearchForm->createView(),
             'formSubmited' => $formSubmited,
+            'geoform' => $geoform,
         ));
     }
 
