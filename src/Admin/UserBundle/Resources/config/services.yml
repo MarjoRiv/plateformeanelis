@@ -17,3 +17,8 @@ services:
         arguments: ["%fos_user.model.user.class%"]
         tags:
             - { name: form.type, alias: anelis_user_change_password }
+
+    anelis_user.form.type.tel:
+        class: Admin\UserBundle\Form\TelType
+        tags:
+            - { name: form.type, alias: tel }

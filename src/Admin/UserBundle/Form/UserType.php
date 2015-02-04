@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Application\MainBundle\Form\ImageType;
+use Admin\UserBundle\Form\TelType;
 
 class UserType extends AbstractType
 {
@@ -59,7 +60,7 @@ class UserType extends AbstractType
             ->add('country', 'country', array(
                 'required' => false
                 ))
-            ->add('telephone', 'text', array(
+            ->add('telephone', 'tel', array(
                 'required' => false,
                 ))
             ->add('website', 'text', array(
