@@ -54,7 +54,7 @@ class UserAdmin extends Admin
                 'label' => "Name",
                 'required' => false,
             ))
-            ->add('checked', null, array('label' => 'Email valide ?'))
+            ->add('checked', null, array('label' => 'Email valide ?', 'required' => false))
         ;
     }
 
