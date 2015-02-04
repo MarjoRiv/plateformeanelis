@@ -26,7 +26,7 @@ class DefaultController extends Controller
         $messages = $this->getDoctrine()->getRepository('ApplicationChatBundle:Message')->findAll();
 
         return $this->render('ApplicationChatBundle:Default:index.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $this->createForm(new MessageType(), new Message())->createView(),
                 'messages' => $messages
         ));
     }
