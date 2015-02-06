@@ -37,6 +37,18 @@
                                                 </tr>
                                             </thead> -->
                                             <tbody>
+                                                {% if user.promotion is not empty and user.promotion != "" %}
+                                                <tr>
+                                                    <td>Promotion</td>
+                                                    <td>{{ user.promotion }}</td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if user.filiere is not empty and user.filiere != "" %}
+                                                <tr>
+                                                    <td>Filière</td>
+                                                    <td>{{ user.filiere }}</td>
+                                                </tr>
+                                                {% endif %}
                                                 {% if user.website is not empty and user.website != "" %}
                                                 <tr>
                                                     <td>Web</td>
@@ -71,6 +83,24 @@
                                                 <tr>
                                                     <td>Établissement</td>
                                                     <td>{{ user.getLastCareer|split(',')[1]|raw }}</td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if user.website is not empty and user.website != "" %}
+                                                <tr>
+                                                    <td>Web</td>
+                                                    <td><a href="{% if "http://" not in user.website %}http://{% endif %}{{ user.website }}" target="_blank">{{ user.website }}</a></td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if user.city is not empty and user.city != "" %}
+                                                <tr>
+                                                    <td>Ville</td>
+                                                    <td>{{ user.city }}</td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if user.postalcode is not empty and user.postalcode != "" %}
+                                                <tr>
+                                                    <td>Code postal</td>
+                                                    <td>{{ user.postalcode }}</td>
                                                 </tr>
                                                 {% endif %}
                                                 {% if user.socialFacebook is not empty or user.socialTwitter is not empty or user.socialLinkedin is not empty or user.socialGoogle is not empty or user.socialYoutube is not empty or user.socialInstagram is not empty %}
