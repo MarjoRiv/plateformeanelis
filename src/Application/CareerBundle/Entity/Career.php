@@ -24,10 +24,7 @@ class Career
     /**
      * @var string
      *
-     * @ORM\Column(name="localisation", type="string", length=255)
-     * @Assert\NotNull(
-     *     message = "Ville obligatoire."
-     * )
+     * @ORM\Column(name="localisation", type="string", length=255, nullable=true)
      */
     private $localisation;
 
@@ -54,10 +51,7 @@ class Career
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
-     * @Assert\NotNull(
-     *     message = "Description obligatoire."
-     * )
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -81,7 +75,6 @@ class Career
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="careers")
      */
     private $user;
-
 
     /**
      * Get id
