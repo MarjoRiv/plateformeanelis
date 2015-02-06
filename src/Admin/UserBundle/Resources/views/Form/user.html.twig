@@ -150,7 +150,7 @@
                         <div class="form-group{% if form_errors(form.biography) is not empty %} has-error{% endif %}">
                             {{ form_label(form.biography, "Biographie", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
-                                {{ form_widget(form.biography, { 'attr' : { 'class' : 'form-control' } }) }}
+                                {{ form_widget(form.biography, { 'attr' : { 'class' : 'form-control', 'style' : 'resize: vertical;' } }) }}
                             </div>
                             <div class="col-md-3 has-error">
                                 <p class="help-block">{{ form_errors(form.biography)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
