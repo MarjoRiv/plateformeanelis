@@ -27,11 +27,13 @@
         <div class="form-group">
             {{ form_label(form.date, "Date*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
             <div class="col-sm-6">
-                {{ form_widget(form.date, { 'attr' : { 'class' : 'form-control' } }) }}
+                {{ form_widget(form.date, { 'attr' : { 'class' : 'form-control', 'placeholder' : "YYYY/MM/JJ" } }) }}
             </div>
-            <div class="col-md-3 has-error">
-                <p class="help-block">{{ form_errors(form.date)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-            </div>
+            {% if form_errors(form.date) is not empty %}
+                <div class="col-md-3 has-error">
+                    <p class="help-block">Format: yyyy/MM/dd</p>
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             {{ form_label(form.description, "Description*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}

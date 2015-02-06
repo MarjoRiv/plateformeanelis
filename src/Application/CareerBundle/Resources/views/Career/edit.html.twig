@@ -41,20 +41,6 @@
     <!--wrap -->
 </div>
 <!-- page-content -->
-<script src="{{ asset('assets/moment.js') }}"></script>
-<script src="{{ asset('assets/pikaday.js') }}"></script>
-<script>
-
-    var picker = new Pikaday({
-        field: document.getElementById('application_careerbundle_career_date'),
-        format: 'YYYY-MM-DD',
-        yearRange: [1970,2015],
-        onSelect: function() {
-            console.log(this.getMoment().format('YYYY-MM-DD'));
-        }
-    });
-
-</script>
 
 
 {% endblock %}
