@@ -63,13 +63,13 @@
                                                 {% endif %}
                                                 {% if user.getLastCareer is not empty and user.getLastCareer != '' %}
                                                 <tr>
-                                                    <td>Métier</td>
+                                                    <td>Poste</td>
                                                     <td>{{ user.getLastCareer|split(',')[0]|raw }}</td>
                                                 </tr>
                                                 {% endif %}
                                                 {% if user.getLastCareer is not empty and user.getLastCareer != '' %}
                                                 <tr>
-                                                    <td>Entreprise</td>
+                                                    <td>Établissement</td>
                                                     <td>{{ user.getLastCareer|split(',')[1]|raw }}</td>
                                                 </tr>
                                                 {% endif %}
