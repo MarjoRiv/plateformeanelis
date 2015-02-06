@@ -52,7 +52,11 @@
                                                 {% if user.website is not empty and user.website != "" %}
                                                 <tr>
                                                     <td>Web</td>
-                                                    <td><a href="{% if "http://" not in user.website %}http://{% endif %}{{ user.website }}" target="_blank">{{ user.website }}</a></td>
+                                                    {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
+                                                        <td><a href="{% if "http://" not in user.website %}http://{% endif %}{{ user.website }}" target="_blank">{{ user.website }}</a></td>
+                                                        {% else %}
+                                                        <td><a data-toggle="modal" href="#cotisationNeeded">Inaccessible</a></td>
+                                                        {% endif %}
                                                 </tr>
                                                 {% endif %}
                                                 <tr>
