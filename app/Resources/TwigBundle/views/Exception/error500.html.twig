@@ -1,0 +1,24 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+    {% block title %}500 - Page introuvable{% endblock %}
+
+        {% block optbody %}
+            class="focusedform"
+        {% endblock %}
+
+        {% block content %}
+            <div class="verticalcenter">
+                <a href="{{ path('application_main_homepage') }}"><img src="{{ asset('assets/img/anelis-logo.png') }}" alt="Logo" class="brand" /></a>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4 class="text-center" style="margin-bottom: 25px;">Oh ! Une erreur s'est produite :'(</h4>
+                        <div class="text-center">
+                            <a href="{{ path('application_main_homepage') }}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endblock %}
