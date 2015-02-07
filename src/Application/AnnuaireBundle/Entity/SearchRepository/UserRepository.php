@@ -23,7 +23,7 @@ class UserRepository extends Repository
             if ($userSearch->getSurname() != null) {
                 $querySurname = new \Elastica\Query\Match();
                 $querySurname->setFieldQuery('surname', $userSearch->getSurname());
-                $boolQuery->addShould($querySurname);
+                $boolQuery->addMust($querySurname);
             }
             if ($userSearch->getPromotion() != null) {
                 $querySurname = new \Elastica\Query\Match();
