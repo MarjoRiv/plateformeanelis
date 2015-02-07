@@ -78,6 +78,7 @@
         <nav id="page-leftbar" role="navigation">
                 <!-- BEGIN SIDEBAR MENU -->
             <ul class="acc-menu" id="sidebar">
+                <!--
                 <li id="search">
                     <a href="javascript:;"><i class="fa fa-search opacity-control"></i></a>
                      <form>
@@ -85,14 +86,17 @@
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </li>
+            -->
                 <li class="divider"></li>
                 <li><a href="{{ path('application_main_homepage') }}"><i class="fa fa-home"></i> <span>Accueil</span></a></li>
                 <li><a href="{{ path('application_annuaire_homepage') }}"><i class="glyphicon glyphicon-search"></i> <span>Annuaire</span></a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-list"></i> <span>Offres d'emplois / stages</span></a></li>
+                <!--<li><a href="#"><i class="glyphicon glyphicon-list"></i> <span>Offres d'emplois / stages</span></a></li>-->
                 <li><a href="{{ path('application_chat_homepage') }}"><i class="glyphicon glyphicon-heart"></i> <span>ZZ Chat</span></a></li>
+                <!--
                 <li class="divider"></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> <span>Carte des ZZs</span></a></li>
                 <li><a href="#"><i class="fa fa-camera"></i> <span> Galerie Photo</span> </a></li>
+                -->
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="divider"></li>
                 <li><a href="{{ path('sonata_admin_dashboard')}}" target="_blank"><i class="fa fa-briefcase"></i> <span>Administration</span></a></li>
