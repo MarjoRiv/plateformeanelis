@@ -89,12 +89,6 @@
                                                     <td>{{ user.getLastCareer|split(',')[1]|raw }}</td>
                                                 </tr>
                                                 {% endif %}
-                                                {% if user.website is not empty and user.website != "" %}
-                                                <tr>
-                                                    <td>Web</td>
-                                                    <td><a href="{% if "http://" not in user.website %}http://{% endif %}{{ user.website }}" target="_blank">{{ user.website }}</a></td>
-                                                </tr>
-                                                {% endif %}
                                                 {% if user.city is not empty and user.city != "" %}
                                                 <tr>
                                                     <td>Ville</td>
