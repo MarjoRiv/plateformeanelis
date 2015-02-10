@@ -30,7 +30,8 @@ class UserAdmin extends Admin
                     'F4' => 'F4',
                     'F5' => 'F5',
                     'FI' => 'FI',
-                    )
+                    ),
+                'required' => false
             ))
             ->add('address', 'text', array('label' => 'Adresse', 'required' => false))
             ->add('telephone', 'text', array('label' => 'Téléphone', 'required' => false))
