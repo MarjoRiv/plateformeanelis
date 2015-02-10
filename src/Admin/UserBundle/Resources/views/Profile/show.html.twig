@@ -113,42 +113,42 @@
                                                         <td>
                                                             {% if user.socialFacebook is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if "http://" not in user.socialFacebook %}http://{% endif %}{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialFacebook and "https://" not in user.socialFacebook %}http://{% endif %}{{ user.socialFacebook }}" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-facebook"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialTwitter is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if "http://" not in user.socialTwitter%}http://{% endif %}{{ user.socialTwitter }}" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialTwitter and "https://" not in user.socialTwitter %}http://{% endif %}{{ user.socialTwitter }}" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-twitter"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialLinkedin is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if "http://" not in user.socialLinkedin%}http://{% endif %}{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialLinkedin and "https://" not in user.socialLinkedin %}http://{% endif %}{{ user.socialLinkedin }}" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialGoogle is not empty %}
                                                                 {% if ( app.user.socialGoogle ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if "http://" not in user.socialGoogle%}http://{% endif %}{{ user.socialGoogle }}" class="btn btn-xs" target="_blank"><i class="fa fa-google-plus"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialGoogle and "https://" not in user.socialGoogle %}http://{% endif %}{{ user.socialGoogle }}" class="btn btn-xs" target="_blank"><i class="fa fa-google-plus"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-google-plus"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialYoutube is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if "http://" not in user.socialYoutube%}http://{% endif %}{{ user.socialYoutube }}" class="btn btn-xs" target="_blank"><i class="fa fa-youtube"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialYoutube and "https://" not in user.socialYoutube %}http://{% endif %}{{ user.socialYoutube }}" class="btn btn-xs" target="_blank"><i class="fa fa-youtube"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-youtube"></i></a>
                                                                 {% endif %}
                                                             {% endif %}
                                                             {% if user.socialInstagram is not empty %}
                                                                 {% if ( app.user.isCotisant ) or ( app.user.id == user.id ) %}
-                                                                    <a href="{% if "http://" not in user.socialInstagram%}http://{% endif %}{{ user.socialInstagram }}" class="btn btn-xs" target="_blank"><i class="fa fa-instagram"></i></a>
+                                                                    <a href="{% if "http://" not in user.socialInstagram and "https://" not in user.socialInstagram %}http://{% endif %}{{ user.socialInstagram }}" class="btn btn-xs" target="_blank"><i class="fa fa-instagram"></i></a>
                                                                     {% else %}
                                                                     <a data-toggle="modal" href="#cotisationNeeded" class="btn btn-xs" target="_blank"><i class="fa fa-instagram"></i></a>
                                                                 {% endif %}
