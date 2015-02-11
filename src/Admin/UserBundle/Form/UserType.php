@@ -20,14 +20,8 @@ class UserType extends AbstractType
             ->add('email', 'email', array(
                 'required' => true
                 ))
-            ->add('name', 'text', array(
-                'required' => true
-                ))
             ->add('maritalName', 'text', array(
                 'required' => false))
-            ->add('surname', 'text', array(
-                'required' => true
-                ))
             ->add('promotion', 'choice', array(
                 'choices' => $this->lstPromotions(),
                 'required'  => false,

@@ -34,13 +34,10 @@
                                 <p class="help-block">{{ form_errors(form.email)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
                             </div>
                         </div>
-                        <div class="form-group{% if form_errors(form.name) is not empty %} has-error{% endif %}">
-                            {{ form_label(form.name, "Nom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nom</label>
                             <div class="col-sm-6">
-                                {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
-                            </div>
-                            <div class="col-md-3">
-                                <p class="help-block">{{ form_errors(form.name)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                <input type="text" class="form-control" placeholder="{{ app.user.name }}" disabled>
                             </div>
                         </div>
                         <div class="form-group{% if form_errors(form.maritalName) is not empty %} has-error{% endif %}">
@@ -52,13 +49,10 @@
                                 <p class="help-block">{{ form_errors(form.maritalName)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
                             </div>
                         </div>
-                        <div class="form-group{% if form_errors(form.surname) is not empty %} has-error{% endif %}">
-                            {{ form_label(form.surname, "Prénom*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Prénom</label>
                             <div class="col-sm-6">
-                                {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
-                            </div>
-                            <div class="col-md-3 has-error">
-                                <p class="help-block">{{ form_errors(form.surname)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
+                                <input type="text" class="form-control" placeholder="{{ app.user.surname }}" disabled>
                             </div>
                         </div>
                         <div class="form-group{% if form_errors(form.genre) is not empty %} has-error{% endif %}">
