@@ -12,7 +12,7 @@ application_cotisation_invoice_get:
     requirements:
         id: \d*
 
-application_career_delete:
+application_cotisation_delete:
     pattern:  /cotisation/{id}/delete
     defaults: { _controller: "ApplicationCotisationBundle:Cotisation:delete" }
     requirements:
