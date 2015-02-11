@@ -14,7 +14,7 @@ class DefaultController extends Controller
     }
 
     public function aideAction()
-    {
+    {   
         return $this->render('ApplicationMainBundle:Default:aide.html.twig');
     }
 }
