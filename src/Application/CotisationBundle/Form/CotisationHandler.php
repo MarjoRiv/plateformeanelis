@@ -29,11 +29,9 @@ class CotisationHandler
         if( $this->request->getMethod() == 'POST' )
         {
             $this->form->bind($this->request);
-
             if( $this->form->isValid() )
             {
                 $this->onSuccess($this->form->getData());
-
                 return true;
             }
         }
@@ -42,19 +40,7 @@ class CotisationHandler
     }
 
     public function onSuccess(Cotisation $cotisation) {
-        $invoice = new Invoice();
-        $invoice->setCotisation($cotisation);
-        $invoice->setPayed(false);
-        $invoice->setDate(new \DateTime('now'));
-
-        // Implementation of an "hybrid system"
-        $cotisation->setNameCotisation($cotisation->getTypeCotisation()->getName());
-        $cotisation->setPriceCotisation($cotisation->getTypeCotisation()->getPrice());
-        $cotisation->setInvoice($invoice);
-
-        $this->invoiceManager->persist($invoice);
         $this->manager->persist($cotisation);
-        
         $this->manager->flush();
     }
 }

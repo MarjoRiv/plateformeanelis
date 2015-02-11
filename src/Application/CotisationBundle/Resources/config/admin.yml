@@ -29,3 +29,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ApplicationCotisationBundle]]
+    nouvelle.cotisation:
+        class: Application\CotisationBundle\Listener\CotisListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

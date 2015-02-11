@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class CotisationAdmin extends Admin
 {
+
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -21,11 +22,13 @@ class CotisationAdmin extends Admin
             ))
             ->add('user', 'entity', array(
                 'class' => 'AdminUserBundle:User',
-                'property' => 'name',
-                'label' => "Nom",
-            ))
-            ->add('invoice.payed', 'sonata_type_boolean', array('transform' => true))
-        ;
+                'property' => 'username',
+                'label' => "Nom d'utilisateur",
+            ));
+        if ($this->getSubject()->getId() > 0) {
+            // Add fields only when editing an existing object
+            $formMapper->add('invoice.payed', 'sonata_type_boolean', array('transform' => true));
+        }    
     }
 
     // Fields to be shown on filter forms
@@ -40,6 +43,7 @@ class CotisationAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('id')
             ->add('user',null, array('label' => "Pseudo"))
             ->add('user.name',null,array('label' => "Nom"))
             ->add('user.surname',null,array('label' => "Prénom"))
@@ -56,4 +60,5 @@ class CotisationAdmin extends Admin
             ))
         ;
     }
+
 }

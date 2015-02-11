@@ -64,6 +64,8 @@ class Cotisation
     {
         $this->payed = false;
         $this->typeCotisation = NULL;
+        $this->nameCotisation = "";
+        $this->priceCotisation = 0;
     }
 
     /**
