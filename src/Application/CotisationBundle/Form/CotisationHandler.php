@@ -40,6 +40,10 @@ class CotisationHandler
     }
 
     public function onSuccess(Cotisation $cotisation) {
+        $date = new \DateTime();
+        $date->setDate($cotisation->getYear(), 1, 1);
+        $cotisation->setYear($date);
+        
         $this->manager->persist($cotisation);
         $this->manager->flush();
     }
