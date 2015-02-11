@@ -60,8 +60,6 @@
                     <li class="userlinks">
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}">Mon Compte <i class="pull-right fa fa-pencil"></i></a></li>
-                            <li><a href="{{ path('application_career_homepage') }}">Mes Parcours <i class="pull-right fa fa-list"></i></a></li>
-                            <li><a href="{{ path('application_cotisation_homepage') }}">Mes Cotisations <i class="pull-right fa fa-thumbs-o-up"></i></a></li>
                             <li><a href="{{ path('fos_user_change_password') }}">Changer Mot de passe <i class="pull-right fa fa-exchange"></i></a></li>
                             <li><a href="{{ path('application_main_help') }}">Aide <i class="pull-right fa fa-question-circle"></i></a></li>
                             <li class="divider"></li>
@@ -92,6 +90,10 @@
                 <li><a href="{{ path('application_annuaire_homepage') }}"><i class="glyphicon glyphicon-search"></i> <span>Annuaire</span></a></li>
                 <!--<li><a href="#"><i class="glyphicon glyphicon-list"></i> <span>Offres d'emplois / stages</span></a></li>-->
                 <li><a href="{{ path('application_chat_homepage') }}"><i class="glyphicon glyphicon-heart"></i> <span>ZZ Chat</span></a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('application_cotisation_homepage') }}"><i class="fa fa-thumbs-o-up"></i> Mes Cotisations</a></li>
+                <li><a href="{{ path('application_career_homepage') }}"><i class="fa fa-list"></i> Mes Parcours</a></li>
+
                 <!--
                 <li class="divider"></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> <span>Carte des ZZs</span></a></li>
