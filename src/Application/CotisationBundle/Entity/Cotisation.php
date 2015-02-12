@@ -54,7 +54,7 @@ class Cotisation
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\CotisationBundle\Entity\Invoice", mappedBy="cotisation", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Application\CotisationBundle\Entity\Invoice", mappedBy="cotisation", cascade={"remove", "persist"})
      */
     protected $invoice;
 
