@@ -58,6 +58,13 @@ class Cotisation
      */
     protected $invoice;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="payed", type="boolean")
+     */
+    private $payed;
+
 
 
     public function __construct()

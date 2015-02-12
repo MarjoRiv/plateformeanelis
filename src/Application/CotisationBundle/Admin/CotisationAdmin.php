@@ -13,8 +13,12 @@ class CotisationAdmin extends Admin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if (!($this->getSubject()->getId() > 0)) {
+            $formMapper->add('year', 'date', array('label' => 'Année', 'data' => new \DateTime('today')));
+        } else {
+            $formMapper->add('year', 'date', array('label' => 'Année'));
+        }
         $formMapper
-            ->add('year', 'date', array('label' => 'Année'))
             ->add('typeCotisation', 'entity', array(
                 'class' => 'ApplicationCotisationBundle:TypeCotisation',
                 'property' => 'name',
@@ -25,10 +29,14 @@ class CotisationAdmin extends Admin
                 'property' => 'username',
                 'label' => "Nom d'utilisateur",
             ));
+            
         if ($this->getSubject()->getId() > 0) {
             // Add fields only when editing an existing object
             $formMapper->add('invoice.payed', 'sonata_type_boolean', array('transform' => true));
-        }    
+        }
+        else {
+            $formMapper->add('payed');
+        }
     }
 
     // Fields to be shown on filter forms
