@@ -112,7 +112,7 @@
                                 </div>
                                 {% if results is not empty %}
                                     {% for result in results %}
-                                        <div class="col-sm-4" style="height: 225px;">
+                                        <div class="col-sm-4" style="height: 240px;">
                                             <div class="panel panel-sky">
                                                 <div class="panel-heading" style="text-align: center;">
                                                     <h4>{{ result.name }} {{ result.surname }}</h4>
@@ -120,7 +120,7 @@
                                                         <p class="pull-right" style="color: black;">R.I.P &lt;3</p>
                                                     {% endif %}
                                                 </div>
-                                                <div class="panel-body"{% if not result.isAlive %} style="background-color: #DADADA;"{% endif %}>
+                                                <div class="panel-body" style="height: 190px;{% if not result.isAlive %}background-color: #DADADA;{% endif %}">
                                                     <div class="media">
 
                                                         <a class="pull-left" href="{{ path("user_show_profile", { "id" : result.id }) }}">
