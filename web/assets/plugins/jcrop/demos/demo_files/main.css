@@ -158,8 +158,8 @@ a:hover {
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;
-  max-height: 40px;
-  max-width: 40px;
+  max-height: 100px;
+  max-width: 100px;
 }
 .row {
   margin-left: -20px;

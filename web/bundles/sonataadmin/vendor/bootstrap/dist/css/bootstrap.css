@@ -333,6 +333,8 @@ img {
 }
 .img-circle {
   border-radius: 50%;
+  max-width: 100px;
+  max-height: 100px;
 }
 hr {
   margin-top: 20px;
