@@ -39,3 +39,8 @@ services:
         class: Application\CotisationBundle\Listener\CotisListener
         tags:
             - { name: doctrine.event_listener, event: postUpdate }
+
+    update.user:
+        class: Application\CotisationBundle\Listener\CotisListener
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
