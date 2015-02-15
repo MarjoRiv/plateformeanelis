@@ -1,6 +1,7 @@
 {% extends "::application.html.twig" %} 
 {% form_theme form 'AdminUserBundle:Form:user.html.twig' %}
 {% block title %}Mon Compte{% endblock %}
+{% block javascripts %}<script src='{{ asset('assets/js/jquery.autosize.js')}}'></script>{% endblock %}
 {% block body %}
 <div id="page-content">
   <div id='wrap'>
