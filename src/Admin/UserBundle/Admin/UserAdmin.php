@@ -47,15 +47,11 @@ class UserAdmin extends Admin
             ->add('socialGoogle', 'text', array('label' => 'Google', 'required' => false))
             ->add('socialYoutube', 'text', array('label' => 'Youtube', 'required' => false))
             ->add('socialInstagram', 'text', array('label' => 'Instagram', 'required' => false))
-            ->add('newsletters', 'entity', array(
-                'class' => 'AdminUserBundle:Newsletters',
-                'property' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => "Name",
-                'required' => false,
-            ))
             ->add('isEmailValid', null, array('label' => 'Email valide ?', 'required' => false))
+            ->add('mlInformations', null, array('label' => 'ML Informations', 'required' => false))
+            ->add('mlEmployment', null, array('label' => 'ML Offres d\'emplois', 'required' => false))
+            ->add('mlEvents', null, array('label' => 'ML Événements (BDE ...)', 'required' => false))
+            ->add('mlIsimaNews', null, array('label' => 'ML Actualité ISIMA', 'required' => false))
             //->add('plainPassword', 'password')
         ;
     }
@@ -67,6 +63,11 @@ class UserAdmin extends Admin
             ->add('promotion')
             ->add('filiere')
             ->add('name')
+            ->add('isEmailValid')
+            ->add('mlInformations')
+            ->add('mlEmployment')
+            ->add('mlEvents')
+            ->add('mlIsimaNews')
         ;
     }
 

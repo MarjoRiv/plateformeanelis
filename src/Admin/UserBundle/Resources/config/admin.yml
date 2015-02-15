@@ -9,13 +9,3 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [AdminUserBundle]]
-    sonata.admin.newsletters:
-        class: Admin\UserBundle\Admin\NewslettersAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Newsletters" }
-        arguments:
-            - ~
-            - Admin\UserBundle\Entity\Newsletters
-            - ~
-        calls:
-            - [ setTranslationDomain, [AdminUserBundle]]

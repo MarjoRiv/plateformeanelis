@@ -187,11 +187,6 @@ class User extends BaseUser
     private $childrenNumber;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Admin\UserBundle\Entity\Newsletters", inversedBy="users")
-     */
-    protected $newsletters;
-
-    /**
      * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="user")
      */
     private $cotisations;
@@ -223,8 +218,33 @@ class User extends BaseUser
      */
     protected $isEmailValid;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="mlInformations", type="boolean")
+     */
+    protected $mlInformations;
 
-    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="mlEmployment", type="boolean")
+     */
+    protected $mlEmployment;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="mlEvents", type="boolean")
+     */
+    protected $mlEvents;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="mlIsimaNews", type="boolean")
+     */
+    protected $mlIsimaNews;
 
 
     public function __construct()
@@ -262,8 +282,11 @@ class User extends BaseUser
         $this->avatar->setMandatory(false);
         $this->avatar->setFilter(Image::$FILTER_USER_AVATAR);
 
-        $this->newsletters          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cotisations          = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mlInformations       = false;
+        $this->mlEmployment         = false;
+        $this->mlEvents             = false;
+        $this->mlIsimaNews          = false;
     }
 
 
@@ -672,76 +695,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set Newsletters
-     *
-     * @param \Doctrine\Common\Collections\Collection $newsletters
-     * @return User
-     */
-    public function setNewsletters(\Doctrine\Common\Collections\Collection $newsletters = null)
-    {
-        $this->newsletters = $newsletters;
-    
-        return $this;
-    }
-
-    /**
-     * Add Newsletters
-     *
-     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
-     * @return User
-     */
-    public function addNewsletters(\Admin\UserBundle\Entity\Newsletters $newsletters)
-    {
-        $this->newsletters[] = $newsletters;
-
-        return $this;
-    }
-
-    /**
-     * Remove Newsletters
-     *
-     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
-     */
-    public function removeNewsletters(\Admin\UserBundle\Entity\Newsletters $newsletters)
-    {
-        $this->newsletters->removeElement($newsletters);
-    }
-
-    /**
-     * Get Newsletters
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getNewsletters()
-    {
-        return $this->newsletters;
-    }
-
-
-    /**
-     * Add newsletters
-     *
-     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
-     * @return User
-     */
-    public function addNewsletter(\Admin\UserBundle\Entity\Newsletters $newsletters)
-    {
-        $this->newsletters[] = $newsletters;
-
-        return $this;
-    }
-
-    /**
-     * Remove newsletters
-     *
-     * @param \Admin\UserBundle\Entity\Newsletters $newsletters
-     */
-    public function removeNewsletter(\Admin\UserBundle\Entity\Newsletters $newsletters)
-    {
-        $this->newsletters->removeElement($newsletters);
-    }
-
-    /**
      * Add cotisations
      *
      * @param \Application\CotisationBundle\Entity\Cotisation $cotisations
@@ -1004,5 +957,97 @@ class User extends BaseUser
     public function getSocialInstagram()
     {
         return $this->socialInstagram;
+    }
+
+    /**
+     * Set mlInformations
+     *
+     * @param boolean $mlInformations
+     * @return User
+     */
+    public function setMlInformations($mlInformations)
+    {
+        $this->mlInformations = $mlInformations;
+
+        return $this;
+    }
+
+    /**
+     * Get mlInformations
+     *
+     * @return boolean 
+     */
+    public function getMlInformations()
+    {
+        return $this->mlInformations;
+    }
+
+    /**
+     * Set mlEmployment
+     *
+     * @param boolean $mlEmployment
+     * @return User
+     */
+    public function setMlEmployment($mlEmployment)
+    {
+        $this->mlEmployment = $mlEmployment;
+
+        return $this;
+    }
+
+    /**
+     * Get mlEmployment
+     *
+     * @return boolean 
+     */
+    public function getMlEmployment()
+    {
+        return $this->mlEmployment;
+    }
+
+    /**
+     * Set mlEvents
+     *
+     * @param boolean $mlEvents
+     * @return User
+     */
+    public function setMlEvents($mlEvents)
+    {
+        $this->mlEvents = $mlEvents;
+
+        return $this;
+    }
+
+    /**
+     * Get mlEvents
+     *
+     * @return boolean 
+     */
+    public function getMlEvents()
+    {
+        return $this->mlEvents;
+    }
+
+    /**
+     * Set mlIsimaNews
+     *
+     * @param boolean $mlIsimaNews
+     * @return User
+     */
+    public function setMlIsimaNews($mlIsimaNews)
+    {
+        $this->mlIsimaNews = $mlIsimaNews;
+
+        return $this;
+    }
+
+    /**
+     * Get mlIsimaNews
+     *
+     * @return boolean 
+     */
+    public function getMlIsimaNews()
+    {
+        return $this->mlIsimaNews;
     }
 }

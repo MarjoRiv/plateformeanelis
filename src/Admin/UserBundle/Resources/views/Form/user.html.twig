@@ -262,18 +262,28 @@
                     </div>
                     <div class="tab-pane" id="newsletters">
                         <div class="form-group">
-                            {{ form_label(form.newsletters, "Abonnements", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                            <div class="col-sm-9">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled">
-                                        {% for newsletter in form.newsletters %}
-                                            <li>{{ form_widget(newsletter) }} {{ form_label(newsletter) }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                            {{ form_label(form.mlInformations, "Informations", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.mlInformations, { 'attr' : { 'class' : 'form-control' } }) }}
                             </div>
-
-
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.mlEmployment, "Offres d'emplois", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.mlEmployment, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.mlEvents, "Événements (BDE ...)", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.mlEvents, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.mlIsimaNews, "Actualité ISIMA", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.mlIsimaNews, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
                         </div>
                     </div>
                 </div>

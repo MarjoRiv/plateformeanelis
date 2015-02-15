@@ -107,13 +107,18 @@ class UserType extends AbstractType
             ->add('childrenNumber', 'integer', array(
                 'required' => false
                 ))
-            ->add('newsletters', 'entity', array(
-                    'class' => 'AdminUserBundle:Newsletters',
-                    'property' => 'name',
-                    "multiple" => true,
-                    'required' => false,
-                    'expanded' => true
-            ))
+            ->add('mlInformations', 'checkbox', array(
+                'required' => false
+                ))
+            ->add('mlEmployment', 'checkbox', array(
+                'required' => false
+                ))
+            ->add('mlEvents', 'checkbox', array(
+                'required' => false
+                ))
+            ->add('mlIsimaNews', 'checkbox', array(
+                'required' => false
+                ))
         ;
     }
     
