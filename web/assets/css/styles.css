@@ -11902,6 +11902,7 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 }
 .panel-chat .chat-message .chat-contact img {
   max-width: 40px;
+  max-height:40px;
   border-radius: 1px;
 }
 .panel-chat .chat-message .chat-text {
