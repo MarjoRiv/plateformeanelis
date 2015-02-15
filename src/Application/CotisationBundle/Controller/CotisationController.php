@@ -63,4 +63,38 @@ class CotisationController extends Controller
         
         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
     }
+
+    public function relancerAction($id) {
+
+        $cotisation = $this->getDoctrine()->getRepository('ApplicationCotisationBundle:Cotisation')->find($id);
+        if (!$cotisation) {
+            return $this->redirect($this->getRequest()->headers->get('referer'));   
+        }
+
+        $username = $cotisation->getUser()->getUsername();
+        $surname = $cotisation->getUser()->getSurname();
+        $annee = $cotisation->getYear();
+
+        $this->get ( 'session' )->getFlashBag ()->add ( 'success', 'Cotisation pour l\'utilisateur '. $username .' relancé par email.');
+        $mailer = $this->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject('ANELIS - Facture '. $id .' en attente de paiement')
+            ->setFrom('mailing@anelis.org')
+            ->setTo('dawlys@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'Emails/invoice_waiting.html.twig',
+                    array(
+                        'surname' => $surname,
+                        'idfacture' => $id,
+                        'annee' => $annee
+                    )
+                ),
+                'text/html'
+            )
+        ;
+        $mailer->send($message);
+
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
 }

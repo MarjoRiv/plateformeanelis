@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>   
+        <p>
+            Salut {{ surname }} !
+        </p>
+        
+        <p>
+            La facture de ta cotisation pour l'année {{ annee|date('Y') }} est <strong>en attente de paiement</strong>.
+            <br /><br>
+            Pour rappel, tu peux <a href="{{ url('application_cotisation_invoice_get', { 'id' : idfacture }) }}">régler ta facture en ligne</a> depuis la plateforme via PayPal (CB ...).<br><br>
+            Tu peux également effectuer un virement bancaire (<strong>IBAN</strong> - FR76 3000 3006 5600 0372 8665 162 / <strong>BIC</strong> - SOGEFRPP) ou un chèque à l'ordre "ANELIS" (adresse : ISIMA, Campus des Cézeaux – BP 10125 – 63173 Aubière CEDEX – France).<br><br>
+            Si tu as déjà réglé ta facture, merci de nous envoyer un e-mail à <a href="mailto:support@anelis.org">support@anelis.org</a> en précisant quand et et par quel moyen tu l'as réglé.<br><br>
+            En te remerciant de l'intérêt que tu portes à notre association.<br><br>
+            Cordialement,<br />
+            L'équipe ANELIS.
+        </p>
+    </body>
+</html>

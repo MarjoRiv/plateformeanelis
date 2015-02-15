@@ -80,6 +80,8 @@ class UserAdmin extends Admin
             ->add('promotion')
             ->add('filiere')
             ->add('email')
+            ->add('city')
+            ->add('telephone')
             // add custom action links
             ->add('_action', 'actions', array(
                 'actions' => array(

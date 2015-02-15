@@ -35,7 +35,7 @@ class CotisationAdmin extends Admin
             $formMapper->add('invoice.payed', 'sonata_type_boolean', array('transform' => true));
         }
         else {
-            $formMapper->add('payed');
+            $formMapper->add('payed', null, array('required' => false));
         }
     }
 
@@ -64,6 +64,7 @@ class CotisationAdmin extends Admin
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
+                    'entity_board' => array('template' => 'ApplicationCotisationBundle:Admin/CRUD:relancer_button.html.twig'),
                 )
             ))
         ;
