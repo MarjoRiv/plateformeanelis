@@ -74,13 +74,14 @@ class CotisationController extends Controller
         $username = $cotisation->getUser()->getUsername();
         $surname = $cotisation->getUser()->getSurname();
         $annee = $cotisation->getYear();
+        $email = $cotisation->getUser()->getEmail();
 
         $this->get ( 'session' )->getFlashBag ()->add ( 'success', 'Cotisation pour l\'utilisateur '. $username .' relancé par email.');
         $mailer = $this->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject('ANELIS - Facture '. $id .' en attente de paiement')
             ->setFrom('mailing@anelis.org')
-            ->setTo('dawlys@gmail.com')
+            ->setTo($email)
             ->setBody(
                 $this->renderView(
                     'Emails/invoice_waiting.html.twig',
