@@ -116,7 +116,6 @@ fos_elastica:
                         provider: ~
                         listener: ~ # by default, listens to "insert", "update" and "delete" 
                         finder: ~
-                        #repository: Application\AnnuaireBundle\Entity\UserRepository
 
 sonata_block:
     default_contexts: [cms]

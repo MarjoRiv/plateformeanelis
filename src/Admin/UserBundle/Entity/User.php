@@ -188,7 +188,6 @@ class User extends BaseUser
 
     /**
      * @ORM\ManyToMany(targetEntity="Admin\UserBundle\Entity\Newsletters", inversedBy="users")
-     * @ORM\JoinTable(name="newsletters_user", joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}, inverseJoinColumns={@ORM\JoinColumn(name="newsletters_id", referencedColumnName="id")})
      */
     protected $newsletters;
 
@@ -220,9 +219,10 @@ class User extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="checked", type="boolean")
+     * @ORM\Column(name="isEmailValid", type="boolean")
      */
-    protected $checked;
+    protected $isEmailValid;
+
 
     
 
@@ -235,7 +235,7 @@ class User extends BaseUser
         $this->maritalName          = "";
         $this->surname              = "";
         $this->address              = "";
-        $this->checked              = true;
+        $this->isEmailValid       = true;
         $this->telephone            = "";
         $this->website              = "";
         $this->promotion            = "";
@@ -347,26 +347,26 @@ class User extends BaseUser
     }
 
     /**
-     * Set checked
+     * Set isEmailValid
      *
-     * @param boolean $checked
+     * @param boolean $isEmailValid
      * @return User
      */
-    public function setChecked($checked)
+    public function setIsEmailValid($isEmailValid)
     {
-        $this->checked = $checked;
+        $this->isEmailValid = $isEmailValid;
 
         return $this;
     }
 
     /**
-     * Get checked
+     * Get isEmailValid
      *
      * @return boolean 
      */
-    public function getChecked()
+    public function getIsEmailValid()
     {
-        return $this->checked;
+        return $this->isEmailValid;
     }
 
     /**
