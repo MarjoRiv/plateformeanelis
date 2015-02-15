@@ -35,6 +35,7 @@ class UserAdmin extends Admin
                 'required' => false
             ))
             ->add('address', 'text', array('label' => 'Adresse', 'required' => false))
+            ->add('city', 'text', array('label' => 'Adresse', 'required' => false))
             ->add('telephone', 'text', array('label' => 'Téléphone', 'required' => false))
             ->add('website', 'text', array('label' => 'Site Web', 'required' => false))
             ->add('biography', 'text', array('label' => 'Biographie', 'required' => false))
