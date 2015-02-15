@@ -13,6 +13,7 @@ class MessageAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('message')
             ->add('enabled')
         ;
     }
