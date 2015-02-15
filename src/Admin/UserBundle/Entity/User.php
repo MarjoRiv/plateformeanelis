@@ -255,7 +255,7 @@ class User extends BaseUser
         $this->maritalName          = "";
         $this->surname              = "";
         $this->address              = "";
-        $this->isEmailValid       = true;
+        $this->isEmailValid         = true;
         $this->telephone            = "";
         $this->website              = "";
         $this->promotion            = "";
@@ -1050,4 +1050,5 @@ class User extends BaseUser
     {
         return $this->mlIsimaNews;
     }
+
 }
