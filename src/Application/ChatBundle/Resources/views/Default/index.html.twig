@@ -42,9 +42,9 @@
                                                         <div class="chat-contact">
                                                             <a href="{{ path('user_show_profile', { 'id' : message.user.id }) }}">
                                                             {% if message.user.avatar.extension is empty %}
-                                                                <img src="{{ asset(message.user.avatar.defaultWebPath) }}" alt="{{ message.user.username }}" />
+                                                                <img src="{{ asset(message.user.avatar.defaultWebPath) }}" alt="{{ message.user.username }}" style="max-width: 40px; max-height: 40px;" />
                                                                 {% else %}
-                                                                <img src="{{ asset(message.user.avatar.webPath) }}" alt="{{ message.user.username }}" />
+                                                                <img src="{{ asset(message.user.avatar.webPath) }}" alt="{{ message.user.username }}" style="max-width: 40px; max-height: 40px;" />
                                                             {% endif %}
                                                             </a>
                                                         </div>
