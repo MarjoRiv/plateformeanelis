@@ -116,8 +116,11 @@
                                             <div class="panel panel-sky">
                                                 <div class="panel-heading" style="text-align: center;">
                                                     <h4>{{ result.name }} {{ result.surname }}</h4>
+                                                    {% if not result.isAlive %}
+                                                        <p class="pull-right" style="color: black;">R.I.P &lt;3</p>
+                                                    {% endif %}
                                                 </div>
-                                                <div class="panel-body">
+                                                <div class="panel-body"{% if not result.isAlive %} style="background-color: #DADADA;"{% endif %}>
                                                     <div class="media">
 
                                                         <a class="pull-left" href="{{ path("user_show_profile", { "id" : result.id }) }}">
@@ -128,14 +131,25 @@
                                                             {% endif %}
                                                         </a>
                                                         <div class="media-body">
-                                                            <h5>{{ result.getLastCareer|raw }}</h5>
+                                                            {% if not result.isAlive %}
+                                                                <h5>" À quitté ce monde, restera ZZ à tout jamais. "</h5>
+                                                            {% else %}
+                                                                <h5>{{ result.getLastCareer|raw }}</h5>
+                                                            {% endif %}
                                                             <hr style="margin:8px auto">
                                                             <span class="label label-default">{{ result.filiere }}</span>
                                                             <span class="label label-default">{{ result.promotion }}</span>
                                                             <hr style="margin:8px auto">
+                                                            {% if result.promotion <= "now"|date('Y')-1 %}
+                                                                <span class="badge badge-warning">ZZ+</span>
+                                                            {% else %}
+                                                                <span class="badge badge-info">ZZ</span>
+                                                            {% endif %}
+                                                            {% if result.isGraduated %}
+                                                                <span class="badge badge-success">Diplômé</span>
+                                                            {% endif %}
                                                             {% if result.isCotisant %}
                                                                 <span class="badge badge-primary">Cotisant</span>
-                                                                {% else %}
                                                             {% endif %}
                                                         </div>
                                                     </div>

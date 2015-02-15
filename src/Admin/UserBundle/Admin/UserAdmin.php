@@ -15,6 +15,7 @@ class UserAdmin extends Admin
         $formMapper
             ->add('username', 'text', array('label' => 'Username*'))
             ->add('email', 'text', array('label' => 'Email*'))
+            ->add('isEmailValid', null, array('label' => 'Email valide ?', 'required' => false))
             ->add('name', 'text', array('label' => 'Nom'))
             ->add('surname', 'text', array('label' => 'Prénom'))
             ->add('maritalName', 'text', array('label' => 'Nom Marital', 'required' => false))
@@ -47,11 +48,12 @@ class UserAdmin extends Admin
             ->add('socialGoogle', 'text', array('label' => 'Google', 'required' => false))
             ->add('socialYoutube', 'text', array('label' => 'Youtube', 'required' => false))
             ->add('socialInstagram', 'text', array('label' => 'Instagram', 'required' => false))
-            ->add('isEmailValid', null, array('label' => 'Email valide ?', 'required' => false))
             ->add('mlInformations', null, array('label' => 'ML Informations', 'required' => false))
             ->add('mlEmployment', null, array('label' => 'ML Offres d\'emplois', 'required' => false))
             ->add('mlEvents', null, array('label' => 'ML Événements (BDE ...)', 'required' => false))
             ->add('mlIsimaNews', null, array('label' => 'ML Actualité ISIMA', 'required' => false))
+            ->add('isAlive', null, array('label' => 'Toujours en vie ?', 'required' => false))
+            ->add('isGraduated', null, array('label' => 'Diplômé ?', 'required' => false))
             //->add('plainPassword', 'password')
         ;
     }

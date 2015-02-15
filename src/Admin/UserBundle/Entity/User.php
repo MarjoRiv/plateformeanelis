@@ -221,6 +221,20 @@ class User extends BaseUser
     /**
      * @var boolean
      *
+     * @ORM\Column(name="isAlive", type="boolean")
+     */
+    protected $isAlive;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isGraduated", type="boolean")
+     */
+    protected $isGraduated;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="mlInformations", type="boolean")
      */
     protected $mlInformations;
@@ -246,7 +260,6 @@ class User extends BaseUser
      */
     protected $mlIsimaNews;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -256,6 +269,8 @@ class User extends BaseUser
         $this->surname              = "";
         $this->address              = "";
         $this->isEmailValid         = true;
+        $this->isAlive              = true;
+        $this->isGraduated          = true;
         $this->telephone            = "";
         $this->website              = "";
         $this->promotion            = "";
@@ -1072,4 +1087,50 @@ class User extends BaseUser
     }
 
 
+
+    /**
+     * Set isAlive
+     *
+     * @param boolean $isAlive
+     * @return User
+     */
+    public function setIsAlive($isAlive)
+    {
+        $this->isAlive = $isAlive;
+
+        return $this;
+    }
+
+    /**
+     * Get isAlive
+     *
+     * @return boolean 
+     */
+    public function getIsAlive()
+    {
+        return $this->isAlive;
+    }
+
+    /**
+     * Set isGraduated
+     *
+     * @param boolean $isGraduated
+     * @return User
+     */
+    public function setIsGraduated($isGraduated)
+    {
+        $this->isGraduated = $isGraduated;
+
+        return $this;
+    }
+
+    /**
+     * Get isGraduated
+     *
+     * @return boolean 
+     */
+    public function getIsGraduated()
+    {
+        return $this->isGraduated;
+    }
 }
