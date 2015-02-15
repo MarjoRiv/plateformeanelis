@@ -29,6 +29,7 @@ class MessageAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('id')
             ->addIdentifier('user.name')
             ->add('message')
             ->add('enabled')
