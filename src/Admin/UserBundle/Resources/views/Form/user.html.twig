@@ -144,7 +144,7 @@
                         <div class="form-group{% if form_errors(form.biography) is not empty %} has-error{% endif %}">
                             {{ form_label(form.biography, "Biographie", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
-                                {{ form_widget(form.biography, { 'attr' : { 'class' : 'form-control normal', 'style' : 'resize: vertical;' } }) }}
+                                {{ form_widget(form.biography, { 'attr' : { 'class' : 'form-control normal', 'style' : 'resize: vertical;', 'rows' : '10' } }) }}
                             </div>
                         </div>
 
