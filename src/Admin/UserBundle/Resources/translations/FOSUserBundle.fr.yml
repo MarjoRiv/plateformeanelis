@@ -73,10 +73,12 @@ resetting:
     email:
         subject: Réinitialisation de votre mot de passe
         message: |
-            Bonjour %username% !
+            Bonjour %surname% !
 
             Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
 
+            Si vous rencontrez des problèmes, contactez nous : support@anelis.org
+            
             Cordialement,
             L'équipe ANELIS.
 
