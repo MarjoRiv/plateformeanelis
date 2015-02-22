@@ -10,6 +10,12 @@ use Sonata\AdminBundle\Form\FormMapper;
 class CotisationAdmin extends Admin
 {
 
+    protected $datagridValues = array(
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'id'
+    );
+
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
