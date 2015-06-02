@@ -14,7 +14,7 @@ class MessageAdmin extends Admin
     {
         $formMapper
             ->add('message')
-            ->add('enabled')
+            ->add('enabled', null, array('required' => false))
         ;
     }
 
