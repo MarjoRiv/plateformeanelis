@@ -57,6 +57,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="nickname", type="string", length=60)
+     */
+    private $nickname;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="promotion", type="string", length=255)
      */
     private $promotion;
@@ -267,6 +274,7 @@ class User extends BaseUser
         $this->name                 = "";
         $this->maritalName          = "";
         $this->surname              = "";
+        $this->nickname             = "";
         $this->address              = "";
         $this->isEmailValid         = true;
         $this->isAlive              = true;
@@ -1132,5 +1140,28 @@ class User extends BaseUser
     public function getIsGraduated()
     {
         return $this->isGraduated;
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     * @return User
+     */
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * Get nickname
+     *
+     * @return string 
+     */
+    public function getNickname()
+    {
+        return $this->nickname;
     }
 }

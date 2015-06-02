@@ -55,6 +55,13 @@
                                 <input type="text" class="form-control" placeholder="{{ app.user.surname }}" disabled>
                             </div>
                         </div>
+                        <div class="form-group{% if form_errors(form.nickname) is not empty %} has-error{% endif %}">
+                            {{ form_label(form.nickname, "Surnom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-6">
+                                {{ form_widget(form.nickname, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                            <div class="col-sm-3"><p class="help-block">Limité à 60 caractères !</p></div>
+                        </div>
                         <div class="form-group{% if form_errors(form.genre) is not empty %} has-error{% endif %}">
                             {{ form_label(form.genre, "Sexe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                             <div class="col-sm-6">
@@ -155,11 +162,8 @@
                                     <span class="fileinput-new">Choisir le fichier</span>
                                     {{ form_widget(form.avatar.input) }}
                                 </span>
-
                             </div>
-                            <div class="col-md-3 has-error">
-                                <p class="help-block">{{ form_errors(form.avatar)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
-                            </div>
+                            <div class="col-sm-3"><p class="help-block">Poids max : 2Mo</p></div>
                         </div>
 
 
@@ -254,6 +258,8 @@
                             <div class="col-md-3 has-error">
                                 <p class="help-block">Format: yyyy/MM/dd</p>
                             </div>
+                            {% else %}
+                            <div class="col-sm-3"><p class="help-block">Format: yyyy/MM/dd</p></div>
                             {% endif %}
                         </div>
                     </div>

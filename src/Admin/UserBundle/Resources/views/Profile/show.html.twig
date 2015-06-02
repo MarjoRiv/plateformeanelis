@@ -49,6 +49,12 @@
                                                     <td>{{ user.filiere }}</td>
                                                 </tr>
                                                 {% endif %}
+                                                {% if user.nickname is not empty and user.nickname != "" %}
+                                                <tr>
+                                                    <td>Surnom</td>
+                                                    <td>{{ user.nickname }}</td>
+                                                </tr>
+                                                {% endif %}
                                                 {% if user.website is not empty and user.website != "" %}
                                                 <tr>
                                                     <td>Web</td>

@@ -22,6 +22,8 @@ class UserType extends AbstractType
                 ))
             ->add('maritalName', 'text', array(
                 'required' => false))
+            ->add('nickname', 'text', array(
+                'required' => false))
             ->add('promotion', 'choice', array(
                 'choices' => $this->lstPromotions(),
                 'required'  => false,
