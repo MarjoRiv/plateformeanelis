@@ -30,6 +30,10 @@
                                             <div class="table-responsive">
                                                 <table class="table table-condensed">
                                                     <h3><strong>{{ user.surname }} {{ user.name }} </strong></h3>
+                                                    {% set promotionActivated = get_promotion_activated() %}
+                                                    {% if user.promotion == promotionActivated and user.id != app.user.id %}
+                                                    <p style="text-align: center;"><a href="{{ path("application_yearbook_newmessage", { "id" : user.id }) }}"><i class="fa fa-pencil"></i> Écrire sur le Yearbook</a></p>
+                                                    {% endif %}
                                             <!-- <thead>
                                                 <tr>
                                                     <th width="50%"></th>
