@@ -16,7 +16,6 @@ class YearbookMessagesAdmin extends Admin
             ->add('userFrom')
             ->add('userTo')
             ->add('message')
-            ->add('approved', null, array('required' => false))
             ->add('yearbook')
         ;
     }
@@ -39,7 +38,6 @@ class YearbookMessagesAdmin extends Admin
             ->add('userFrom')
             ->add('userTo')
             ->add('message')
-            ->add('approved')
             ->add('yearbook')
             // add custom action links
             ->add('_action', 'actions', array(

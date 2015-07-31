@@ -48,20 +48,13 @@ class YearbookMessages
     private $message;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="approved", type="boolean")
-     */
-    private $approved;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Application\YearbookBundle\Entity\Yearbook", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $yearbook;
 
     public function __construct() {
-        $this->approved     = false;
+
     }
 
 
@@ -96,29 +89,6 @@ class YearbookMessages
     public function getMessage()
     {
         return $this->message;
-    }
-
-    /**
-     * Set approved
-     *
-     * @param boolean $approved
-     * @return YearbookMessages
-     */
-    public function setApproved($approved)
-    {
-        $this->approved = $approved;
-
-        return $this;
-    }
-
-    /**
-     * Get approved
-     *
-     * @return boolean 
-     */
-    public function getApproved()
-    {
-        return $this->approved;
     }
 
     /**
