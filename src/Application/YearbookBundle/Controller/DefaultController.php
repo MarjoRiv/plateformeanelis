@@ -31,7 +31,7 @@ class DefaultController extends Controller
     public function addAction(User $user) {
 
         // Sécurité : on ne s'écrit pas à soi même
-        if ($user->getId() == $this->get('security.context')->getToken()->getUser()->getId()) {
+        if ($user->getId() == $this->get('security.context')->getToken()->getUser()->getId() || $user->getPromotion() != date('Y')) {
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
 
