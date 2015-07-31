@@ -29,7 +29,7 @@
                         <div class="well">
                             {{ message.message|nl2br }}
                         </div>
-                        <p style="text-align: right;"><a data-confirm href="{{ path('application_yearbook_delete', { 'id' : message.id }) }}" class="btn btn-danger">Supprimer</a></p>
+                        <p style="text-align: right;"><a href="{{ path("application_yearbook_newmessage", { "id" : message.userFrom.id }) }}" class="btn btn-default">Répondre</a> <a data-confirm href="{{ path('application_yearbook_delete', { 'id' : message.id }) }}" class="btn btn-danger">Supprimer</a></p>
                     {% endfor %}
                 {% else %}
                     <p class="alert-warning text-center">Vous n'avez reçu aucun message pour l'instant.</p>
