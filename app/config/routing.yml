@@ -1,3 +1,7 @@
+application_yearbook:
+    resource: "@ApplicationYearbookBundle/Resources/config/routing.yml"
+    prefix:   /
+
 application_career:
     resource: "@ApplicationCareerBundle/Resources/config/routing.yml"
     prefix:   /

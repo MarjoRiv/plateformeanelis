@@ -1,0 +1,7 @@
+services:
+    application_yearbook.is_enabled_twig_extension:
+        class: Application\YearbookBundle\Twig\Extension\YearbookExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager"

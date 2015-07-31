@@ -1,0 +1,44 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Liste des messages{% endblock %}
+    {% block body %}
+
+        <div id="page-content">
+          <div id='wrap'>
+            <div id="page-heading">
+              <ol class="breadcrumb">
+                <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                <li><a href="#" title="Yearbook">Yearbook</a></li>
+                <li class="active">Liste</li>
+            </ol>
+        </div>
+        <div class="container"> 
+            <div class="panel panel-purple">
+                <div class="panel-heading">
+                  <h4>Liste des messages reçus</h4>
+              </div>
+              <div class="panel-body">
+                <div class="alert alert-info">
+                    Vous trouverez ici l'ensemble des messages que des personnes vous ont laissées.<br>
+                    Une version papier de ceux-ci vous seront remis le jour de la RDD dans une enveloppe. Si vous ne souhaitez pas que certains messages apparraisent, vous pouvez les supprimer. 
+                </div>
+                <hr>
+                {% if messages is not empty %}
+                    {% for message in messages %}
+                        <p>De <a href="{{ path('user_show_profile', { 'id' : message.userFrom.id }) }}">{{ message.userFrom.surname }} {{ message.userFrom.name }}</a> : </p>
+                        <div class="well">
+                            {{ message.message|nl2br }}
+                        </div>
+                        <p style="text-align: right;"><a data-confirm href="{{ path('application_yearbook_delete', { 'id' : message.id }) }}" class="btn btn-danger">Supprimer</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p class="alert-warning text-center">Vous n'avez reçu aucun message pour l'instant.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--wrap -->
+</div>
+<!-- page-content -->
+{% endblock %}

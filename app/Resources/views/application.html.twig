@@ -87,6 +87,9 @@
                 <li class="divider"></li>
                 <li><a href="{{ path('application_cotisation_homepage') }}"><i class="fa fa-thumbs-o-up"></i> <span>Mes Cotisations</span></a></li>
                 <li><a href="{{ path('application_career_homepage') }}"><i class="fa fa-list"></i> <span>Mes Parcours</span></a></li>
+                {% if is_yearbook_activated() == true %}
+                {{ render(controller( 'ApplicationYearbookBundle:Default:yearbookMenu', { 'userId': app.user.id } )) }}
+                {% endif %}
 
                 <!--
                 <li class="divider"></li>

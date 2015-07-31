@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>   
+        <p>
+            Salut {{ to_surname }} {{ to_name }} !
+        </p>
+        
+        <p>
+            Tu viens de recevoir un nouveau message sur ton Yearbook de la part de {{ from_surname}} {{ from_name }}.
+            <br /><br>
+            N'hésites pas à te <a href="{{ url('application_yearbook_listmessages') }}">connecter</a> pour découvrir le message.<br><br>
+            Cordialement,<br />
+            L'équipe ANELIS.
+        </p>
+    </body>
+</html>

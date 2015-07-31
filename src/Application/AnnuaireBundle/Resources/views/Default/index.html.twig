@@ -111,6 +111,7 @@
                                     </div>
                                 </div>
                                 {% if results is not empty %}
+                                    {% set promotionActivated = get_promotion_activated() %}
                                     {% for result in results %}
                                         <div class="col-sm-4" style="height: 240px;">
                                             <div class="panel panel-sky">
@@ -118,6 +119,12 @@
                                                     <h4>{{ result.name }} {{ result.surname }}</h4>
                                                     {% if not result.isAlive %}
                                                         <p class="pull-right" style="color: black;">R.I.P &lt;3</p>
+                                                    {% else %}
+                                                        {% if result.promotion == promotionActivated and result.id != app.user.id %}
+                                                        <div class="options">
+                                                            <strong><a href="{{ path("application_yearbook_newmessage", { "id" : result.id }) }}"><i class="fa fa-pencil"></i> Yearbook</a></strong>
+                                                        </div>
+                                                        {% endif %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="panel-body" style="height: 190px;{% if not result.isAlive %}background-color: #DADADA;{% endif %}">

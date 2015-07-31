@@ -1,0 +1,15 @@
+application_yearbook_listmessages:
+    path:     /yearbook/list
+    defaults: { _controller: ApplicationYearbookBundle:Default:list }
+
+application_yearbook_newmessage:
+    path:     /yearbook/new/{id}
+    defaults: { _controller: ApplicationYearbookBundle:Default:add }
+    requirements:
+        id: \d*
+
+application_yearbook_delete:
+    pattern:  /yearbook/{id}/delete
+    defaults: { _controller: "ApplicationYearbookBundle:Default:delete" }
+    requirements:
+        id: \d*
