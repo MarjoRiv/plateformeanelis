@@ -1,4 +1,4 @@
-{% extends "::application.html.twig" %} 
+{% extends "::application.html.twig" %}
 
 {% block title %}Accueil{% endblock %}
     {% block body %}
@@ -12,7 +12,7 @@
                 </div>
         {% if "@poste.isima.fr" in app.user.email %}
                         <div class="alert alert-dismissable alert-danger">
-                            <strong>Attention :</strong> Vous utilisez une adresse email @poste.isima.fr, pensez à la <strong><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}" title"Edition du profil">changer</a></strong>.
+                            <strong>Attention :</strong> Vous utilisez une adresse email @poste.isima.fr, pensez à la <strong><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}" title"Edition du profil">changer</a></strong>. Cette adresse sera obsolète quand vous ne serez plus dans l'école !
                         </div>
                     {% endif %}
                 <div class="container">
@@ -67,8 +67,8 @@
                                 <div class="tiles-heading">Annonces</div>
                                 <div class="tiles-body-alt">
                                     <i class="fa fa-eye"></i>
-                                    <div class="text-center">0</div>
-                                    <small>annonces disponibles</small>
+                                    <div class="text-center"><i class="fa fa-code"></i></div>
+                                    <small>Le module emploi sera bientôt disponible !</small>
                                 </div>
                             </a>
                         </div>
@@ -77,8 +77,8 @@
                                 <div class="tiles-heading">Récrées</div>
                                 <div class="tiles-body-alt">
                                     <i class="fa fa-video-camera"></i>
-                                    <div class="text-center">2</div>
-                                    <small>talks disponibles</small>
+                                    <div class="text-center"><i class="fa fa-code"></i></div>
+                                    <small>Les réecrées seront bientôt disponibles !</small>
                                 </div>
                             </a>
                         </div>
@@ -88,8 +88,8 @@
                                 <div class="tiles-heading">Photos</div>
                                 <div class="tiles-body-alt">
                                     <i class="fa fa-camera"></i>
-                                    <div class="text-center">20</div>
-                                    <small>photos disponibles</small>
+                                    <div class="text-center"><i class="fa fa-code"></i></div>
+                                    <small>Les photos seront bientôt disponibles !</small>
                                 </div>
                             </a>
                         </div>
