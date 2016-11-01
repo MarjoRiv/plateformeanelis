@@ -21,18 +21,14 @@
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4>Bienvenue</h4>
-                            </div>
+                                  {% if is_granted("ROLE_ADMIN") %}
+                                  <div align="right"><a class="btn btn-primary" href={{ path('admin_admin_user_statictext_edit',{'id' : 1}) }}><i class="fa fa-gear"></i></a></div>
+                                  {% endif %}
+                              </div>
                             <div class="panel-body">
                                 <p>
-                                    Salut et bienvenue sur la nouvelle plateforme <strong>ANELIS</strong>, l'association des <strong>AN</strong>ciens <strong>É</strong>lèves de <strong>L</strong>'<strong>IS</strong>ima !<br>
-                                    <br>
-                                    Vous êtes sur la <strong>version bêta</strong> de la plateforme. Si vous trouvez des bugs ou des pistes d'améliorations, n'hésitez pas à nous les <a href="https://bitbucket.org/Dawlys/plateformeanelis/issues?status=new&status=open" target="_blank">signaler</a>. 
-                                    <br><br>
-                                    ANELIS lance actuellement une grande <strong>campagne pour retrouver un maximum d'anciens</strong> dont on a perdu les e-mails. <strong>Nous avons besoin de vous</strong>, alors si vous avez un petit peu de temps, <a href="mailto:support@anelis.org">contactez-nous</a>.
-                                    <br><br>
-                                    En vous remerciant d'avance 
-                                    <br>
-                                    L'équipe ANELIS.
+                                    {{ welcomeText | raw}}
+
                                 </p>
                             </div>
                         </div>
@@ -41,9 +37,12 @@
                         <div class="panel panel-primary">
                           <div class="panel-heading">
                             <h4>Prochains évènements</h4>
+                              {% if is_granted("ROLE_ADMIN") %}
+                                  <div align="right"><a class="btn btn-primary" href={{ path('admin_admin_user_statictext_edit',{'id' : 2}) }}><i class="fa fa-gear"></i></a></div>
+                              {% endif %}
                         </div>
                         <div class="panel-body">
-                            <p>26/09/2015 : <a href="https://www.facebook.com/events/1601682430081900/" target="_blank"><strong>RDD</strong> promo 2015, Casino de Royat, 16h</a></p>
+                            {{ agendaText | raw }}
                         </div>
                     </div>
                 </div>

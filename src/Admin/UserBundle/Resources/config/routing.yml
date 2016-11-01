@@ -1,3 +1,7 @@
+admin_user_statictext:
+    resource: "@AdminUserBundle/Resources/config/routing/statictext.yml"
+    prefix:   /statictext
+
 user_show_profile:
     pattern:  /profil/{id}
     defaults: { _controller: "AdminUserBundle:Profil:show" }
