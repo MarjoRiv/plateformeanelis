@@ -2,12 +2,14 @@
 
 namespace Admin\UserBundle\Entity;
 
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Validator\Constraints; // To check
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Application\MainBundle\Entity\Image;
 use FOS\ElasticaBundle\Configuration\Search;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * User
@@ -40,7 +42,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="maritalName", type="string", length=255)
+     * @ORM\Column(name="maritalName", type="string", length=255, nullable=true)
      */
     private $maritalName;
 
@@ -57,7 +59,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nickname", type="string", length=60)
+     * @ORM\Column(name="nickname", type="string", length=60, nullable=true)
      */
     private $nickname;
 
@@ -78,35 +80,35 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="text")
+     * @ORM\Column(name="address", type="text",nullable=true )
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="postalcode", type="string", length=255)
+     * @ORM\Column(name="postalcode", type="string", length=255, nullable=true)
      */
     private $postalcode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255)
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
      */
     private $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=255)
+     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
      */
     private $telephone;
 
@@ -119,56 +121,56 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255)
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
     private $website;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="socialFacebook", type="string", length=255)
+     * @ORM\Column(name="socialFacebook", type="string", length=255, nullable=true)
      */
     private $socialFacebook;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="socialTwitter", type="string", length=255)
+     * @ORM\Column(name="socialTwitter", type="string", length=255, nullable=true)
      */
     private $socialTwitter;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="socialLinkedin", type="string", length=255)
+     * @ORM\Column(name="socialLinkedin", type="string", length=255, nullable=true)
      */
     private $socialLinkedin;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="socialGoogle", type="string", length=255)
+     * @ORM\Column(name="socialGoogle", type="string", length=255, nullable=true)
      */
     private $socialGoogle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="socialYoutube", type="string", length=255)
+     * @ORM\Column(name="socialYoutube", type="string", length=255, nullable=true)
      */
     private $socialYoutube;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="socialInstagram", type="string", length=255)
+     * @ORM\Column(name="socialInstagram", type="string", length=255, nullable=true)
      */
     private $socialInstagram;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="biography", type="text")
+     * @ORM\Column(name="biography", type="text", nullable=true)
      */
     private $biography;
 
@@ -182,14 +184,14 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="maritalStatus", type="string", length=255)
+     * @ORM\Column(name="maritalStatus", type="string", length=255, nullable=true)
      */
     private $maritalStatus;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="childrenNumber", type="integer", length=255)
+     * @ORM\Column(name="childrenNumber", type="integer", length=255, nullable=true)
      */
     private $childrenNumber;
 
@@ -221,49 +223,49 @@ class User extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isEmailValid", type="boolean")
+     * @ORM\Column(name="isEmailValid", type="boolean", nullable=true)
      */
     protected $isEmailValid;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isAlive", type="boolean")
+     * @ORM\Column(name="isAlive", type="boolean", nullable=true)
      */
     protected $isAlive;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isGraduated", type="boolean")
+     * @ORM\Column(name="isGraduated", type="boolean", nullable=true)
      */
     protected $isGraduated;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="mlInformations", type="boolean")
+     * @ORM\Column(name="mlInformations", type="boolean", nullable=true)
      */
     protected $mlInformations;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="mlEmployment", type="boolean")
+     * @ORM\Column(name="mlEmployment", type="boolean", nullable=true)
      */
     protected $mlEmployment;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="mlEvents", type="boolean")
+     * @ORM\Column(name="mlEvents", type="boolean", nullable=true)
      */
     protected $mlEvents;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="mlIsimaNews", type="boolean")
+     * @ORM\Column(name="mlIsimaNews", type="boolean", nullable=true)
      */
     protected $mlIsimaNews;
 
