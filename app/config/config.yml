@@ -127,6 +127,8 @@ sonata_block:
 sonata_admin:
     title:      Administration
     title_logo: assets/img/anelis-logo.png
+    templates:
+        layout: AdminUserBundle::standard_layout.html.twig
 
 
 #imports:

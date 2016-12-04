@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+{% block side_bar_after_nav %}
+    <li>
+        <a href="{{ path('application_main_homepage') }}">
+            <span class="fa fa-home"></span> Retour à la plateforme
+        </a>
+    </li>
+{% endblock %}

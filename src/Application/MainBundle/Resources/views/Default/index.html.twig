@@ -43,7 +43,11 @@
                         </div>
                         <div class="panel-body">
                             {% for event in events %}
-                                {{ event.date|date("d/m/Y") }} : <a href="{{ event.fblink }}">{{ event.title }}, {{ event.place }}, {{ event.date|date("H\\hi") }}</a></br>
+                                {{ event.date|date("d/m/Y") }} :
+                                {% if event.link|length != 0 %}<a href="{{ event.link }}"> {% endif %}
+                                    {{ event.title }}, {{ event.place }}, {{ event.date|date("H\\hi") }}
+                                {% if event.link|length != 0 %}</a>{% endif %}
+                                <br>
                             {% endfor %}
                         </div>
                     </div>

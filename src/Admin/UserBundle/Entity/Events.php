@@ -47,7 +47,7 @@ class Events
      *
      * @ORM\Column(name="fblink", type="text", nullable=true)
      */
-    private $fblink;
+    private $link;
 
 
     /**
@@ -136,13 +136,13 @@ class Events
     /**
      * Set fblink
      *
-     * @param string $fblink
+     * @param string $link
      *
      * @return Events
      */
-    public function setFblink($fblink)
+    public function setLink($link)
     {
-        $this->fblink = $fblink;
+        $this->link = $link;
 
         return $this;
     }
@@ -152,9 +152,20 @@ class Events
      *
      * @return string
      */
-    public function getFblink()
+    public function getLink()
     {
-        return $this->fblink;
+        return $this->link;
+    }
+
+    //Comparing two events
+    static public function cmpEvents(Events $a, Events $b)
+    {
+        if($a->getDate() == $b->getDate())
+        {
+            return $a->getId() < $b->getId() ? -1 : 1;
+        }
+
+        return $a->getDate() < $b->getDate() ? -1 : 1;
     }
 
 }

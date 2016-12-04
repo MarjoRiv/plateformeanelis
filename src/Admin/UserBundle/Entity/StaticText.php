@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Id used on twig :
  * 1 - Homepage, welcome text
- * 2 - Events, beside homepage welcome text
  *
  * @ORM\Table()
  * @ORM\Entity

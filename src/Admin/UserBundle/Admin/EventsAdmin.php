@@ -19,7 +19,7 @@ class EventsAdmin extends Admin
             ->add('date')
             ->add('title')
             ->add('place')
-            ->add('fblink')
+            ->add('link')
         ;
     }
 
@@ -33,7 +33,7 @@ class EventsAdmin extends Admin
             ->add('date')
             ->add('title')
             ->add('place')
-            ->add('fblink')
+            ->add('link')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -50,10 +50,10 @@ class EventsAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title')
+            ->add('title','text', array('label' => 'Nom de l\'évènement'))
             ->add('date')
-            ->add('place')
-            ->add('fblink','text',array('required' => false))
+            ->add('place','text', array('label' => 'Lieu'))
+            ->add('link','text',array('label' => 'Lien', 'required' => false))
         ;
     }
 
@@ -67,7 +67,7 @@ class EventsAdmin extends Admin
             ->add('date')
             ->add('title')
             ->add('place')
-            ->add('fblink')
+            ->add('link')
         ;
     }
 }
