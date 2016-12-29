@@ -47,15 +47,12 @@ class UserController extends Controller
         $geoform = false;
         if ($userSearchForm->isValid()) {
             $userSearch = $userSearchForm->getData();
-            //$results = $this->getSearchRepository()->searchUsers($userSearch);
-            //$results = $em->UserDQLSearch($userSearch);
             $results = $this->UserDQLSearch($userSearch);
             $formSubmited = true;
         }
 
         if ($geoSearchForm->isValid()) {
             $geoSearch = $geoSearchForm->getData();
-            //$results = $this->getSearchRepository()->searchGeoUsers($geoSearch);
             $results = $this->GeoDQLSearch($geoSearch);
             $formSubmited = true;
             $geoform = true;
@@ -70,14 +67,6 @@ class UserController extends Controller
         ));
     }
 
-    protected function getSearchRepository()
-    {
-        return $this->container
-            ->get('fos_elastica.manager')
-            ->getRepository('AdminUserBundle:User')
-        ;
-    }
-
     //Should be better to put this in a Repository ?
     protected function UserDQLSearch(UserSearch $userSearch)
     {
@@ -89,14 +78,14 @@ class UserController extends Controller
             $query = $em->getRepository('Admin\UserBundle\Entity\User')->createQueryBuilder('u');
             $parameters = array();
             if ($userSearch->getName() != null) {
-                $query->andWhere('u.name = :name');
-                $parameters['name'] = $userSearch->getName();
+                $query->andWhere('u.name LIKE :name');
+                $parameters['name'] = '%'.$userSearch->getName().'%';
             }
 
             if($userSearch->getSurname() != null)
             {
-                $query->andWhere('u.surname = :surname');
-                $parameters['surname'] = $userSearch->getSurname();
+                $query->andWhere('u.surname LIKE :surname');
+                $parameters['surname'] = '%'.$userSearch->getSurname().'%';
             }
 
             if($userSearch->getPromotion() != null)
@@ -135,14 +124,15 @@ class UserController extends Controller
         $parameters = array();
 
         if ($geoSearch != '' && ($geoSearch->getPostalcode() != '' || $geoSearch->getCity() != null || $geoSearch->getCountry() != null)) {
-            if ($geoSearch->getPostalcode() != null) {
-                $query->andWhere('u.postalcode = :postalcode');
-                $parameters['postalcode'] = $geoSearch->getPostalcode();
+            if ($geoSearch->getPostalcode() != null && $geoSearch->getPostalcode() > 1000) {
+                $query->andWhere('u.postalcode-:postalcode < 1000 AND u.postalcode-:postalcode > -1000' )
+                      ->andWhere('u.postalcode IS NOT NULL');
+                $parameters['postalcode'] =  $geoSearch->getPostalcode();
             }
 
             if ($geoSearch->getCity() != null) {
-                $query->andWhere('u.city = :city');
-                $parameters['city'] = $geoSearch->getCity();
+                $query->andWhere('u.city LIKE :city');
+                $parameters['city'] = '%'.$geoSearch->getCity().'%';
             }
 
             if($geoSearch->getCountry() != null)
