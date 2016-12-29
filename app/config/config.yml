@@ -98,25 +98,6 @@ fos_user:
             type: anelis_user_change_password
             name: anelis_user_change_password
 
-fos_elastica:
-    clients:
-        default: { host: localhost, port: 9200 }
-    serializer:
-        callback_class: FOS\ElasticaBundle\Serializer\Callback
-        serializer: serializer
-    indexes:
-        afsy:
-            client: default
-            types:
-                User:
-                    mappings: ~
-                    persistence:
-                        driver: orm # orm, mongodb, propel are available
-                        model:  Admin\UserBundle\Entity\User
-                        provider: ~
-                        listener: ~ # by default, listens to "insert", "update" and "delete" 
-                        finder: ~
-
 sonata_block:
     default_contexts: [cms]
     blocks:
