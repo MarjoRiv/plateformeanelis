@@ -55,7 +55,8 @@ class UserController extends Controller
 
         if ($geoSearchForm->isValid()) {
             $geoSearch = $geoSearchForm->getData();
-            $results = $this->getSearchRepository()->searchGeoUsers($geoSearch);
+            //$results = $this->getSearchRepository()->searchGeoUsers($geoSearch);
+            $results = $this->GeoDQLSearch($geoSearch);
             $formSubmited = true;
             $geoform = true;
         }
@@ -108,6 +109,46 @@ class UserController extends Controller
             {
                 $query->andWhere('u.filiere = :filiere');
                 $parameters['filiere'] = $userSearch->getFiliere();
+            }
+
+            if(count($parameters)) $query->setParameters($parameters);
+
+            $DQLQuery = $query
+                ->orderBy('u.filiere', 'ASC')
+                ->orderBy('u.name', 'ASC')
+                ->orderBy('u.surname', 'ASC')
+                ->orderBy('u.promotion', 'ASC')
+                ->getQuery();
+
+            $users = $DQLQuery->getResult();
+        }
+
+        return $users;
+    }
+
+    protected function GeoDQLSearch(GeoSearch $geoSearch)
+    {
+        $users = null;
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('Admin\UserBundle\Entity\User')->createQueryBuilder('u');
+        $parameters = array();
+
+        if ($geoSearch != '' && ($geoSearch->getPostalcode() != '' || $geoSearch->getCity() != null || $geoSearch->getCountry() != null)) {
+            if ($geoSearch->getPostalcode() != null) {
+                $query->andWhere('u.postalcode = :postalcode');
+                $parameters['postalcode'] = $geoSearch->getPostalcode();
+            }
+
+            if ($geoSearch->getCity() != null) {
+                $query->andWhere('u.city = :city');
+                $parameters['city'] = $geoSearch->getCity();
+            }
+
+            if($geoSearch->getCountry() != null)
+            {
+                $query->andWhere('u.country = :country');
+                $parameters['country'] = $geoSearch->getCountry();
             }
 
             if(count($parameters)) $query->setParameters($parameters);
