@@ -3,8 +3,8 @@
 namespace Application\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 
@@ -274,9 +274,10 @@ class Image
     /**
      * Check if an image is correct
      */
-    public function imageValid(ExecutionContextInterface $context) {
+    public function imageValid(\Symfony\Component\Validator\Context\ExecutionContextInterface $context) {
         if ($this->mandatory && empty($this->extension) && $this->input == null)
-            $context->addViolationAt('input', 'Il faut obligatoirement une image.', array(), null);
+            $context->buildViolation('Il faut obligatoirement une image', array());
+            //$context->buildViolation('input', 'Il faut obligatoirement une image.', array(), null);
     }
     
     /**

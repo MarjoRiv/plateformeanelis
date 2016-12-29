@@ -3,27 +3,29 @@
 namespace Application\MainBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageFullType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('input', 'file', array(
+            ->add('input', FileType::class, array(
                 "required" => false,
             ))
-            ->add('description', 'text')
+            ->add('description', TextType::class)
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'application_mainbundle_imagefulltype';
     }
     
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
                 'data_class' => 'Application\MainBundle\Entity\Image',
         ));

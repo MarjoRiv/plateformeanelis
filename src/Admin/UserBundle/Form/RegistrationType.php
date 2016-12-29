@@ -2,8 +2,8 @@
 
 namespace Admin\UserBundle\Form;
 
-use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\Form\FormBuilderInterface;
 use WebSite\MainBundle\Form\ImageType;
 
 class RegistrationType extends BaseType
@@ -26,10 +26,5 @@ class RegistrationType extends BaseType
             ->add("address", "textarea", array(
                 "required" => true,
             ));
-    }
-
-    public function getName()
-    {
-        return 'admin_user_registration';
     }
 }

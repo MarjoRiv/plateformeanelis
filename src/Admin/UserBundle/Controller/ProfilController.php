@@ -2,12 +2,12 @@
 
 namespace Admin\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\UserBundle\Entity\User;
-use Admin\UserBundle\Form\UserType;
 use Admin\UserBundle\Form\UserHandler;
+use Admin\UserBundle\Form\UserType;
 use Admin\UserBundle\Manager\UserManager;
 use Application\MainBundle\Manager\LogManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProfilController extends Controller
 {

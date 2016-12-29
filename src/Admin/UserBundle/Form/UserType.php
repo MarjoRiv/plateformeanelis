@@ -2,11 +2,18 @@
 
 namespace Admin\UserBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Application\MainBundle\Form\ImageType;
 use Admin\UserBundle\Form\TelType;
+use Application\MainBundle\Form\ImageType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
@@ -17,18 +24,18 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'email', array(
+            ->add('email', EmailType::class, array(
                 'required' => true
                 ))
-            ->add('maritalName', 'text', array(
+            ->add('maritalName', TextType::class, array(
                 'required' => false))
-            ->add('nickname', 'text', array(
+            ->add('nickname', TextType::class, array(
                 'required' => false))
-            ->add('promotion', 'choice', array(
+            ->add('promotion', ChoiceType::class, array(
                 'choices' => $this->lstPromotions(),
                 'required'  => false,
                 ))
-            ->add('filiere', 'choice', array(
+            ->add('filiere', ChoiceType::class, array(
                 'choices'   => array(
                     'F1' => 'F1',
                     'F2' => 'F2',
@@ -38,50 +45,50 @@ class UserType extends AbstractType
                     'FI' => 'FI',
                     ),
                 ))
-            ->add('genre', 'choice', array(
+            ->add('genre', ChoiceType::class, array(
                 'choices' => array(
                     'M' => 'M',
                     'F' => 'F',
                     ),
                 ))
-            ->add('address', 'textarea', array(
+            ->add('address', TextareaType::class, array(
                 'required' => false,
                 ))
-            ->add('postalcode', 'text', array(
+            ->add('postalcode', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('city', 'text', array(
+            ->add('city', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('country', 'country', array(
+            ->add('country', CountryType::class, array(
                 'required' => false
                 ))
-            ->add('telephone', 'tel', array(
+            ->add('telephone', TelType::class, array(
                 'required' => false,
                 ))
-            ->add('website', 'text', array(
+            ->add('website', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('biography', 'textarea', array(
+            ->add('biography', TextareaType::class, array(
                 'required' => false,
                 ))
             ->add('avatar', new ImageType())
-            ->add('socialFacebook', 'text', array(
+            ->add('socialFacebook', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('socialTwitter', 'text', array(
+            ->add('socialTwitter', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('socialLinkedin', 'text', array(
+            ->add('socialLinkedin', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('socialGoogle', 'text', array(
+            ->add('socialGoogle', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('socialYoutube', 'text', array(
+            ->add('socialYoutube', TextType::class, array(
                 'required' => false,
                 ))
-            ->add('socialInstagram', 'text', array(
+            ->add('socialInstagram', TextType::class, array(
                 'required' => false,
                 ))
 
@@ -97,7 +104,7 @@ class UserType extends AbstractType
                 'required' => 'false',
             ))
 
-            ->add('maritalStatus', 'choice', array(
+            ->add('maritalStatus', ChoiceType::class, array(
                 'choices'   => array(
                     'Célibataire' => 'Célibataire',
                     'En couple' => 'En couple',
@@ -106,19 +113,19 @@ class UserType extends AbstractType
                     'En union libre' => 'En union libre',
                     ),
                 ))
-            ->add('childrenNumber', 'integer', array(
+            ->add('childrenNumber', IntegerType::class, array(
                 'required' => false
                 ))
-            ->add('mlInformations', 'checkbox', array(
+            ->add('mlInformations', CheckboxType::class, array(
                 'required' => false
                 ))
-            ->add('mlEmployment', 'checkbox', array(
+            ->add('mlEmployment', CheckboxType::class, array(
                 'required' => false
                 ))
-            ->add('mlEvents', 'checkbox', array(
+            ->add('mlEvents', CheckboxType::class, array(
                 'required' => false
                 ))
-            ->add('mlIsimaNews', 'checkbox', array(
+            ->add('mlIsimaNews', CheckboxType::class, array(
                 'required' => false
                 ))
         ;
@@ -127,7 +134,7 @@ class UserType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Admin\UserBundle\Entity\User'
@@ -137,13 +144,13 @@ class UserType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'admin_userbundle_user';
     }
 
     public function lstPromotions() {
-        $result;
+        $result = array();
 
         for ($i = 1995 ; $i <= date('Y')+2 ; $i++) {
             $result["".$i] = $i;

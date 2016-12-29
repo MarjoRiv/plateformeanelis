@@ -2,9 +2,9 @@
 
 namespace Application\MainBundle\Manager;
 
-use Application\MainBundle\Model\BaseManager;
-use Application\MainBundle\Entity\Log;
 use Admin\UserBundle\Entity\User;
+use Application\MainBundle\Entity\Log;
+use Application\MainBundle\Model\BaseManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 

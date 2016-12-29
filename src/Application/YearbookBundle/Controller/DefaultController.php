@@ -2,13 +2,13 @@
 
 namespace Application\YearbookBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\UserBundle\Entity\User;
 use Application\YearbookBundle\Entity\Yearbook;
 use Application\YearbookBundle\Entity\YearbookMessages;
-use Application\YearbookBundle\Form\YearbookMessagesType;
 use Application\YearbookBundle\Form\YearbookMessagesHandler;
+use Application\YearbookBundle\Form\YearbookMessagesType;
 use Application\YearbookBundle\Manager\YearbookMessagesManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {

@@ -2,9 +2,9 @@
 
 namespace Application\CotisationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Application\CotisationBundle\Entity\Invoice;
 use Application\CotisationBundle\Manager\InvoiceManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class InvoiceController extends Controller
 {

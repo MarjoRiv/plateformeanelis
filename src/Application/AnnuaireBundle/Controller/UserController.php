@@ -2,12 +2,12 @@
 
 namespace Application\AnnuaireBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Application\AnnuaireBundle\Model\UserSearch;
+use Application\AnnuaireBundle\Form\Type\GeoSearchType;
 use Application\AnnuaireBundle\Form\Type\UserSearchType;
 use Application\AnnuaireBundle\Model\GeoSearch;
-use Application\AnnuaireBundle\Form\Type\GeoSearchType;
+use Application\AnnuaireBundle\Model\UserSearch;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
@@ -20,7 +20,7 @@ class UserController extends Controller
         $userSearchForm = $this->get('form.factory')
             ->createNamed(
                 '',
-                new UserSearchType(),
+                UserSearchType::class,
                 $userSearch,
                 array(
                     'action' => $this->generateUrl('application_annuaire_homepage'),
@@ -33,7 +33,7 @@ class UserController extends Controller
         $geoSearchForm = $this->get('form.factory')
             ->createNamed(
                 '',
-                new GeoSearchType(),
+                GeoSearchType::class,
                 $geoSearch,
                 array(
                     'action' => $this->generateUrl('application_annuaire_homepage'),

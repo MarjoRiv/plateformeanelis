@@ -2,10 +2,10 @@
 
 namespace Application\ChatBundle\Form;
 
+use Application\ChatBundle\Entity\Message;
+use Application\ChatBundle\Manager\MessageManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Application\ChatBundle\Manager\MessageManager;
-use Application\ChatBundle\Entity\Message;
 
 
 class MessageHandler
@@ -25,7 +25,7 @@ class MessageHandler
     {
         if( $this->request->getMethod() == 'POST' )
         {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if( $this->form->isValid() )
             {

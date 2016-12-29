@@ -2,12 +2,12 @@
 
 namespace Application\CareerBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Application\CareerBundle\Entity\Career;
-use Application\CareerBundle\Form\CareerType;
+
 use Application\CareerBundle\Form\CareerHandler;
+use Application\CareerBundle\Form\CareerType;
 use Application\CareerBundle\Manager\CareerManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {

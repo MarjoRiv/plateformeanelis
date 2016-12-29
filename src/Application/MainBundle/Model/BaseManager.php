@@ -3,8 +3,8 @@
 namespace Application\MainBundle\Model;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 abstract class BaseManager {
     /**

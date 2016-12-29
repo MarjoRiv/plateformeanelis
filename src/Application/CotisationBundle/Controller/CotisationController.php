@@ -2,12 +2,13 @@
 
 namespace Application\CotisationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Application\CotisationBundle\Entity\Cotisation;
+use Application\CotisationBundle\Form\CotisationHandler;
+use Application\CotisationBundle\Form\CotisationType;
 use Application\CotisationBundle\Manager\CotisationManager;
 use Application\CotisationBundle\Manager\InvoiceManager;
-use Application\CotisationBundle\Form\CotisationType;
-use Application\CotisationBundle\Form\CotisationHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class CotisationController extends Controller
@@ -64,11 +65,11 @@ class CotisationController extends Controller
         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
     }
 
-    public function relancerAction($id) {
+    public function relancerAction(Request $request, $id) {
 
         $cotisation = $this->getDoctrine()->getRepository('ApplicationCotisationBundle:Cotisation')->find($id);
         if (!$cotisation) {
-            return $this->redirect($this->getRequest()->headers->get('referer'));   
+            return $this->redirect($request->headers->get('referer'));   
         }
 
         $username = $cotisation->getUser()->getUsername();
@@ -96,6 +97,6 @@ class CotisationController extends Controller
         ;
         $mailer->send($message);
 
-        return $this->redirect($this->getRequest()->headers->get('referer'));
+        return $this->redirect($request->headers->get('referer'));
     }
 }

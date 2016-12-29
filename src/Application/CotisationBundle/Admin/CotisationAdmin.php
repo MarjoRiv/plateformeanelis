@@ -2,12 +2,12 @@
 
 namespace Application\CotisationBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class CotisationAdmin extends Admin
+class CotisationAdmin extends AbstractAdmin
 {
 
     protected $datagridValues = array(

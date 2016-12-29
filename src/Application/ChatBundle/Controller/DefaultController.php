@@ -2,11 +2,11 @@
 
 namespace Application\ChatBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Application\ChatBundle\Entity\Message;
-use Application\ChatBundle\Form\MessageType;
 use Application\ChatBundle\Form\MessageHandler;
+use Application\ChatBundle\Form\MessageType;
 use Application\ChatBundle\Manager\MessageManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
