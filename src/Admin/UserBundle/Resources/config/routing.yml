@@ -3,13 +3,13 @@ admin_user_statictext:
     prefix:   /statictext
 
 user_show_profile:
-    pattern:  /profil/{id}
+    path:  /profil/{id}
     defaults: { _controller: "AdminUserBundle:Profil:show" }
     requirements:
         id: \d*
 
 user_edit_profile:
-    pattern:  /profil/{id}/edit
+    path:  /profil/{id}/edit
     defaults: { _controller: "AdminUserBundle:Profil:edit" }
     requirements:
         id: \d*
@@ -34,5 +34,5 @@ fos_user_change_password:
     prefix: /profile
 
 sonata_admin_dashboard:
-    pattern:  /admin/dashboard
+    path:  /admin/dashboard
     defaults: { _controller: "AdminUserBundle:Admin:index" }

@@ -24,14 +24,14 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    assets: ~
+
 
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - 'AdminUserBundle:Form:fields.html.twig'
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"

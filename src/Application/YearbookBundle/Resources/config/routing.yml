@@ -9,7 +9,7 @@ application_yearbook_newmessage:
         id: \d*
 
 application_yearbook_delete:
-    pattern:  /yearbook/{id}/delete
-    defaults: { _controller: "ApplicationYearbookBundle:Default:delete" }
+    path:  /yearbook/{id}/delete
+    defaults: { _controller: ApplicationYearbookBundle:Default:delete }
     requirements:
         id: \d*
