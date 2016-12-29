@@ -13,6 +13,8 @@ class UserController extends Controller
 {
     public function statsAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager()->getRepository('Admin\UserBundle\Entity\User');
+
         $userSearch = new UserSearch();
         // we create an "anonym" form to pass parameters in GET and have a nice url
         $userSearchForm = $this->get('form.factory')
@@ -45,7 +47,9 @@ class UserController extends Controller
         $geoform = false;
         if ($userSearchForm->isValid()) {
             $userSearch = $userSearchForm->getData();
-            $results = $this->getSearchRepository()->searchUsers($userSearch); 
+            //$results = $this->getSearchRepository()->searchUsers($userSearch);
+            //$results = $em->UserDQLSearch($userSearch);
+            $results = $this->UserDQLSearch($userSearch);
             $formSubmited = true;
         }
 
@@ -71,5 +75,53 @@ class UserController extends Controller
             ->get('fos_elastica.manager')
             ->getRepository('AdminUserBundle:User')
         ;
+    }
+
+    //Should be better to put this in a Repository ?
+    protected function UserDQLSearch(UserSearch $userSearch)
+    {
+
+        $users = null;
+
+        if ($userSearch != '' && ($userSearch->getName() != '' || $userSearch->getSurname() != null || $userSearch->getPromotion() != null || $userSearch->getFiliere() != null)) {
+            $em = $this->getDoctrine()->getManager();
+            $query = $em->getRepository('Admin\UserBundle\Entity\User')->createQueryBuilder('u');
+            $parameters = array();
+            if ($userSearch->getName() != null) {
+                $query->andWhere('u.name = :name');
+                $parameters['name'] = $userSearch->getName();
+            }
+
+            if($userSearch->getSurname() != null)
+            {
+                $query->andWhere('u.surname = :surname');
+                $parameters['surname'] = $userSearch->getSurname();
+            }
+
+            if($userSearch->getPromotion() != null)
+            {
+                $query->andWhere('u.promotion = :promotion');
+                $parameters['promotion'] = $userSearch->getPromotion();
+            }
+
+            if($userSearch->getFiliere() != null)
+            {
+                $query->andWhere('u.filiere = :filiere');
+                $parameters['filiere'] = $userSearch->getFiliere();
+            }
+
+            if(count($parameters)) $query->setParameters($parameters);
+
+            $DQLQuery = $query
+                ->orderBy('u.filiere', 'ASC')
+                ->orderBy('u.name', 'ASC')
+                ->orderBy('u.surname', 'ASC')
+                ->orderBy('u.promotion', 'ASC')
+                ->getQuery();
+
+            $users = $DQLQuery->getResult();
+        }
+
+        return $users;
     }
 }

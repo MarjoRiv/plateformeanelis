@@ -50,6 +50,7 @@ class UserRepository extends Repository
         return $query;
     }
 
+
     public function getQueryForGeoSearch(GeoSearch $geoSearch)
     {
         $boolQuery = new \Elastica\Query\Bool();
