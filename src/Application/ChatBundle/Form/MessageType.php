@@ -20,7 +20,7 @@ class MessageType extends AbstractType
                 'required' => true))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

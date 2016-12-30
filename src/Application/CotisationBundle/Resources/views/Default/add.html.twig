@@ -21,7 +21,8 @@
           </div>
           <div class="panel-body collapse in">
             <p class="text-info">Il existe deux types de cotisation : <strong>Membre (10 &euro;)</strong> et <strong>Membre Bienfaisant (montant libre)</strong>.<br />L'argent récolté nous permet de faire <strong>vivre l'association</strong> et d'<strong>organiser des événements</strong> comme les récrées ANELIS.</p>
-            <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+            <div class="form-horizontal">
+              {{ form_start(form) }}
                 <div class="form-group">
                     {{ form_label(form.typeCotisation, "Type*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                     <div class="col-sm-6">
@@ -39,6 +40,8 @@
                     {{ form_rest(form) }}
 
                 </div>
+                {{ form_end(form) }}
+                  </div>
                 <p class="text-warning">Une fois votre demande de cotisation effectuée, il suffit de visualiser la facture générée et de la payer pour que celle-ci soit prise en compte.</p>
                 <div class="panel-footer">
                     <div class="row">

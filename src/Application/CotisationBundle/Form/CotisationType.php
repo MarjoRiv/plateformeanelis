@@ -33,7 +33,7 @@ class CotisationType extends AbstractType
                 )))
             ->add('typeCotisation', 'entity', array(
                     'class' => 'ApplicationCotisationBundle:TypeCotisation',
-                    'property' => 'name',
+                    //'property' => 'name',
                     'required' => true
             ))
         ;

@@ -72,7 +72,7 @@ class UserType extends AbstractType
             ->add('biography', TextareaType::class, array(
                 'required' => false,
                 ))
-            ->add('avatar', new ImageType())
+            ->add('avatar', ImageType::class)
             ->add('socialFacebook', TextType::class, array(
                 'required' => false,
                 ))

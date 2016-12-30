@@ -18,7 +18,7 @@ class CareerType extends AbstractType
         $builder
             ->add('typeCareer', 'entity', array(
                         'class' => 'ApplicationCareerBundle:TypeCareer',
-                        'property' => 'name',
+                        //'property' => 'name',
                         'required' => true
             ))
             ->add('institution', TextType::class, array(

@@ -7,26 +7,28 @@ use Application\ChatBundle\Form\MessageHandler;
 use Application\ChatBundle\Form\MessageType;
 use Application\ChatBundle\Manager\MessageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $message = new Message();
+        //var_dump($this->getUser());
         $message->setUser($this->getUser());
-        $form = $this->createForm(new MessageType(), $message);
-        $em = new MessageManager($this);
+        $form = $this->createForm(MessageType::class, $message);
+        $em = $this->getDoctrine()->getEntityManager();
 
-        $handler = new MessageHandler($form, $this->get('request'), $em);
+        $handler = new MessageHandler($form, $request, $em);
         if ($handler->process())
         {
-            // Le mec a bien posté son commentaire    
+            // Le mec a bien posté son commentaire
         }
 
         $messages = $this->getDoctrine()->getRepository('ApplicationChatBundle:Message')->findAll();
 
         return $this->render('ApplicationChatBundle:Default:index.html.twig', array(
-                'form' => $this->createForm(new MessageType(), new Message())->createView(),
+                'form' => $this->createForm(MessageType::class, new Message())->createView(),
                 'messages' => $messages
         ));
     }

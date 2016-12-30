@@ -14,7 +14,7 @@ class MessageHandler
     private $request;
     private $manager;
 
-    public function __construct(Form $form, Request $request, MessageManager $manager)
+    public function __construct(Form $form, Request $request, $manager)
     {
         $this->form = $form;
         $this->request = $request;

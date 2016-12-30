@@ -18,14 +18,14 @@ class CotisationController extends Controller
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig');
     }
 
-    public function addAction() {
+    public function addAction(Request $request) {
         $manager = new CotisationManager($this);
         $invoiceManager = new InvoiceManager($this);
         $cotisation = new Cotisation();
-        $cotisation->setUser($this->get('security.context')->getToken()->getUser());
+        $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
     
-        $form = $this->createForm(new CotisationType(), $cotisation);
-        $formHandler = new CotisationHandler($form, $this->get('request'), $manager, $invoiceManager);
+        $form = $this->createForm(CotisationType::class, $cotisation);
+        $formHandler = new CotisationHandler($form, $request, $manager, $invoiceManager);
             
         if ($formHandler->process()) {
             // Getting the last id invoice inserted 

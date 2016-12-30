@@ -14,7 +14,7 @@ abstract class BaseManager {
     private $em;
     
     public function __construct(Controller $controller) {
-        $this->em = $controller->getDoctrine()->getManager();
+        $this->em = $this->getEntityManager();
     }
     
     /**

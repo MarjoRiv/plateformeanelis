@@ -8,6 +8,7 @@ use Admin\UserBundle\Form\UserType;
 use Admin\UserBundle\Manager\UserManager;
 use Application\MainBundle\Manager\LogManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfilController extends Controller
 {
@@ -42,10 +43,10 @@ class ProfilController extends Controller
             'careers' => $careers));
     }
 
-    public function editAction(User $user) {
+    public function editAction(User $user, Request $request) {
         
         // Vérification de l'id pour des raisons de sécurités
-        if($user->getId() != $this->get('security.context')->getToken()->getUser()->getId())
+        if($user->getId() != $this->get('security.token_storage')->getToken()->getUser()->getId())
         {
             return $this->redirect($this->generateUrl('user_edit_profile', array('id' => $this->get('security.context')->getToken()->getUser()->getId())));
         }
@@ -53,8 +54,8 @@ class ProfilController extends Controller
         $manager = new UserManager($this);
         
         $entity = new UserType();
-        $form = $this->createForm(new UserType(), $user);
-        $formHandler = new UserHandler($form, $this->get('request'), $manager);
+        $form = $this->createForm(UserType::class, $user);
+        $formHandler = new UserHandler($form, $request, $manager);
             
         if ($formHandler->process()) {
             LogManager::save($this, "Modification de l'utilisateur " . $user->getId());

@@ -8,6 +8,7 @@ use Application\CareerBundle\Form\CareerHandler;
 use Application\CareerBundle\Form\CareerType;
 use Application\CareerBundle\Manager\CareerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -16,13 +17,13 @@ class DefaultController extends Controller
         return $this->render('ApplicationCareerBundle:Default:index.html.twig');
     }
 
-    public function addAction() {
+    public function addAction(Request $request) {
         $manager = new CareerManager($this);
         $career = new Career();
-        $career->setUser($this->get('security.context')->getToken()->getUser());
+        $career->setUser($this->get('security.token_storage')->getToken()->getUser());
         
-        $form = $this->createForm(new CareerType(), $career);
-        $formHandler = new CareerHandler($form, $this->get('request'), $manager);
+        $form = $this->createForm(CareerType::class, $career);
+        $formHandler = new CareerHandler($form, $request, $manager);
         
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));
