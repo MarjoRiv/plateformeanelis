@@ -9,6 +9,7 @@ use Application\YearbookBundle\Form\YearbookMessagesHandler;
 use Application\YearbookBundle\Form\YearbookMessagesType;
 use Application\YearbookBundle\Manager\YearbookMessagesManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -18,7 +19,7 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()->getRepository('ApplicationYearbookBundle:YearbookMessages');
 
         $messages = $repository->findBy(
-            array('userTo' => $this->get('security.context')->getToken()->getUser()->getId()),
+            array('userTo' => $this->get('security.token_storage')->getToken()->getUser()->getId()),
             array('id' => 'DESC')
             );
 
@@ -28,16 +29,16 @@ class DefaultController extends Controller
         );
     }
 
-    public function addAction(User $user) {
+    public function addAction(Request $request, User $user) {
 
         // Sécurité : on ne s'écrit pas à soi même
-        if ($user->getId() == $this->get('security.context')->getToken()->getUser()->getId() || $user->getPromotion() != date('Y')) {
+        if ($user->getId() == $this->get('security.token_storage')->getToken()->getUser()->getId() || $user->getPromotion() != date('Y')) {
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
 
-        $manager = new YearbookMessagesManager($this);
+        $em = $this->getDoctrine()->getEntityManager();
         $yearbookmessages = new YearbookMessages();
-        $yearbookmessages->setUserFrom($this->get('security.context')->getToken()->getUser());
+        $yearbookmessages->setUserFrom($this->get('security.token_storage')->getToken()->getUser());
         $yearbookmessages->setUserTo($user);
 
         $yearbookmessages->setYearbook($this->getDoctrine()->getRepository('ApplicationYearbookBundle:Yearbook')->findBy(array(
@@ -46,13 +47,15 @@ class DefaultController extends Controller
             )
         )[0]);
         
-        $form = $this->createForm(new YearbookMessagesType(), $yearbookmessages);
-        $formHandler = new YearbookMessagesHandler($form, $this->get('request'), $manager);
+        $form = $this->createForm(YearbookMessagesType::class, $yearbookmessages);
+        $formHandler = new YearbookMessagesHandler($form, $request, $em);
         
         if ($formHandler->process()) {
 
             // Si un message vient d'être envoyé, on envoie un email à celui qui l'a reçu
+            //TODO : Remettre ça, c'était pour debug mdr
             $mailer = $this->get('mailer');
+            /*
             $message = $mailer->createMessage()
             ->setSubject('ANELIS - Yearbook - Vous avez un nouveau message')
             ->setFrom('mailing@anelis.org')
@@ -61,8 +64,8 @@ class DefaultController extends Controller
                 $this->renderView(
                     'Emails/yearbook_newmessage.html.twig',
                     array(
-                        'from_surname' => $this->get('security.context')->getToken()->getUser()->getSurname(),
-                        'from_name' => $this->get('security.context')->getToken()->getUser()->getName(),
+                        'from_surname' => $this->get('security.token_storage')->getToken()->getUser()->getSurname(),
+                        'from_name' => $this->get('security.token_storage')->getToken()->getUser()->getName(),
                         'to_surname' => $user->getSurname(),
                         'to_name' => $user->getName()
                         )
@@ -70,7 +73,9 @@ class DefaultController extends Controller
                 'text/html'
                 )
             ;
+
             $mailer->send($message);
+            */
 
             // On redirige le mec qui vient de laisser un message sur ses messages
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
@@ -97,12 +102,12 @@ class DefaultController extends Controller
     }
 
     public function deleteAction(YearbookMessages $yearbookmessage) {
-        if ($yearbookmessage->getUserTo() != $this->get('security.context')->getToken()->getUser()) {
+        if ($yearbookmessage->getUserTo() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
-        $manager = new YearbookMessagesManager($this);
-        $manager->remove($yearbookmessage);
-        $manager->flush();
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($yearbookmessage);
+        $em->flush();
         
         return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
     }

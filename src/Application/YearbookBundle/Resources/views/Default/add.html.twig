@@ -18,8 +18,8 @@
                 <div class="panel-heading">
                   <h4>Laisser un message à {{ surname }} {{ name }}</h4>
               </div>
-              <div class="panel-body collapse in">
-                <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+              <div class="form-horizontal panel-body collapse in">
+                {{ form_start(form) }}
                     <div class="form-group">
                         {{ form_label(form.message, "Message", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                         <div class="col-sm-6">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                {{ form_end(form) }}
             </div>
         </div>
 

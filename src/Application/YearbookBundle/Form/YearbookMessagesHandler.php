@@ -14,7 +14,7 @@ class YearbookMessagesHandler
     private $request;
     private $manager;
 
-    public function __construct(Form $form, Request $request, YearbookMessagesManager $manager)
+    public function __construct(Form $form, Request $request, $manager)
     {
         $this->form = $form;
         $this->request = $request;
@@ -25,7 +25,7 @@ class YearbookMessagesHandler
     {
         if( $this->request->getMethod() == 'POST' )
         {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             if( $this->form->isValid() )
             {
