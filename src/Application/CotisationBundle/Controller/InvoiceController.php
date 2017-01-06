@@ -13,7 +13,7 @@ class InvoiceController extends Controller
             ->getRepository('ApplicationCotisationBundle:Invoice')
             ->find($id);
 
-        if (!$invoice || $invoice->getCotisation()->getUser() != $this->get('security.context')->getToken()->getUser()) {
+        if (!$invoice || $invoice->getCotisation()->getUser() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_cotisation_homepage'));
         }
 

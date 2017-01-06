@@ -276,8 +276,8 @@ class Image
      */
     public function imageValid(\Symfony\Component\Validator\Context\ExecutionContextInterface $context) {
         if ($this->mandatory && empty($this->extension) && $this->input == null)
-            $context->buildViolation('Il faut obligatoirement une image', array());
-            //$context->buildViolation('input', 'Il faut obligatoirement une image.', array(), null);
+            $context->buildViolation('Il faut obligatoirement une image')->atPath('input')->addViolation();
+            //$context->addViolationAt('input', 'Il faut obligatoirement une image.', array(), null);
     }
     
     /**

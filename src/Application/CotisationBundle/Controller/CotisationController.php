@@ -19,13 +19,13 @@ class CotisationController extends Controller
     }
 
     public function addAction(Request $request) {
-        $manager = new CotisationManager($this);
         $invoiceManager = new InvoiceManager($this);
         $cotisation = new Cotisation();
         $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
-    
+        $em = $this->getDoctrine()->getEntityManager();
+
         $form = $this->createForm(CotisationType::class, $cotisation);
-        $formHandler = new CotisationHandler($form, $request, $manager, $invoiceManager);
+        $formHandler = new CotisationHandler($form, $request, $em, $invoiceManager);
             
         if ($formHandler->process()) {
             // Getting the last id invoice inserted 
@@ -51,7 +51,7 @@ class CotisationController extends Controller
 
     public function deleteAction(Cotisation $cotisation) {
 
-        if ($cotisation->getUser() == $this->get('security.context')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
+        if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
             $managerInvoice = new InvoiceManager($this);
             $managerInvoice->remove($cotisation->getInvoice());
 

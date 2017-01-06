@@ -27,12 +27,10 @@ class CotisationAdmin extends AbstractAdmin
         $formMapper
             ->add('typeCotisation', 'entity', array(
                 'class' => 'ApplicationCotisationBundle:TypeCotisation',
-                'property' => 'name',
                 'label' => "Nom",
             ))
             ->add('user', 'entity', array(
                 'class' => 'AdminUserBundle:User',
-                'property' => 'username',
                 'label' => "Nom d'utilisateur",
             ));
             

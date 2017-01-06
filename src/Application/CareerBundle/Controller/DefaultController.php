@@ -18,12 +18,12 @@ class DefaultController extends Controller
     }
 
     public function addAction(Request $request) {
-        $manager = new CareerManager($this);
         $career = new Career();
         $career->setUser($this->get('security.token_storage')->getToken()->getUser());
-        
+        $em = $this->getDoctrine()->getEntityManager();
+
         $form = $this->createForm(CareerType::class, $career);
-        $formHandler = new CareerHandler($form, $request, $manager);
+        $formHandler = new CareerHandler($form, $request, $em);
         
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));

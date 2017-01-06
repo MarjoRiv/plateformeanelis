@@ -26,10 +26,10 @@ class CotisationType extends AbstractType
                 'required' => true,
                 'choices' => array(
                     "". Date('Y') ."" => "". Date('Y'). "",
-                    "". Date('Y') + 1 ."" => "". Date('Y') + 1 ."",
-                    "". Date('Y') + 2 ."" => "". Date('Y') + 2 ."",
-                    "". Date('Y') + 3 ."" => "". Date('Y') + 3 ."",
-                    "". Date('Y') + 4 ."" => "". Date('Y') + 4 ."",
+                    "". (Date('Y') + 1) ."" => "". (Date('Y') + 1) ."",
+                    "". (Date('Y') + 2) ."" => "". (Date('Y') + 2) ."",
+                    "". (Date('Y') + 3) ."" => "". (Date('Y') + 3) ."",
+                    "". (Date('Y') + 4) ."" => "". (Date('Y') + 4) ."",
                 )))
             ->add('typeCotisation', 'entity', array(
                     'class' => 'ApplicationCotisationBundle:TypeCotisation',
