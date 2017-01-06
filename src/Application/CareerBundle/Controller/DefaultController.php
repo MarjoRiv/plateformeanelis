@@ -34,16 +34,16 @@ class DefaultController extends Controller
             ));
     }
 
-    public function editAction(Career $career) {
+    public function editAction(Request $request, Career $career) {
 
-        if ($career->getUser() != $this->get('security.context')->getToken()->getUser()) {
+        if ($career->getUser() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));
         }
+
+        $em = $this->getDoctrine()->getEntityManager();
         
-        $manager = new CareerManager($this);
-        
-        $form = $this->createForm(new CareerType(), $career);
-        $formHandler = new CareerHandler($form, $this->get('request'), $manager);
+        $form = $this->createForm(CareerType::class, $career);
+        $formHandler = new CareerHandler($form, $request, $em);
         
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));
@@ -55,12 +55,12 @@ class DefaultController extends Controller
     }
 
     public function deleteAction(Career $career) {
-        if ($career->getUser() != $this->get('security.context')->getToken()->getUser()) {
+        if ($career->getUser() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));
         }
-        $manager = new CareerManager($this);
-        $manager->remove($career);
-        $manager->flush();
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($career);
+        $em->flush();
         
         return $this->redirect($this->generateUrl('application_career_homepage'));
     }

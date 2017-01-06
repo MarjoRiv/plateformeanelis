@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class LogManager extends BaseManager {
     public static function save(Controller $controller, $description) {
         $manager = new LogManager($controller);
-        $manager->saveLog($description, $controller->getUser());
+        $manager->saveLog($description, null);
     }
     
     public function getNamespaceEntity() {

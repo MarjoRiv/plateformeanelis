@@ -51,14 +51,15 @@ class ProfilController extends Controller
             return $this->redirect($this->generateUrl('user_edit_profile', array('id' => $this->get('security.context')->getToken()->getUser()->getId())));
         }
 
-        $manager = new UserManager($this);
+        $em = $this->getDoctrine()->getEntityManager();
         
         $entity = new UserType();
         $form = $this->createForm(UserType::class, $user);
-        $formHandler = new UserHandler($form, $request, $manager);
+        $formHandler = new UserHandler($form, $request, $em);
             
         if ($formHandler->process()) {
-            LogManager::save($this, "Modification de l'utilisateur " . $user->getId());
+            //TODO : Search why we use this LogManager and where...
+            //LogManager::save($this, "Modification de l'utilisateur " . $user->getId());
             $this->get('session')->getFlashBag()->add('success', "L'utilisateur a été modifié.");
 
         }

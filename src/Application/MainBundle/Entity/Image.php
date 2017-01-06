@@ -5,6 +5,8 @@ namespace Application\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 
@@ -14,7 +16,6 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Application\MainBundle\Entity\ImageRepository")
  * @ORM\HasLifecycleCallbacks
- * @Constraints\Callback(methods={"imageValid"})
  */
 class Image
 {
@@ -273,8 +274,10 @@ class Image
     
     /**
      * Check if an image is correct
+     *
+     * @Callback
      */
-    public function imageValid(\Symfony\Component\Validator\Context\ExecutionContextInterface $context) {
+    public function imageValid(\Symfony\Component\Validator\Context\ExecutionContextInterface $context, $payload) {
         if ($this->mandatory && empty($this->extension) && $this->input == null)
             $context->buildViolation('Il faut obligatoirement une image')->atPath('input')->addViolation();
             //$context->addViolationAt('input', 'Il faut obligatoirement une image.', array(), null);
