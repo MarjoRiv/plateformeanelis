@@ -5,7 +5,7 @@ parameters:
     database_port: null
     database_name: panelis
     database_user: root
-    database_password: root
+    database_password: null
     mailer_transport: smtp
     mailer_host: in-v3.mailjet.com
     mailer_user: 98faefd747741f21d9ff15d19fd8352a
