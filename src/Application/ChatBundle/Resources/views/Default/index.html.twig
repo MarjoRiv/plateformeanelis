@@ -23,8 +23,8 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <form method="post" class="form-inline" {{ form_enctype(form) }}>
+                                        <div class="form-inline col-md-12">
+                                            {{ form_start(form) }}
                                                 <p class="text-danger"><strong>{{ form_errors(form.message)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</strong></p>
                                                 <div class="input-group">
                                                     {{ form_widget(form.message, { 'attr' : { 'class' : 'form-control', 'placeholder': 'Entrez votre message ici' } }) }}
@@ -34,10 +34,13 @@
                                                         <button type="submit" class="btn btn-primary"><i class="fa fa-comments-o"></i></button>
                                                     </span>
                                                 </div>
-                                            </form>
+                                            {{ form_end(form) }}
                                             <div class="panel-chat well" id="chat">
                                                 {% for message in messages|reverse %}
                                                     {% if message.enabled == true %}
+                                                        <div align="{% if app.user == message.user %}left{% else %}right{% endif %}">
+                                                            {{ message.date|date("d/m/Y \@ H:i","Europe/Paris") }}
+                                                        </div>
                                                     <div class="chat-message {% if app.user == message.user %}me{% else %}{% if message.user.id is divisible by(2) %}{% if message.user.promotion is divisible by(2) %}chat-primary{% else %}chat-indigo{% endif %}{% else %}{% if message.user.promotion is divisible by(2) %}chat-midnightblue{% else %}chat-success{% endif %}{% endif %}{% endif %}">
                                                         <div class="chat-contact">
                                                             <a href="{{ path('user_show_profile', { 'id' : message.user.id }) }}">

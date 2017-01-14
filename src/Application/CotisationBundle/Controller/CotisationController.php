@@ -2,12 +2,13 @@
 
 namespace Application\CotisationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Application\CotisationBundle\Entity\Cotisation;
+use Application\CotisationBundle\Form\CotisationHandler;
+use Application\CotisationBundle\Form\CotisationType;
 use Application\CotisationBundle\Manager\CotisationManager;
 use Application\CotisationBundle\Manager\InvoiceManager;
-use Application\CotisationBundle\Form\CotisationType;
-use Application\CotisationBundle\Form\CotisationHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class CotisationController extends Controller
@@ -17,14 +18,14 @@ class CotisationController extends Controller
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig');
     }
 
-    public function addAction() {
-        $manager = new CotisationManager($this);
+    public function addAction(Request $request) {
         $invoiceManager = new InvoiceManager($this);
         $cotisation = new Cotisation();
-        $cotisation->setUser($this->get('security.context')->getToken()->getUser());
-    
-        $form = $this->createForm(new CotisationType(), $cotisation);
-        $formHandler = new CotisationHandler($form, $this->get('request'), $manager, $invoiceManager);
+        $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(CotisationType::class, $cotisation);
+        $formHandler = new CotisationHandler($form, $request, $em, $invoiceManager);
             
         if ($formHandler->process()) {
             // Getting the last id invoice inserted 
@@ -50,7 +51,7 @@ class CotisationController extends Controller
 
     public function deleteAction(Cotisation $cotisation) {
 
-        if ($cotisation->getUser() == $this->get('security.context')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
+        if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
             $managerInvoice = new InvoiceManager($this);
             $managerInvoice->remove($cotisation->getInvoice());
 
@@ -64,11 +65,11 @@ class CotisationController extends Controller
         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
     }
 
-    public function relancerAction($id) {
+    public function relancerAction(Request $request, $id) {
 
         $cotisation = $this->getDoctrine()->getRepository('ApplicationCotisationBundle:Cotisation')->find($id);
         if (!$cotisation) {
-            return $this->redirect($this->getRequest()->headers->get('referer'));   
+            return $this->redirect($request->headers->get('referer'));   
         }
 
         $username = $cotisation->getUser()->getUsername();
@@ -96,6 +97,6 @@ class CotisationController extends Controller
         ;
         $mailer->send($message);
 
-        return $this->redirect($this->getRequest()->headers->get('referer'));
+        return $this->redirect($request->headers->get('referer'));
     }
 }

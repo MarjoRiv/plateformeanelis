@@ -2,10 +2,12 @@
 namespace Application\AnnuaireBundle\Form\Type;
 use Application\AnnuaireBundle\Model\UserSearch;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserSearchType extends AbstractType
 {
@@ -19,13 +21,13 @@ class UserSearchType extends AbstractType
             $perPageChoices[$choice] = 'Display '.$choice.' items';
         }*/
         $builder
-            ->add('name', 'text', array(
+            ->add('name', TextType::class, array(
                 'required' => false,
             ))
-            ->add('surname', 'text', array(
+            ->add('surname', TextType::class, array(
                 'required' => false,
             ))
-            ->add('filiere', 'choice', array(
+            ->add('filiere', ChoiceType::class, array(
                 'required' => false,
                 'choices'   => array(
                     '' => '',
@@ -37,13 +39,13 @@ class UserSearchType extends AbstractType
                     'FI' => 'FI',
                     ),
             ))
-            ->add('promotion', 'choice', array(
+            ->add('promotion', ChoiceType::class, array(
                 'choices' => $this->lstPromotions(),
                 'required'  => false,
             ))
         ;
     }
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
    {
         $resolver->setDefaults(array(
             // avoid to pass the csrf token in the url (but it's not protected anymore)
@@ -51,7 +53,7 @@ class UserSearchType extends AbstractType
             'data_class' => 'Application\AnnuaireBundle\Model\UserSearch'
         ));
     }
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_search_type';
     }

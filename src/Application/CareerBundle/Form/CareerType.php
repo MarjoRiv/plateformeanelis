@@ -3,8 +3,9 @@
 namespace Application\CareerBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CareerType extends AbstractType
 {
@@ -17,13 +18,13 @@ class CareerType extends AbstractType
         $builder
             ->add('typeCareer', 'entity', array(
                         'class' => 'ApplicationCareerBundle:TypeCareer',
-                        'property' => 'name',
+                        //'property' => 'name',
                         'required' => true
             ))
-            ->add('institution', 'text', array(
+            ->add('institution', TextType::class, array(
                 'required' => true
             ))
-            ->add('position', 'text', array(
+            ->add('position', TextType::class, array(
                 'required' => true,
             ))
             ->add('date', 'date', array(
@@ -31,10 +32,10 @@ class CareerType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'required' => 'true',
             ))
-            ->add('description', 'text', array(
+            ->add('description', TextType::class, array(
                 'required' => false
             ))
-            ->add('localisation', 'text', array(
+            ->add('localisation', TextType::class, array(
                 'required' => false,
             ))
         ;
@@ -43,7 +44,7 @@ class CareerType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\CareerBundle\Entity\Career'
@@ -53,7 +54,7 @@ class CareerType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'application_careerbundle_career';
     }

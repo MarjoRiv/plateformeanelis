@@ -1,8 +1,8 @@
 <?php
 
 namespace Application\YearbookBundle\Entity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * YearbookMessages

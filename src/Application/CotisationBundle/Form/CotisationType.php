@@ -3,8 +3,9 @@
 namespace Application\CotisationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CotisationType extends AbstractType
 {
@@ -21,18 +22,18 @@ class CotisationType extends AbstractType
                 'format' => 'yyyy',
                 'data' => new \DateTime("now")
                 ))*/
-            ->add('year', 'choice', array(
+            ->add('year', ChoiceType::class, array(
                 'required' => true,
                 'choices' => array(
                     "". Date('Y') ."" => "". Date('Y'). "",
-                    "". Date('Y') + 1 ."" => "". Date('Y') + 1 ."",
-                    "". Date('Y') + 2 ."" => "". Date('Y') + 2 ."",
-                    "". Date('Y') + 3 ."" => "". Date('Y') + 3 ."",
-                    "". Date('Y') + 4 ."" => "". Date('Y') + 4 ."",
+                    "". (Date('Y') + 1) ."" => "". (Date('Y') + 1) ."",
+                    "". (Date('Y') + 2) ."" => "". (Date('Y') + 2) ."",
+                    "". (Date('Y') + 3) ."" => "". (Date('Y') + 3) ."",
+                    "". (Date('Y') + 4) ."" => "". (Date('Y') + 4) ."",
                 )))
             ->add('typeCotisation', 'entity', array(
                     'class' => 'ApplicationCotisationBundle:TypeCotisation',
-                    'property' => 'name',
+                    //'property' => 'name',
                     'required' => true
             ))
         ;
@@ -41,7 +42,7 @@ class CotisationType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Application\CotisationBundle\Entity\Cotisation'
@@ -51,7 +52,7 @@ class CotisationType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'application_cotisationbundle_cotisation';
     }

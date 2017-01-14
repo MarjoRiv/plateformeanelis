@@ -2,10 +2,22 @@ services:
     sonata.admin.user:
         class: Admin\UserBundle\Admin\UserAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "User" }
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Utilisateurs" }
         arguments:
             - ~
             - Admin\UserBundle\Entity\User
             - ~
         calls:
             - [ setTranslationDomain, [AdminUserBundle]]
+
+    admin_user.admin.static_text:
+        class: Admin\UserBundle\Admin\StaticTextAdmin
+        arguments: [~, Admin\UserBundle\Entity\StaticText, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "Content", label: "Textes Statiques"}
+
+    admin_user.admin.events:
+        class: Admin\UserBundle\Admin\EventsAdmin
+        arguments: [~, Admin\UserBundle\Entity\Events, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "Content", label: "Evènements"}

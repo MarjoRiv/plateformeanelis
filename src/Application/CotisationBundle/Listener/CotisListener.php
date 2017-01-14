@@ -2,10 +2,10 @@
 
 namespace Application\CotisationBundle\Listener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Admin\UserBundle\Entity\User;
 use Application\CotisationBundle\Entity\Cotisation;
 use Application\CotisationBundle\Entity\Invoice;
-use Admin\UserBundle\Entity\User;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class CotisListener {
 

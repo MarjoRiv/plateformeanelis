@@ -2,12 +2,12 @@
 
 namespace Application\CotisationBundle\Form;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Application\CotisationBundle\Entity\Cotisation;
+use Application\CotisationBundle\Entity\Invoice;
 use Application\CotisationBundle\Manager\CotisationManager;
 use Application\CotisationBundle\Manager\InvoiceManager;
-use Application\CotisationBundle\Entity\Invoice;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 class CotisationHandler
 {
@@ -16,7 +16,7 @@ class CotisationHandler
     private $manager;
     private $invoiceManager;
 
-    public function __construct(Form $form, Request $request, CotisationManager $manager, InvoiceManager $invoiceManager)
+    public function __construct(Form $form, Request $request, $manager, InvoiceManager $invoiceManager)
     {
         $this->form = $form;
         $this->request = $request;
@@ -28,7 +28,7 @@ class CotisationHandler
     {
         if( $this->request->getMethod() == 'POST' )
         {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
             if( $this->form->isValid() )
             {
                 $this->onSuccess($this->form->getData());

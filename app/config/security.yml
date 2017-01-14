@@ -37,7 +37,8 @@ security:
 
             anonymous:    true
             remember_me:
-                key:        "%secret%"
+              secret: "%secret%"
+
         # disables authentication for assets and the profiler, adapt it according to your needs
         #dev:
         #    pattern:  ^/(_(profiler|wdt)|css|images|js)/

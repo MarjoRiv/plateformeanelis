@@ -2,6 +2,7 @@
 
 namespace Admin\UserBundle\Entity;
 
+use Application\AnnuaireBundle\Model\UserSearch;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+
 }

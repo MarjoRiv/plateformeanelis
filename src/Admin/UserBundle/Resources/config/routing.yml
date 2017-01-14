@@ -1,11 +1,11 @@
 user_show_profile:
-    pattern:  /profil/{id}
+    path:  /profil/{id}
     defaults: { _controller: "AdminUserBundle:Profil:show" }
     requirements:
         id: \d*
 
 user_edit_profile:
-    pattern:  /profil/{id}/edit
+    path:  /profil/{id}/edit
     defaults: { _controller: "AdminUserBundle:Profil:edit" }
     requirements:
         id: \d*
@@ -28,3 +28,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+sonata_admin_dashboard:
+    path:  /admin/dashboard
+    defaults: { _controller: "AdminUserBundle:Admin:index" }

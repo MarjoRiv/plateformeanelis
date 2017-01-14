@@ -1,8 +1,8 @@
 application_main_homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: ApplicationMainBundle:Default:index }
 
 application_main_help:
-    pattern:  /aide
+    path:  /aide
     defaults: { _controller: ApplicationMainBundle:Default:aide }
 

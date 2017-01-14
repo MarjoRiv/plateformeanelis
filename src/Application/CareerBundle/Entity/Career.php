@@ -1,8 +1,8 @@
 <?php
 
 namespace Application\CareerBundle\Entity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Career

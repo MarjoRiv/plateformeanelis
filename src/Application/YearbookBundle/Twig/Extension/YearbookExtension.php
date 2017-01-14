@@ -2,6 +2,8 @@
 
 namespace Application\YearbookBundle\Twig\Extension;
 use Doctrine\ORM\EntityManager;
+use Twig_Function;
+use Twig_SimpleFunction;
 
 class YearbookExtension extends \Twig_Extension
 {
@@ -24,7 +26,7 @@ class YearbookExtension extends \Twig_Extension
     {
         return array(
             'is_yearbook_activated' => new \Twig_Function_Method($this, 'getStatus'),
-            'get_promotion_activated' => new \Twig_Function_Method($this, 'getPromotionActivated')
+            'get_promotion_activated' => new \Twig_Function_Method($this, 'getPromotionActivated'),
         );
     }
     

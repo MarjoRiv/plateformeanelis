@@ -250,4 +250,5 @@ class Cotisation
     {
         return $this->invoice;
     }
+
 }

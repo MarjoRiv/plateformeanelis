@@ -2,13 +2,14 @@
 
 namespace Admin\UserBundle\Form;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Security\Core\Validator\Constraint\UserPassword as OldUserPassword;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
-
 use FOS\UserBundle\Form\Type\ChangePasswordFormType as BaseType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\Validator\Constraint\UserPassword as OldUserPassword;
+
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 class ChangePasswordFormType extends BaseType
 {
@@ -46,16 +47,11 @@ class ChangePasswordFormType extends BaseType
             ));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class,
             'intention'  => 'change_password',
-            ));
-    }
-
-    public function getName()
-    {
-        return 'anelis_user_change_password';
+        ));
     }
 }
