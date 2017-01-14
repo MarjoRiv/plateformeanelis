@@ -36,7 +36,7 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $yearbookmessages = new YearbookMessages();
         $yearbookmessages->setUserFrom($this->get('security.token_storage')->getToken()->getUser());
         $yearbookmessages->setUserTo($user);
@@ -105,7 +105,7 @@ class DefaultController extends Controller
         if ($yearbookmessage->getUserTo() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($yearbookmessage);
         $em->flush();
         

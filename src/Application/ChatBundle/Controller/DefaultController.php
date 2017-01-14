@@ -17,7 +17,7 @@ class DefaultController extends Controller
         //var_dump($this->getUser());
         $message->setUser($this->getUser());
         $form = $this->createForm(MessageType::class, $message);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $handler = new MessageHandler($form, $request, $em);
         if ($handler->process())

@@ -22,7 +22,7 @@ class CotisationController extends Controller
         $invoiceManager = new InvoiceManager($this);
         $cotisation = new Cotisation();
         $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(CotisationType::class, $cotisation);
         $formHandler = new CotisationHandler($form, $request, $em, $invoiceManager);

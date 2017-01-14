@@ -51,7 +51,7 @@ class ProfilController extends Controller
             return $this->redirect($this->generateUrl('user_edit_profile', array('id' => $this->get('security.context')->getToken()->getUser()->getId())));
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         $entity = new UserType();
         $form = $this->createForm(UserType::class, $user);

@@ -40,7 +40,7 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('application_career_homepage'));
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         $form = $this->createForm(CareerType::class, $career);
         $formHandler = new CareerHandler($form, $request, $em);
@@ -58,7 +58,7 @@ class DefaultController extends Controller
         if ($career->getUser() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_career_homepage'));
         }
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($career);
         $em->flush();
         
