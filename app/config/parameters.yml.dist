@@ -1,11 +1,11 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
     database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_host:     b8ckkhfbd-mysql.services.clever-cloud.com
+    database_port:     3306
+    database_name:     b8ckkhfbd
+    database_user:     unvgkngpdptovj6i
+    database_password: Ggnbbgdz3mXwllw5t8Y
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
