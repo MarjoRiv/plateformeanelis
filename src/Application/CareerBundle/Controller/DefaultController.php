@@ -20,7 +20,7 @@ class DefaultController extends Controller
     public function addAction(Request $request) {
         $career = new Career();
         $career->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(CareerType::class, $career);
         $formHandler = new CareerHandler($form, $request, $em);
