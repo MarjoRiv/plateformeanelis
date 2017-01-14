@@ -14,7 +14,9 @@ Identification
 <div class="verticalcenter">
     <a href="{{ path('application_main_homepage') }}"><img src="{{ asset('assets/img/anelis-logo.png') }}" alt="Logo" class="brand" /></a>
     <div class="panel panel-primary">
-    <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+        <span class="danger" text-align="center">Le site étant déployé sur une nouvelle plateforme, le site n'est pas entièrement fonctionnel. Le problème sera corrigé sous peu. Merci de votre patience.</span>
+
+        <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
         <div class="panel-body">
