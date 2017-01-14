@@ -2,6 +2,7 @@
 namespace Admin\UserBundle\Form;
  
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  
 class TelType extends AbstractType
@@ -10,7 +11,7 @@ class TelType extends AbstractType
      * @author  Joe Sexton <joe@webtipblog.com>
      * @return  string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'tel';
     }
@@ -21,6 +22,6 @@ class TelType extends AbstractType
      */
     public function getParent()
     {
-        return 'text';
+        return TextType::class;
     }
 }

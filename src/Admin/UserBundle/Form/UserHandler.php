@@ -2,10 +2,10 @@
 
 namespace Admin\UserBundle\Form;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Admin\UserBundle\Entity\User;
 use Admin\UserBundle\Manager\UserManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class UserHandler
@@ -14,7 +14,7 @@ class UserHandler
     private $request;
     private $manager;
 
-    public function __construct(Form $form, Request $request, UserManager $manager)
+    public function __construct(Form $form, Request $request, $manager)
     {
         $this->form = $form;
         $this->request = $request;
@@ -25,7 +25,7 @@ class UserHandler
     {
         if( $this->request->getMethod() == 'POST' )
         {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if( $this->form->isValid() )
             {

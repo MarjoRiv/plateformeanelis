@@ -2,12 +2,13 @@
 
 namespace Admin\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Admin\UserBundle\Entity\User;
-use Admin\UserBundle\Form\UserType;
 use Admin\UserBundle\Form\UserHandler;
+use Admin\UserBundle\Form\UserType;
 use Admin\UserBundle\Manager\UserManager;
 use Application\MainBundle\Manager\LogManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfilController extends Controller
 {
@@ -42,22 +43,23 @@ class ProfilController extends Controller
             'careers' => $careers));
     }
 
-    public function editAction(User $user) {
+    public function editAction(User $user, Request $request) {
         
         // Vérification de l'id pour des raisons de sécurités
-        if($user->getId() != $this->get('security.context')->getToken()->getUser()->getId())
+        if($user->getId() != $this->get('security.token_storage')->getToken()->getUser()->getId())
         {
             return $this->redirect($this->generateUrl('user_edit_profile', array('id' => $this->get('security.context')->getToken()->getUser()->getId())));
         }
 
-        $manager = new UserManager($this);
+        $em = $this->getDoctrine()->getManager();
         
         $entity = new UserType();
-        $form = $this->createForm(new UserType(), $user);
-        $formHandler = new UserHandler($form, $this->get('request'), $manager);
+        $form = $this->createForm(UserType::class, $user);
+        $formHandler = new UserHandler($form, $request, $em);
             
         if ($formHandler->process()) {
-            LogManager::save($this, "Modification de l'utilisateur " . $user->getId());
+            //TODO : Search why we use this LogManager and where...
+            //LogManager::save($this, "Modification de l'utilisateur " . $user->getId());
             $this->get('session')->getFlashBag()->add('success', "L'utilisateur a été modifié.");
 
         }

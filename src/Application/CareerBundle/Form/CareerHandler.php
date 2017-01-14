@@ -2,10 +2,10 @@
 
 namespace Application\CareerBundle\Form;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Application\CareerBundle\Entity\Career;
 use Application\CareerBundle\Manager\CareerManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 class CareerHandler
 {
@@ -13,7 +13,7 @@ class CareerHandler
     private $request;
     private $manager;
 
-    public function __construct(Form $form, Request $request, CareerManager $manager)
+    public function __construct(Form $form, Request $request, $manager)
     {
         $this->form = $form;
         $this->request = $request;
@@ -24,7 +24,7 @@ class CareerHandler
     {
         if( $this->request->getMethod() == 'POST' )
         {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if( $this->form->isValid() )
             {

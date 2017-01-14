@@ -7,13 +7,13 @@ application_career_new:
     defaults: { _controller: ApplicationCareerBundle:Default:add }
 
 application_career_edit:
-    pattern:  /career/{id}/edit
+    path:  /career/{id}/edit
     defaults: { _controller: "ApplicationCareerBundle:Default:edit" }
     requirements:
         id: \d*
 
 application_career_delete:
-    pattern:  /career/{id}/delete
+    path:  /career/{id}/delete
     defaults: { _controller: "ApplicationCareerBundle:Default:delete" }
     requirements:
         id: \d*

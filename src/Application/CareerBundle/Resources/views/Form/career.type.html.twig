@@ -1,5 +1,6 @@
 {% block application_careerbundle_career_widget %}
-    <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+    <div class="form-horizontal">
+    {{ form_start(form) }}
         <div class="form-group">
             {{ form_label(form.typeCareer, "Type*", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
             <div class="col-sm-6">
@@ -53,9 +54,20 @@
                 <p class="help-block">{{ form_errors(form.localisation)|replace({ '<li>': '', '</li>': '', '<ul>': '', '</ul>': ''}) }}</p>
             </div>
         </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="text-center">
+                    <div class="btn-toolbar">
+                        <button type="submit" class="btn-primary btn">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             {{ form_errors(form) }}
             {{ form_rest(form) }}
 
         </div>
+        {{ form_end(form) }}
+    </div>
     {% endblock %}

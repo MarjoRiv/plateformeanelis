@@ -12,6 +12,3 @@ parameters:
     mailer_password: 9bd462e311af83a3be4ff1a8c214f907
     locale: fr
     secret: '-729fkx[:`[@_2M|NH2MGRV-{6vh+tC`UAa(8pXXG1kQ}i;82m/E[Z:s|Z/)jJ5>'
-    #debug_toolbar: true
-    #debug_redirects: false
-    #use_assetic_controller: true

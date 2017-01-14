@@ -24,13 +24,14 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    assets: ~
+
 
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
+    form_themes:
             - 'AdminUserBundle:Form:fields.html.twig'
 # Assetic Configuration
 assetic:
@@ -98,25 +99,6 @@ fos_user:
             type: anelis_user_change_password
             name: anelis_user_change_password
 
-fos_elastica:
-    clients:
-        default: { host: localhost, port: 9200 }
-    serializer:
-        callback_class: FOS\ElasticaBundle\Serializer\Callback
-        serializer: serializer
-    indexes:
-        afsy:
-            client: default
-            types:
-                User:
-                    mappings: ~
-                    persistence:
-                        driver: orm # orm, mongodb, propel are available
-                        model:  Admin\UserBundle\Entity\User
-                        provider: ~
-                        listener: ~ # by default, listens to "insert", "update" and "delete" 
-                        finder: ~
-
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -127,6 +109,8 @@ sonata_block:
 sonata_admin:
     title:      Administration
     title_logo: assets/img/anelis-logo.png
+    templates:
+        layout: AdminUserBundle::standard_layout.html.twig
 
 
 #imports:
