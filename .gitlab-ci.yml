@@ -61,5 +61,4 @@ job2:
   script:
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
     - git push clever master
-  when:
-    - manual
+  when: manual
