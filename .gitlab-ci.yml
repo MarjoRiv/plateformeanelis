@@ -52,7 +52,7 @@ job1:
   stage: deploy_dev
   script:
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
-    - git push clever master
+    - git push clever master --force
   only:
     - master
 
@@ -60,5 +60,5 @@ job2:
   stage: deploy
   script:
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
-    - git push clever master
+    - git push clever master --force
   when: manual
