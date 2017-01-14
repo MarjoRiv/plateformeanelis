@@ -1,0 +1,65 @@
+image: php:7.0
+# Select what we should cache
+cache:
+  paths:
+  - vendor/
+
+before_script:
+- apt-get update -yqq
+- apt-get install openssh-client -yqq
+# Run ssh-agent (inside the build environment)
+- eval $(ssh-agent -s)
+
+# Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+- ssh-add <(echo "$SSH_PRIVATE_KEY")
+
+# For Docker builds disable host key checking. Be aware that by adding that
+# you are suspectible to man-in-the-middle attacks.
+# WARNING: Use this only with the Docker executor, if you use it with shell
+# you will overwrite your user's SSH config.
+- mkdir -p ~/.ssh
+- '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+
+# Install git, the php image doesn't have installed
+- apt-get install git -yqq
+- apt-get install wget -yqq
+- apt-get install zip unzip zlib1g-dev -yqq
+
+# Install mysql driver & zip
+- docker-php-ext-install pdo_mysql
+- docker-php-ext-install zip
+- docker-php-ext-install mbstring
+
+# Install composer
+- curl -sS https://getcomposer.org/installer | php
+
+# Install all project dependencies
+#- mv app/config/parameters.gitlab.yml app/config/parameters.yml.dist
+#- ping -c 3 mysql
+- export SYMFONY_ENV=prod
+- php -v
+- php composer.phar clear-cache
+- php composer.phar install --no-dev
+- php bin/console cache:clear --env=prod --no-debug
+- php bin/console assetic:dump --env=prod --no-debug
+
+stages:
+- deploy_dev
+- deploy
+
+job1:
+  stage: deploy_dev
+  script:
+    - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
+    - git push clever master
+  only:
+    - master
+
+job2:
+  stage: deploy
+  script:
+    - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
+    - git push clever master
+  when:
+    - manual

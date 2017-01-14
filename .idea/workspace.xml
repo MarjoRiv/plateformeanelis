@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c8a5f7b6-28d1-46c7-8175-1d4081e910dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clevercloud/php.json" afterPath="$PROJECT_DIR$/clevercloud/php.json" />
-    </list>
+    <list default="true" id="c8a5f7b6-28d1-46c7-8175-1d4081e910dc" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -255,12 +253,12 @@
       <option name="presentableId" value="Default" />
       <updated>1484402460356</updated>
       <workItem from="1484402462573" duration="3815000" />
-      <workItem from="1484407036304" duration="667000" />
+      <workItem from="1484407036304" duration="1265000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4482000" />
+    <option name="totallyTimeSpent" value="5080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1054" extended-state="6" />
