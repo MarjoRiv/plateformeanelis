@@ -33,7 +33,6 @@ before_script:
 
 # Install apcu extension
 - pecl install apcu
-- echo 'extension="apcu.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/ci-runner.ini
 - echo 'extension="apcu.so"' > /usr/local/etc/php/conf.d/apcu.ini
 
 # Install composer
