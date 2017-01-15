@@ -32,7 +32,9 @@ before_script:
 - docker-php-ext-install mbstring
 
 # Install apcu extension
-- locate php 
+- pecl install apcu
+- echo 'extension="apcu.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/ci-runner.ini
+- echo 'extension="apcu.so"' > /usr/local/etc/php/conf.d/apcu.ini
 
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
