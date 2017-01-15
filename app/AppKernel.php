@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Application\ChatBundle\ApplicationChatBundle(),
             new Application\CareerBundle\ApplicationCareerBundle(),
             new Application\YearbookBundle\ApplicationYearbookBundle(),
+            new Application\OffreBundle\OffreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
