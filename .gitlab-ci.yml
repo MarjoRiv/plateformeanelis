@@ -59,7 +59,7 @@ dev_deploy_job:
     - php bin/console security:check
     - git checkout HEAD^
     - git checkout master
-    - git merge dev-master
+    - git merge origin/dev-master
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
     - git push clever master --force
   only:
