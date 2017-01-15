@@ -32,7 +32,7 @@ before_script:
 - docker-php-ext-install mbstring
 
 # Install apcu extension
-- docker-php-ext-install apcu
+- locate php 
 
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
