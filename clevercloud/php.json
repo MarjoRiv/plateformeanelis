@@ -1,0 +1,9 @@
+{
+  "deploy": {
+    "webroot": "/web",
+    "hooks": {
+      "postDeploy": "./clevercloud/ccbuild.sh"
+    }
+  }
+}
+
