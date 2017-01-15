@@ -25,8 +25,8 @@
                             </div>
                             <div class="panel-body">
                                 <div class="tab-content">
-                                    <div class="tab-pane{% if geoform != true %} active{% endif %}" id="rechercheZZ">
-                                        <form class="form-horizontal" method="get" {{ form_enctype(form) }}>
+                                    <div class="form-horizontal tab-pane{% if geoform != true %} active{% endif %}" id="rechercheZZ">
+                                        {{ form_start(form) }}
                                             <div class="col-md-6">
                                                 {{ form_errors(form) }}
                                                 <div class="form-group">
@@ -67,11 +67,11 @@
 
                                             {{ form_rest(form) }} 
                                         </div>
-                                    </form>
+                                    {{ form_end(form) }}
 
-                                        <div class="tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
+                                        <div class="form-horizontal tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
 
-                                            <form class="form-horizontal" method="get" {{ form_enctype(formm) }}>
+                                            {{ form_start(formm) }}
                                                 <div class="col-md-6">
                                                     {{ form_errors(formm) }}
                                                     <div class="form-group">
@@ -105,6 +105,7 @@
                                             {{ form_rest(formm) }} 
                                             </div>
                                         </div>
+                                {{ form_end(formm) }}
                                     </div>
                                 </div>
                                 {% if results is not empty %}

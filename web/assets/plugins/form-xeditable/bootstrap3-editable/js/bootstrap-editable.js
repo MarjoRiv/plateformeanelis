@@ -875,7 +875,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                return true; 
            }
 
-           // Tests for vendor specific prop
+           // UserBundle for vendor specific prop
            p = p.charAt(0).toUpperCase() + p.substr(1);
            for(var i=0; i<v.length; i++) {
                if(typeof s[v[i] + p] === 'string') { 

@@ -2,12 +2,13 @@
 
 namespace Admin\UserBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\ListMapper;
+use Admin\UserBundle\Form\TelType;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     /**
      * Used to avoid password change when editing an User.
@@ -78,7 +79,7 @@ class UserAdmin extends Admin
 
             ->add('country', 'text', array('label' => 'Pays', 'required' => false))
 
-            ->add('telephone', 'tel', array('label' => 'Numéro de Téléphone', 'required' => false))
+            ->add('telephone', TelType::class, array('label' => 'Numéro de Téléphone', 'required' => false))
 
             ->add('website', 'text', array('label' => 'Site Web', 'required' => false))
 

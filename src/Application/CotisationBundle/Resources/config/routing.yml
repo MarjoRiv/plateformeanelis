@@ -13,13 +13,13 @@ application_cotisation_invoice_get:
         id: \d*
 
 application_cotisation_delete:
-    pattern:  /cotisation/{id}/delete
+    path:  /cotisation/{id}/delete
     defaults: { _controller: "ApplicationCotisationBundle:Cotisation:delete" }
     requirements:
         id: \d*
 
 admin_cotisation_relancer:
-    pattern:  /admin/cotisation/relancer/{id}
+    path:  /admin/cotisation/relancer/{id}
     defaults: { _controller: "ApplicationCotisationBundle:Cotisation:relancer" }
     requirements:
         id: \d*

@@ -1,6 +1,6 @@
 {% block admin_userbundle_user_widget %}
-
-    <form class="form-horizontal" method="post" {{ form_enctype(form) }}>
+<div class="form-horizontal">
+    {{ form_start(form) }}
         <div class="panel-body">
           <div class="tab-content">
             <div class="tab-pane active" id="domtabs">
@@ -296,8 +296,11 @@
         </div>
     </div>
 </div>
-{{ form_rest(form) }} 
-<p class="text-right"><button class="btn-primary btn">Enregistrer</button></p>
+{{ form_rest(form) }}
+            <p class="text-right"><button class="btn-primary btn">Enregistrer</button></p>
+
+            {{ form_end(form) }}
+        </div>
 
 </div>
 </form>

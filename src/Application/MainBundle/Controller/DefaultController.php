@@ -2,11 +2,11 @@
 
 namespace Application\MainBundle\Controller;
 
+use Admin\UserBundle\Entity\Events;
 use Admin\UserBundle\Entity\StaticText;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints\DateTime;
-use Admin\UserBundle\Entity\Events;
 
 class DefaultController extends Controller
 {
