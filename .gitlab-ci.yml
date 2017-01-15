@@ -41,12 +41,7 @@ before_script:
 # Install all project dependencies
 #- mv app/config/parameters.gitlab.yml app/config/parameters.yml.dist
 #- ping -c 3 mysql
-- export SYMFONY_ENV=prod
 - php -v
-- php composer.phar clear-cache
-- php composer.phar install --no-dev
-- php bin/console cache:clear --env=prod --no-debug
-- php bin/console assetic:dump --env=prod --no-debug
 
 stages:
 - deploy_dev
@@ -62,6 +57,7 @@ dev_deploy_job:
     - php bin/console cache:clear
     - php bin/console assetic:dump
     - php bin/console security:check
+    - git merge dev-master
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
     - git push clever master --force
   only:
@@ -90,5 +86,7 @@ prod_deploy_job:
     - rm web/app_dev.php
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
     - git push clever master --force
+  only:
+    - master
   when: manual
 
