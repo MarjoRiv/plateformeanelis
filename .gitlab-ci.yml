@@ -35,7 +35,11 @@ before_script:
 - pecl channel-update pecl.php.net
 - pecl install apcu
 - echo "extension=apcu.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-- apt-get install php-apc -yqq
+- echo "apc.enabled=1" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+- echo "apc.enable_cli=1" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+- echo "apc.shm_size=32M" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+- echo "apc.ttl=7200" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+- echo "apc.serializer=php" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
