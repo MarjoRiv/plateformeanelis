@@ -61,6 +61,7 @@ dev_deploy_job:
     - php composer.phar install
     - php bin/console cache:clear
     - php bin/console assetic:dump
+    - php bin/console security:check
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
     - git push clever master --force
   only:
@@ -73,6 +74,8 @@ prod_build_job:
     - php composer.phar install --no-dev
     - php bin/console cache:clear --env=prod --no-debug
     - php bin/console assetic:dump --env=prod --no-debug
+    - php bin/console security:check
+    - rm web/app_dev.php
   only:
     - master
 
@@ -83,6 +86,8 @@ prod_deploy_job:
     - php composer.phar install --no-dev
     - php bin/console cache:clear --env=prod --no-debug
     - php bin/console assetic:dump --env=prod --no-debug
+    - php bin/console security:check
+    - rm web/app_dev.php
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
     - git push clever master --force
   when: manual

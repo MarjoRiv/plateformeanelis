@@ -130,6 +130,27 @@ class UserController extends Controller
                 $parameters['postalcode'] =  $geoSearch->getPostalcode();
             }
 
+            if($geoSearch->getPostalcode() != null)
+            {
+                if($geoSearch->getPostalcode() <= 95)
+                {
+                    $query->andWhere('u.postalcode-:postalcode < 1000 AND u.postalcode-:postalcode > -1000' )
+                          ->andWhere('u.postalcode IS NOT NULL');
+                    $parameters['postalcode'] =  $geoSearch->getPostalcode()*1000;
+                }
+                else if($geoSearch->getPostalcode() >= 971 && $geoSearch->getPostalcode() <= 976)
+                {
+                    $query->andWhere('u.postalcode-:postalcode < 1000 AND u.postalcode-:postalcode > -1000' )
+                        ->andWhere('u.postalcode IS NOT NULL');
+                    $parameters['postalcode'] =  $geoSearch->getPostalcode()*100;
+                }
+                else
+                {
+                    $query->andWhere('u.postalcode = :postalcode');
+                    $parameters['postalcode'] =  $geoSearch->getPostalcode();
+                }
+            }
+
             if ($geoSearch->getCity() != null) {
                 $query->andWhere('u.city LIKE :city');
                 $parameters['city'] = '%'.$geoSearch->getCity().'%';
