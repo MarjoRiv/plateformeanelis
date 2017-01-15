@@ -31,6 +31,11 @@ before_script:
 - docker-php-ext-install zip
 - docker-php-ext-install mbstring
 
+# Install apcu extension
+- pecl channel-update pecl.php.net
+- pecl install apcu
+- echo "extension=apcu.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
 
