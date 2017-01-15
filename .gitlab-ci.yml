@@ -35,6 +35,7 @@ before_script:
 - pecl channel-update pecl.php.net
 - pecl install apcu
 - echo "extension=apcu.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+- apt-get install php-apc -yqq
 
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
