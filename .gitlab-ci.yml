@@ -73,7 +73,6 @@ prod_build_job:
     - php bin/console cache:clear --env=prod --no-debug
     - php bin/console assetic:dump --env=prod --no-debug
     - php bin/console security:check
-    - rm web/app_dev.php
   only:
     - master
 
@@ -85,10 +84,8 @@ prod_deploy_job:
     - php bin/console cache:clear --env=prod --no-debug
     - php bin/console assetic:dump --env=prod --no-debug
     - php bin/console security:check
-    - rm web/app_dev.php
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
     - git push clever master --force
   only:
     - master
   when: manual
-
