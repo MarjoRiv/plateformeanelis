@@ -23,7 +23,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             {% if user.avatar is empty %}
-                                                <img src="{{ asset(user.avatar.defaultWebPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; height: 100px;"/>
+                                                <img src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; height: 100px;"/>
                                                 {% else %}
                                                 <img src="{{ asset(user.avatar.webPath) }}" alt="{{ user.username }}" title="{{ user.username }}" class="pull-left" style="margin: 0 20px 20px 0; height: 100px;"/>
                                             {% endif %}
