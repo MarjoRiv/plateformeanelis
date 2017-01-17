@@ -29,6 +29,9 @@ class UserAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $roles = $this->getConfigurationPool()->getContainer()->getParameter('security.role_hierarchy.roles');
+        $rolesChoices = self::flattenRoles($roles);
+
         $formMapper
             ->add('username', 'text', array('label' => 'Username',
                 'required' => true))
@@ -108,11 +111,7 @@ class UserAdmin extends AbstractAdmin
 
             ->add('childrenNumber', 'number', array('label' => 'Nombre d\'enfants', 'required' => false))
 
-
-
-
-
-
+            ->add('roles', 'choice', array('choices' => $rolesChoices, 'multiple' => true, ))
 
         ;
     }
@@ -164,5 +163,23 @@ class UserAdmin extends AbstractAdmin
         return $result;
     }
 
+    protected static function flattenRoles($rolesHierarchy)
+    {
+        $flatRoles = array();
+        foreach($rolesHierarchy as $roles) {
+
+            if(empty($roles)) {
+                continue;
+            }
+
+            foreach($roles as $role) {
+                if(!isset($flatRoles[$role])) {
+                    $flatRoles[$role] = $role;
+                }
+            }
+        }
+
+        return $flatRoles;
+    }
 
 }
