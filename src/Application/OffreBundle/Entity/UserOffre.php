@@ -22,6 +22,7 @@ class UserOffre
     private $id;
 
     /**
+     * @ORM\JoinColumn(name="user_link", referencedColumnName="id")
      * @ORM\OneToOne(targetEntity="Admin\UserBundle\Entity\User", mappedBy="id", cascade={"remove", "persist"}))
      */
     private $iDUserApp;
@@ -152,5 +153,12 @@ class UserOffre
     public function getAutorized()
     {
         return $this->autorized;
+    }
+
+    public function __construct()
+    {
+        $this->nbpropfait=0;
+        $this->nbpropmax=3;
+        $this->autorized=true;
     }
 }

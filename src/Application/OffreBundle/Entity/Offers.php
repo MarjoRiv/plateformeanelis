@@ -22,6 +22,12 @@ class Offers
     private $id;
 
     /**
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Application\OffreBundle\Entity\UserOffre", inversedBy="id")
+     */
+    private $idUser;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=40)
@@ -59,7 +65,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="attachement", type="string", length=255)
+     * @ORM\Column(name="attachement", type="string", length=255, nullable=true)
      */
     private $attachement;
 
@@ -86,6 +92,29 @@ class Offers
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set idUser
+     *
+     * @param \Application\OffreBundle\Entity\UserOffre $id
+     * @return Offers
+     */
+    public function setIdUser(\Application\UserOffre\Entity\UserOffre $id = null)
+    {
+        $this->idUser = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get IdUser
+     *
+     * @return \Application\OffreBundle\Entity\UserOffre 
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
     }
 
     /**
@@ -283,7 +312,11 @@ class Offers
     public function __construct()
     {
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
-        $this->date = new \Datetime();
+        $this->datepublished = new \Datetime('NOW');
+        $this->dateexpire= new \Datetime('NOW');
+        $this->dateexpire->modify('30 day');
+        $this->enabled=true;
+        $this->reading=0;
     }
 }
 

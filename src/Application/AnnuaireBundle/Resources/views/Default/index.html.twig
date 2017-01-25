@@ -69,44 +69,43 @@
                                         </div>
                                     {{ form_end(form) }}
 
-                                        <div class="form-horizontal tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
+                                    <div class="form-horizontal tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
 
-                                            {{ form_start(formm) }}
-                                                <div class="col-md-6">
-                                                    {{ form_errors(formm) }}
-                                                    <div class="form-group">
-                                                        {{ form_label(formm.country, "Pays", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                        <div class="col-sm-6">
-                                                            {{ form_widget(formm.country, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                        </div>
+                                        {{ form_start(formm) }}
+                                            <div class="col-md-6">
+                                                {{ form_errors(formm) }}
+                                                <div class="form-group">
+                                                    {{ form_label(formm.country, "Pays", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(formm.country, { 'attr' : { 'class' : 'form-control' } }) }}
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6"><form class="form-horizontal">
-                                                    {{ form_errors(formm) }}
-                                                    <div class="form-group">
-                                                        {{ form_label(formm.city, "Ville", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                        <div class="col-sm-6">
-                                                            {{ form_widget(formm.city, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        {{ form_label(formm.postalcode, "Code Postal", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                        <div class="col-sm-6">
-                                                            {{ form_widget(formm.postalcode, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div style="text-align: center;">
-                                                <div class="btn-toolbar">
-                                                    <button class="btn-primary btn">Rechercher</button>
                                                 </div>
                                             </div>
-
-                                            {{ form_rest(formm) }} 
+                                            <div class="col-md-6"><form class="form-horizontal">
+                                                {{ form_errors(formm) }}
+                                                <div class="form-group">
+                                                    {{ form_label(formm.city, "Ville", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(formm.city, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ form_label(formm.postalcode, "Code Postal", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(formm.postalcode, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: center;">
+                                            <div class="btn-toolbar">
+                                                <button class="btn-primary btn">Rechercher</button>
                                             </div>
                                         </div>
-                                {{ form_end(formm) }}
+                                        {{ form_rest(formm) }} 
+                                        </div>
                                     </div>
+                                    {{ form_end(formm) }}
+                                </div>
                                 </div>
                                 {% if results is not empty %}
                                     {% set promotionActivated = get_promotion_activated() %}
