@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class UserOffre
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,10 +22,10 @@ class UserOffre
     private $id;
 
     /**
-     * @ORM\JoinColumn(name="user_link", referencedColumnName="id")
-     * @ORM\OneToOne(targetEntity="Admin\UserBundle\Entity\User", mappedBy="id", cascade={"remove", "persist"}))
+     * @ORM\OneToOne(targetEntity="Admin\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $iDUserApp;
+    private $UserApp;
 
     /**
      * @var int
@@ -60,27 +60,27 @@ class UserOffre
     }
 
     /**
-     * Set iDUserApp
+     * Set UserApp
      *
-     * @param integer $iDUserApp
+     * @param integer $UserApp
      *
      * @return OffreUser
      */
-    public function setIDUserApp($iDUserApp)
+    public function setUserApp($UserApp)
     {
-        $this->iDUserApp = $iDUserApp;
+        $this->UserApp = $UserApp;
 
         return $this;
     }
 
     /**
-     * Get iDUserApp
+     * Get UserApp
      *
      * @return int
      */
-    public function getIDUserApp()
+    public function getUserApp()
     {
-        return $this->iDUserApp;
+        return $this->UserApp;
     }
 
     /**
@@ -158,7 +158,6 @@ class UserOffre
     public function __construct()
     {
         $this->nbpropfait=0;
-        $this->nbpropmax=3;
         $this->autorized=true;
     }
 }

@@ -22,10 +22,10 @@ class Offers
     private $id;
 
     /**
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @ORM\ManyToOne(targetEntity="Application\OffreBundle\Entity\UserOffre", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="Application\OffreBundle\Entity\UserOffre", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $idUser;
+    private $user;
 
     /**
      * @var string
@@ -100,9 +100,9 @@ class Offers
      * @param \Application\OffreBundle\Entity\UserOffre $id
      * @return Offers
      */
-    public function setIdUser(\Application\UserOffre\Entity\UserOffre $id = null)
+    public function setUser(\Application\OffreBundle\Entity\UserOffre $user)
     {
-        $this->idUser = $id;
+        $this->user = $user;
 
         return $this;
     }
@@ -112,9 +112,9 @@ class Offers
      *
      * @return \Application\OffreBundle\Entity\UserOffre 
      */
-    public function getIdUser()
+    public function getUser()
     {
-        return $this->idUser;
+        return $this->User;
     }
 
     /**
