@@ -18,23 +18,27 @@ class OffresController extends Controller
     public function viewAction(Request $request)
     {
     	$offer = new Offers();
-    	echo $this->getUser();
-    	$em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre');
-        $query=$em2->find($this->getUser());
-        if ($query==null)
+    	$em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
+    	$userOffre=null;
+    	$query=$em2->getQuery()->getResult();
+        foreach ($query as $emm ) 
         {
-        	$userOffre = new UserOffre();
+        	if ($emm->getUserApp()==$this->getUser())
+        	{
+        		$userOffre=$emm;
+        	}
+        }
+        if ($userOffre==null)
+        {
+        	$userOffre = new UserOffre($this->getUser()->getId());
     		$userOffre->setNbpropmax(3);
     		$userOffre->setUserApp($this->getUser());
-        }
-        else
-        {
-        	$userOffre=$query;
+    		$em1 = $this->getDoctrine()->getManager();
+       		$em1->persist($userOffre);
+        	$em1->flush();
         }
 
-      	$em1 = $this->getDoctrine()->getManager();
-       	$em1->persist($userOffre);
-        $em1->flush();
+      	
 
     	$OffersForm = $this->get('form.factory')
             ->createNamed(
@@ -50,8 +54,8 @@ class OffresController extends Controller
         $OffersForm->handleRequest($request);
         $offer->setUser($userOffre);
 
-        $results = null;
-        $formSubmited = false;
+        $results = $this->OfferDQLSearch();
+        $formSubmited = true;
         if ($OffersForm->isValid()) {
             $em=$this->getDoctrine()->getManager();
             $em->persist($offer);
@@ -66,9 +70,28 @@ class OffresController extends Controller
             'onglet' => $onglet,
             'form' => $OffersForm->createView(),
             'formSubmited' => $formSubmited,
+            'results' => $results,
         ));
     }
    
+    protected function OfferDQLSearch()
+    {
+        $offers = null;
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
+    //    $parameters = array()
+
+    //     if(count($parameters)) $query->setParameters($parameters);
+
+            $DQLQuery = $query
+                ->orderBy('u.datepublished', 'ASC')
+                ->getQuery();
+
+            $offers = $DQLQuery->getResult();
+
+        return $offers;
+    }
 
 
 }

@@ -27,8 +27,35 @@
                                 <div class="tab-content">
                                     <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
                                         <!--afficher ici les annonces dispo -->
-                                        toto
+
+                                        {% if results is not empty %}
+                                            {% for result in results %}
+                                            <div class="col-sm-4" style="height: 240px;">
+                                                <div class="panel panel-sky">
+                                                    <div class="panel-heading" style="text-align: center;">
+                                                        <h4>{{ result.title }}</h4>
+                                                    </div>
+                                                    <div class="panel-body" style="height: 190px;background-color: #DADADA;">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <hr style="margin:8px auto">
+                                                                <span class="label label-default">{{ result.type }}</span>
+                                                                <span class="label label-default">{{ result.description }}</span>
+                                                                <hr style="margin:8px auto">  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            {%  endfor %}
+                                        {% else %}
+                                            {% if formSubmited == true %}
+                                                <p class="alert-danger text-center">Aucune offre n'a été trouvé. Désolé :(</p>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
+
                                     <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="ajouter">
                                         {{ form_start(form) }}
                                             <div class="col-md-6">
