@@ -18,8 +18,10 @@
                             <div class="panel-heading">
                                 <h4>
                                     <ul class="nav nav-tabs">
-                                        <li{% if onglet == 1 or onglet > 2 %} class="active"{% endif %}><a href="#afficher" data-toggle="tab">Annonces</a></li>
+                                        <li{% if onglet == 1 %} class="active"{% endif %}><a href="#afficher" data-toggle="tab">Annonces</a></li>
+                                        {% if autorize==true %}
                                         <li{% if onglet == 2 %} class="active"{% endif %}><a href="#ajouter" data-toggle="tab">Ajout d'Annonces</a></li>
+                                        {% endif %}
                                     </ul>
                                 </h4>
                             </div>
@@ -38,9 +40,10 @@
                                                     <div class="panel-body" style="height: 190px;background-color: #DADADA;">
                                                         <div class="media">
                                                             <div class="media-body">
+                                                                {{ result.description }}
                                                                 <hr style="margin:8px auto">
+                                                                <span class="label label-default">{{ result.user.UserApp.username }}</span>
                                                                 <span class="label label-default">{{ result.type }}</span>
-                                                                <span class="label label-default">{{ result.description }}</span>
                                                                 <hr style="margin:8px auto">  
                                                             </div>
                                                         </div>
@@ -56,6 +59,7 @@
                                         {% endif %}
                                     </div>
 
+                                    {% if autorize==true %}
                                     <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="ajouter">
                                         {{ form_start(form) }}
                                             <div class="col-md-6">
@@ -98,7 +102,9 @@
                                     
                                     {{ form_end(form) }}   
                                     </div>
+                                    {% endif %}
                                 </div>
+
                             </div>
                         </div>
                     </div>

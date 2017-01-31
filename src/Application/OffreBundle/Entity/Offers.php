@@ -114,7 +114,7 @@ class Offers
      */
     public function getUser()
     {
-        return $this->User;
+        return $this->user;
     }
 
     /**
