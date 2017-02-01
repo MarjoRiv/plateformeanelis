@@ -1,0 +1,75 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Partage d'Offres{% endblock %}
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                        <li><a href="{{ path('offre_homepage') }}">Partage d'Offre</a></li>
+                        <li class="active">{{offre.title}}</li>
+                    </ol>
+
+                    <h1>Offre n° : {{offre.id }}</h1>
+                </div>
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="table-responsive">
+                                                {%if offre.enabled is not empty and offre.enabled %}
+                                                <table class="table table-condensed">
+                                                    <h3><strong>{{ offre.title }}</strong></h3>  
+                                                    <tbody>
+                                                        {% if offre.id is not empty and offre.id != "" %}
+                                                        <tr>
+                                                            <td>Id</td>
+                                                            <td>{{ offre.id }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.type is not empty and offre.type != "" %}
+                                                        <tr>
+                                                            <td>Type</td>
+                                                            <td>{{ offre.type }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.description is not empty and offre.description != "" %}
+                                                        <tr>
+                                                            <td>Description</td>
+                                                            <td>{{ offre.description }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.user.UserApp.username is not empty and offre.user.UserApp.username != "" %}
+                                                        <tr>
+                                                            <td>Partagée par : </td>
+                                                            <td><a href= ../profil/{{ offre.user.UserApp.id }}>{{ offre.user.UserApp.username }}</a></td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.attachement is not empty and offre.attachement != '' %}
+                                                        <tr>
+                                                            <td>Pièce jointe</td>
+                                                            <td>{{ offre.attachement }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                    </tbody>
+                                                </table>
+                                                {%else%}
+                                                <h3>Cette offre n'est plus disponible.</h3>
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+        {% endblock %}
