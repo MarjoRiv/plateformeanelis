@@ -12,7 +12,7 @@
                 </div>
         {% if "@poste.isima.fr" in app.user.email %}
                         <div class="alert alert-dismissable alert-danger">
-                            <strong>Attention :</strong> Vous utilisez une adresse email @poste.isima.fr, pensez à la <strong><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}" title"Edition du profil">changer</a></strong>. Cette adresse sera obsolète quand vous ne serez plus dans l'école !
+                            <strong>Attention :</strong> Vous utilisez une adresse email @poste.isima.fr, pensez à la <strong><a href="{{ path('user_edit_profile', { 'id' : app.user.id }) }}" title="Edition du profil">changer</a></strong>. Cette adresse sera obsolète quand vous ne serez plus dans l'école !
                         </div>
                     {% endif %}
                 <div class="container">
