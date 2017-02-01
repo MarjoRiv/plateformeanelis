@@ -1,0 +1,118 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Partage d'Offres{% endblock %}
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                        <li class="active">Partage d'Offre</li>
+                    </ol>
+
+                    <h1>Partage d'Offres</h1>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li{% if onglet == 1 %} class="active"{% endif %}><a href="#afficher" data-toggle="tab">Annonces</a></li>
+                                        {% if autorize==true %}
+                                        <li{% if onglet == 2 %} class="active"{% endif %}><a href="#ajouter" data-toggle="tab">Ajout d'Annonces</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
+                                        <!--afficher ici les annonces dispo -->
+
+                                        {% if results is not empty %}
+                                            {% for result in results %}
+                                            <a href="offre/{{ result.id }}">
+                                                <div class="col-sm-4" style="height: 240px;">
+                                                    <div class="panel panel-sky">
+                                                        <div class="panel-heading" style="text-align: center;">
+                                                            <h4>{{ result.title }}</h4>
+                                                        </div>
+                                                        <div class="panel-body" style="height: 190px;background-color: #DADADA;">
+                                                            <div class="media">
+                                                                <div class="media-body">
+                                                                    {{ result.description }}
+                                                                    <hr style="margin:8px auto">
+                                                                    <span class="label label-default">{{ result.user.UserApp.username }}</span>
+                                                                    <span class="label label-default">{{ result.type }}</span>
+                                                                   <!-- <span class="label label-default">Vue : {{ result.reading }}</span> -->
+                                                                    <hr style="margin:8px auto">  
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            {%  endfor %}
+                                        {% else %}
+                                            {% if formSubmited == true %}
+                                                <p class="alert-danger text-center">Aucune offre n'a été trouvé. Désolé :(</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+
+                                    {% if autorize==true %}
+                                    <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="ajouter">
+                                        {{ form_start(form) }}
+                                            <div class="col-md-6">
+                                                {{ form_errors(form) }}
+                                                <div class="form-group">
+                                                    {{ form_label(form.title, "Titre", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.title, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ form_label(form.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.type, { 'attr' : { 'class' : 'form-control' } }) }}
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ form_label(form.description, "Description", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ form_label(form.attachement, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(form.attachement, { 'attr' : { 'class' : 'form-control' } }) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div style="text-align: center;">
+                                                <div class="btn-toolbar">
+                                                    <button class="btn-primary btn">Ajouter</button>
+                                                </div>
+                                            </div>
+
+                                        {{ form_rest(form) }} 
+                                    
+                                    {{ form_end(form) }}   
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!--wrap -->
+        </div> <!-- page-content -->
+
+            {% endblock %}
