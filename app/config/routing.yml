@@ -1,7 +1,3 @@
-offre:
-    resource: "@OffreBundle/Resources/config/routing.yml"
-    prefix:   /
-
 application_yearbook:
     resource: "@ApplicationYearbookBundle/Resources/config/routing.yml"
     prefix:   /
