@@ -48,7 +48,7 @@
                                                         {% if offre.user.UserApp.username is not empty and offre.user.UserApp.username != "" %}
                                                         <tr>
                                                             <td>Partagée par : </td>
-                                                            <td><a href= ../profil/{{ offre.user.UserApp.id }}>{{ offre.user.UserApp.username }}</a></td>
+                                                            <td><a href"{{ path('offre_edit', {'id' : offre.user.UserApp.id}) }}">{{ offre.user.UserApp.username }}</a></td>
                                                         </tr>
                                                         {% endif %}
                                                         {% if offre.attachement is not empty and offre.attachement != '' %}
