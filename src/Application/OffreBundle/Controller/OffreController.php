@@ -16,9 +16,14 @@ class OffreController extends Controller
 
     public function showAction(Offers $offre)
     {
-        
+        $usercreation = false;
+        if ($this->getUser()==$offre->getUser()->getUserApp())
+        {
+            $usercreation = true;
+        }
         return $this->render('OffreBundle:Offre:show.html.twig', array(
-            'offre' => $offre));
+            'offre' => $offre,
+            'usercreation' => $usercreation));
     }
 
     public function editAction(Offers $offre, Request $request) {

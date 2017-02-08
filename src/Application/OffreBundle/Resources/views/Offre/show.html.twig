@@ -57,6 +57,11 @@
                                                             <td>{{ offre.attachement }}</td>
                                                         </tr>
                                                         {% endif %}
+                                                        {% if usercreation is not empty and usercreation == true %}
+                                                        <tr class="btn-toolbar" style="text-align: center;">
+                                                            <td><a href="{{ path('offre_edit', {'id' : offre.id}) }}"><button class="btn-primary btn">Modifier</button></a></td>
+                                                        </tr>
+                                                        {% endif %}
                                                     </tbody>
                                                 </table>
                                                 {%else%}
