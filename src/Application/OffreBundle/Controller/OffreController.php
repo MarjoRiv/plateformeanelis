@@ -23,7 +23,7 @@ class OffreController extends Controller
         else
         {
             $usercreation = false;
-            $offre->setreading($offre->getreading()+1);
+            $offre->setReading($offre->getReading()+1);
             $em = $this->getDoctrine()->getManager();
             $em->persist($offre);
             $em->flush();
