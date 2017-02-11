@@ -309,6 +309,11 @@ class Offers
         return $this->reading;
     }
 
+    public function getName()
+    {
+        return $this->user->getUserApp()->getUsername();
+    }
+
     public function __construct()
     {
         // Par défaut, la date de l'annonce est la date d'aujourd'hui

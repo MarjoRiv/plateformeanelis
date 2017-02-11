@@ -1,0 +1,11 @@
+services:
+    sonata.admin.offres:
+        class: Application\OffreBundle\Admin\OffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Offres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\Offers
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]

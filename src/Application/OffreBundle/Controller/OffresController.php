@@ -18,6 +18,7 @@ class OffresController extends Controller
     public function viewAction(Request $request)
     {
     	$offer = new Offers();
+        $offer->setEnabled(true);
     	$userOffre=$this->UserOffreCreat();
 
     	$OffersForm = $this->get('form.factory')
