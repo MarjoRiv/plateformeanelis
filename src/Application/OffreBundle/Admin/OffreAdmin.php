@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\ChatBundle\Admin;
+namespace Application\OffreBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -8,14 +8,26 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class MessageAdmin extends AbstractAdmin
+class OffreAdmin extends AbstractAdmin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('message')
-            ->add('enabled', null, array('required' => false))
+            ->add('title')
+            ->add('description')
+            ->add('datepublished')
+            ->add('dateexpire')
+            ->add('type', 'choice', array(
+                'choices' => array(
+                    '' => '',
+                    'Stage' => 'Stage',
+                    'Emploi' => 'Emploi',
+                    'Logement' => 'Logement',
+                    'Vente' => 'Vente',
+                    'Autre' => 'Autre',
+                    )))
+            ->add('enabled')
         ;
     }
 
@@ -23,7 +35,10 @@ class MessageAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-        ->add('date')
+        ->add('datepublished')
+        ->add('dateexpire')
+        ->add('title')
+        ->add('id')
         ;
     }
 
@@ -32,14 +47,16 @@ class MessageAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->addIdentifier('user.name')
-            ->add('message')
+            ->add('title')
+            ->add('type')
             ->add('enabled')
-            // add custom action links
+            ->add('dateexpire')
+            ->add('name','text')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
+                    'delete' => array(),
                 )
             ))
         ;
@@ -49,10 +66,14 @@ class MessageAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
+            ->add('title')
             ->add('name')
-            ->add('message')
+            ->add('description')
+            ->add('datepublished')
+            ->add('dateexpire')
+            ->add('type')
             ->add('enabled')
-            ->add('date')
+            ->add('attachement')
         ;
     }
 }

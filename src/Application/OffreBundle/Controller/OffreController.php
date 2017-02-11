@@ -16,34 +16,57 @@ class OffreController extends Controller
 
     public function showAction(Offers $offre)
     {
-        
+        if ($this->getUser()==$offre->getUser()->getUserApp())
+        {
+            $usercreation = true;
+        }
+        else
+        {
+            $usercreation = false;
+            $offre->reading += 1;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($offre);
+            $em->flush();
+        }
         return $this->render('OffreBundle:Offre:show.html.twig', array(
-            'offre' => $offre));
+            'offre' => $offre,
+            'usercreation' => $usercreation));
     }
 
     public function editAction(Offers $offre, Request $request) {
         
-        // Vérification de l'id pour des raisons de sécurités
-        if($user->getId() != $this->get('security.token_storage')->getToken()->getUser()->getId())
+        if ($offre->getUser()->getUserApp()==$this->getUser())
         {
-            return $this->redirect($this->generateUrl('user_edit_profile', array('id' => $this->get('security.context')->getToken()->getUser()->getId())));
-        }
+            $OffersForm = $this->get('form.factory')
+                ->createNamed(
+                    '',
+                    OffersType::class,
+                    $offre,
+                    array(
+                        'action' => $this->generateUrl('offre_edit', array('id'=>$offre->getId())),
+                        'method' => 'POST'
+                    )
+                );
 
-        $em = $this->getDoctrine()->getManager();
-        
-        $entity = new UserType();
-        $form = $this->createForm(UserType::class, $user);
-        $formHandler = new UserHandler($form, $request, $em);
+            $OffersForm->handleRequest($request);
             
-        if ($formHandler->process()) {
-            //TODO : Search why we use this LogManager and where...
-            //LogManager::save($this, "Modification de l'utilisateur " . $user->getId());
-            $this->get('session')->getFlashBag()->add('success', "L'utilisateur a été modifié.");
-
+            if ($OffersForm->isValid()) 
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($offre);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
+            }
         }
-
-        return $this->render('AdminUserBundle:Profile:user.edit.html.twig', array(
-                "form" => $form->createView(),
+        else
+        {
+            return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
+        }
+        // Vérification de l'id pour des raisons de sécurités
+        
+        return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
+                "form" => $OffersForm->createView(),
+                "offre" => $offre,
         ));
         
     }
