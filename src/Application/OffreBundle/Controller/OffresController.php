@@ -75,13 +75,13 @@ class OffresController extends Controller
         $offers = null;
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
+        $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('o');
     //    $parameters = array()
 
     //     if(count($parameters)) $query->setParameters($parameters);
 
             $DQLQuery = $query
-                ->orderBy('u.datepublished', 'ASC')
+                ->orderBy('o.datepublished', 'ASC')
                 ->getQuery();
 
             $offers = $DQLQuery->getResult();
