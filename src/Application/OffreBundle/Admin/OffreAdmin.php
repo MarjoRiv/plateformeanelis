@@ -39,6 +39,7 @@ class OffreAdmin extends AbstractAdmin
         ->add('dateexpire')
         ->add('title')
         ->add('id')
+        ->add('reading')
         ;
     }
 
@@ -47,11 +48,12 @@ class OffreAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
+            ->add('name','text')
             ->add('title')
             ->add('type')
             ->add('enabled')
             ->add('dateexpire')
-            ->add('name','text')
+            ->add('reading')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -73,6 +75,7 @@ class OffreAdmin extends AbstractAdmin
             ->add('dateexpire')
             ->add('type')
             ->add('enabled')
+            ->add('reading')
             ->add('attachement')
         ;
     }
