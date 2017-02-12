@@ -10,6 +10,10 @@ use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Finder\Comparator\DateComparator;
+
 
 
 class OffresController extends Controller
@@ -75,10 +79,10 @@ class OffresController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
-    //    $parameters = array()
-
-    //     if(count($parameters)) $query->setParameters($parameters);
-
+        $date = new \DateTime('now');
+        $query->where('u.dateexpire > :date')
+            ->setParameter('date', $date);
+        
             $DQLQuery = $query
                 ->orderBy('u.datepublished', 'ASC')
                 ->getQuery();
