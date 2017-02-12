@@ -9,3 +9,13 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ApplicationOffreBundle]]
+    sonata.admin.userOffre:
+        class: Application\OffreBundle\Admin\UserOffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "UserOffres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\UserOffre
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]
