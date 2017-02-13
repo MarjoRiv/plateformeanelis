@@ -319,7 +319,7 @@ class Offers
         $this->datepublished = new \Datetime('NOW');
         $this->dateexpire= new \Datetime('NOW');
         $this->dateexpire->modify('30 day');
-        $this->enabled=true;
+        $this->attachement=null;
         $this->reading=0;
     }
 }
