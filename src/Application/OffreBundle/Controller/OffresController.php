@@ -80,7 +80,7 @@ class OffresController extends Controller
     //     if(count($parameters)) $query->setParameters($parameters);
 
             $DQLQuery = $query
-                ->orderBy('u.datepublished', 'ASC')
+                ->orderBy('u.datepublished', 'DESC')
                 ->getQuery();
 
             $offers = $DQLQuery->getResult();
