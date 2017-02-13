@@ -7,13 +7,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class OffersType extends AbstractType
+class Offers2Type extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,7 +38,7 @@ class OffersType extends AbstractType
             ->add('attachement', TextType::class, array(
                 'required' => false,
             ))
-            ->add('enabled', HiddenType::class, array(
+            ->add('enabled', CheckboxType::class, array(
                 'required' => false,
                 'empty_data' => true,
             ))
