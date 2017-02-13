@@ -2,7 +2,7 @@
 
 namespace Application\OffreBundle\Controller;
 
-use Application\OffreBundle\Form\OffersType;
+use Application\OffreBundle\Form\Offers2Type;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
 use Admin\UserBundle\Entity\User;
@@ -40,7 +40,7 @@ class OffreController extends Controller
             $OffersForm = $this->get('form.factory')
                 ->createNamed(
                     '',
-                    OffersType::class,
+                    Offers2Type::class,
                     $offre,
                     array(
                         'action' => $this->generateUrl('offre_edit', array('id'=>$offre->getId())),

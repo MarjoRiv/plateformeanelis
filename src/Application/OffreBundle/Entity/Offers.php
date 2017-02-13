@@ -63,9 +63,8 @@ class Offers
     private $enabled;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="attachement", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Application\OffreBundle\Entity\FileOffre", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $attachement;
 
@@ -320,7 +319,7 @@ class Offers
         $this->datepublished = new \Datetime('NOW');
         $this->dateexpire= new \Datetime('NOW');
         $this->dateexpire->modify('30 day');
-        $this->enabled=true;
+        $this->attachement=null;
         $this->reading=0;
     }
 }
