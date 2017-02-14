@@ -5,6 +5,7 @@ namespace Application\OffreBundle\Controller;
 use Application\OffreBundle\Form\OffersType;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
+use Application\OffreBundle\Entity\FileOffre;
 use Admin\UserBundle\Entity\User;
 use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
@@ -42,10 +43,12 @@ class OffresController extends Controller
         {
 	        if ($OffersForm->isValid()) 
 	        {
+                $offer->getAttachement()->preUpload();
 	        	$prop=$userOffre->getNbpropfait();
 	        	if ($prop<($userOffre->getNbpropMax()))
 	        	{
 		        	$userOffre->setNbpropfait($prop+1);
+                    $offer->getAttachement()->upload();
 		            $em=$this->getDoctrine()->getManager();
 		            $em->persist($userOffre);
 		            $em->persist($offer);

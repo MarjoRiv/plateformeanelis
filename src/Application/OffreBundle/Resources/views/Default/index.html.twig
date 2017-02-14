@@ -56,7 +56,7 @@
                                             {%  endfor %}
                                         {% else %}
                                             {% if formSubmited == true %}
-                                                <p class="alert-danger text-center">Aucune offre n'a été trouvé. Désolé :(</p>
+                                                <p class="alert-danger text-center">Aucune offre n'a été trouvée. Désolé :(</p>
                                             {% endif %}
                                         {% endif %}
                                     </div>
@@ -85,12 +85,12 @@
                                                         {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
                                                     </div>
                                                 </div>
-                                               <!-- <div class="form-group">
+                                                <div class="form-group">
                                                     {{ form_label(form.attachement, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                                                     <div class="col-sm-6">
                                                         {{ form_widget(form.attachement, { 'attr' : { 'class' : 'form-control' } }) }}
                                                     </div>
-                                                </div> -->
+                                                </div>
                                             </div>
 
 

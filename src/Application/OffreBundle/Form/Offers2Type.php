@@ -4,6 +4,7 @@ namespace Application\OffreBundle\Form;
 
 use Application\OffreBundle\Entity\Offers;
 use Symfony\Component\Form\AbstractType;
+use Application\OffreBundle\Form\FileOffreType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,7 +36,7 @@ class Offers2Type extends AbstractType
             ->add('description', TextareaType::class, array(
                 'required' => true,
             ))
-            ->add('attachement', TextType::class, array(
+            ->add('attachement', FileOffreType::class, array(
                 'required' => false,
             ))
             ->add('enabled', CheckboxType::class, array(

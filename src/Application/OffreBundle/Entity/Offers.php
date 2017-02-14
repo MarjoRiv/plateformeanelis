@@ -63,7 +63,7 @@ class Offers
     private $enabled;
 
     /**
-     * @ORM\OneToOne(targetEntity="Application\OffreBundle\Entity\FileOffre", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="Application\OffreBundle\Entity\FileOffre", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $attachement;

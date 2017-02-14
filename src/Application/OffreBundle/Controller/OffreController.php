@@ -5,6 +5,7 @@ namespace Application\OffreBundle\Controller;
 use Application\OffreBundle\Form\Offers2Type;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
+use Application\OffreBundle\Entity\FileOffre;
 use Admin\UserBundle\Entity\User;
 use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
@@ -57,6 +58,10 @@ class OffreController extends Controller
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
             }
+            return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
+                        "form" => $OffersForm->createView(),
+                        "offre" => $offre,
+                ));
         }
         else
         {
@@ -64,10 +69,6 @@ class OffreController extends Controller
         }
         // Vérification de l'id pour des raisons de sécurités
         
-        return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
-                "form" => $OffersForm->createView(),
-                "offre" => $offre,
-        ));
         
     }
 
