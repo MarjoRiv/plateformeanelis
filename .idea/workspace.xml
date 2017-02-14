@@ -10,9 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8a5f7b6-28d1-46c7-8175-1d4081e910dc" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/checkEmail.html.twig" afterPath="$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/check_email.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/parameters.yml.dist" afterPath="$PROJECT_DIR$/app/config/parameters.yml.dist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/reset.html.twig" afterPath="$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/reset.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,21 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="change_password.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/ChangePassword/change_password.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="74" lean-forward="false" selection-start-line="18" selection-start-column="74" selection-end-line="18" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="parameters.yml.dist" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/parameters.yml.dist">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+              <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -60,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reset.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="reset.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/reset.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="702">
+              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -80,8 +69,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="request_content.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="request_content.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/request_content.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reset_content.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/reset_content.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reset.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/reset.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -120,16 +129,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parameters.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -157,6 +156,7 @@
         <option value="$PROJECT_DIR$/src/Admin/UserBundle/Form/ChangePasswordFormType.php" />
         <option value="$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/ChangePassword/change_password.html.twig" />
         <option value="$PROJECT_DIR$/app/config/parameters.yml.dist" />
+        <option value="$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/reset.html.twig" />
       </list>
     </option>
   </component>
@@ -187,6 +187,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -277,6 +278,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plateformeanelis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plateformeanelis" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vendor" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="friendsofsymfony" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user-bundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Security" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -1102,7 +1137,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1111,7 +1145,6 @@
     <property name="nodejs_interpreter_path" value="/usr/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
-    <property name="FullScreen" value="false" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
   </component>
   <component name="RecentsManager">
@@ -1165,6 +1198,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -1203,12 +1242,13 @@
       <workItem from="1484414970800" duration="421000" />
       <workItem from="1484416876409" duration="292000" />
       <workItem from="1484502871012" duration="384000" />
-      <workItem from="1487076983854" duration="4928000" />
+      <workItem from="1487076983854" duration="5006000" />
+      <workItem from="1487083456865" duration="210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11709000" />
+    <option name="totallyTimeSpent" value="11997000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1054" extended-state="6" />
@@ -1218,7 +1258,6 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1229,6 +1268,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1252,20 +1292,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/clevercloud/php.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1348,7 +1374,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1372,102 +1397,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="26" column="58" lean-forward="false" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
-          <folding>
-            <marker date="1487076910925" expanded="true" signature="993:1572" ph="{% if user.avatar is empty ...%}" />
-            <marker date="1487076910925" expanded="false" signature="1205:1242" ph="..." />
-            <marker date="1487076910925" expanded="false" signature="1476:1513" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="1646:14491" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="1732:14448" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="1900:1956" ph="{% set promotionActivated = get_promotion_activated() ...%}" />
-            <marker date="1487076910925" expanded="true" signature="2009:2364" ph="{% if user.promotion == promotionActivated and user.id != app.user.id ...%}" />
-            <marker date="1487076910925" expanded="false" signature="2144:2163" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="2413:2730" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="2784:14399" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="2834:3215" ph="{% if user.promotion is not empty and user.promotion != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="2947:3154" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="3264:3637" ph="{% if user.filiere is not empty and user.filiere != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="3373:3576" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="3686:4061" ph="{% if user.nickname is not empty and user.nickname != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="3797:4000" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="4110:4968" ph="{% if user.website is not empty and user.website != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="4219:4907" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="4338:4854" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="4470:4526" ph="{% if &quot;http://&quot; not in user.website ...%}" />
-            <marker date="1487076910925" expanded="true" signature="5020:5625" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="5141:5572" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="5675:6424" ph="{% if user.telephone is not empty and user.telephone != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="5788:6363" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="5913:6310" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="6473:6880" ph="{% if user.getLastCareer is not empty and user.getLastCareer != '' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="6594:6819" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="6929:7344" ph="{% if user.getLastCareer is not empty and user.getLastCareer != '' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="7050:7283" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="7393:7755" ph="{% if user.city is not empty and user.city != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="7496:7694" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="7804:8190" ph="{% if user.postalcode is not empty and user.postalcode != &quot;&quot; ...%}" />
-            <marker date="1487076910925" expanded="true" signature="7919:8129" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="8239:14347" ph="{% if user.socialFacebook is not empty or user.socialTwitter is not empty or user.socialLinkedin is not empty or user.socialGoogle is not empty or user.socialYoutube is not empty or user.socialInstagram is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="8513:14286" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="8646:14228" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="8708:9568" ph="{% if user.socialFacebook is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="8814:9496" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="8954:9059" ph="{% if &quot;http://&quot; not in user.socialFacebook and &quot;https://&quot; not in user.socialFacebook ...%}" />
-            <marker date="1487076910925" expanded="true" signature="9629:10483" ph="{% if user.socialTwitter is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="9734:10411" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="9874:9977" ph="{% if &quot;http://&quot; not in user.socialTwitter and &quot;https://&quot; not in user.socialTwitter ...%}" />
-            <marker date="1487076910925" expanded="true" signature="10544:11404" ph="{% if user.socialLinkedin is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="10650:11332" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="10790:10895" ph="{% if &quot;http://&quot; not in user.socialLinkedin and &quot;https://&quot; not in user.socialLinkedin ...%}" />
-            <marker date="1487076910925" expanded="true" signature="11465:12325" ph="{% if user.socialGoogle is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="11569:12253" ph="{% if ( app.user.socialGoogle ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="11711:11812" ph="{% if &quot;http://&quot; not in user.socialGoogle and &quot;https://&quot; not in user.socialGoogle ...%}" />
-            <marker date="1487076910925" expanded="true" signature="12386:13240" ph="{% if user.socialYoutube is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="12491:13168" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="12631:12734" ph="{% if &quot;http://&quot; not in user.socialYoutube and &quot;https://&quot; not in user.socialYoutube ...%}" />
-            <marker date="1487076910925" expanded="true" signature="13301:14167" ph="{% if user.socialInstagram is not empty ...%}" />
-            <marker date="1487076910925" expanded="true" signature="13408:14095" ph="{% if ( app.user.isCotisant ) or ( app.user.id == user.id ) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="13548:13655" ph="{% if &quot;http://&quot; not in user.socialInstagram and &quot;https://&quot; not in user.socialInstagram ...%}" />
-            <marker date="1487076910925" expanded="true" signature="14585:14820" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="14679:14781" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="15108:19502" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="15184:19475" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="15250:16498" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="15284:15313" ph="{% set lastCareerType = '' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15346:15367" ph="{% set topbar = '' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15400:15425" ph="{% set nbIteration = 0 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15458:16412" ph="{% for career in careers ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15522:16367" ph="{% if lastCareerType != career.typeCareer.id ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15610:15657" ph="{% set lastCareerType = career.typeCareer.id ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15702:16319" ph="{% if nbIteration == 0 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15776:15931" ph="{% set topbar = topbar ~ '&lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;##' ~ career.typeCareer.id ~ '&quot; data-toggle=&quot;tab&quot;&gt;Parcours ' ~ career.typeCareer.name ~ '&lt;/a&gt;&lt;/li&gt;' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="15980:16019" ph="{% set nbIteration = nbIteration + 1 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="16123:16263" ph="{% set topbar = topbar ~ '&lt;li&gt;&lt;a href=&quot;##' ~ career.typeCareer.id ~ '&quot; data-toggle=&quot;tab&quot;&gt;Parcours ' ~ career.typeCareer.name ~ '&lt;/a&gt;&lt;/li&gt;' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="16556:19368" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="16590:16619" ph="{% set lastCareerType = '' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="16652:16674" ph="{% set content = '' ...%}" />
-            <marker date="1487076910925" expanded="true" signature="16707:16732" ph="{% set nbIteration = 0 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="16765:16786" ph="{% set nbColor = 0 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="16883:16914" ph="{% set nbColor = nbColor + 1 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="17176:17278" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="17384:19333" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="17478:17517" ph="{% set nbIteration = nbIteration + 1 ...%}" />
-            <marker date="1487076910925" expanded="true" signature="17558:17605" ph="{% set lastCareerType = career.typeCareer.id ...%}" />
-            <marker date="1487076910925" expanded="true" signature="17712:19245" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="17952:19190" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="18030:18099" ph="{% if nbColor is divisible by(2) ...%}" />
-            <marker date="1487076910925" expanded="true" signature="18100:19132" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="18309:19070" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="18403:18638" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="18733:19003" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="19581:20581" ph="{% if not app.user.isCotisant ...%}" />
-            <marker date="1487076910925" expanded="true" signature="19741:20568" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="19776:20557" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="19816:20542" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="19859:20063" ph="..." />
-            <marker date="1487076910925" expanded="false" signature="19957:19964" ph="×" />
-            <marker date="1487076910925" expanded="true" signature="20104:20354" ph="..." />
-            <marker date="1487076910925" expanded="true" signature="20397:20523" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1490,7 +1419,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="132" column="74" lean-forward="false" selection-start-line="133" selection-start-column="118" selection-end-line="133" selection-end-column="148" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1506,7 +1434,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1522,7 +1449,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="86" column="21" lean-forward="false" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1530,7 +1456,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1538,7 +1463,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1546,7 +1470,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1554,7 +1477,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1562,7 +1484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1570,7 +1491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1578,7 +1498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1594,18 +1513,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/ChangePassword/changePassword.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/ChangePassword/changePassword.html.twig" />
     <entry file="file://$PROJECT_DIR$/src/Admin/UserBundle/Controller/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1622,22 +1533,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/FOSUserBundle/views/ChangePassword/changePassword.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/FOSUserBundle/views/ChangePassword/changePassword.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="47" lean-forward="false" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/FOSUserBundle/views/ChangePassword/changePassword.html.twig" />
+    <entry file="file://$PROJECT_DIR$/app/Resources/FOSUserBundle/views/ChangePassword/changePassword.html.twig" />
     <entry file="file://$PROJECT_DIR$/src/Admin/UserBundle/Controller/ProfilController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="863">
@@ -1675,7 +1572,7 @@
     <entry file="file://$PROJECT_DIR$/app/config/parameters.yml.dist">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+          <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1712,14 +1609,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/reset.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/request.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1730,8 +1619,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/request_content.html.twig">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/reset.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Resources/views/Resetting/reset_content.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Admin/UserBundle/Resources/views/Resetting/reset.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding />
         </state>
       </provider>
