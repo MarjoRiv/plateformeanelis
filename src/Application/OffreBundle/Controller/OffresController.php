@@ -37,7 +37,7 @@ class OffresController extends Controller
             );
         $OffersForm->handleRequest($request);
 
-        $offerType = new Offers(); 
+        /*$offerType = new Offers(); 
         $OffersFormType = $this->get('form.factory')
             ->createNamed(
                 '',
@@ -48,9 +48,8 @@ class OffresController extends Controller
                     'method' => 'POST'
                 )
             );
+        $OffersFormType->handleRequest($request);*/
 
-
-        $OffersFormType->handleRequest($request);
         $offer->setUser($userOffre);
 
         $autorize= $userOffre->getAutorized();
@@ -73,17 +72,18 @@ class OffresController extends Controller
 		            $em->flush();
                     $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
                     $formSubmited = true;
+                    $onglet=2;
 		        }
 		        else
 		        {
 		        	$request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
 		        }
 	        }
-            if ($OffersFormType->isValid()){
-                $onglet=2;
-                $results = $this->OfferDQLSearch($offerType);
+            /*if ($OffersFormType->isValid()){
+                //$onglet=0;
+                $results = $this->OfferDQLSearch();
                 $formSubmited = true;
-            }
+            }*/
 	    }
 
 
@@ -91,25 +91,27 @@ class OffresController extends Controller
         	'autorize' => $autorize,
             'onglet' => $onglet,
             'form' => $OffersForm->createView(),
-            'formtype'=> $OffersFormType->createView(),
+            //'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,
         ));
     }
    
-    protected function OfferDQLSearch(Offers $offersSearch)
+    protected function OfferDQLSearch()
     {
 
         $offers = null;
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
-        $parameters = array();
+        
+        /*$parameters = array();
 
-        if ($offersSearch->getType() != ''){
+        if ($offersSearch->getType() != '' && $offersSearch->getType() != null){
             $query->where('u.type = :type');
             $parameters['type'] =  $offersSearch->getType();
-        }
+        }*/
+
         $date = new \DateTime('now');
         $query->where('u.dateexpire > :date')
             ->setParameter('date', $date);
