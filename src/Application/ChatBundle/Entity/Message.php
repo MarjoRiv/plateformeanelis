@@ -157,4 +157,9 @@ class Message
         return $this->enabled;
     }
 
+    public function getName()
+    {
+        return $this->user->getUsername();
+    }
+
 }

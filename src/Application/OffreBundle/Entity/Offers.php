@@ -44,7 +44,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=2000)
      */
     private $description;
 
@@ -63,9 +63,8 @@ class Offers
     private $enabled;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="attachement", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Application\OffreBundle\Entity\FileOffre", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $attachement;
 
@@ -309,13 +308,18 @@ class Offers
         return $this->reading;
     }
 
+    public function getName()
+    {
+        return $this->user->getUserApp()->getUsername();
+    }
+
     public function __construct()
     {
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
         $this->datepublished = new \Datetime('NOW');
         $this->dateexpire= new \Datetime('NOW');
         $this->dateexpire->modify('30 day');
-        $this->enabled=true;
+        $this->attachement=null;
         $this->reading=0;
     }
 }

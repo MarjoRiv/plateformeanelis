@@ -8,17 +8,16 @@ use Application\OffreBundle\Form\FileOffreType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ViewOffersType extends AbstractType
+class Offers2Type extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        //a remodifier pour la recherche d'une offre
         $builder
             ->add('title', TextType::class, array(
                 'required' => true,
@@ -39,6 +38,10 @@ class ViewOffersType extends AbstractType
             ))
             ->add('attachement', FileOffreType::class, array(
                 'required' => false,
+            ))
+            ->add('enabled', CheckboxType::class, array(
+                'required' => false,
+                'empty_data' => true,
             ))
         ;
     }

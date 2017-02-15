@@ -2,7 +2,7 @@
 
 namespace Application\OffreBundle\Controller;
 
-use Application\OffreBundle\Form\OffersType;
+
 use Application\OffreBundle\Form\FiltreViewType;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
@@ -22,21 +22,6 @@ class OffresController extends Controller
 
     public function viewAction(Request $request)
     {
-    	$offer = new Offers();
-    	$userOffre=$this->UserOffreCreat();
-
-    	$OffersForm = $this->get('form.factory')
-            ->createNamed(
-                '',
-                OffersType::class,
-                $offer,
-                array(
-                    'action' => $this->generateUrl('offre_homepage'),
-                    'method' => 'POST'
-                )
-            );
-        $OffersForm->handleRequest($request);
-
         $offerType = new Offers(); 
         $OffersFormType = $this->get('form.factory')
             ->createNamed(
@@ -49,48 +34,19 @@ class OffresController extends Controller
                 )
             );
         $OffersFormType->handleRequest($request);
-
-        $offer->setUser($userOffre);
-
-        $autorize= $userOffre->getAutorized();
         $results = $this->OfferSearch();
         
         $formSubmited = false;
         $onglet=1;
-        if ($autorize==true)
-        {
-	        if ($OffersForm->isValid()) 
-	        {
-                //$results = $this->OfferDQLSearch();
-	        	$prop=$userOffre->getNbpropfait();
-	        	if ($prop<($userOffre->getNbpropMax()))
-	        	{
-		        	$userOffre->setNbpropfait($prop+1);
-		            $em=$this->getDoctrine()->getManager();
-		            $em->persist($userOffre);
-		            $em->persist($offer);
-		            $em->flush();
-                    $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-                    $formSubmited = true;
-                    $onglet=2;
-		        }
-		        else
-		        {
-		        	$request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
-		        }
-	        }
-            if ($OffersFormType->isValid()){
-                //$onglet=0;
-                $results = $this->OfferFiltre($offerType->getType());
-                $formSubmited = true;
-            }
-	    }
+        if ($OffersFormType->isValid()){
+               //$onglet=0;
+               $results = $this->OfferFiltre($offerType->getType());
+               $formSubmited = true;
+        }
 
 
         return $this->render('OffreBundle:Default:index.html.twig',array(
-        	'autorize' => $autorize,
             'onglet' => $onglet,
-            'form' => $OffersForm->createView(),
             'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,

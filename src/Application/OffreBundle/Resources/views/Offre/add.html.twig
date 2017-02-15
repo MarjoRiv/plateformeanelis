@@ -1,0 +1,72 @@
+{% extends "::application.html.twig" %} 
+{% block title %}Ajouter une Offre{% endblock %}
+
+{% block body %}
+<div id="page-content">
+  <div id='wrap'>
+    <div id="page-heading">
+      <ol class="breadcrumb">
+        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+        <li><a href="{{ path('offre_homepage') }}">Partage d'Offre</a></li>
+        <li class="active">Ajouter une Offre</li>
+      </ol>
+      <h1>Ajout d'offre</h1>
+    </div>
+    <div class="container">      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-primary">
+            <div class="form-horizontal tab-pane active" id="midifier">
+                {% if autorize==true %}
+                <div class="form-horizontal tab-pane active" id="ajouter">
+                    {{ form_start(form) }}
+                        <div class="col-md-6">
+                            {{ form_errors(form) }}
+                            <div class="form-group">
+                                {{ form_label(form.title, "Titre", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.title, { 'attr' : { 'class' : 'form-control' } }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.type, { 'attr' : { 'class' : 'form-control' } }) }}
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.description, "Description", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.attachement, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(form.attachement, { 'attr' : { 'class' : 'form-control' } }) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="text-align: center;">
+                            <div class="btn-toolbar">
+                                <button class="btn-primary btn">Ajouter</button>
+                            </div>
+                        </div>
+
+                    {{ form_rest(form) }} 
+                
+                {{ form_end(form) }}   
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
