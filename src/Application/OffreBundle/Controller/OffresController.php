@@ -43,7 +43,6 @@ class OffresController extends Controller
         {
 	        if ($OffersForm->isValid()) 
 	        {
-                $offer->getAttachement()->preUpload();
 	        	$prop=$userOffre->getNbpropfait();
 	        	if ($prop<($userOffre->getNbpropMax()))
 	        	{

@@ -38,7 +38,7 @@ class FileOffre
     private $path;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="2M")
      */
     public $file;
 
@@ -104,7 +104,7 @@ class FileOffre
 
     public function getWebPath()
     {
-        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->getId().'.'.$this->getPath();
     }
 
     protected function getUploadRootDir()
@@ -116,7 +116,7 @@ class FileOffre
     protected function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return 'uploads/documents';
+        return 'uploads/offres';
     }
 
 
@@ -138,27 +138,35 @@ class FileOffre
      */
     public function upload()
     {
-        if (null === $this->file) 
-        {
+        if (null === $this->file) {
             return;
         }
 
-        // move copie le fichier présent chez le client dans le répertoire indique
-        // you must throw an exception here if the file cannot be moved
-        // so that the entity is not persisted to the database
-        // which the UploadedFile move() method does
-        $this->file->move($this->getUploadRootDir(), $this->id.'.'.$this->file->guessExtension());
+        if (null != $this->filename) {
+            $oldFile = $this->getUploadDir() . '/' . $this->id . '.' . $this->path;
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
+        }
+        $this->preUpload();
+        $this->file->move($this->getUploadDir(), $this->id . '.' . $this->path);
+    }
 
-        unset($this->file);
+     /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload()
+    {
+        $this->filename = $this->getUploadDir() . '/' . $this->id . '.' . $this->path;
     }
 
     /**
-     * @ORM\PreRemove()
+     * @ORM\PostRemove()
      */
     public function removeUpload()
     {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
         }
     }
 
