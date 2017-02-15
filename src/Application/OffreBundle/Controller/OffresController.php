@@ -3,6 +3,7 @@
 namespace Application\OffreBundle\Controller;
 
 use Application\OffreBundle\Form\OffersType;
+use Application\OffreBundle\Form\FiltreViewType;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
 use Admin\UserBundle\Entity\User;
@@ -34,18 +35,34 @@ class OffresController extends Controller
                     'method' => 'POST'
                 )
             );
-
         $OffersForm->handleRequest($request);
+
+        $offerType = new Offers(); 
+        $OffersFormType = $this->get('form.factory')
+            ->createNamed(
+                '',
+                FiltreViewType::class,
+                $offerType,
+                array(
+                    'action' => $this->generateUrl('offre_homepage'),
+                    'method' => 'POST'
+                )
+            );
+
+
+        $OffersFormType->handleRequest($request);
         $offer->setUser($userOffre);
 
         $autorize= $userOffre->getAutorized();
-
-        $results = $this->OfferDQLSearch();
-        $formSubmited = true;
+        $results = null;
+        
+        $formSubmited = false;
+        $onglet=1;
         if ($autorize==true)
         {
 	        if ($OffersForm->isValid()) 
 	        {
+                $results = $this->OfferDQLSearch();
 	        	$prop=$userOffre->getNbpropfait();
 	        	if ($prop<($userOffre->getNbpropMax()))
 	        	{
@@ -54,37 +71,51 @@ class OffresController extends Controller
 		            $em->persist($userOffre);
 		            $em->persist($offer);
 		            $em->flush();
+                    $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+                    $formSubmited = true;
 		        }
 		        else
 		        {
 		        	$request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
 		        }
-		        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 	        }
+            if ($OffersFormType->isValid()){
+                $onglet=2;
+                $results = $this->OfferDQLSearch($offerType);
+                $formSubmited = true;
+            }
 	    }
 
-    	$onglet=1;
+
         return $this->render('OffreBundle:Default:index.html.twig',array(
         	'autorize' => $autorize,
             'onglet' => $onglet,
             'form' => $OffersForm->createView(),
+            'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,
         ));
     }
    
-    protected function OfferDQLSearch()
+    protected function OfferDQLSearch(Offers $offersSearch)
     {
+
         $offers = null;
 
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
+        $parameters = array();
+
+        if ($offersSearch->getType() != ''){
+            $query->where('u.type = :type');
+            $parameters['type'] =  $offersSearch->getType();
+        }
         $date = new \DateTime('now');
         $query->where('u.dateexpire > :date')
             ->setParameter('date', $date);
         
             $DQLQuery = $query
-                ->orderBy('u.datepublished', 'ASC')
+                ->orderBy('u.datepublished', 'DESC')
                 ->getQuery();
 
             $offers = $DQLQuery->getResult();
