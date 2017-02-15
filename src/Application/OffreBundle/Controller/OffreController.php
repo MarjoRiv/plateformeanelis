@@ -15,6 +15,55 @@ use Symfony\Component\HttpFoundation\Request;
 class OffreController extends Controller
 {
 
+    public function addAction(Offers $offre)
+    {
+        $offer = new Offers();
+        $userOffre=$this->UserOffreCreat();
+
+        $OffersForm = $this->get('form.factory')
+            ->createNamed(
+                '',
+                OffersType::class,
+                $offer,
+                array(
+                    'action' => $this->generateUrl('offre_homepage'),
+                    'method' => 'POST'
+                )
+            );
+        $OffersForm->handleRequest($request);
+        $offer->setUser($userOffre);
+        $formSubmited = false;
+        $autorize= $userOffre->getAutorized();
+        if ($autorize==true)
+        {
+            if ($OffersForm->isValid()) 
+            {
+                $prop=$userOffre->getNbpropfait();
+                if ($prop<($userOffre->getNbpropMax()))
+                {
+                    $userOffre->setNbpropfait($prop+1);
+                    $offer->getAttachement()->upload();
+                    $em=$this->getDoctrine()->getManager();
+                    $em->persist($userOffre);
+                    $em->persist($offer);
+                    $em->flush();
+                    $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+                    $formSubmited = true;
+                }
+                else
+                {
+                    $request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
+                }
+            }
+        }
+        return $this->render('OffreBundle:Offre:add.html.twig',array(
+            'autorize' => $autorize,
+            'form' => $OffersForm->createView(),
+            'formSubmited' => $formSubmited,
+            'offre' => $offer,
+        ));
+    }
+
     public function showAction(Offers $offre)
     {
         if ($this->getUser()==$offre->getUser()->getUserApp())
@@ -35,7 +84,8 @@ class OffreController extends Controller
     }
 
     public function editAction(Offers $offre, Request $request) {
-        
+        $formSubmited=false;
+        $autorize=false;
         if ($offre->getUser()->getUserApp()==$this->getUser())
         {
             $OffersForm = $this->get('form.factory')
@@ -48,20 +98,23 @@ class OffreController extends Controller
                         'method' => 'POST'
                     )
                 );
-
+            $autorize = $offre->getUser()->getAutorized();
             $OffersForm->handleRequest($request);
             
             if ($OffersForm->isValid()) 
             {   
-                $offer->getAttachement()->upload();
+                $formSubmited=true;
+                $offre->getAttachement()->upload();
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($offre);
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
             }
             return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
+                        'autorize' => $autorize,
                         "form" => $OffersForm->createView(),
                         "offre" => $offre,
+                        'formSubmited' => $formSubmited,
                 ));
         }
         else
