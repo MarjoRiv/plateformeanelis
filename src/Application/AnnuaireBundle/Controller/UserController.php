@@ -40,7 +40,7 @@ class UserController extends Controller
                     'method' => 'GET'
                     )
             );
-        $geoSearchForm->handleRequest(null);
+        $geoSearchForm->handleRequest($request);
 
         $results = null;
         $formSubmited = false;

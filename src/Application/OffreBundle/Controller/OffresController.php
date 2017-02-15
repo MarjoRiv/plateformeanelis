@@ -37,7 +37,7 @@ class OffresController extends Controller
             );
         $OffersForm->handleRequest($request);
 
-        /*$offerType = new Offers(); 
+        $offerType = new Offers(); 
         $OffersFormType = $this->get('form.factory')
             ->createNamed(
                 '',
@@ -48,12 +48,12 @@ class OffresController extends Controller
                     'method' => 'POST'
                 )
             );
-        $OffersFormType->handleRequest($request);*/
+        $OffersFormType->handleRequest($request);
 
         $offer->setUser($userOffre);
 
         $autorize= $userOffre->getAutorized();
-        $results = null;
+        $results = $this->OfferDQLSearch();
         
         $formSubmited = false;
         $onglet=1;
@@ -61,7 +61,7 @@ class OffresController extends Controller
         {
 	        if ($OffersForm->isValid()) 
 	        {
-                $results = $this->OfferDQLSearch();
+                //$results = $this->OfferDQLSearch();
 	        	$prop=$userOffre->getNbpropfait();
 	        	if ($prop<($userOffre->getNbpropMax()))
 	        	{
@@ -79,11 +79,11 @@ class OffresController extends Controller
 		        	$request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
 		        }
 	        }
-            /*if ($OffersFormType->isValid()){
+            if ($OffersFormType->isValid()){
                 //$onglet=0;
-                $results = $this->OfferDQLSearch();
+                $results = $this->OfferFiltre($offerType->getType());
                 $formSubmited = true;
-            }*/
+            }
 	    }
 
 
@@ -91,27 +91,18 @@ class OffresController extends Controller
         	'autorize' => $autorize,
             'onglet' => $onglet,
             'form' => $OffersForm->createView(),
-            //'formtype'=> $OffersFormType->createView(),
+            'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,
         ));
     }
    
-    protected function OfferDQLSearch()
+    protected function QueryOfferSearch()
     {
-
-        $offers = null;
-
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
         
-        /*$parameters = array();
-
-        if ($offersSearch->getType() != '' && $offersSearch->getType() != null){
-            $query->where('u.type = :type');
-            $parameters['type'] =  $offersSearch->getType();
-        }*/
-
+        
         $date = new \DateTime('now');
         $query->where('u.dateexpire > :date')
             ->setParameter('date', $date);
@@ -119,9 +110,26 @@ class OffresController extends Controller
             $DQLQuery = $query
                 ->orderBy('u.datepublished', 'DESC')
                 ->getQuery();
+        return $DQLQuery;
+    }
 
-            $offers = $DQLQuery->getResult();
+    protected function OfferDQLSearch(){
+        $DQLQuery=$this->QueryOfferSearch();
+        $offers=null;
+        $offers=$DQLQuery->getResult();
+        return $offers;
+    }
 
+    protected function OfferFiltre (string $type){
+        $query=$this->QueryOfferSearch();
+        $offers=null;
+        if ($type != null){
+            if ($type != '' ){
+                $query->where('u.type = :type')
+                ->setParameter('type', $type);
+            }
+        }
+        $offers=$query->getQuery()->getResult();
         return $offers;
     }
 
