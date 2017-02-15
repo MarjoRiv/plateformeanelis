@@ -53,7 +53,7 @@ class OffresController extends Controller
         $offer->setUser($userOffre);
 
         $autorize= $userOffre->getAutorized();
-        $results = $this->OfferDQLSearch();
+        $results = $this->OfferSearch();
         
         $formSubmited = false;
         $onglet=1;
@@ -107,16 +107,15 @@ class OffresController extends Controller
         $query->where('u.dateexpire > :date')
             ->setParameter('date', $date);
         
-            $DQLQuery = $query
-                ->orderBy('u.datepublished', 'DESC')
-                ->getQuery();
-        return $DQLQuery;
+        $query = $query
+                ->orderBy('u.datepublished', 'DESC');
+        return $query;
     }
 
-    protected function OfferDQLSearch(){
-        $DQLQuery=$this->QueryOfferSearch();
+    protected function OfferSearch(){
+        $query=$this->QueryOfferSearch();
         $offers=null;
-        $offers=$DQLQuery->getResult();
+        $offers=$query->getQuery()->getResult();
         return $offers;
     }
 
@@ -125,7 +124,7 @@ class OffresController extends Controller
         $offers=null;
         if ($type != null){
             if ($type != '' ){
-                $query->where('u.type = :type')
+                $query->andwhere('u.type = :type')
                 ->setParameter('type', $type);
             }
         }
