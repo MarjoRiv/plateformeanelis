@@ -30,6 +30,29 @@
                                     <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
                                         <!--afficher ici les annonces dispo -->
 
+
+
+                                        {{ form_start(formtype) }}
+                                            <div class="col-md-4">
+                                                {{ form_errors(formtype) }}
+                                                <div class="form-group">
+                                                    {{ form_label(formtype.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-4">
+                                                        {{ form_widget(formtype.type, { 'attr' : { 'class' : 'formtype-control' } }) }}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="text-align: center;">
+                                                <div class="btn-toolbar">
+                                                    <button class="btn-primary btn">Filtrer</button>
+                                                </div>
+                                            </div>
+                                            {{ form_rest(formtype) }} 
+                                        {{ form_end(formtype) }}
+
+
+
                                         {% if results is not empty %}
                                             {% for result in results %}
                                             <a href="offre/{{ result.id }}">

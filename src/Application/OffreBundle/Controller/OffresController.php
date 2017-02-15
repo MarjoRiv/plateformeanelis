@@ -3,6 +3,7 @@
 namespace Application\OffreBundle\Controller;
 
 use Application\OffreBundle\Form\OffersType;
+use Application\OffreBundle\Form\FiltreViewType;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
 use Application\OffreBundle\Entity\FileOffre;
@@ -11,6 +12,10 @@ use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Finder\Comparator\DateComparator;
+
 
 
 class OffresController extends Controller
@@ -31,18 +36,33 @@ class OffresController extends Controller
                     'method' => 'POST'
                 )
             );
-
         $OffersForm->handleRequest($request);
+
+        $offerType = new Offers(); 
+        $OffersFormType = $this->get('form.factory')
+            ->createNamed(
+                '',
+                FiltreViewType::class,
+                $offerType,
+                array(
+                    'action' => $this->generateUrl('offre_homepage'),
+                    'method' => 'POST'
+                )
+            );
+        $OffersFormType->handleRequest($request);
+
         $offer->setUser($userOffre);
 
         $autorize= $userOffre->getAutorized();
-
-        $results = $this->OfferDQLSearch();
-        $formSubmited = true;
+        $results = $this->OfferSearch();
+        
+        $formSubmited = false;
+        $onglet=1;
         if ($autorize==true)
         {
 	        if ($OffersForm->isValid()) 
 	        {
+                //$results = $this->OfferDQLSearch();
 	        	$prop=$userOffre->getNbpropfait();
 	        	if ($prop<($userOffre->getNbpropMax()))
 	        	{
@@ -52,41 +72,65 @@ class OffresController extends Controller
 		            $em->persist($userOffre);
 		            $em->persist($offer);
 		            $em->flush();
+                    $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+                    $formSubmited = true;
+                    $onglet=2;
 		        }
 		        else
 		        {
 		        	$request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
 		        }
-		        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 	        }
+            if ($OffersFormType->isValid()){
+                //$onglet=0;
+                $results = $this->OfferFiltre($offerType->getType());
+                $formSubmited = true;
+            }
 	    }
 
-    	$onglet=1;
+
         return $this->render('OffreBundle:Default:index.html.twig',array(
         	'autorize' => $autorize,
             'onglet' => $onglet,
             'form' => $OffersForm->createView(),
+            'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,
         ));
     }
    
-    protected function OfferDQLSearch()
+    protected function QueryOfferSearch()
     {
-        $offers = null;
-
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('o');
-    //    $parameters = array()
+        $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
+        
+        
+        $date = new \DateTime('now');
+        $query->where('u.dateexpire > :date')
+            ->setParameter('date', $date);
+        
+        $query = $query
+                ->orderBy('u.datepublished', 'DESC');
+        return $query;
+    }
 
-    //     if(count($parameters)) $query->setParameters($parameters);
+    protected function OfferSearch(){
+        $query=$this->QueryOfferSearch();
+        $offers=null;
+        $offers=$query->getQuery()->getResult();
+        return $offers;
+    }
 
-            $DQLQuery = $query
-                ->orderBy('o.datepublished', 'ASC')
-                ->getQuery();
-
-            $offers = $DQLQuery->getResult();
-
+    protected function OfferFiltre (string $type){
+        $query=$this->QueryOfferSearch();
+        $offers=null;
+        if ($type != null){
+            if ($type != '' ){
+                $query->andwhere('u.type = :type')
+                ->setParameter('type', $type);
+            }
+        }
+        $offers=$query->getQuery()->getResult();
         return $offers;
     }
 
