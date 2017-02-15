@@ -10,7 +10,7 @@ offre_show:
     requirements:
         id: \d*
 
-offre_show:
+offre_add:
     path:  /offre/add
     defaults: { _controller: "OffreBundle:Offre:add" }
 

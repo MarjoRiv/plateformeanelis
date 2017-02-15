@@ -2,6 +2,7 @@
 
 namespace Application\OffreBundle\Controller;
 
+use Application\OffreBundle\Form\OffersType;
 use Application\OffreBundle\Form\Offers2Type;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class OffreController extends Controller
 {
 
-    public function addAction(Offers $offre)
+    public function addAction(Request $request)
     {
         $offer = new Offers();
         $userOffre=$this->UserOffreCreat();
@@ -60,7 +61,6 @@ class OffreController extends Controller
             'autorize' => $autorize,
             'form' => $OffersForm->createView(),
             'formSubmited' => $formSubmited,
-            'offre' => $offer,
         ));
     }
 
@@ -121,9 +121,31 @@ class OffreController extends Controller
         {
             return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
         }
-        // Vérification de l'id pour des raisons de sécurités
-        
-        
+        // Vérification de l'id pour des raisons de sécurités 
+    }
+
+    protected function UserOffreCreat()
+    {
+        $em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
+        $userOffre=null;
+        $query=$em2->getQuery()->getResult();
+        foreach ($query as $emm ) 
+        {
+            if ($emm->getUserApp()==$this->getUser())
+            {
+                $userOffre=$emm;
+            }
+        }
+        if ($userOffre==null)
+        {
+            $userOffre = new UserOffre($this->getUser()->getId());
+            $userOffre->setNbpropmax(3);
+            $userOffre->setUserApp($this->getUser());
+            $em1 = $this->getDoctrine()->getManager();
+            $em1->persist($userOffre);
+            $em1->flush();
+        }
+        return $userOffre;
     }
 
 }

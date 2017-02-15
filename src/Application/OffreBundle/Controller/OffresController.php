@@ -2,11 +2,10 @@
 
 namespace Application\OffreBundle\Controller;
 
-use Application\OffreBundle\Form\OffersType;
+
 use Application\OffreBundle\Form\FiltreViewType;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
-use Application\OffreBundle\Entity\FileOffre;
 use Admin\UserBundle\Entity\User;
 use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
@@ -39,7 +38,6 @@ class OffresController extends Controller
         
         $formSubmited = false;
         $onglet=1;
-        
         if ($OffersFormType->isValid()){
                //$onglet=0;
                $results = $this->OfferFiltre($offerType->getType());
@@ -48,9 +46,7 @@ class OffresController extends Controller
 
 
         return $this->render('OffreBundle:Default:index.html.twig',array(
-        	'autorize' => $autorize,
             'onglet' => $onglet,
-            'form' => $OffersForm->createView(),
             'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,
