@@ -7,6 +7,7 @@ use Application\OffreBundle\Form\Offers2Type;
 use Application\OffreBundle\Entity\Offers;
 use Application\OffreBundle\Entity\UserOffre;
 use Application\OffreBundle\Entity\FileOffre;
+use Application\OffreBundle\Entity\OffreVar;
 use Admin\UserBundle\Entity\User;
 use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
@@ -127,24 +128,35 @@ class OffreController extends Controller
     protected function UserOffreCreat()
     {
         $em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
-        $userOffre=null;
-        $query=$em2->getQuery()->getResult();
-        foreach ($query as $emm ) 
-        {
-            if ($emm->getUserApp()==$this->getUser())
-            {
-                $userOffre=$emm;
-            }
-        }
+        $userOffre = null;
+        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult());
         if ($userOffre==null)
         {
             $userOffre = new UserOffre($this->getUser()->getId());
-            $userOffre->setNbpropmax(3);
             $userOffre->setUserApp($this->getUser());
-            $em1 = $this->getDoctrine()->getManager();
-            $em1->persist($userOffre);
-            $em1->flush();
         }
+        else
+        {
+            $userOffre = $userOffre[0];
+        }
+        $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v');
+        if ($userOffre->getUserApp()->isCotisant())
+        {
+            $name = "nbOffresCotisants";
+        }
+        else
+        {
+            $name = "nbOffresNonCotisants";
+        }
+        $varoffre = ($em3->where('v.name = :name')->setParameter('name', $name)->getQuery()->getResult())[0];
+        $nbactuel = $userOffre->getNbpropMax();
+        if (($nbactuel == null) or ($nbactuel<($varoffre->getVariable())))
+        {
+            $userOffre->setNbpropmax($varoffre->getVariable());
+        }
+        $em1 = $this->getDoctrine()->getManager();
+        $em1->persist($userOffre);
+        $em1->flush();
         return $userOffre;
     }
 
