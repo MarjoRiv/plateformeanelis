@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class UserOffreAdmin extends AbstractAdmin
+class FileOffreAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -17,10 +17,8 @@ class UserOffreAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('UserApp.username')
-            ->add('nbpropfait')
-            ->add('nbpropmax')
-            ->add('autorized')
+            ->add('filename')
+            ->add('path')
         ;
     }
 
@@ -31,10 +29,8 @@ class UserOffreAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('UserApp.username')
-            ->add('nbpropfait')
-            ->add('nbpropmax')
-            ->add('autorized')
+            ->add('filename')
+            ->add('path')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -51,10 +47,9 @@ class UserOffreAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('UserApp.username')
-            ->add('nbpropfait')
-            ->add('nbpropmax')
-            ->add('autorized')
+            ->add('filename')
+            ->add('path')
+            ->aff('file')
         ;
     }
 
@@ -65,10 +60,8 @@ class UserOffreAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('UserApp.username')
-            ->add('nbpropfait')
-            ->add('nbpropmax')
-            ->add('autorized')
+            ->add('filename')
+            ->add('path')
         ;
     }
 }
