@@ -19,3 +19,23 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ApplicationOffreBundle]]
+    sonata.admin.fileOffre:
+        class: Application\OffreBundle\Admin\FileOffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "FileOffres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\FileOffre
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]
+    sonata.admin.varOffre:
+        class: Application\OffreBundle\Admin\VarOffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "VariableOffres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\OffreVar
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]

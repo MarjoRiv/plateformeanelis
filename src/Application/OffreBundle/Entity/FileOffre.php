@@ -104,7 +104,7 @@ class FileOffre
 
     public function getWebPath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->getId().'.'.$this->getPath();
+        return null === $this->getPath() ? null : $this->getUploadRootDir().'/'. $this->getId() . '-' . $this->getFilename();
     }
 
     protected function getUploadRootDir()
@@ -143,13 +143,13 @@ class FileOffre
         }
 
         if (null != $this->filename) {
-            $oldFile = $this->getUploadDir() . '/' . $this->id . '.' . $this->path;
+            $oldFile = $this->getUploadDir() . '/' . $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
         $this->preUpload();
-        $this->file->move($this->getUploadDir(), $this->id . '.' . $this->path);
+        $this->file->move($this->getUploadDir(), $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename());
     }
 
      /**
@@ -157,7 +157,7 @@ class FileOffre
      */
     public function preRemoveUpload()
     {
-        $this->filename = $this->getUploadDir() . '/' . $this->id . '.' . $this->path;
+        $this->filename = $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
     }
 
     /**
@@ -172,7 +172,7 @@ class FileOffre
 
     public function getAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->id.'.'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir() .'/'. $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
     }
 
 

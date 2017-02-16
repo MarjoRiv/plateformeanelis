@@ -19,7 +19,7 @@
                                 <h4>
                                     <ul class="nav nav-tabs">
                                         <li{% if onglet == 1 %} class="active"{% endif %}><a href="#afficher" data-toggle="tab">Annonces</a></li>
-                                        <li{% if onglet == 2 %} class="active"{% endif %}><a href="#ajouter" data-toggle="tab">Ajout d'Annonces</a></li>
+                                        <li{% if onglet == 2 %} class="active"{% endif %}><a href="#mesOffres" data-toggle="tab">Mes Offres</a></li>
                                     </ul>
                                 </h4>
                             </div>
@@ -27,8 +27,6 @@
                                 <div class="tab-content">
                                     <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
                                         <!--afficher ici les annonces dispo -->
-
-
 
                                         {{ form_start(formtype) }}
                                             <div class="col-md-4">
@@ -87,7 +85,7 @@
                                     </div>
 
                                     
-                                    <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="ajouter">
+                                    <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="mesOffres">
                                         
 
                                             <!-- c'est ici que tu metteras tes offres ;)-->
