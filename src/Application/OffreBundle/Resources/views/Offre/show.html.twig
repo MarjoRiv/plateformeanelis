@@ -47,19 +47,19 @@
                                                         {% endif %}
                                                         {% if offre.user.UserApp.username is not empty and offre.user.UserApp.username != "" %}
                                                         <tr>
-                                                            <td>Partagée par : </td>
-                                                            <td><a href"{{ path('offre_edit', {'id' : offre.user.UserApp.id}) }}">{{ offre.user.UserApp.username }}</a></td>
+                                                            <td>Partagée par</td>
+                                                            <td><a href="{{ path('offre_edit', {'id' : offre.user.UserApp.id}) }} ">{{ offre.user.UserApp.username }}</a></td>
                                                         </tr>
                                                         {% endif %}
-                                                        {% if offre.attachement is not empty and offre.attachement != '' %}
+                                                        {% if offre.attachement is not empty %}
                                                         <tr>
-                                                            <td>Pièce jointe</td>
-                                                            <td>{{ offre.attachement }}</td>
+                                                            <td>Pièce Jointe</td>
+                                                            <td><a href="{{offre.attachement.getWebPath()}}">{{ offre.attachement.filename }}</a></td>
                                                         </tr>
                                                         {% endif %}
                                                         {% if usercreation is not empty and usercreation == true %}
                                                         <tr class="btn-toolbar" style="text-align: center;">
-                                                            <td><a href="{{ path('offre_edit', {'id' : offre.id}) }}"><button class="btn-primary btn">Modifier</button></a></td>
+                                                            <td><a href="{{ path('offre_edit', {'id' : offre.id}) }}" ><button class="btn-primary btn">Modifier</button></a></td>
                                                         </tr>
                                                         {% endif %}
                                                     </tbody>

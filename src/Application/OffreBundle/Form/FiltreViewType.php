@@ -2,26 +2,18 @@
 
 namespace Application\OffreBundle\Form;
 
-use Application\OffreBundle\Entity\Offers;
 use Symfony\Component\Form\AbstractType;
-use Application\OffreBundle\Form\FileOffreType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Offers2Type extends AbstractType
+class FiltreViewType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, array(
-                'required' => true,
-            ))
             ->add('type', ChoiceType::class, array(
                 'required' => true,
                 'choices'   => array(
@@ -32,18 +24,7 @@ class Offers2Type extends AbstractType
                     'Vente' => 'Vente',
                     'Autre' => 'Autre',
                     ),
-            ))
-            ->add('description', TextareaType::class, array(
-                'required' => true,
-            ))
-            ->add('attachement', FileOffreType::class, array(
-                'required' => false,
-            ))
-            ->add('enabled', CheckboxType::class, array(
-                'required' => false,
-                'empty_data' => true,
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -56,7 +37,7 @@ class Offers2Type extends AbstractType
     }
     public function getBlockPrefix()
     {
-        return 'offers_type';
+        return 'filtre_view_type';
     }
 }
 

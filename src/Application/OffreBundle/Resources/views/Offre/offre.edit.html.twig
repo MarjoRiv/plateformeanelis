@@ -38,12 +38,12 @@
                             {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        {{ form_label(form.attachement, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                    <div class="form-group">
+                        {{ form_label(form.attachement.file, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                         <div class="col-sm-6">
-                            {{ form_widget(form.attachement, { 'attr' : { 'class' : 'form-control' } }) }}
+                            {{ form_widget(form.attachement.file, { 'label_attr' : { 'class' : 'form-control' } }) }}
                         </div>
-                    </div>-->
+                    </div>
                     <div class="form-group">
                         {{ form_label(form.enabled, "Disponible", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                         <div class="col-sm-6">

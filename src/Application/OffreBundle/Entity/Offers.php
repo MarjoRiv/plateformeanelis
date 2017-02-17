@@ -44,7 +44,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=2000)
      */
     private $description;
 
@@ -63,9 +63,8 @@ class Offers
     private $enabled;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="attachement", type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity="Application\OffreBundle\Entity\FileOffre", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $attachement;
 
