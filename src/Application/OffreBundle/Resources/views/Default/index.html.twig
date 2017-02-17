@@ -29,7 +29,7 @@
                                         <!--afficher ici les annonces dispo -->
 
                                         {{ form_start(formtype) }}
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="text-align: left; width: 300px; float:left;">
                                                 {{ form_errors(formtype) }}
                                                 <div class="form-group">
                                                     {{ form_label(formtype.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
@@ -39,19 +39,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="text-align: center;">
+                                            <div style="text-align: left; float:left;">
                                                 <div class="btn-toolbar">
                                                     <button class="btn-primary btn">Filtrer</button>
                                                 </div>
                                             </div>
+                                            
                                             {{ form_rest(formtype) }} 
                                         {{ form_end(formtype) }}
-                                            <div style="text-align: center;">
+                                            <div style="text-align: right;">
                                                 <div class="btn-toolbar">
                                                     <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une offre</button></a>
                                                 </div>
                                             </div>
 
+                                            <br/>
 
                                         {% if results is not empty %}
                                             {% for result in results %}
