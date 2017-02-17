@@ -22,6 +22,7 @@ class OffresController extends Controller
 
     public function viewAction(Request $request)
     {
+        
         $offerType = new Offers(); 
         $OffersFormType = $this->get('form.factory')
             ->createNamed(
@@ -34,36 +35,36 @@ class OffresController extends Controller
                 )
             );
         $OffersFormType->handleRequest($request);
-        $results = $this->OfferSearch();
         
+        $results = $this->OfferSearch();
         $formSubmited = false;
         $onglet=1;
         if ($OffersFormType->isValid()){
-               //$onglet=0;
                $results = $this->OfferFiltre($offerType->getType());
                $formSubmited = true;
         }
 
+        $resultsUser=$this->OfferUser();
 
         return $this->render('OffreBundle:Default:index.html.twig',array(
             'onglet' => $onglet,
             'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
             'results' => $results,
+            'resultsUser' => $resultsUser,
         ));
     }
    
     protected function QueryOfferSearch()
     {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
+        $em=$this->getDoctrine()->getManager();
+        $query=$em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
         
-        
-        $date = new \DateTime('now');
+        $date=new \DateTime('now');
         $query->where('u.dateexpire > :date')
             ->setParameter('date', $date);
         
-        $query = $query
+        $query=$query
                 ->orderBy('u.datepublished', 'DESC');
         return $query;
     }
@@ -86,6 +87,15 @@ class OffresController extends Controller
         }
         $offers=$query->getQuery()->getResult();
         return $offers;
+    }
+
+    protected function OfferUser (){
+        $userId=$this->getUser();
+        $query=$this->QueryOfferSearch();
+        $query=$query->andwhere('u.user = :userId')
+            ->setParameter('userId', $userId);
+        $offersUser=$query->getQuery()->getResult();
+        return $offersUser;
     }
 
     protected function UserOffreCreat()
