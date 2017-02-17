@@ -42,7 +42,10 @@ class OffreController extends Controller
             {
                 $prop=$userOffre->getNbpropfait();
                 if ($prop<($userOffre->getNbpropMax()))
-                {
+                {   
+                    $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v');
+                    $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
+                    $offer->setDateexpire($offer->getDateexpire()->modify(($dureemax-30)." day"));
                     $userOffre->setNbpropfait($prop+1);
                     $offer->getAttachement()->upload();
                     $em=$this->getDoctrine()->getManager();
