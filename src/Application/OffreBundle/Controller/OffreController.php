@@ -28,7 +28,7 @@ class OffreController extends Controller
                 OffersType::class,
                 $offer,
                 array(
-                    'action' => $this->generateUrl('offre_homepage'),
+                    'action' => $this->generateUrl('offre_add'),
                     'method' => 'POST'
                 )
             );
@@ -45,15 +45,22 @@ class OffreController extends Controller
                 {   
                     $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v');
                     $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
-                    $offer->setDateexpire($offer->getDateexpire()->modify(($dureemax-30)." day"));
+                   // $offer->setDateexpire($offer->getDateexpire()->modify(($dureemax-30)." day"));
                     $userOffre->setNbpropfait($prop+1);
-                    $offer->getAttachement()->upload();
+                    if ($offer->getAttachement()!=null)
+                    {
+                        $offer->getAttachement()->upload();
+                    }
                     $em=$this->getDoctrine()->getManager();
                     $em->persist($userOffre);
                     $em->persist($offer);
                     $em->flush();
                     $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
                     $formSubmited = true;
+                    return $this->render('OffreBundle:Offre:show.html.twig',array(
+                        'offre' => $offer,
+                        'usercreation' => true,
+                    ));
                 }
                 else
                 {
