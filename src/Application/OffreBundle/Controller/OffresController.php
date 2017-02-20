@@ -89,4 +89,13 @@ class OffresController extends Controller
         return $offers;
     }
 
+    protected function OfferUser (){ 
+        $userId=$this->getUser(); 
+        $query=$this->QueryOfferSearch(); 
+        $query=$query->andwhere('u.user = :userId') 
+            ->setParameter('userId', $userId); 
+        $offersUser=$query->getQuery()->getResult(); 
+        return $offersUser; 
+    }
+
 }
