@@ -101,10 +101,18 @@ class FileOffre
         return $this->path;
     }
 
+    public function __construct() 
+    {
+        $this->filename="";
+        $this->path="";
+    }
 
     public function getWebPath()
     {
-        return null === $this->getPath() ? null : $this->getUploadRootDir().'/'. $this->getId() . '-' . $this->getFilename();
+        if (!$this->path || empty($this->path))
+            return "";
+        else
+            return './../../' .$this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
     }
 
     protected function getUploadRootDir()
@@ -126,6 +134,9 @@ class FileOffre
      */
     public function preUpload()
     {
+        if (null === $this->file) {
+            return;
+        }
         if (null !== $this->file) {
             $this->path = $this->file->guessExtension();
             $this->filename = $this->file->getClientOriginalName();
@@ -138,18 +149,17 @@ class FileOffre
      */
     public function upload()
     {
+        
         if (null === $this->file) {
             return;
         }
-
         if (null != $this->filename) {
-            $oldFile = $this->getUploadDir() . '/' . $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
+            $oldFile = './../../' . $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
-        $this->preUpload();
-        $this->file->move($this->getUploadDir(), $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename());
+        $this->file->move($this->getUploadDir(), $this->getUploadDir() . '/' . $this->id . '-' . $this->getFilename());
     }
 
      /**
