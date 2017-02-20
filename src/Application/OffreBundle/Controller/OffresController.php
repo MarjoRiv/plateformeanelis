@@ -89,37 +89,4 @@ class OffresController extends Controller
         return $offers;
     }
 
-    protected function OfferUser (){
-        $userId=$this->getUser();
-        $query=$this->QueryOfferSearch();
-        $query=$query->andwhere('u.user = :userId')
-            ->setParameter('userId', $userId);
-        $offersUser=$query->getQuery()->getResult();
-        return $offersUser;
-    }
-
-    protected function UserOffreCreat()
-    {
-    	$em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
-    	$userOffre=null;
-    	$query=$em2->getQuery()->getResult();
-        foreach ($query as $emm ) 
-        {
-        	if ($emm->getUserApp()==$this->getUser())
-        	{
-        		$userOffre=$emm;
-        	}
-        }
-        if ($userOffre==null)
-        {
-        	$userOffre = new UserOffre($this->getUser()->getId());
-    		$userOffre->setNbpropmax(3);
-    		$userOffre->setUserApp($this->getUser());
-    		$em1 = $this->getDoctrine()->getManager();
-       		$em1->persist($userOffre);
-        	$em1->flush();
-        }
-        return $userOffre;
-    }
-
 }
