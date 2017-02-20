@@ -26,8 +26,6 @@
                             <div class="panel-body">
                                 <div class="tab-content">
                                     <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
-                                        <!--afficher ici les annonces dispo -->
-
                                         {{ form_start(formtype) }}
                                             <div class="col-md-4" style="text-align: left; width: 300px; float:left;">
                                                 {{ form_errors(formtype) }}
@@ -65,17 +63,14 @@
                                                         </div>
                                                         <div class="panel-body" style="height: 190px;background-color: #DADADA;">
                                                             <div class="media">
-                                                                <div class="media-body" >
-                                                                    <div style="height:115px; overflow:hidden;">
-                                                                        {{ result.description }}
-                                                                    </div>
-                                                                    <div>
-                                                                        <hr style="margin:8px auto">
-                                                                        <span class="label label-default">{{ result.user.UserApp.username }}</span>
-                                                                        <span class="label label-default">{{ result.type }}</span>
-                                                                        <span class="label label-default">Vue : {{ result.reading }}</span>
-                                                                        <hr style="margin:8px auto">
-                                                                    </div>
+                                                                <div class="media-body">
+                                                                    {{ result.description }}
+                                                                    <hr style="margin:8px auto">
+                                                                    <span class="label label-default">{{ result.user.UserApp.username }}</span>
+                                                                    <span class="label label-default">{{ result.type }}</span>
+                                                                    <span class="label label-default">{{ result.datepublished|date('Y-m-d') }}</span>
+                                                                    <span class="label label-default">Vue : {{ result.reading }}</span>
+                                                                    <hr style="margin:8px auto">  
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -92,9 +87,38 @@
 
                                     
                                     <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="mesOffres">
-                                        
-
-                                            <!-- c'est ici que tu metteras tes offres ;)-->
+                                        <div>
+                                            {% if resultsUser is not empty %}
+                                            {% for result in resultsUser %}
+                                            <a href="offre/{{ result.id }}">
+                                                <div class="col-sm-4" style="height: 240px;">
+                                                    <div class="panel panel-sky">
+                                                        <div class="panel-heading" style="text-align: center;">
+                                                            <h4>{{ result.title }}</h4>
+                                                        </div>
+                                                        <div class="panel-body" style="height: 190px;background-color: #DADADA;">
+                                                            <div class="media">
+                                                                <div class="media-body">
+                                                                    {{ result.description }}
+                                                                    <hr style="margin:8px auto">
+                                                                    <span class="label label-default">{{ result.user.UserApp.username }}</span>
+                                                                    <span class="label label-default">{{ result.type }}</span>
+                                                                    <span class="label label-default">{{ result.datepublished|date('Y-m-d') }}</span>
+                                                                    <span class="label label-default">Vue : {{ result.reading }}</span>
+                                                                    <hr style="margin:8px auto">  
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            {%  endfor %}
+                                            {% else %}
+                                                {% if formSubmited == true %}
+                                                    <p class="alert-danger text-center">Aucune offre n'a été trouvée. Désolé :(</p>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
 
 
                                     </div>
