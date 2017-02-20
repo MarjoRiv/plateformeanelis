@@ -49,10 +49,17 @@ class OffreController extends Controller
                     $userOffre->setNbpropfait($prop+1);
                     if ($offer->getAttachement()!=null)
                     {
-                        $offer->getAttachement()->upload();
+                        $offer->getAttachement()->preUpload();
                     }
                     $em=$this->getDoctrine()->getManager();
                     $em->persist($userOffre);
+                    $em->persist($offer);
+                    $em->flush();
+                    if ($offer->getAttachement()!=null)
+                    {
+                        $offer->getAttachement()->upload();
+                    }
+                    $em=$this->getDoctrine()->getManager();
                     $em->persist($offer);
                     $em->flush();
                     $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
