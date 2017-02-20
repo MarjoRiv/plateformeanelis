@@ -318,7 +318,7 @@ class Offers
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
         $this->datepublished = new \Datetime('NOW');
         $this->dateexpire= new \Datetime('NOW');
-        $this->dateexpire->modify('30 day');
+        $this->dateexpire->modify("30 day");
         $this->attachement=null;
         $this->reading=0;
     }

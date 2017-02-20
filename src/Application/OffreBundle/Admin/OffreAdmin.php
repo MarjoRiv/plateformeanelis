@@ -18,6 +18,7 @@ class OffreAdmin extends AbstractAdmin
             ->add('description')
             ->add('datepublished')
             ->add('dateexpire')
+            ->add('attachement')
             ->add('type', 'choice', array(
                 'choices' => array(
                     '' => '',
