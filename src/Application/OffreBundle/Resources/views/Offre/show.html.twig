@@ -54,7 +54,7 @@
                                                         {% if offre.attachement is not empty %}
                                                         <tr>
                                                             <td>Pièce Jointe</td>
-                                                            <td><a href="{{offre.attachement.getWebPath()}}">{{ offre.attachement.filename }}</a></td>
+                                                            <td><a href="{{offre.attachement.getWebPath()}}" target="_blank">{{ offre.attachement.filename }}</a></td>
                                                         </tr>
                                                         {% endif %}
                                                         {% if usercreation is not empty and usercreation == true %}
