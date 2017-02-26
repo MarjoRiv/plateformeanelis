@@ -55,7 +55,10 @@ class OffreController extends Controller
                 $prop=count($offersUser);                
                 if ($prop<($userOffre->getNbpropMax()))
                 {   
-                    $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v');
+                    $em3 = $this->getDoctrine()
+                                ->getManager()
+                                ->getRepository('Application\OffreBundle\Entity\OffreVar')
+                                ->createQueryBuilder('v');
                     $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
                     $offer->setDateexpire($offer->getDateexpire()->modify((($dureemax->getVariable())-30)." day"));
                     $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1);
@@ -83,7 +86,9 @@ class OffreController extends Controller
                 }
                 else
                 {
-                    $request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
+                    $request->getSession()
+                            ->getFlashBag()
+                            ->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur si vous souhaitez en avoir plus.');
                 }
             }
         }
