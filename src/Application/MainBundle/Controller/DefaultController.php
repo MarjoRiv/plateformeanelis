@@ -14,6 +14,8 @@ class DefaultController extends Controller
     {
         $users = $this->getDoctrine()->getRepository('AdminUserBundle:User')->findAll();
 
+        $offers = $this->getDoctrine()->getRepository('OffreBundle:Offers')->findAll();
+
         //Searching the static textes on the page... Maybe use the name instead of the Id that can change on the DB.
         $welcomeText = $this->getDoctrine()->getRepository('AdminUserBundle:StaticText')->find(1);
 
@@ -25,7 +27,8 @@ class DefaultController extends Controller
         return $this->render('ApplicationMainBundle:Default:index.html.twig', array(
             'users' => count($users),
             'welcomeText' => $welcomeText->getStaticText(),
-            'events' => $incommingEvents
+            'events' => $incommingEvents,
+            'offers' => count($offers)
         ));
     }
 
