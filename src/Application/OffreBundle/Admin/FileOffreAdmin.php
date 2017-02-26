@@ -2,6 +2,7 @@
 
 namespace Application\OffreBundle\Admin;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -49,7 +50,6 @@ class FileOffreAdmin extends AbstractAdmin
         $formMapper
             ->add('filename')
             ->add('path')
-            ->aff('file')
         ;
     }
 

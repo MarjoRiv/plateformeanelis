@@ -18,7 +18,6 @@ class OffreAdmin extends AbstractAdmin
             ->add('description')
             ->add('datepublished')
             ->add('dateexpire')
-            ->add('attachement')
             ->add('type', 'choice', array(
                 'choices' => array(
                     '' => '',
@@ -77,7 +76,6 @@ class OffreAdmin extends AbstractAdmin
             ->add('type')
             ->add('enabled')
             ->add('reading')
-            ->add('attachement')
         ;
     }
 }
