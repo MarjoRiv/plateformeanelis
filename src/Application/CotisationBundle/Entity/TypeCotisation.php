@@ -40,11 +40,8 @@ class TypeCotisation
      */
     private $yearCotisation;
 
-
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -52,22 +49,15 @@ class TypeCotisation
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     * @return TypeCotisation
+     * @param int $id
      */
-    public function setName($name)
+    public function setId($id)
     {
-        $this->name = $name;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get name
-     *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -75,22 +65,15 @@ class TypeCotisation
     }
 
     /**
-     * Set price
-     *
-     * @param integer $price
-     * @return TypeCotisation
+     * @param string $name
      */
-    public function setPrice($price)
+    public function setName($name)
     {
-        $this->price = $price;
-
-        return $this;
+        $this->name = $name;
     }
 
     /**
-     * Get price
-     *
-     * @return integer 
+     * @return int
      */
     public function getPrice()
     {
@@ -98,30 +81,30 @@ class TypeCotisation
     }
 
     /**
-     * Set enabled
-     *
-     * @param boolean $enabled
-     * @return Cotisation
+     * @param int $price
      */
-    public function setEnabled($enabled)
+    public function setPrice($price)
     {
-        $this->enabled = $enabled;
-
-        return $this;
+        $this->price = $price;
     }
 
     /**
-     * Get enabled
-     *
-     * @return boolean 
+     * @return mixed
      */
-    public function getEnabled()
+    public function getYearCotisation()
     {
-        return $this->enabled;
+        return $this->yearCotisation;
     }
 
-    public function __toString()
+    /**
+     * @param mixed $yearCotisation
+     */
+    public function setYearCotisation($yearCotisation)
     {
-        return $this->name;
+        $this->yearCotisation = $yearCotisation;
     }
+
+
+
+
 }

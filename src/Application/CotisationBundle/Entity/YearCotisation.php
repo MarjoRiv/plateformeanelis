@@ -24,7 +24,7 @@ class YearCotisation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="year", type="date")
+     * @ORM\Column(name="year", type="date", unique=true)
      */
     private $year;
 
@@ -42,10 +42,7 @@ class YearCotisation
      */
     private $dateEnabled;
 
-
     /**
-     * Get id
-     *
      * @return int
      */
     public function getId()
@@ -54,22 +51,14 @@ class YearCotisation
     }
 
     /**
-     * Set year
-     *
-     * @param \DateTime $year
-     *
-     * @return YearCotisation
+     * @param int $id
      */
-    public function setYear($year)
+    public function setId($id)
     {
-        $this->year = $year;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get year
-     *
      * @return \DateTime
      */
     public function getYear()
@@ -78,22 +67,14 @@ class YearCotisation
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return YearCotisation
+     * @param \DateTime $year
      */
-    public function setName($name)
+    public function setYear($year)
     {
-        $this->name = $name;
-
-        return $this;
+        $this->year = $year;
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -102,27 +83,29 @@ class YearCotisation
     }
 
     /**
-     * Set dateEnabled
-     *
-     * @param \DateTime $dateEnabled
-     *
-     * @return YearCotisation
+     * @param string $name
      */
-    public function setDateEnabled($dateEnabled)
+    public function setName($name)
     {
-        $this->dateEnabled = $dateEnabled;
-
-        return $this;
+        $this->name = $name;
     }
 
     /**
-     * Get dateEnabled
-     *
      * @return \DateTime
      */
     public function getDateEnabled()
     {
         return $this->dateEnabled;
     }
+
+    /**
+     * @param \DateTime $dateEnabled
+     */
+    public function setDateEnabled($dateEnabled)
+    {
+        $this->dateEnabled = $dateEnabled;
+    }
+
+
 }
 
