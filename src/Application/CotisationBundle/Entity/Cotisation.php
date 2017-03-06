@@ -22,33 +22,6 @@ class Cotisation
     private $id;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="year", type="date", nullable=false)
-     */
-    private $year;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typeCotisation;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="namecotisation", type="string", length=255)
-     */
-    private $nameCotisation;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pricecotisation", type="integer")
-     */
-    private $priceCotisation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="cotisations")
      */
     private $user;
@@ -64,6 +37,11 @@ class Cotisation
      * @ORM\Column(name="payed", type="boolean")
      */
     private $payed;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\YearCotisation", inversedBy="cotisation", cascade={"remove", "persist"})
+     */
+    private $yearCotisation;
 
 
 

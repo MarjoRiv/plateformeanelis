@@ -36,11 +36,9 @@ class TypeCotisation
     private $price;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="enabled", type="boolean")
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", inversedBy="typeCotisation")
      */
-    private $enabled;
+    private $yearCotisation;
 
 
     /**
