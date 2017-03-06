@@ -59,7 +59,7 @@ class OffreController extends Controller
                                 ->getManager()
                                 ->getRepository('Application\OffreBundle\Entity\OffreVar')
                                 ->createQueryBuilder('v');
-                    $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
+     //ici               //$dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
                     $offer->setDateexpire($offer->getDateexpire()->modify((($dureemax->getVariable())-30)." day"));
                     $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1);
                     if ($offer->getAttachement()!=null)
@@ -182,7 +182,7 @@ class OffreController extends Controller
         {
             $name = "nbOffresNonCotisants";
         }
-        $varoffre = ($em3->where('v.name = :name')->setParameter('name', $name)->getQuery()->getResult())[0];
+  //et la      $varoffre = ($em3->where('v.name = :name')->setParameter('name', $name)->getQuery()->getResult())[0];
         $nbactuel = $userOffre->getNbpropMax();
         if (($nbactuel == null) or ($nbactuel<($varoffre->getVariable())))
         {

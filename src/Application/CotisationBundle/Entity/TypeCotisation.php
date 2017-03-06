@@ -36,7 +36,7 @@ class TypeCotisation
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", inversedBy="typeCotisation")
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\YearCotisation", inversedBy="typeCotisation")
      */
     private $yearCotisation;
 

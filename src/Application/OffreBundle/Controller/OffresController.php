@@ -93,7 +93,7 @@ class OffresController extends Controller
         $em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
         $userOffre = null;
         $offersUser=null;
-        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult())[0];
+ //la       $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult())[0];
         $em=$this->getDoctrine()->getManager();
         $query=$em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
         $query=$query

@@ -22,6 +22,34 @@ class Cotisation
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", inversedBy="cotisation", cascade={"remove", "persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeCotisation;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="year", type="date", nullable=false)
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="namecotisation", type="string", length=255)
+     */
+    private $nameCotisation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pricecotisation", type="integer")
+     */
+    private $priceCotisation;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="cotisations")
      */
     private $user;
@@ -38,16 +66,18 @@ class Cotisation
      */
     private $payed;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\YearCotisation", inversedBy="cotisation", cascade={"remove", "persist"})
-     */
-    private $yearCotisation;
+
+
+
 
 
 
     public function __construct()
     {
         $this->payed = false;
+        $this->typeCotisation = NULL;
+        $this->nameCotisation = "";
+        $this->priceCotisation = 0;
     }
 
     /**
@@ -66,37 +96,6 @@ class Cotisation
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getInvoice()
-    {
-        return $this->invoice;
-    }
-
-    /**
-     * @param mixed $invoice
-     */
-    public function setInvoice($invoice)
-    {
-        $this->invoice = $invoice;
-    }
 
     /**
      * @return bool
@@ -115,21 +114,144 @@ class Cotisation
     }
 
     /**
-     * @return mixed
+     * Set typeCotisation
+     *
+     * @param \Application\CotisationBundle\Entity\TypeCotisation $typeCotisation
+     * @return Cotisation
      */
-    public function getYearCotisation()
+    public function setTypeCotisation(\Application\CotisationBundle\Entity\TypeCotisation $typeCotisation)
     {
-        return $this->yearCotisation;
+        $this->typeCotisation = $typeCotisation;
+        return $this;
     }
 
     /**
-     * @param mixed $yearCotisation
+     * Get typeCotisation
+     *
+     * @return \Application\CotisationBundle\Entity\TypeCotisation
      */
-    public function setYearCotisation($yearCotisation)
+    public function getTypeCotisation()
     {
-        $this->yearCotisation = $yearCotisation;
+        return $this->typeCotisation;
     }
 
+    public function getTypeCotisationName()
+    {
+        return $this->typeCotisation->name;
+    }
+
+
+    /**
+     * Set user
+     *
+     * @param \Admin\UserBundle\Entity\User $user
+     * @return Cotisation
+     */
+    public function setUser(\Admin\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Admin\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set year
+     *
+     * @param \DateTime $year
+     * @return Cotisation
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return \DateTime
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+
+    /**
+     * Set nameCotisation
+     *
+     * @param string $nameCotisation
+     * @return Cotisation
+     */
+    public function setNameCotisation($nameCotisation)
+    {
+        $this->nameCotisation = $nameCotisation;
+        return $this;
+    }
+
+    /**
+     * Get nameCotisation
+     *
+     * @return string
+     */
+    public function getNameCotisation()
+    {
+        return $this->nameCotisation;
+    }
+
+    /**
+     *
+     * Set priceCotisation
+     *
+     * @param integer $priceCotisation
+     * @return Cotisation
+     */
+    public function setPriceCotisation($priceCotisation)
+    {
+        $this->priceCotisation = $priceCotisation;
+        return $this;
+    }
+
+    /**
+     * Get priceCotisation
+     *
+     * @return integer
+     */
+    public function getPriceCotisation()
+    {
+        return $this->priceCotisation;
+    }
+
+    /**
+     * Set invoice
+     *
+     * @param \Application\CotisationBundle\Entity\Invoice $invoice
+     * @return Cotisation
+     */
+    public function setInvoice(\Application\CotisationBundle\Entity\Invoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return \Application\CotisationBundle\Entity\Invoice
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
 
 
 }
