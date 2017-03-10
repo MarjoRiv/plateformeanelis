@@ -39,12 +39,6 @@
                                                             <td>{{ offre.type }}</td>
                                                         </tr>
                                                         {% endif %}
-                                                        {% if offre.description is not empty and offre.description != "" %}
-                                                        <tr>
-                                                            <td>Description</td>
-                                                            <td>{{ offre.description }}</td>
-                                                        </tr>
-                                                        {% endif %}
                                                         {% if offre.user.UserApp.username is not empty and offre.user.UserApp.username != "" %}
                                                         <tr>
                                                             <td>Partagée par</td>
@@ -69,8 +63,15 @@
                                                 {%endif%}
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <h3>Descritpion de l'annonce</h3>
+                                            {% if offre.description is not empty and offre.description != "" %}
+                                                {{ offre.description }}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

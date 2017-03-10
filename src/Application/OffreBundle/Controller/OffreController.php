@@ -139,7 +139,11 @@ class OffreController extends Controller
             if ($OffersForm->isValid()) 
             {   
                 $formSubmited=true;
-                $offre->getAttachement()->upload();
+                if ($offre->getAttachement()!=null)
+                {
+                    $offre->getAttachement()->preUpload();
+                    $offre->getAttachement()->upload();
+                }
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($offre);
                 $em->flush();
