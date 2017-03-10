@@ -32,6 +32,7 @@ class FileOffreAdmin extends AbstractAdmin
             ->add('id')
             ->add('filename')
             ->add('path')
+            ->add('file','file')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -50,6 +51,9 @@ class FileOffreAdmin extends AbstractAdmin
         $formMapper
             ->add('filename')
             ->add('path')
+            ->add('file','file', array(
+                'required' => false
+            ))
         ;
     }
 
@@ -64,4 +68,22 @@ class FileOffreAdmin extends AbstractAdmin
             ->add('path')
         ;
     }
+
+    public function prePersist($file) 
+    {
+        $this->manageFileUpload($file);
+    }
+
+    public function preUpdate($file) 
+    {
+        $this->manageFileUpload($file);
+    }
+
+    private function manageFileUpload($file) 
+    {
+        if ($file->getFile()) {
+            $file->refreshUpdated();
+        }
+    }
+
 }
