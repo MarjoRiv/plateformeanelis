@@ -35,9 +35,22 @@
                     <div class="form-group">
                         {{ form_label(form.description, "Description", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                         <div class="col-sm-6">
-                            {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control' } }) }}
+                            {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'maxlength' : '2000' } }) }}
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="col-sm-2 control-label" style="float:right;" id="compteur">0/2000</label>
                         </div>
                     </div>
+                    <script>
+                        function updateKey(){
+                            $("label#compteur").html($("#description").val().length + "/2000");
+                        }
+                        $(document).ready(function(){
+                            $("#description").on("keydown", function(){
+                                setTimeout(updateKey, 100);
+                            });
+                        });
+                    </script>
                     <div class="form-group">
                         {{ form_label(form.attachement.file, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                         <div class="col-sm-6">
