@@ -62,7 +62,8 @@ class OffresController extends Controller
         
         $date=new \DateTime('now');
         $query->where('u.dateexpire > :date')
-            ->setParameter('date', $date);
+            ->setParameter('date', $date)
+                ->andwhere('u.enabled = true');
         
         $query=$query
                 ->orderBy('u.datepublished', 'DESC');
