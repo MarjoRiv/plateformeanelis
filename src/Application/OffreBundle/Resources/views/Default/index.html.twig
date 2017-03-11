@@ -47,7 +47,7 @@
                                         {{ form_end(formtype) }}
                                             <div style="text-align: right;">
                                                 <div class="btn-toolbar">
-                                                    <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonces</button></a>
+                                                    <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonce</button></a>
                                                 </div>
                                             </div>
 
@@ -67,12 +67,12 @@
                                                                     <div style="height:115px; overflow:hidden;">
                                                                         {{ result.description }}
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="white-space:nowrap; overflow:hidden;">
                                                                         <hr style="margin:8px auto">
                                                                         <span class="label label-default">{{ result.user.UserApp.username }}</span>
                                                                         <span class="label label-default">{{ result.type }}</span>
-                                                                        <span class="label label-default">{{ result.datepublished|date('d-m-Y') }}</span>
-                                                                        <span class="label label-default">Vue : {{ result.reading }}</span>
+                                                                        <span class="label label-default">{{ result.datepublished|date('d-m') }}</span>
+                                                                        <span class="label label-default">Vues : {{ result.reading }}</span>
                                                                         <hr style="margin:8px auto">
                                                                     </div>  
                                                                 </div>
@@ -113,12 +113,12 @@
                                                                 <div style="height:115px; overflow:hidden;">
                                                                     {{ result.description }}
                                                                 </div>
-                                                                <div>
-                                                                    <hr style="margin:8px auto">
+                                                                <div style="white-space:nowrap; overflow:hidden;">
+                                                                    <hr style="margin:8px auto; ">
                                                                     <span class="label label-default">{{ result.user.UserApp.username }}</span>
                                                                     <span class="label label-default">{{ result.type }}</span>
-                                                                    <span class="label label-default">{{ result.datepublished|date('d-m-Y') }}</span>
-                                                                    <span class="label label-default">Vue : {{ result.reading }}</span>
+                                                                    <span class="label label-default">{{ result.datepublished|date('d-m') }}</span>
+                                                                    <span class="label label-default">Vues : {{ result.reading }}</span>
                                                                     <hr style="margin:8px auto">
                                                                 </div>  
                                                             </div>
