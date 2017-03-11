@@ -1,5 +1,5 @@
 {% extends "::application.html.twig" %} 
-{% block title %}Offre n°{{offre.id}}{% endblock %}
+{% block title %}Annonce n°{{offre.id}}{% endblock %}
 
 {% block body %}
 <div id="page-content">
@@ -7,10 +7,10 @@
     <div id="page-heading">
       <ol class="breadcrumb">
         <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-        <li><a href="{{ path('offre_homepage') }}">Partage d'Offre</a></li>
+        <li><a href="{{ path('offre_homepage') }}">Partage d'annonces</a></li>
         <li class="active">{{offre.title}}</li>
       </ol>
-      <h1>Offre n°{{offre.id}}</h1>
+      <h1>Annonce n°{{offre.id}}</h1>
     </div>
     <div class="container">      
       <div class="row">

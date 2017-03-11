@@ -1,16 +1,16 @@
 {% extends "::application.html.twig" %} 
 
-{% block title %}Partage d'Offres{% endblock %}
+{% block title %}Partage d'annonces{% endblock %}
     {% block body %}
         <div id="page-content">
             <div id='wrap'>
                 <div id="page-heading">
                     <ol class="breadcrumb">
                         <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-                        <li class="active">Partage d'Offre</li>
+                        <li class="active">Partage d'annonces</li>
                     </ol>
 
-                    <h1>Partage d'Offres</h1>
+                    <h1>Partage d'annonces</h1>
                 </div>
                 <div class="container">
                     <div class="row">
@@ -19,7 +19,7 @@
                                 <h4>
                                     <ul class="nav nav-tabs">
                                         <li{% if onglet == 1 %} class="active"{% endif %}><a href="#afficher" data-toggle="tab">Annonces</a></li>
-                                        <li{% if onglet == 2 %} class="active"{% endif %}><a href="#mesOffres" data-toggle="tab">Mes Offres</a></li>
+                                        <li{% if onglet == 2 %} class="active"{% endif %}><a href="#mesOffres" data-toggle="tab">Mes annonces</a></li>
                                     </ul>
                                 </h4>
                             </div>
@@ -32,7 +32,7 @@
                                                 <div class="form-group">
                                                     {{ form_label(formtype.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
                                                     <div class="col-sm-4">
-                                                        {{ form_widget(formtype.type, { 'attr' : { 'class' : 'formtype-control' } }) }}
+                                                        {{ form_widget(formtype.type, { 'attr' : { 'class' : 'formtype-control', 'style' : 'margin-top:5px;' } }) }}
 
                                                     </div>
                                                 </div>
@@ -47,7 +47,7 @@
                                         {{ form_end(formtype) }}
                                             <div style="text-align: right;">
                                                 <div class="btn-toolbar">
-                                                    <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une offre</button></a>
+                                                    <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonces</button></a>
                                                 </div>
                                             </div>
 
@@ -71,7 +71,7 @@
                                                                         <hr style="margin:8px auto">
                                                                         <span class="label label-default">{{ result.user.UserApp.username }}</span>
                                                                         <span class="label label-default">{{ result.type }}</span>
-                                                                        <span class="label label-default">{{ result.datepublished|date('Y-m-d') }}</span>
+                                                                        <span class="label label-default">{{ result.datepublished|date('d-m-Y') }}</span>
                                                                         <span class="label label-default">Vue : {{ result.reading }}</span>
                                                                         <hr style="margin:8px auto">
                                                                     </div>  
@@ -84,7 +84,7 @@
                                             {%  endfor %}
                                         {% else %}
                                             {% if formSubmited == true %}
-                                                <p class="alert-danger text-center">Aucune offre n'a été trouvée. Désolé :(</p>
+                                                <p class="alert-danger text-center">Aucune annonce n'a été trouvée. Désolé :(</p>
                                             {% endif %}
                                         {% endif %}
                                     </div>
@@ -94,7 +94,7 @@
                                         
                                         <div style="text-align: right;">
                                             <div class="btn-toolbar">
-                                                <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une offre</button></a>
+                                                <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonce</button></a>
                                             </div>
                                         </div>
 
@@ -117,7 +117,7 @@
                                                                     <hr style="margin:8px auto">
                                                                     <span class="label label-default">{{ result.user.UserApp.username }}</span>
                                                                     <span class="label label-default">{{ result.type }}</span>
-                                                                    <span class="label label-default">{{ result.datepublished|date('Y-m-d') }}</span>
+                                                                    <span class="label label-default">{{ result.datepublished|date('d-m-Y') }}</span>
                                                                     <span class="label label-default">Vue : {{ result.reading }}</span>
                                                                     <hr style="margin:8px auto">
                                                                 </div>  
@@ -130,7 +130,7 @@
                                         {%  endfor %}
                                         {% else %}
                                             {% if formSubmited == true %}
-                                                <p class="alert-danger text-center">Aucune offre n'a été trouvée. Désolé :(</p>
+                                                <p class="alert-danger text-center">Vous n'avez fait aucune annonces jusqu'à présent.</p>
                                             {% endif %}
                                         {% endif %}
 

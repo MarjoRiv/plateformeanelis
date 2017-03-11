@@ -1,5 +1,5 @@
 {% extends "::application.html.twig" %} 
-{% block title %}Ajouter une Offre{% endblock %}
+{% block title %}Ajouter une annonce{% endblock %}
 
 {% block body %}
 <div id="page-content">
@@ -7,10 +7,10 @@
     <div id="page-heading">
       <ol class="breadcrumb">
         <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-        <li><a href="{{ path('offre_homepage') }}">Partage d'Offre</a></li>
-        <li class="active">Ajouter une Offre</li>
+        <li><a href="{{ path('offre_homepage') }}">Partage d'annonces</a></li>
+        <li class="active">Ajouter une annonce</li>
       </ol>
-      <h1>Ajout d'offre</h1>
+      <h1>Ajout d'annonce</h1>
     </div>
     <div class="container">      
       <div class="row">
@@ -20,25 +20,25 @@
                 {% if autorize==true %}
                 <div class="form-horizontal tab-pane active" id="ajouter">
                     {{ form_start(form) }}
-                        <div class="col-md-6">
+                        <div class="col-md-10">
                             {{ form_errors(form) }}
                             <div class="form-group">
-                                {{ form_label(form.title, "Titre", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                <div class="col-sm-6">
+                                {{ form_label(form.title, "Titre", { 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
+                                <div class="col-sm-8">
                                     {{ form_widget(form.title, { 'attr' : { 'class' : 'form-control' } }) }}
                                 </div>
                             </div>
                             <div class="form-group">
-                                {{ form_label(form.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                <div class="col-sm-6">
+                                {{ form_label(form.type, "Type", { 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
+                                <div class="col-sm-8">
                                     {{ form_widget(form.type, { 'attr' : { 'class' : 'form-control' } }) }}
 
                                 </div>
                             </div>
                             <div class="form-group">
-                                {{ form_label(form.description, "Description", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                <div class="col-sm-6" >
-                                    {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'maxlength' : '2000' }  }) }}
+                                {{ form_label(form.description, "Description", { 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
+                                <div class="col-sm-8" >
+                                    {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'maxlength' : '2000' , 'style' : 'height:300px'}  }) }}
                                 </div>
                                 <div class="col-sm-4">
                                     <label class="col-sm-2 control-label" style="float:right;" id="compteur"></label>
@@ -56,18 +56,23 @@
                                 });
                             </script>
                             <div class="form-group">
-                                {{ form_label(form.attachement.file, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                <div class="col-sm-6">
-                                    {{ form_widget(form.attachement.file, { 'label_attr' : { 'class' : 'form-control' } }) }}
+                                {{ form_label(form.attachement.file, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
+                                <div class="col-sm-8">
+                                    {{ form_widget(form.attachement.file, { 'label_attr' : { 'class' : 'form-control' } }) }} 
+                                    La pièce jointe ne doit pas faire plus de 2 Mo.
                                 </div>
                             </div>
-                        </div>
-                       
-
-                        <div style="text-align: center;">
-                            <div class="btn-toolbar">
-                                <button class="btn-primary btn">Ajouter</button>
+                            <div style="text-align: center; float: center; ">
+                                <div class="btn-toolbar">
+                                    <button class="btn-primary btn">Ajouter l'annonce</button>
+                                </div>
                             </div>
+                            
+                        </div
+                        
+
+                        <div style="text-align: center; float: left; margin-top : 150px;">
+                            
                         </div>
 
                     {{ form_rest(form) }} 
