@@ -22,6 +22,7 @@ class OffreController extends Controller
     {
         $offer = new Offers();
         $userOffre=$this->UserOffreCreat();
+        $message="";
 
         $OffersForm = $this->get('form.factory')
             ->createNamed(
@@ -64,7 +65,21 @@ class OffreController extends Controller
                     $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1);
                     if ($offer->getAttachement()!=null)
                     {
-                        $offer->getAttachement()->preUpload();
+                        if ($offer->getAttachement()->taillefile()<1048576) //1Mo
+                        {
+                            $offer->getAttachement()->preUpload();
+                        }
+                        else
+                        {
+                            $offer->setAttachement(null);
+                            $message='Le fichier doit être inférieur à 1Mo';
+                            return $this->render('OffreBundle:Offre:add.html.twig',array(
+                                'message' => $message,
+                                'autorize' => $autorize,
+                                'form' => $OffersForm->createView(),
+                                'formSubmited' => $formSubmited,
+                            ));
+                        }
                     }
                     $em=$this->getDoctrine()->getManager();
                     $em->persist($userOffre);
@@ -86,6 +101,7 @@ class OffreController extends Controller
                 }
                 else
                 {
+                    $message='Vous n\'avez plus la possibilité de publier d\'annonce cette année';
                     $request->getSession()
                             ->getFlashBag()
                             ->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur si vous souhaitez en avoir plus.');
@@ -93,6 +109,7 @@ class OffreController extends Controller
             }
         }
         return $this->render('OffreBundle:Offre:add.html.twig',array(
+            'message' => $message,
             'autorize' => $autorize,
             'form' => $OffersForm->createView(),
             'formSubmited' => $formSubmited,
@@ -121,6 +138,7 @@ class OffreController extends Controller
     public function editAction(Offers $offre, Request $request) {
         $formSubmited=false;
         $autorize=false;
+        $message="";
         if (($offre->getUser()->getUserApp()==$this->getUser())&&($offre->getDateexpire()>new \DateTime('now')))
         {
             $OffersForm = $this->get('form.factory')
@@ -141,7 +159,25 @@ class OffreController extends Controller
                 $formSubmited=true;
                 if ($offre->getAttachement()!=null)
                 {
-                    $offre->getAttachement()->preUpload();
+                    if ($offre->getAttachement()->taillefile()<1048576) //1Mo
+                    {
+                        $offre->getAttachement()->preUpload();
+                    }
+                    else
+                    {
+                        $offre->setAttachement(null);
+                        $message='Le fichier doit être inférieur à 1Mo';
+                        return $this->render('OffreBundle:Offre:offre.edit.html.twig',array(
+                            'message' => $message,
+                            'autorize' => $autorize,
+                            'offre' => $offre,
+                            'form' => $OffersForm->createView(),
+                            'formSubmited' => $formSubmited,
+                        ));
+                    }
+                }
+                if ($offre->getAttachement()!=null)
+                {
                     $offre->getAttachement()->upload();
                 }
                 $em = $this->getDoctrine()->getManager();
@@ -150,6 +186,7 @@ class OffreController extends Controller
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
             }
             return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
+                        'message' => $message,
                         'autorize' => $autorize,
                         "form" => $OffersForm->createView(),
                         "offre" => $offre,
