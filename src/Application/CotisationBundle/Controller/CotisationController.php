@@ -2,6 +2,7 @@
 
 namespace Application\CotisationBundle\Controller;
 
+use Admin\UserBundle\Entity\User;
 use Application\CotisationBundle\Entity\Cotisation;
 use Application\CotisationBundle\Form\CotisationHandler;
 use Application\CotisationBundle\Form\CotisationType;
@@ -15,7 +16,33 @@ class CotisationController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ApplicationCotisationBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $yearCotis = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findAll();
+        $cotisOK = array();
+        $cotisDispo = array();
+
+
+        foreach($this->getUser()->getCotisations() as $cotisation)
+        {
+            $cotisOK[] = $cotisation->getYear()->format('Y');
+            //TODO : Ajouter seulement si la cotisation est ouverte...
+        }
+
+        foreach($yearCotis as $cotisation)
+        {
+            $date = $cotisation->getYear()->format('Y');
+
+            if(!in_array($date, $cotisOK))
+            {
+                $cotisDispo[] = $date;
+            }
+        }
+
+        return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
+            "yearCotis" => $yearCotis,
+            "cotisDispo" => $cotisDispo,
+            "cotisOK" =>$cotisOK
+        ));
     }
 
     public function addAction(Request $request) {

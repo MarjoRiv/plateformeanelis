@@ -2,14 +2,13 @@
 
 namespace Application\CotisationBundle\Admin;
 
-use Application\CotisationBundle\Entity\TypeCotisation;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class CotisationAdmin extends AbstractAdmin
+class YearCotisationAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -18,11 +17,8 @@ class CotisationAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            ->add('typeCotisation')
+            ->add('name')
+            ->add('dateEnabled')
         ;
     }
 
@@ -34,11 +30,8 @@ class CotisationAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            ->add('typeCotisation')
+            ->add('name')
+            ->add('dateEnabled')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -56,11 +49,8 @@ class CotisationAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            ->add('typeCotisation')
+            ->add('name')
+            ->add('dateEnabled')
         ;
     }
 
@@ -72,11 +62,8 @@ class CotisationAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            //->add('typeCotisation')
+            ->add('name')
+            ->add('dateEnabled')
         ;
     }
 }

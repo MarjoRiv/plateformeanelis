@@ -106,5 +106,10 @@ class TypeCotisation
 
 
 
+    function __toString()
+    {
+        return $this->getName();
+    }
+
 
 }

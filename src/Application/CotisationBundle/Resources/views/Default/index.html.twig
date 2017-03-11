@@ -11,34 +11,54 @@
             <li class="active">Cotisations</li>
           </ol>
         </div>
+
         <div class="container">
+          <div class="jumbotron">
+            <h3>Pourquoi Cotiser ?</h3>
+            Cotiser permet à l'association d'évoluer et de subvenir aux différents besoins financiers comme la maintenance et l'hébergement de cette plateforme ou encore l'organisation d'évènements !
+            Cela vous donne également des avantages comme la possibilité de proposer des offres aux ZZ et de consulter le profil des personnes !
+          </div>
           <h1>Mes cotisations</h1>
           <div class="row">
             <div class="pannel-group">
-              <div class="col-xs-6">
-                <div class="panel panel-orange">
-                  <div class="panel-heading">
-                    <h4>Cotisation 2017</h4>
-                  </div>
-                  <div class="panel-body">
-                    <p class="text-info">La cotisation 2017 est ouverte ! L'argent récolté nous permet de faire <strong>vivre l'association</strong> et d'<strong>organiser des événements</strong> comme les récrées ANELIS.</p>
-                    <p class="text-center"><a href="{{ path('application_cotisation_new') }}" title="Nouvelle cotisation"><button class="btn-default btn">Cotiser</button></a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="panel panel-midnightblue">
-                  <div class="panel-heading">
-                    <h4>Cotisation 2016</h4>
-                  </div>
-                  <div class="panel-body">
-                    <p class="text-info">Vous avez cotisé pour 2016, merci de votre aide !</p>
+            {% if app.user.cotisations|length > 0 %}
+              {% for dateDispo in cotisDispo %}
+                <div class="col-xs-6">
+                  <div class="panel panel-orange">
+                    <div class="panel-heading">
+                      <h4>Cotisation {{ dateDispo }}</h4>
+                    </div>
+                    <div class="panel-body">
+                      <p class="text-info">La cotisation {{ dateDispo }} est ouverte ! L'argent récolté nous permet de faire <strong>vivre l'association</strong> et d'<strong>organiser des événements</strong> comme les récrées ANELIS.</p>
+                      <p class="text-center"><a href="{{ path('application_cotisation_new') }}" title="Nouvelle cotisation"><button class="btn-default btn">Cotiser</button></a></p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              {% endfor %}
+
+                {% for dateOK in cotisOK %}
+                  <div class="col-xs-6">
+                    <div class="panel panel-midnightblue">
+                      <div class="panel-heading">
+                        <h4>Cotisation {{ dateOK }}</h4>
+                      </div>
+                      <div class="panel-body">
+                        <p class="text-info">Vous avez déjà cotisé pour l'année {{ dateOK }}, merci de votre aide !</p>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-danger">Aucune cotisation n'est active et il n'est pas possible de cotiser actuellement.</p>
+            {% endif %}
+
+
+
+
             </div>
           </div>
         </div>
+
         <div class="container">
           <h1>Historique</h1>
           <div class="row">
@@ -90,10 +110,6 @@
               </div>
             </div>
           </div>
-
-
-
-
         </div>
       </div>
     </div>

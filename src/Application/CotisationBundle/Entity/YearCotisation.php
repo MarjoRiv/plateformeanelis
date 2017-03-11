@@ -106,6 +106,11 @@ class YearCotisation
         $this->dateEnabled = $dateEnabled;
     }
 
+    function __toString()
+    {
+        return $this->getName();
+    }
+
 
 }
 
