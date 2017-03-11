@@ -13,7 +13,6 @@ use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Finder\Comparator\DateComparator;
 use Doctrine\ORM\QueryBuilder;
 
 class OffreController extends Controller
@@ -120,17 +119,13 @@ class OffreController extends Controller
 
     public function showAction(Offers $offre)
     {
-        $usercreation= false;
         if ($this->getUser()==$offre->getUser()->getUserApp())
         {
-            $date=new \DateTime('now');
-            if ($offre->getDateexpire()>$date)
-            {
-                $usercreation = true;
-            }
+            $usercreation = true;
         }
         else
         {
+            $usercreation = false;
             $offre->setReading($offre->getReading()+1);
             $em = $this->getDoctrine()->getManager();
             $em->persist($offre);
@@ -213,7 +208,6 @@ class OffreController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($offre);
                 $em->flush();
-                $message="Modification enregistrée";
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
                 return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
             }
