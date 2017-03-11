@@ -38,7 +38,7 @@ class FileOffre
     private $path;
 
     /**
-     * @Assert\File(maxSize="2M")
+     * @Assert\File(maxSize="1M")
      */
     public $file;
 
@@ -127,6 +127,11 @@ class FileOffre
         return 'uploads/offres';
     }
 
+    public function taillefile()
+    {
+        $size=filesize($this->file);
+        return $size;
+    }
 
     /**
      * @ORM\PrePersist()

@@ -8,9 +8,9 @@
       <ol class="breadcrumb">
         <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
         <li><a href="{{ path('offre_homepage') }}">Partage d'annonces</a></li>
-        <li class="active">Ajouter une annonce</li>
+        <li class="active">Ajout d'une annonce</li>
       </ol>
-      <h1>Ajout d'annonce</h1>
+      <h1>Nouvelle annonce</h1>
     </div>
     <div class="container">      
       <div class="row">
@@ -21,6 +21,9 @@
                 <div class="form-horizontal tab-pane active" id="ajouter">
                     {{ form_start(form) }}
                         <div class="col-md-10">
+                            <div class="col-sm-11" style="float:right; color:red;">
+                                {{ message }}
+                            </div> 
                             {{ form_errors(form) }}
                             <div class="form-group">
                                 {{ form_label(form.title, "Titre", { 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
@@ -40,7 +43,7 @@
                                 <div class="col-sm-8" >
                                     {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'maxlength' : '2000' , 'style' : 'height:300px'}  }) }}
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-10">
                                     <label class="col-sm-2 control-label" style="float:right;" id="compteur"></label>
                                 </div>
                             </div>
@@ -59,7 +62,7 @@
                                 {{ form_label(form.attachement.file, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-2 control-label' } }) }}
                                 <div class="col-sm-8">
                                     {{ form_widget(form.attachement.file, { 'label_attr' : { 'class' : 'form-control' } }) }} 
-                                    La pièce jointe ne doit pas faire plus de 2 Mo.
+                                    La pièce jointe ne doit pas faire plus de 1 Mo.
                                 </div>
                             </div>
                             <div style="text-align: center; float: center; ">
