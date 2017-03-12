@@ -43,10 +43,11 @@ class OffresController extends Controller
                $results = $this->OfferFiltre($offerType->getType());
                $formSubmited = true;
         }
-
+        $date=new \DateTime('now');
         $resultsUser=$this->OfferUser();
 
         return $this->render('OffreBundle:Default:index.html.twig',array(
+            'date' => $date,
             'onglet' => $onglet,
             'formtype'=> $OffersFormType->createView(),
             'formSubmited' => $formSubmited,
@@ -95,17 +96,16 @@ class OffresController extends Controller
         $userOffre = null;
         $offersUser=null;
         $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult())[0];
-        $em=$this->getDoctrine()->getManager();
-        $query=$em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
-        $query=$query
-            ->orderBy('u.datepublished', 'DESC');
         if ($userOffre!=null)
         {
+            $em=$this->getDoctrine()->getManager();
+            $query=$em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
             $query=$query
+                ->orderBy('u.datepublished', 'DESC');
                 ->where('u.user = :userId')
                     ->setParameter('userId', $userOffre);
+            $offersUser=$query->getQuery()->getResult();
         }
-        $offersUser=$query->getQuery()->getResult();
         return $offersUser;
     }
 
