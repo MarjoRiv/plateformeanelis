@@ -159,7 +159,7 @@ class FileOffre
             return;
         }
         if (null != $this->filename) {
-            $oldFile = $this->getWebPath();
+            $oldFile = './../../' . $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
@@ -172,7 +172,7 @@ class FileOffre
      */
     public function preRemoveUpload()
     {
-        return __DIR__.'/../../../../web/' .$this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
+        $this->filename = $this->getUploadDir() . '/' . $this->getId() . '-' . $this->getFilename();
     }
 
     /**
@@ -180,9 +180,8 @@ class FileOffre
      */
     public function removeUpload()
     {
-        $location = $this->preRemoveUpload();
-        if (file_exists($location)) {
-            unlink($location);
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
         }
     }
 

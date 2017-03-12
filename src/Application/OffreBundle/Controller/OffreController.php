@@ -66,8 +66,7 @@ class OffreController extends Controller
                     $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1);
                     if ($offer->getAttachement()!=null)
                     {
-                        $filesize = ($em3->where('v.name = :name')->setParameter('name', "filesize(octets)")->getQuery()->getResult())[0]->getVariable();
-                        if ($offer->getAttachement()->taillefile()<$filesize)
+                        if ($offer->getAttachement()->taillefile()<1048576) //1Mo
                         {
                             $offer->getAttachement()->preUpload();
                         }
@@ -164,29 +163,8 @@ class OffreController extends Controller
             {   
                 $formSubmited=true;
                 if ($offre->getAttachement()!=null)
-                {  
-                    if ($OffersForm->get('deleteAttachement')->isClicked())
-                    {
-                        $this->deleteAttachement($offre);
-                        $message="Pièce jointe supprimée";
-                        $em = $this->getDoctrine()->getManager();
-                        $em->remove($offre->getAttachement());
-                        $offre->setAttachement(null);
-                        $em->flush();
-                        return $this->render('OffreBundle:Offre:offre.edit.html.twig',array(
-                            'message' => $message,
-                            'autorize' => $autorize,
-                            'offre' => $offre,
-                            'form' => $OffersForm->createView(),
-                            'formSubmited' => $formSubmited,
-                        ));
-                    }
-                    $em3 = $this->getDoctrine()
-                                ->getManager()
-                                ->getRepository('Application\OffreBundle\Entity\OffreVar')
-                                ->createQueryBuilder('v');
-                    $filesize = ($em3->where('v.name = :name')->setParameter('name', "filesize(octets)")->getQuery()->getResult())[0]->getVariable();
-                    if ($offre->getAttachement()->taillefile()<$filesize) //1Mo
+                {
+                    if ($offre->getAttachement()->taillefile()<1048576) //1Mo
                     {
                         $offre->getAttachement()->preUpload();
                     }
@@ -202,9 +180,6 @@ class OffreController extends Controller
                             'formSubmited' => $formSubmited,
                         ));
                     }
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($offre);
-                    $em->flush();
                 }
                 if ($offre->getAttachement()!=null)
                 {
@@ -215,7 +190,6 @@ class OffreController extends Controller
                 $em->flush();
                 $message="Modification enregistrée";
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
-                return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
             }
             return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
                         'message' => $message,
@@ -230,14 +204,6 @@ class OffreController extends Controller
             return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
         }
         // Vérification de l'id pour des raisons de sécurités 
-    }
-
-    protected function deleteAttachement(Offers $offre)
-    {
-        $offre->removeAttachement();
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($offre);
-        $em->flush();
     }
 
     protected function UserOffreCreat()
