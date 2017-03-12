@@ -319,6 +319,7 @@ class Offers
         $this->datepublished = new \Datetime('NOW');
         $this->dateexpire= new \Datetime('NOW');
         $this->dateexpire->modify("30 day");
+        // Par défaut, la date d'expiration est 30 jour plus tard
         $this->attachement=null;
         $this->reading=0;
     }

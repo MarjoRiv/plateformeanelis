@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -181,5 +182,59 @@ class UserAdmin extends AbstractAdmin
 
         return $flatRoles;
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('username')
+
+            ->add('email')
+
+            ->add('name')
+
+            ->add('surname')
+
+            ->add('promotion')
+
+            ->add('filiere')
+
+            ->add('birthday')
+
+            ->add('maritalName')
+
+            ->add('nickname')
+
+            ->add('address')
+
+            ->add('postalcode')
+
+            ->add('city')
+
+            ->add('country')
+
+            ->add('telephone')
+
+            ->add('website')
+
+            ->add('socialFacebook')
+
+            ->add('socialTwitter')
+
+            ->add('socialGoogle')
+
+            ->add('socialYoutube')
+
+            ->add('socialInstagram')
+
+            ->add('biography')
+
+            ->add('maritalStatus')
+
+            ->add('childrenNumber')
+
+            ->add('roles')
+            ;
+    }
+
 
 }

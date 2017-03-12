@@ -41,7 +41,6 @@ class Offers2Type extends AbstractType
             ))
             ->add('enabled', CheckboxType::class, array(
                 'required' => false,
-                'empty_data' => true,
             ))
         ;
     }

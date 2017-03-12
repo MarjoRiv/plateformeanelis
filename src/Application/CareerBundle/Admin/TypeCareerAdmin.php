@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class TypeCareerAdmin extends AbstractAdmin
 {
@@ -40,4 +41,14 @@ class TypeCareerAdmin extends AbstractAdmin
             ))
         ;
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('name')
+            ->add('enabled')
+            ;
+    }
+
+
 }

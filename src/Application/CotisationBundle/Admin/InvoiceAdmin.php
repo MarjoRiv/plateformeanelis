@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class InvoiceAdmin extends AbstractAdmin
 {
@@ -51,4 +52,14 @@ class InvoiceAdmin extends AbstractAdmin
             ))
         ;
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('id')
+            ->add('payed')
+            ;
+    }
+
+
 }

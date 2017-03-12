@@ -13,6 +13,8 @@ use Application\OffreBundle\Manager\OffersManager;
 use Application\OffreBundle\Manager\UserOffreManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Finder\Comparator\DateComparator;
+use Doctrine\ORM\QueryBuilder;
 
 class OffreController extends Controller
 {
@@ -21,6 +23,7 @@ class OffreController extends Controller
     {
         $offer = new Offers();
         $userOffre=$this->UserOffreCreat();
+        $message="";
 
         $OffersForm = $this->get('form.factory')
             ->createNamed(
@@ -40,16 +43,44 @@ class OffreController extends Controller
         {
             if ($OffersForm->isValid()) 
             {
-                $prop=$userOffre->getNbpropfait();
+                $em2=$this->getDoctrine()->getManager();
+                $query=$em2->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('o');
+                if ($userOffre!=null)
+                {
+                    $year = mktime(0, 0, 1, 1, 1, date('Y'));
+                    $query = $query
+                        ->where('o.user = :userOffre')
+                        ->setParameter('userOffre', $userOffre);
+                    $this->whereCurrentYear($query);
+                }
+                $offersUser=$query->getQuery()->getResult();
+                $prop=count($offersUser);                
                 if ($prop<($userOffre->getNbpropMax()))
                 {   
-                    $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v');
+                    $em3 = $this->getDoctrine()
+                                ->getManager()
+                                ->getRepository('Application\OffreBundle\Entity\OffreVar')
+                                ->createQueryBuilder('v');
                     $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
                     $offer->setDateexpire($offer->getDateexpire()->modify((($dureemax->getVariable())-30)." day"));
-                    $userOffre->setNbpropfait($prop+1);
+                    $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1);
                     if ($offer->getAttachement()!=null)
                     {
-                        $offer->getAttachement()->preUpload();
+                        if ($offer->getAttachement()->taillefile()<1048576) //1Mo
+                        {
+                            $offer->getAttachement()->preUpload();
+                        }
+                        else
+                        {
+                            $offer->setAttachement(null);
+                            $message='Le fichier doit être inférieur à 1Mo';
+                            return $this->render('OffreBundle:Offre:add.html.twig',array(
+                                'message' => $message,
+                                'autorize' => $autorize,
+                                'form' => $OffersForm->createView(),
+                                'formSubmited' => $formSubmited,
+                            ));
+                        }
                     }
                     $em=$this->getDoctrine()->getManager();
                     $em->persist($userOffre);
@@ -71,11 +102,15 @@ class OffreController extends Controller
                 }
                 else
                 {
-                    $request->getSession()->getFlashBag()->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur pour en avoir plus.');
+                    $message='Vous n\'avez plus la possibilité de publier d\'annonce cette année';
+                    $request->getSession()
+                            ->getFlashBag()
+                            ->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur si vous souhaitez en avoir plus.');
                 }
             }
         }
         return $this->render('OffreBundle:Offre:add.html.twig',array(
+            'message' => $message,
             'autorize' => $autorize,
             'form' => $OffersForm->createView(),
             'formSubmited' => $formSubmited,
@@ -84,13 +119,17 @@ class OffreController extends Controller
 
     public function showAction(Offers $offre)
     {
+        $usercreation= false;
         if ($this->getUser()==$offre->getUser()->getUserApp())
         {
-            $usercreation = true;
+            $date=new \DateTime('now');
+            if ($offre->getDateexpire()>$date)
+            {
+                $usercreation = true;
+            }
         }
         else
         {
-            $usercreation = false;
             $offre->setReading($offre->getReading()+1);
             $em = $this->getDoctrine()->getManager();
             $em->persist($offre);
@@ -104,7 +143,8 @@ class OffreController extends Controller
     public function editAction(Offers $offre, Request $request) {
         $formSubmited=false;
         $autorize=false;
-        if ($offre->getUser()->getUserApp()==$this->getUser())
+        $message="";
+        if (($offre->getUser()->getUserApp()==$this->getUser())&&($offre->getDateexpire()>new \DateTime('now')))
         {
             $OffersForm = $this->get('form.factory')
                 ->createNamed(
@@ -122,13 +162,37 @@ class OffreController extends Controller
             if ($OffersForm->isValid()) 
             {   
                 $formSubmited=true;
-                $offre->getAttachement()->upload();
+                if ($offre->getAttachement()!=null)
+                {
+                    if ($offre->getAttachement()->taillefile()<1048576) //1Mo
+                    {
+                        $offre->getAttachement()->preUpload();
+                    }
+                    else
+                    {
+                        $offre->setAttachement(null);
+                        $message='Le fichier doit être inférieur à 1Mo';
+                        return $this->render('OffreBundle:Offre:offre.edit.html.twig',array(
+                            'message' => $message,
+                            'autorize' => $autorize,
+                            'offre' => $offre,
+                            'form' => $OffersForm->createView(),
+                            'formSubmited' => $formSubmited,
+                        ));
+                    }
+                }
+                if ($offre->getAttachement()!=null)
+                {
+                    $offre->getAttachement()->upload();
+                }
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($offre);
                 $em->flush();
+                $message="Modification enregistrée";
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
             }
             return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
+                        'message' => $message,
                         'autorize' => $autorize,
                         "form" => $OffersForm->createView(),
                         "offre" => $offre,
@@ -175,6 +239,15 @@ class OffreController extends Controller
         $em1->persist($userOffre);
         $em1->flush();
         return $userOffre;
+    }
+
+    public function whereCurrentYear(QueryBuilder $qb)
+    {
+    $qb
+      ->andWhere('o.datepublished BETWEEN :start AND :end')
+      ->setParameter('start', new \Datetime(date('Y').'-01-01'))  // Date entre le 1er janvier de cette année
+      ->setParameter('end',   new \Datetime(date('Y').'-12-31'))  // Et le 31 décembre de cette année
+    ;
     }
 
 }

@@ -1,17 +1,16 @@
 {% extends "::application.html.twig" %} 
 
-{% block title %}Partage d'Offres{% endblock %}
+{% block title %}Partage d'annonces{% endblock %}
     {% block body %}
         <div id="page-content">
             <div id='wrap'>
                 <div id="page-heading">
                     <ol class="breadcrumb">
                         <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-                        <li><a href="{{ path('offre_homepage') }}">Partage d'Offre</a></li>
+                        <li><a href="{{ path('offre_homepage') }}">Partage d'annonces</a></li>
                         <li class="active">{{offre.title}}</li>
                     </ol>
 
-                    <h1>Offre n°{{offre.id }}</h1>
                 </div>
                 <div class="container">
 
@@ -27,34 +26,34 @@
                                                 <table class="table table-condensed">
                                                     <h3><strong>{{ offre.title }}</strong></h3>  
                                                     <tbody>
-                                                        {% if offre.id is not empty and offre.id != "" %}
-                                                        <tr>
-                                                            <td>Id</td>
-                                                            <td>{{ offre.id }}</td>
-                                                        </tr>
-                                                        {% endif %}
                                                         {% if offre.type is not empty and offre.type != "" %}
                                                         <tr>
                                                             <td>Type</td>
                                                             <td>{{ offre.type }}</td>
                                                         </tr>
                                                         {% endif %}
-                                                        {% if offre.description is not empty and offre.description != "" %}
+                                                        {% if offre.datepublished is not empty and offre.datepublished != "" %}
                                                         <tr>
-                                                            <td>Description</td>
-                                                            <td>{{ offre.description }}</td>
+                                                            <td>Publié le</td>
+                                                            <td>{{ offre.datepublished|date('d-m-Y') }}</td>
                                                         </tr>
                                                         {% endif %}
-                                                        {% if offre.user.UserApp.username is not empty and offre.user.UserApp.username != "" %}
+                                                        {% if offre.dateexpire is not empty and offre.dateexpire != "" %}
                                                         <tr>
-                                                            <td>Partagée par</td>
-                                                            <td><a href="{{ path('offre_edit', {'id' : offre.user.UserApp.id}) }} ">{{ offre.user.UserApp.username }}</a></td>
+                                                            <td>Expirera le</td>
+                                                            <td>{{ offre.dateexpire|date('d-m-Y') }}</td>
                                                         </tr>
                                                         {% endif %}
                                                         {% if offre.attachement is not empty %}
                                                         <tr>
                                                             <td>Pièce Jointe</td>
                                                             <td><a href="{{offre.attachement.getWebPath()}}" target="_blank">{{ offre.attachement.filename }}</a></td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.user.UserApp is not empty %}
+                                                        <tr>
+                                                            <td>Partagée par</td>
+                                                            <td><a href="{{ path('user_show_profile', {'id' : offre.user.UserApp.id}) }} ">{{ offre.user.UserApp.surname }} {{ offre.user.UserApp.name }} (Promo {{ offre.user.UserApp.promotion }})</a></td>
                                                         </tr>
                                                         {% endif %}
                                                         {% if usercreation is not empty and usercreation == true %}
@@ -69,8 +68,15 @@
                                                 {%endif%}
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <h3>Description de l'annonce</h3>
+                                            {% if offre.description is not empty and offre.description != "" %}
+                                                {{ offre.description }}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

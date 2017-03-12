@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class TypeCotisationAdmin extends AbstractAdmin
 {
@@ -41,4 +42,14 @@ class TypeCotisationAdmin extends AbstractAdmin
             ))
         ;
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('name')
+            ->add('price')
+            ;
+    }
+
+
 }

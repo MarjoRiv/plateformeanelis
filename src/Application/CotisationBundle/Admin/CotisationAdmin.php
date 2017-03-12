@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class CotisationAdmin extends AbstractAdmin
 {
@@ -73,5 +74,20 @@ class CotisationAdmin extends AbstractAdmin
             ))
         ;
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('id')
+            ->add('user',null, array('label' => "Pseudo"))
+            ->add('user.name',null,array('label' => "Nom"))
+            ->add('user.surname',null,array('label' => "Prénom"))
+            ->add('year','date',array('format' => 'y'))
+            ->add('priceCotisation',null,array('label' => "Tarif Cotisation"))
+            ->add('invoice.id', null, array('label' => "n° Facture"))
+            ->add('invoice.payed',null,array('label' => "Payé ?"))
+            ;
+    }
+
 
 }
