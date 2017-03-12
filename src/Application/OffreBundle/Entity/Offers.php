@@ -4,6 +4,7 @@ namespace Application\OffreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Offers
  *
@@ -311,6 +312,11 @@ class Offers
     public function getName()
     {
         return $this->user->getUserApp()->getUsername();
+    }
+
+    public function removeAttachement()
+    {
+        $this->attachement->removeUpload();
     }
 
     public function __construct()
