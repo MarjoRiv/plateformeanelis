@@ -313,6 +313,13 @@ class Offers
         return $this->user->getUserApp()->getUsername();
     }
 
+    public function removeAttachement()
+    {
+        $this->attachement->preRemoveUpload();
+        $this->attachement->removeUpload();
+        $this->attachement=null;
+    }
+
     public function __construct()
     {
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
