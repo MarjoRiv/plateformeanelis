@@ -4,6 +4,7 @@ namespace Application\OffreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Offers
  *
@@ -315,9 +316,7 @@ class Offers
 
     public function removeAttachement()
     {
-        $this->attachement->preRemoveUpload();
         $this->attachement->removeUpload();
-        $this->attachement=null;
     }
 
     public function __construct()

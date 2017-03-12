@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -41,6 +42,9 @@ class Offers2Type extends AbstractType
             ))
             ->add('enabled', CheckboxType::class, array(
                 'required' => false,
+            ))
+            ->add('deleteAttachement', SubmitType::class,array(
+                'label' => "Supprimer la pièce jointe",
             ))
         ;
     }
