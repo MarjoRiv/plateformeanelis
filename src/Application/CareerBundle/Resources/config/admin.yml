@@ -2,7 +2,7 @@ services:
     sonata.admin.typecareer:
             class: Application\CareerBundle\Admin\TypeCareerAdmin
             tags:
-                - { name: sonata.admin, manager_type: orm, group: "Content", label: "Types de Parcours" }
+                - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "Types de Parcours" }
             arguments:
                 - ~
                 - Application\CareerBundle\Entity\TypeCareer

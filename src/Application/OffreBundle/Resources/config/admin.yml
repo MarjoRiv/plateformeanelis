@@ -2,7 +2,7 @@ services:
     sonata.admin.offres:
         class: Application\OffreBundle\Admin\OffreAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Offres" }
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "Offres" }
         arguments:
             - ~
             - Application\OffreBundle\Entity\Offers
@@ -12,7 +12,7 @@ services:
     sonata.admin.userOffre:
         class: Application\OffreBundle\Admin\UserOffreAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "UserOffres" }
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "UserOffres" }
         arguments:
             - ~
             - Application\OffreBundle\Entity\UserOffre
@@ -22,7 +22,7 @@ services:
     sonata.admin.fileOffre:
         class: Application\OffreBundle\Admin\FileOffreAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "FileOffres" }
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "FileOffres" }
         arguments:
             - ~
             - Application\OffreBundle\Entity\FileOffre
@@ -32,7 +32,7 @@ services:
     sonata.admin.varOffre:
         class: Application\OffreBundle\Admin\VarOffreAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "VariableOffres" }
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "VariableOffres" }
         arguments:
             - ~
             - Application\OffreBundle\Entity\OffreVar

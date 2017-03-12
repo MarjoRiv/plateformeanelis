@@ -8,6 +8,7 @@ use Application\CotisationBundle\Form\CotisationHandler;
 use Application\CotisationBundle\Form\CotisationType;
 use Application\CotisationBundle\Manager\CotisationManager;
 use Application\CotisationBundle\Manager\InvoiceManager;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,25 +23,32 @@ class CotisationController extends Controller
         $cotisDispo = array();
 
 
-        foreach($this->getUser()->getCotisations() as $cotisation)
+        foreach($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
         {
-            $cotisOK[] = $cotisation->getYear()->format('Y');
-            //TODO : Ajouter seulement si la cotisation est ouverte...
+            $date = intval($cotisation->getYear()->format('Y'));            //Année courante
+
+            //On récupère seulement si l'année de cotisation n'est pas passée.
+            if($date >= intval(date("Y")))
+            {
+                $cotisOK[] = $cotisation->getYear()->format('Y');
+            }
         }
 
         foreach($yearCotis as $cotisation)
         {
-            $date = $cotisation->getYear()->format('Y');
+            $date = intval($cotisation->getYear()->format('Y'));
 
-            if(!in_array($date, $cotisOK))
+            //  Si l'année de cotisation n'est pas passée, que l'utilisateur n'a pas cotisé cette année là et que
+            //  la cotisation pour cette année est ouverte
+            if(!in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $cotisation->getDateEnabled())
             {
-                $cotisDispo[] = $date;
+                $cotisDispo[] = $cotisation->getYear()->format('Y');
             }
         }
 
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
             "yearCotis" => $yearCotis,
-            "cotisDispo" => $cotisDispo,
+            "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
             "cotisOK" =>$cotisOK
         ));
     }
