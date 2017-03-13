@@ -41,6 +41,11 @@ class TypeCotisation
     private $yearCotisation;
 
     /**
+     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="typeCotisation")
+     */
+    private $cotisation;
+
+    /**
      * @return int
      */
     public function getId()

@@ -25,37 +25,34 @@ class CotisationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $yearCotis = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findAll();
         $cotisOK = array();
-        $cotisEnAttente = array();
         $cotisDispo = array();
+        $returnForms = array();                                             //L'ensemble des formulaires de retour
 
         $invoiceManager = new InvoiceManager($this);
-        $typeCotisation = new TypeCotisation();
-        $form1 = null;
-        $form2 = null;
 
         foreach($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
         {
             $date = intval($cotisation->getYear()->format('Y'));            //Année courante
             //On récupère seulement si l'année de cotisation n'est pas passée.
             if ($date >= intval(date("Y"))) {
-                if($cotisation->getPayed()) {                       //Si la cotisation a bien été payée
+                if ($cotisation->getPayed()) {                              //Si la cotisation a bien été payée
                     $cotisOK[] = $cotisation->getYear()->format('Y');
-                }else{                                                  //Si le paiement est en attente
+                } else {                                                    //Si le paiement est en attente
                     $cotisEnAttente[] = $cotisation->getYear();
                 }
             }
         }
 
-        foreach($yearCotis as $cotisation)
-        {
-            $date = intval($cotisation->getYear()->format('Y'));
-            $dateD = $cotisation->getYear();
+        $cotisation = new Cotisation();
+        $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
 
-            //  Si l'année de cotisation n'est pas passée, que l'utilisateur n'a pas cotisé cette année là et que
-            //  la cotisation pour cette année est ouverte
-            if(!in_array($date, $cotisOK) && !in_array($dateD, $cotisEnAttente) && $date >= intval(date("Y")) && new DateTime() >= $cotisation->getDateEnabled())
+        foreach($yearCotis as $yearCotisation) {
+            $date = intval($yearCotisation->getYear()->format('Y'));
+            $dateD = $yearCotisation->getYear();
+            $typesCotisationForYear = array(); //Permet de récupérer les différents types de cotisation pour une année
+            if(!in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled())
             {
-                $typesCotisationForYear = array();
+                $cotisDispo[] = $date;
                 $allTypeCotisation = $em->getRepository('ApplicationCotisationBundle:TypeCotisation')->findAll();
                 foreach($allTypeCotisation as $type) //Je parcours les types de cotisation
                 {
@@ -64,69 +61,47 @@ class CotisationController extends Controller
                         $typesCotisationForYear[] = $type;
                     }
                 }
-                //gerer cas ou cotisation faite mais non payée
-                $cotisDispo[] = $cotisation->getYear()->format('Y');
-                $cotisation = new Cotisation();
-                $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
-                $formFactory = $this->get('form.factory');
-                if($form1==null){
-                    $form1 = $formFactory->createNamed('form1',CotisationType::class, $cotisation, ['choices' => $typesCotisationForYear, ]);
-                }else{
-                    $name="form2";
-                    $form2 = $formFactory->createNamed('form2',CotisationType::class, $cotisation, [ 'choices' => $typesCotisationForYear, ]);
+
+
+                $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_'.$yearCotisation->getId(), CotisationType::class, $cotisation,  [ 'choices' => $typesCotisationForYear ])->getForm();
+
+                $returnCotisationForm->handleRequest($request);
+
+                if($returnCotisationForm->isSubmitted() && $returnCotisationForm->isValid())
+                {
+
+                    $cotisation->setYear($yearCotisation->getYear());
+
+                    $formHandler = new CotisationHandler($returnCotisationForm, $request, $em, $invoiceManager);
+                    if ($formHandler->process()) {
+                        // Getting the last id invoice inserted
+                        $repository = $this->getDoctrine()
+                            ->getRepository('ApplicationCotisationBundle:Invoice');
+                        $query = $repository->createQueryBuilder('p')
+                            ->orderBy('p.id', 'DESC')
+                            ->getQuery();
+
+                        $invoices = $query->getResult();
+                        $last_cotisation_id = $invoices[0]->getId();
+
+
+                        return $this->redirect($this->generateUrl('application_cotisation_invoice_get', array(
+                            'id' => $last_cotisation_id
+                        )));
+                    }
                 }
-            }
-        }
-        if($request->isMethod('POST')) {
-            dump($request);
-            if($request->get('ValiderCotisation') == 'form1') {
-                dump(true);
-                $formHandler = new CotisationHandler($form1, $request, $em, $invoiceManager);
-            }
-            if($request->get('ValiderCotisation') == 'form2') {
-                $formHandler = new CotisationHandler($form2, $request, $em, $invoiceManager);
+
+                $returnForms[] = $returnCotisationForm->createView();
             }
 
-            if ($formHandler->process()) {
-                // Getting the last id invoice inserted
-                $repository = $this->getDoctrine()
-                    ->getRepository('ApplicationCotisationBundle:Invoice');
-                $query = $repository->createQueryBuilder('p')
-                    ->orderBy('p.id', 'DESC')
-                    ->getQuery();
-
-                $invoices = $query->getResult();
-                $last_cotisation_id = $invoices[0]->getId();
-
-                return $this->redirect($this->generateUrl('application_cotisation_homepage'));
-            }
         }
 
-        if($form1!=null && $form2!=null) { //DU TRES TRES SALE MON GARCON
-            return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
-                "yearCotis" => $yearCotis,
-                "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
-                "cotisOK" => $cotisOK,
-                "cotisEnAttente" => $cotisEnAttente,
-                "form1" => $form1->createView(),
-                "form2" => $form2->createView(),
-            ));
-        }else if($form1!=null){
-            return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
-                "yearCotis" => $yearCotis,
-                "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
-                "cotisOK" => $cotisOK,
-                "cotisEnAttente" => $cotisEnAttente,
-                "form1" => $form1->createView(),
-            ));
-        }else{
-            return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
-                "yearCotis" => $yearCotis,
-                "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
-                "cotisOK" => $cotisOK,
-                "cotisEnAttente" => $cotisEnAttente,
-            ));
-        }
+        return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
+            "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
+            "cotisOK" => $cotisOK,
+            "forms" =>  $returnForms
+        ));
+
     }
 
 

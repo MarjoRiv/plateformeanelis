@@ -22,74 +22,42 @@
           <div class="row">
             <div class="pannel-group">
                 {% if app.user.cotisations|length > 0 %}
-                    {% for aFinir in cotisEnAttente %}
-                         <div class="col-xs-6">
-                  <div class="panel panel-orange">
-                    <div class="panel-heading">
-                      <h4>Cotisation {{ aFinir.format('Y') }}</h4>
-                    </div>
-                    <div class="panel-body">
-                    <p class="text-info">Votre cotisation est en attente de validation. Si vous ne souhaitez pas payer en ligne, n'hésitez pas à nous contacter !</p>
-                      <br>
+                    {% set i = 0 %}
+                    {% for dateDispo in cotisDispo %}
+                      <div class="col-xs-6">
+                        <div class="panel panel-orange">
+                          <div class="panel-heading">
+                            <h4>Cotisation {{ dateDispo }}</h4>
+                          </div>
+                          <div class="panel-body">
+                            <p class="text-info">La cotisation pour l'année {{ dateDispo }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
+                            <div class="center">
+                                {{ form_start(forms[i]) }}
+
+                                {{ form_rest(forms[i]) }}
+
+                                {{ form_end(forms[i]) }}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                  </div>
-                         </div>
-                        {% endfor %}
-                    {% for i in 0..cotisDispo|length-1 if cotisDispo!=null %}
-                        {#{% for dateDispo in cotisDispo %}#}
-                <div class="col-xs-6">
-                  <div class="panel panel-orange">
-                    <div class="panel-heading">
-                      <h4>Cotisation {{ cotisDispo[i] }}</h4>
-                    </div>
-                    <div class="panel-body">
-                      <p class="text-info">La cotisation {{ cotisDispo[i] }} est ouverte ! L'argent récolté nous permet de faire <strong>vivre l'association</strong> et d'<strong>organiser des événements</strong> comme les récrées ANELIS.</p>
-                      <br>
-                      {% if i==0 %} {# DONC LA C'EST TEMPO/SALE, ON LIMITE A DEUX COTISATIONS OUVERTES
-                      EN MEME TEMPS.#}
-                        {{ form_start(form1) }}
-                        {{ form_label(form1.typeCotisation, "Type de cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
-                        {{ form_widget(form1.typeCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
-                      <div class="form-group">
-                          {{ form_errors(form1) }}
-                          {{ form_rest(form1) }}
+                      {% set i = i + 1 %}
+                    {% endfor %}
+                    {% for dateOK in cotisOK %}
+                      <div class="col-xs-6">
+                        <div class="panel panel-midnightblue">
+                          <div class="panel-heading">
+                            <h4>Cotisation {{ dateOK }}</h4>
+                          </div>
+                          <div class="panel-body">
+                            <p class="text-info">Vous avez déjà cotisé pour l'année {{ dateOK }}, merci de votre aide !</p>
+                          </div>
+                        </div>
                       </div>
-                        <p class="text-center"><button name="ValiderCotisation" value="form1" type="submit" class="btn-default btn">Cotiser</button></p>
-
-                      {% else %}
-                                  {{ form_start(form2) }}
-                                  {{ form_label(form2.typeCotisation, "Type de cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
-                                  {{ form_widget(form2.typeCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
-                                <div class="form-group">
-                                    {{ form_errors(form2) }}
-                                    {{ form_rest(form2) }}
-                                </div>
-                      <p class="text-center"><button name="ValiderCotisation" value="form2" type="submit" class="btn-default btn">Cotiser</button></p>
-                              {% endif %}
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-
-                {% for dateOK in cotisOK %}
-                  <div class="col-xs-6">
-                    <div class="panel panel-midnightblue">
-                      <div class="panel-heading">
-                        <h4>Cotisation {{ dateOK }}</h4>
-                      </div>
-                      <div class="panel-body">
-                        <p class="text-info">Vous avez déjà cotisé pour l'année {{ dateOK }}, merci de votre aide !</p>
-                      </div>
-                    </div>
-                  </div>
-                {% endfor %}
-            {% else %}
-                <p class="text-danger">Aucune cotisation n'est active et il n'est pas possible de cotiser actuellement.</p>
-            {% endif %}
-
-
-
-
+                    {% endfor %}
+                {% else %}
+                  <p class="text-danger">Aucune cotisation n'est active et il n'est pas possible de cotiser actuellement.</p>
+                {% endif %}
             </div>
           </div>
         </div>
