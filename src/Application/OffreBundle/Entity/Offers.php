@@ -314,6 +314,16 @@ class Offers
         return $this->user->getUserApp()->getUsername();
     }
 
+    public function getIdAttachement()
+    {
+        $id=null;
+        if ($this->attachement!=null)
+        {
+            $id=$this->attachement->getId();
+        }
+        return $id;
+    }
+
     public function removeAttachement()
     {
         $this->attachement->removeUpload();
