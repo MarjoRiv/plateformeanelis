@@ -26,6 +26,8 @@ class CotisationController extends Controller
         $yearCotis = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findAll();
         $cotisOK = array();
         $cotisDispo = array();
+        $cotisEnAttente = array();
+        $dateCotisEnAttente = array();
         $returnForms = array();                                             //L'ensemble des formulaires de retour
 
         $invoiceManager = new InvoiceManager($this);
@@ -38,7 +40,8 @@ class CotisationController extends Controller
                 if ($cotisation->getPayed()) {                              //Si la cotisation a bien été payée
                     $cotisOK[] = $cotisation->getYear()->format('Y');
                 } else {                                                    //Si le paiement est en attente
-                    $cotisEnAttente[] = $cotisation->getYear();
+                    $cotisEnAttente[] = $cotisation;
+                    $dateCotisEnAttente[] = $date;
                 }
             }
         }
@@ -47,10 +50,11 @@ class CotisationController extends Controller
         $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
 
         foreach($yearCotis as $yearCotisation) {
+
             $date = intval($yearCotisation->getYear()->format('Y'));
             $dateD = $yearCotisation->getYear();
             $typesCotisationForYear = array(); //Permet de récupérer les différents types de cotisation pour une année
-            if(!in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled())
+            if(!in_array($date,$dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled())
             {
                 $cotisDispo[] = $date;
                 $allTypeCotisation = $em->getRepository('ApplicationCotisationBundle:TypeCotisation')->findAll();
@@ -94,6 +98,7 @@ class CotisationController extends Controller
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
             "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
             "cotisOK" => $cotisOK,
+            "cotisAttente" => $cotisEnAttente,
             "forms" =>  $returnForms
         ));
 

@@ -21,7 +21,7 @@
           <h1>Mes cotisations</h1>
           <div class="row">
             <div class="pannel-group">
-                {% if cotisDispo|length > 0 %}
+                {% if (cotisDispo | length > 0) or (cotisAttente | length > 0) %}
                     {% set i = 0 %}
                     {% for dateDispo in cotisDispo %}
                       <div class="col-xs-6">
@@ -37,16 +37,41 @@
                               {{ form_label(forms[i].typeCotisation, "Type de cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
                                 {{ form_widget(forms[i].typeCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
                               </div>
-                                <div class="form-group col-xs-offset-4">
+                                <div class="form-group col-xs-offset-4 ">
                                   {{ form_errors(forms[i]) }}
                                   {{ form_rest(forms[i]) }}
                                 </div>
                                 {{ form_end(forms[i]) }}
-                            </div>
                           </div>
                         </div>
                       </div>
+                      </div>
                       {% set i = i + 1 %}
+                    {% endfor %}
+                    {% for dateAttente in cotisAttente %}
+                        <div class="col-xs-6">
+                          <div class="panel panel-orange">
+                            <div class="panel-heading">
+                              <h4>Cotisation {{ dateAttente.getYear | date("Y")  }}</h4>
+                            </div>
+                            <div class="panel-body">
+                              <p class="text-info">Votre cotisation est en attente de validation, si vous ne souhaitez pas payer en ligne, vous pouvez régler :</p>
+                                <ul>
+                                <li>Par chèque à l'ordre de l'<b>Association des Anciens Elèves de l'ISIMA</b></li>
+                                <li>Par virement à l'IBAN suivant : <b>XXXXXXXXXXXXXXXXXXXXXXXXXXXXX</b></li>
+                              </ul>
+                              <div class="col-xs-offset-4">
+                              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                              <input type="hidden" name="cmd" value="_s-xclick">
+                              <input type="hidden" name="hosted_button_id" value="M2LFT36X5JHZC">
+                              <input type="hidden" name="on0" value="Cotisation">
+                              <input type="hidden" name="os0" value="Membre 10€">
+                              <input type="hidden" name="currency_code" value="EUR">
+                              <button class="btn-primary btn">Paiement Paypal</button>
+                              </form>
+                              </div>
+                            </div>
+                          </div>
                     {% endfor %}
                     {% for dateOK in cotisOK %}
                       <div class="col-xs-6">
