@@ -50,11 +50,11 @@ assetic:
 doctrine:
     dbal:
         driver:   "%database_driver%"
-        host:     "%database_host%" #"%env(MYSQL_ADDON_HOST)%"
-        port:     "%database_port%" #"%env(MYSQL_ADDON_PORT)%"
-        dbname:   "%database_name%" #"%env(MYSQL_ADDON_DB)%"
-        user:     "%database_user%" #"%env(MYSQL_ADDON_USER)%"
-        password: "%database_password%" #"%env(MYSQL_ADDON_PASSWORD)%"
+        host:     "%env(MYSQL_ADDON_HOST)%"
+        port:     "%env(MYSQL_ADDON_PORT)%"
+        dbname:   "%env(MYSQL_ADDON_DB)%"
+        user:     "%env(MYSQL_ADDON_USER)%"
+        password: "%env(MYSQL_ADDON_PASSWORD)%"
         charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
