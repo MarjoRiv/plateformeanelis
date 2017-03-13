@@ -64,6 +64,10 @@ class CotisationController extends Controller
                     {
                         $typesCotisationForYear[] = $type;
                     }
+                    usort($typesCotisationForYear,function (TypeCotisation $a, TypeCotisation $b)
+                    {
+                        return $a->getPrice() > $b->getPrice();
+                    });
                 }
 
 
