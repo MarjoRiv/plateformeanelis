@@ -22,7 +22,7 @@ class Cotisation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", inversedBy="cotisation", cascade={"remove", "persist"})
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", inversedBy="cotisation")
      * @ORM\JoinColumn(nullable=false)
      */
     private $typeCotisation;

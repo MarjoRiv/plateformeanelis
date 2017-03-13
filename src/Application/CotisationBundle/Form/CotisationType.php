@@ -18,14 +18,14 @@ class CotisationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choices = $options['choices'];
-        $random_string = random_bytes(64);
+        $random_string = base64_encode(random_bytes(10));
         $builder
             ->add('typeCotisation', 'entity', array(
                 'class' => 'ApplicationCotisationBundle:TypeCotisation',
                 'choices' => $choices,
                 'required' => true
             ))
-            ->add($random_string, SubmitType::class, array('label' => 'Cotiser'))
+            ->add('submit'.$options['formId'], SubmitType::class, array('label' => 'Cotiser'))
         ;
     }
     
@@ -37,6 +37,7 @@ class CotisationType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Application\CotisationBundle\Entity\Cotisation',
             'choices' => null,
+            'formId' => null
         ));
     }
 

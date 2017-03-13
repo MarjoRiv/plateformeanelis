@@ -41,7 +41,7 @@ class TypeCotisation
     private $yearCotisation;
 
     /**
-     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="typeCotisation")
+     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="typeCotisation",cascade={"remove", "persist"})
      */
     private $cotisation;
 

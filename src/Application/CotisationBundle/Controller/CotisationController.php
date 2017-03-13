@@ -63,11 +63,9 @@ class CotisationController extends Controller
                 }
 
 
-                $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_'.$yearCotisation->getId(), CotisationType::class, $cotisation,  [ 'choices' => $typesCotisationForYear ])->getForm();
+                $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_'.$yearCotisation->getId(), CotisationType::class, $cotisation,  [ 'choices' => $typesCotisationForYear , 'formId' => $yearCotisation->getId()])->getForm();
 
-                $returnCotisationForm->handleRequest($request);
-
-                if($returnCotisationForm->isSubmitted() && $returnCotisationForm->isValid())
+                if($request->request->get('cotis_form_'.$yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
                 {
 
                     $cotisation->setYear($yearCotisation->getYear());
@@ -82,12 +80,9 @@ class CotisationController extends Controller
                             ->getQuery();
 
                         $invoices = $query->getResult();
-                        $last_cotisation_id = $invoices[0]->getId();
 
 
-                        return $this->redirect($this->generateUrl('application_cotisation_invoice_get', array(
-                            'id' => $last_cotisation_id
-                        )));
+                        return $this->redirect($this->generateUrl('application_cotisation_homepage'));
                     }
                 }
 
@@ -140,14 +135,11 @@ class CotisationController extends Controller
     public function deleteAction(Cotisation $cotisation) {
 
         if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
-            $managerInvoice = new InvoiceManager($this);
-            $managerInvoice->remove($cotisation->getInvoice());
+            $em = $this->getDoctrine()->getManager();
 
-            $managerCotisation = new CotisationManager($this);
-            $managerCotisation->remove($cotisation);
+            $em->remove($cotisation);
 
-            $managerInvoice->flush();
-            $managerCotisation->flush();   
+            $em->flush();
         }
         
         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
