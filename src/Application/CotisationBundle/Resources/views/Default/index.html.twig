@@ -31,11 +31,16 @@
                           </div>
                           <div class="panel-body">
                             <p class="text-info">La cotisation pour l'année {{ dateDispo }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
-                            <div class="center">
+                            <div class="col-xs-12 ">
                                 {{ form_start(forms[i]) }}
-
-                                {{ form_rest(forms[i]) }}
-
+                              <div class="form-group">
+                              {{ form_label(forms[i].typeCotisation, "Type de cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
+                                {{ form_widget(forms[i].typeCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
+                              </div>
+                                <div class="form-group col-xs-offset-4">
+                                  {{ form_errors(forms[i]) }}
+                                  {{ form_rest(forms[i]) }}
+                                </div>
                                 {{ form_end(forms[i]) }}
                             </div>
                           </div>

@@ -11,11 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c8a5f7b6-28d1-46c7-8175-1d4081e910dc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Application/CotisationBundle/Controller/CotisationController.php" afterPath="$PROJECT_DIR$/src/Application/CotisationBundle/Controller/CotisationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Application/CotisationBundle/Entity/TypeCotisation.php" afterPath="$PROJECT_DIR$/src/Application/CotisationBundle/Entity/TypeCotisation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationHandler.php" afterPath="$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationHandler.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationType.php" afterPath="$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Application/CotisationBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Application/CotisationBundle/Resources/config/routing.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig" afterPath="$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,12 +28,12 @@
     <favorites_list name="plateformeanelis" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-962">
-              <caret line="28" column="47" lean-forward="false" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+            <state relative-caret-position="324">
+              <caret line="39" column="70" lean-forward="false" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -47,8 +42,8 @@
       <file leaf-file-name="Cotisation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Entity/Cotisation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="186" column="26" lean-forward="false" selection-start-line="186" selection-start-column="26" selection-end-line="186" selection-end-column="26" />
+            <state relative-caret-position="262">
+              <caret line="136" column="5" lean-forward="false" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -57,9 +52,26 @@
       <file leaf-file-name="TypeCotisation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Entity/TypeCotisation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1746">
+              <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+              <folding>
+                <marker date="1489418962521" expanded="true" signature="743:952" ph=" @return int ..." />
+                <marker date="1489418962521" expanded="true" signature="982:1020" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1029:1057" ph=" @param int $id ..." />
+                <marker date="1489418962521" expanded="true" signature="1090:1127" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1136:1164" ph=" @return string ..." />
+                <marker date="1489418962521" expanded="true" signature="1196:1236" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1245:1278" ph=" @param string $name ..." />
+                <marker date="1489418962521" expanded="true" signature="1315:1356" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1365:1390" ph=" @return int ..." />
+                <marker date="1489418962521" expanded="true" signature="1423:1464" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1473:1504" ph=" @param int $price ..." />
+                <marker date="1489418962521" expanded="true" signature="1543:1586" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1595:1668" ph=" @return \Application\CotisationBundle\Entity\YearCotisation ..." />
+                <marker date="1489418962521" expanded="true" signature="1710:1760" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1769:1811" ph=" @param mixed $yearCotisation ..." />
+                <marker date="1489418962521" expanded="true" signature="1868:1929" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,9 +79,28 @@
       <file leaf-file-name="YearCotisation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Entity/YearCotisation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1206">
+              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+              <folding>
+                <marker date="1489418962521" expanded="true" signature="274:2035" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="818:1036" ph=" @return int ..." />
+                <marker date="1489418962521" expanded="true" signature="1066:1104" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1113:1141" ph=" @param int $id ..." />
+                <marker date="1489418962521" expanded="true" signature="1174:1211" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1220:1251" ph=" @return \DateTime ..." />
+                <marker date="1489418962521" expanded="true" signature="1283:1323" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1332:1368" ph=" @param \DateTime $year ..." />
+                <marker date="1489418962521" expanded="true" signature="1405:1446" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1455:1483" ph=" @return string ..." />
+                <marker date="1489418962521" expanded="true" signature="1515:1555" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1564:1597" ph=" @param string $name ..." />
+                <marker date="1489418962521" expanded="true" signature="1634:1675" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1684:1715" ph=" @return \DateTime ..." />
+                <marker date="1489418962521" expanded="true" signature="1754:1801" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1810:1853" ph=" @param \DateTime $dateEnabled ..." />
+                <marker date="1489418962521" expanded="true" signature="1904:1959" ph="{...}" />
+                <marker date="1489418962521" expanded="true" signature="1986:2031" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,7 +108,7 @@
       <file leaf-file-name="career.type.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CareerBundle/Resources/views/Form/career.type.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
+            <state relative-caret-position="1134">
               <caret line="63" column="18" lean-forward="false" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
               <folding />
             </state>
@@ -87,18 +118,18 @@
       <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CareerBundle/Controller/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-216">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CotisationController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CotisationController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Controller/CotisationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="101" column="12" lean-forward="false" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+            <state relative-caret-position="730">
+              <caret line="88" column="20" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
               <folding>
                 <element signature="e#59#92#0#PHP" expanded="true" />
               </folding>
@@ -119,7 +150,7 @@
       <file leaf-file-name="CotisationHandler.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationHandler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="450">
               <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
               <folding />
             </state>
@@ -129,11 +160,9 @@
       <file leaf-file-name="CotisationType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding>
-                <element signature="e#53#87#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="288">
+              <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -189,8 +218,8 @@
         <option value="$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationType.php" />
         <option value="$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationHandler.php" />
         <option value="$PROJECT_DIR$/src/Application/CotisationBundle/Entity/Cotisation.php" />
-        <option value="$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig" />
         <option value="$PROJECT_DIR$/src/Application/CotisationBundle/Controller/CotisationController.php" />
+        <option value="$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig" />
       </list>
     </option>
   </component>
@@ -220,6 +249,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -734,8 +765,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -842,10 +871,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50975000" />
+    <option name="totallyTimeSpent" value="51911000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="744" extended-state="0" />
+    <frame x="0" y="0" width="1366" height="744" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1102,7 +1131,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-512">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1110,7 +1138,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1118,7 +1145,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
           <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="91" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1126,7 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="67" column="7" lean-forward="false" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1134,7 +1159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1296">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1142,7 +1166,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-54">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1150,7 +1173,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-246">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1158,7 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1166,13 +1187,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-30">
           <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CareerBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-216">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1180,7 +1200,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CareerBundle/Resources/views/Form/career.type.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
+        <state relative-caret-position="1134">
           <caret line="63" column="18" lean-forward="false" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
           <folding />
         </state>
@@ -1188,33 +1208,67 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Entity/YearCotisation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1206">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding>
+            <marker date="1489418962521" expanded="true" signature="274:2035" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="818:1036" ph=" @return int ..." />
+            <marker date="1489418962521" expanded="true" signature="1066:1104" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1113:1141" ph=" @param int $id ..." />
+            <marker date="1489418962521" expanded="true" signature="1174:1211" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1220:1251" ph=" @return \DateTime ..." />
+            <marker date="1489418962521" expanded="true" signature="1283:1323" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1332:1368" ph=" @param \DateTime $year ..." />
+            <marker date="1489418962521" expanded="true" signature="1405:1446" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1455:1483" ph=" @return string ..." />
+            <marker date="1489418962521" expanded="true" signature="1515:1555" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1564:1597" ph=" @param string $name ..." />
+            <marker date="1489418962521" expanded="true" signature="1634:1675" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1684:1715" ph=" @return \DateTime ..." />
+            <marker date="1489418962521" expanded="true" signature="1754:1801" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1810:1853" ph=" @param \DateTime $dateEnabled ..." />
+            <marker date="1489418962521" expanded="true" signature="1904:1959" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1986:2031" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#53#87#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="288">
+          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Entity/TypeCotisation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1746">
+          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <folding>
+            <marker date="1489418962521" expanded="true" signature="743:952" ph=" @return int ..." />
+            <marker date="1489418962521" expanded="true" signature="982:1020" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1029:1057" ph=" @param int $id ..." />
+            <marker date="1489418962521" expanded="true" signature="1090:1127" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1136:1164" ph=" @return string ..." />
+            <marker date="1489418962521" expanded="true" signature="1196:1236" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1245:1278" ph=" @param string $name ..." />
+            <marker date="1489418962521" expanded="true" signature="1315:1356" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1365:1390" ph=" @return int ..." />
+            <marker date="1489418962521" expanded="true" signature="1423:1464" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1473:1504" ph=" @param int $price ..." />
+            <marker date="1489418962521" expanded="true" signature="1543:1586" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1595:1668" ph=" @return \Application\CotisationBundle\Entity\YearCotisation ..." />
+            <marker date="1489418962521" expanded="true" signature="1710:1760" ph="{...}" />
+            <marker date="1489418962521" expanded="true" signature="1769:1811" ph=" @param mixed $yearCotisation ..." />
+            <marker date="1489418962521" expanded="true" signature="1868:1929" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Form/CotisationHandler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="450">
           <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding />
         </state>
@@ -1222,16 +1276,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Entity/Cotisation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="186" column="26" lean-forward="false" selection-start-line="186" selection-start-column="26" selection-end-line="186" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-962">
-          <caret line="28" column="47" lean-forward="false" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+        <state relative-caret-position="262">
+          <caret line="136" column="5" lean-forward="false" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1246,11 +1292,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Controller/CotisationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="101" column="12" lean-forward="false" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+        <state relative-caret-position="730">
+          <caret line="88" column="20" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
           <folding>
             <element signature="e#59#92#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Application/CotisationBundle/Resources/views/Default/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="39" column="70" lean-forward="false" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
+          <folding />
         </state>
       </provider>
     </entry>
