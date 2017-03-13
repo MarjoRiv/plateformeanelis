@@ -101,7 +101,7 @@ class OffresController extends Controller
             $em=$this->getDoctrine()->getManager();
             $query=$em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
             $query=$query
-                ->orderBy('u.datepublished', 'DESC');
+                ->orderBy('u.datepublished', 'DESC')
                 ->where('u.user = :userId')
                     ->setParameter('userId', $userOffre);
             $offersUser=$query->getQuery()->getResult();
