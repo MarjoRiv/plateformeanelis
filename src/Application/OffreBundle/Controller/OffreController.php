@@ -21,11 +21,11 @@ class OffreController extends Controller
 
     public function addAction(Request $request)
     {
-        $offer = new Offers();
-        $userOffre=$this->UserOffreCreat();
+        $offer = new Offers(); // creation of new offer
+        $userOffre=$this->UserOffreCreat(); // call function of recorvery of userOffre
         $message="";
 
-        $OffersForm = $this->get('form.factory')
+        $OffersForm = $this->get('form.factory') // creation of the form for user 
             ->createNamed(
                 '',
                 OffersType::class,
@@ -36,45 +36,44 @@ class OffreController extends Controller
                 )
             );
         $OffersForm->handleRequest($request);
-        $offer->setUser($userOffre);
-        $formSubmited = false;
-        $autorize= $userOffre->getAutorized();
+        $offer->setUser($userOffre); // association the user and the offer
+        $formSubmited = false; 
+        $autorize= $userOffre->getAutorized(); // recorvery user's autorisation
         if ($autorize==true)
         {
-            if ($OffersForm->isValid()) 
+            if ($OffersForm->isValid()) // if form is validated
             {
                 $em2=$this->getDoctrine()->getManager();
                 $query=$em2->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('o');
-                if ($userOffre!=null)
+                if ($userOffre!=null) // userOffre exist
                 {
-                    $year = mktime(0, 0, 1, 1, 1, date('Y'));
                     $query = $query
                         ->where('o.user = :userOffre')
                         ->setParameter('userOffre', $userOffre);
-                    $this->whereCurrentYear($query);
+                    $this->whereCurrentYear($query);   // recorvery the offer of the user of this year
                 }
-                $offersUser=$query->getQuery()->getResult();
-                $prop=count($offersUser);                
-                if ($prop<($userOffre->getNbpropMax()))
+                $offersUser=$query->getQuery()->getResult(); // get result
+                $prop=count($offersUser);  // count the number of offer on this result
+                if ($prop<($userOffre->getNbpropMax())) // if user can make other offer
                 {   
                     $em3 = $this->getDoctrine()
                                 ->getManager()
                                 ->getRepository('Application\OffreBundle\Entity\OffreVar')
                                 ->createQueryBuilder('v');
-                    $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0];
-                    $offer->setDateexpire($offer->getDateexpire()->modify((($dureemax->getVariable())-30)." day"));
-                    $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1);
-                    if ($offer->getAttachement()!=null)
+                    $dureemax = ($em3->where('v.name = :name')->setParameter('name', "dureeOffre(jour)")->getQuery()->getResult())[0]; // get the duration configured by the admin of offer
+                    $offer->setDateexpire($offer->getDateexpire()->modify((($dureemax->getVariable())-30)." day")); // set that in the offer
+                    $userOffre->setNbpropfait(($userOffre->getNbpropfait())+1); // increment the number of offer done by the user
+                    if ($offer->getAttachement()!=null) // if attachement exist
                     {
-                        $filesize = ($em3->where('v.name = :name')->setParameter('name', "filesize(octets)")->getQuery()->getResult())[0]->getVariable();
-                        if ($offer->getAttachement()->taillefile()<$filesize)
+                        $filesize = ($em3->where('v.name = :name')->setParameter('name', "filesize(octets)")->getQuery()->getResult())[0]->getVariable(); // get the larger configured by admin
+                        if ($offer->getAttachement()->taillefile()<$filesize) // if the file is not too large
                         {
-                            $offer->getAttachement()->preUpload();
+                            $offer->getAttachement()->preUpload(); // prepare updated
                         }
                         else
                         {
                             $offer->setAttachement(null);
-                            $message='Le fichier doit être inférieur à 1Mo';
+                            $message='Le fichier doit être inférieur à 1Mo'; // else : error messgae
                             return $this->render('OffreBundle:Offre:add.html.twig',array(
                                 'message' => $message,
                                 'autorize' => $autorize,
@@ -86,14 +85,14 @@ class OffreController extends Controller
                     $em=$this->getDoctrine()->getManager();
                     $em->persist($userOffre);
                     $em->persist($offer);
-                    $em->flush();
+                    $em->flush(); // save in bdd to create idattachement and offer and user
                     if ($offer->getAttachement()!=null)
                     {
-                        $offer->getAttachement()->upload();
+                        $offer->getAttachement()->upload(); // uplaod the file
                     }
                     $em=$this->getDoctrine()->getManager();
                     $em->persist($offer);
-                    $em->flush();
+                    $em->flush(); // save in bdd
                     $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
                     $formSubmited = true;
                     return $this->render('OffreBundle:Offre:show.html.twig',array(
@@ -103,7 +102,7 @@ class OffreController extends Controller
                 }
                 else
                 {
-                    $message='Vous n\'avez plus la possibilité de publier d\'annonce cette année';
+                    $message='Vous n\'avez plus la possibilité de publier d\'annonce cette année'; // error message
                     $request->getSession()
                             ->getFlashBag()
                             ->add('notice', 'Trop d\'annonce publiée, contactez l\'administrateur si vous souhaitez en avoir plus.');
@@ -121,18 +120,18 @@ class OffreController extends Controller
     public function showAction(Offers $offre)
     {
         $usercreation= false;
-        if ($this->getUser()==$offre->getUser()->getUserApp())
+        if ($this->getUser()==$offre->getUser()->getUserApp()) // if user is the creator of the offer
         {
-            $date=new \DateTime('now');
-            if ($offre->getDateexpire()>$date)
+            $date=new \DateTime('now'); 
+            if ($offre->getDateexpire()>$date) // if user can modify the offer yet
             {
                 $usercreation = true;
             }
         }
         else
         {
-            $offre->setReading($offre->getReading()+1);
-            $em = $this->getDoctrine()->getManager();
+            $offre->setReading($offre->getReading()+1); 
+            $em = $this->getDoctrine()->getManager();   //save in data base
             $em->persist($offre);
             $em->flush();
         }
@@ -145,9 +144,9 @@ class OffreController extends Controller
         $formSubmited=false;
         $autorize=false;
         $message="";
-        if (($offre->getUser()->getUserApp()==$this->getUser())&&($offre->getDateexpire()>new \DateTime('now')))
+        if (($offre->getUser()->getUserApp()==$this->getUser())&&($offre->getDateexpire()>new \DateTime('now')))  // if user can modify the offer
         {
-            $OffersForm = $this->get('form.factory')
+            $OffersForm = $this->get('form.factory') // creating of the form for user
                 ->createNamed(
                     '',
                     Offers2Type::class,
@@ -157,22 +156,22 @@ class OffreController extends Controller
                         'method' => 'POST'
                     )
                 );
-            $autorize = $offre->getUser()->getAutorized();
-            $OffersForm->handleRequest($request);
+            $autorize = $offre->getUser()->getAutorized(); //user autorization
+            $OffersForm->handleRequest($request); 
             
-            if ($OffersForm->isValid()) 
+            if ($OffersForm->isValid()) //if form is validated
             {   
                 $formSubmited=true;
-                if ($offre->getAttachement()!=null)
+                if ($offre->getAttachement()!=null) //if offer has attachement
                 {  
-                    if ($OffersForm->get('deleteAttachement')->isClicked())
+                    if ($OffersForm->get('deleteAttachement')->isClicked()) //if user want delete attachement
                     {
-                        $this->deleteAttachement($offre);
-                        $message="Pièce jointe supprimée";
+                        $this->deleteAttachement($offre);  //delete attachement of offer
+                        $message="Pièce jointe supprimée";  //message for user
                         $em = $this->getDoctrine()->getManager();
                         $em->remove($offre->getAttachement());
-                        $offre->setAttachement(null);
-                        $em->flush();
+                        $offre->setAttachement(null); 
+                        $em->flush(); // save in data base
                         return $this->render('OffreBundle:Offre:offre.edit.html.twig',array(
                             'message' => $message,
                             'autorize' => $autorize,
@@ -185,15 +184,15 @@ class OffreController extends Controller
                                 ->getManager()
                                 ->getRepository('Application\OffreBundle\Entity\OffreVar')
                                 ->createQueryBuilder('v');
-                    $filesize = ($em3->where('v.name = :name')->setParameter('name', "filesize(octets)")->getQuery()->getResult())[0]->getVariable();
-                    if ($offre->getAttachement()->taillefile()<$filesize) //1Mo
+                    $filesize = ($em3->where('v.name = :name')->setParameter('name', "filesize(octets)")->getQuery()->getResult())[0]->getVariable(); // variable filesize(octets) configured by admin 
+                    if ($offre->getAttachement()->taillefile()<$filesize) // if file is not too large
                     {
-                        $offre->getAttachement()->preUpload();
+                        $offre->getAttachement()->preUpload();  // prepare uplaod
                     }
                     else
                     {
-                        $offre->setAttachement(null);
-                        $message='Le fichier doit être inférieur à 1Mo';
+                        $offre->setAttachement(null);  // delete file because too large
+                        $message='Le fichier doit être inférieur à 1Mo';  
                         return $this->render('OffreBundle:Offre:offre.edit.html.twig',array(
                             'message' => $message,
                             'autorize' => $autorize,
@@ -204,18 +203,18 @@ class OffreController extends Controller
                     }
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($offre);
-                    $em->flush();
+                    $em->flush();  // save in data base to create an id for file
                 }
                 if ($offre->getAttachement()!=null)
                 {
-                    $offre->getAttachement()->upload();
+                    $offre->getAttachement()->upload(); // downlaod file
                 }
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($offre);
-                $em->flush();
-                $message="Modification enregistrée";
+                $em->flush(); // save in data base
+                $message="Modification enregistrée"; // user message
                 $request->getSession()->getFlashBag()->add('success', "L'offre a été modifié.");
-                return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
+                return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));  // redirection in show the offer 
             }
             return $this->render('OffreBundle:Offre:offre.edit.html.twig', array(
                         'message' => $message,
@@ -227,35 +226,34 @@ class OffreController extends Controller
         }
         else
         {
-            return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
-        }
-        // Vérification de l'id pour des raisons de sécurités 
+            return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));  // redirection in show the offer because th user cannot modify this
+        } 
     }
 
     protected function deleteAttachement(Offers $offre)
     {
-        $offre->removeAttachement();
+        $offre->removeAttachement(); // delete attachement
         $em = $this->getDoctrine()->getManager();
         $em->persist($offre);
-        $em->flush();
+        $em->flush(); //save in data base
     }
 
     protected function UserOffreCreat()
     {
         $em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
         $userOffre = null;
-        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult());
-        if ($userOffre==null)
+        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult()); // search of useroffre with current user
+        if ($userOffre==null) // if he don't exist
         {
-            $userOffre = new UserOffre($this->getUser()->getId());
-            $userOffre->setUserApp($this->getUser());
+            $userOffre = new UserOffre($this->getUser()->getId()); // creation
+            $userOffre->setUserApp($this->getUser()); //link with general user
         }
         else
         {
-            $userOffre = $userOffre[0];
+            $userOffre = $userOffre[0]; //if he exists, recorvery
         }
-        $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v');
-        if ($userOffre->getUserApp()->isCotisant())
+        $em3 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\OffreVar')->createQueryBuilder('v'); 
+        if ($userOffre->getUserApp()->isCotisant()) // show if he is cotisant or not
         {
             $name = "nbOffresCotisants";
         }
@@ -263,19 +261,19 @@ class OffreController extends Controller
         {
             $name = "nbOffresNonCotisants";
         }
-        $varoffre = ($em3->where('v.name = :name')->setParameter('name', $name)->getQuery()->getResult())[0];
-        $nbactuel = $userOffre->getNbpropMax();
-        if (($nbactuel == null) or ($nbactuel<($varoffre->getVariable())))
+        $varoffre = ($em3->where('v.name = :name')->setParameter('name', $name)->getQuery()->getResult())[0]; // take the number of offer possible, admin configuration
+        $nbactuel = $userOffre->getNbpropMax(); // get his actual number
+        if (($nbactuel == null) or ($nbactuel<($varoffre->getVariable()))) // if is not initialised yet or the number is lesser than the real possibility propose by admin
         {
-            $userOffre->setNbpropmax($varoffre->getVariable());
+            $userOffre->setNbpropmax($varoffre->getVariable()); // update
         }
         $em1 = $this->getDoctrine()->getManager();
         $em1->persist($userOffre);
-        $em1->flush();
+        $em1->flush(); // save in data base
         return $userOffre;
     }
 
-    public function whereCurrentYear(QueryBuilder $qb)
+    public function whereCurrentYear(QueryBuilder $qb) // function which select offer of the year
     {
     $qb
       ->andWhere('o.datepublished BETWEEN :start AND :end')
