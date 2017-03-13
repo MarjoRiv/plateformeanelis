@@ -54,6 +54,7 @@ class OffreAdmin extends AbstractAdmin
             ->add('enabled')
             ->add('dateexpire')
             ->add('reading')
+            ->add('IdAttachement')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -76,6 +77,7 @@ class OffreAdmin extends AbstractAdmin
             ->add('type')
             ->add('enabled')
             ->add('reading')
+            ->add('IdAttachement')
         ;
     }
 }

@@ -39,7 +39,6 @@ class UserOffreAdmin extends AbstractAdmin
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array(),
                 )
             ))
         ;

@@ -35,7 +35,6 @@ class VarOffreAdmin extends AbstractAdmin
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array(),
                 )
             ))
         ;
