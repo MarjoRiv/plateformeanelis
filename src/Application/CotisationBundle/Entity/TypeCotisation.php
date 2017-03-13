@@ -89,7 +89,7 @@ class TypeCotisation
     }
 
     /**
-     * @return mixed
+     * @return \Application\CotisationBundle\Entity\YearCotisation
      */
     public function getYearCotisation()
     {
