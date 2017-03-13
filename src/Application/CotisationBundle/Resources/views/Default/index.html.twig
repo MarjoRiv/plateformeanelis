@@ -20,8 +20,8 @@
           </div>
           <h1>Mes cotisations</h1>
           <div class="row">
-            <div class="pannel-group">
-                {% if (cotisDispo | length > 0) or (cotisAttente | length > 0) %}
+            <div>
+                {% if (cotisDispo | length > 0) or (cotisAttente | length > 0) or (cotisOK | length > 0)%}
                     {% set i = 0 %}
                     {% for dateDispo in cotisDispo %}
                       <div class="col-xs-6">
@@ -72,6 +72,7 @@
                               </div>
                             </div>
                           </div>
+                        </div>
                     {% endfor %}
                     {% for dateOK in cotisOK %}
                       <div class="col-xs-6">
@@ -125,8 +126,8 @@
                             <td>{{ cotisation.year|date("Y") }}</td>
                             <td>{{ cotisation.typeCotisation.name }}</td>
                             <td>{{ cotisation.priceCotisation }} €</td>
-                            <td>{% if cotisation.invoice.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
-                            <td><a href="{{ path("application_cotisation_invoice_get", { "id" : cotisation.invoice.id }) }}"><i class="fa fa-eye"></i></a>    {% if not cotisation.invoice.payed %}
+                            <td>{% if cotisation.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
+                            <td><a href="{{ path("application_cotisation_invoice_get", { "id" : cotisation.id }) }}"><i class="fa fa-eye"></i></a>    {% if not cotisation.payed %}
                                 <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></i></a>
                                 {% endif %}</td>
                           </tr>
