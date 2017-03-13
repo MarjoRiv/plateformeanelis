@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Application\CareerBundle\ApplicationCareerBundle(),
             new Application\YearbookBundle\ApplicationYearbookBundle(),
             new Application\OffreBundle\OffreBundle(),
+            new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

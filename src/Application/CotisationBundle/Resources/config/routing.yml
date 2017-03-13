@@ -3,8 +3,8 @@ application_cotisation_homepage:
     defaults: { _controller: ApplicationCotisationBundle:Cotisation:index }
 
 application_cotisation_new:
-    path:     /cotisation/new
-    defaults: { _controller: ApplicationCotisationBundle:Cotisation:add }
+    path:     /cotisation
+    defaults: { _controller: ApplicationCotisationBundle:Cotisation:index }
 
 application_cotisation_invoice_get:
     path:     /cotisation/invoice/{id}
