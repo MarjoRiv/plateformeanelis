@@ -27,17 +27,17 @@
                                 <div class="tab-content">
                                     <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
                                         {{ form_start(formtype) }}
-                                            <div class="col-md-4" style="text-align: left; width: 300px; float:left;">
+                                            <div class="col-md-3" style="text-align: left; width: 300px; float:left;">
                                                 {{ form_errors(formtype) }}
                                                 <div class="form-group">
                                                     {{ form_label(formtype.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-4">
-                                                        {{ form_widget(formtype.type, { 'attr' : { 'class' : 'formtype-control', 'style' : 'margin-top:5px;' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(formtype.type, { 'attr' : { 'class' : 'form-control' } }) }}
 
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style="text-align: left; float:left;">
+                                            <div class="col-md-3" style="text-align: left; float:left;">
                                                 <div class="btn-toolbar">
                                                     <button class="btn-primary btn">Filtrer</button>
                                                 </div>
@@ -45,13 +45,14 @@
                                             
                                             {{ form_rest(formtype) }} 
                                         {{ form_end(formtype) }}
-                                            <div style="text-align: right;">
+                                            <div class="col-md-3" style="text-align: right; float: right;">
                                                 <div class="btn-toolbar">
                                                     <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonce</button></a>
                                                 </div>
                                             </div>
 
-                                            <br/>
+                                            <br/><br/>
+                                            <br/><br/>
 
                                         {% if results is not empty %}
                                             {% for result in results %}
