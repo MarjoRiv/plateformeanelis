@@ -20,7 +20,6 @@
           </div>
           <h1>Mes cotisations</h1>
           <div class="row">
-            <div>
                 {% if (cotisDispo | length > 0) or (cotisAttente | length > 0) or (cotisOK | length > 0)%}
                     {% set i = 0 %}
                     {% for dateDispo in cotisDispo %}
@@ -47,6 +46,9 @@
                       </div>
                       </div>
                       {% set i = i + 1 %}
+                        {%  if i%2==0 %}
+                          <div class="col-xs-12"> </div>
+                      {%  endif %}
                     {% endfor %}
                     {% for dateAttente in cotisAttente %}
                         <div class="col-xs-6">
@@ -61,18 +63,22 @@
                                 <li>Par virement à l'IBAN suivant : <b>XXXXXXXXXXXXXXXXXXXXXXXXXXXXX</b></li>
                               </ul>
                               <div class="col-xs-offset-4">
-                              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                              <input type="hidden" name="cmd" value="_s-xclick">
-                              <input type="hidden" name="hosted_button_id" value="M2LFT36X5JHZC">
-                              <input type="hidden" name="on0" value="Cotisation">
-                              <input type="hidden" name="os0" value="Membre 10€">
-                              <input type="hidden" name="currency_code" value="EUR">
-                              <button class="btn-primary btn">Paiement Paypal</button>
-                              </form>
+                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                  <input type="hidden" name="cmd" value="_s-xclick">
+                                  <input type="hidden" name="hosted_button_id" value="M2LFT36X5JHZC">
+                                  <input type="hidden" name="on0" value="Cotisation">
+                                  <input type="hidden" name="os0" value="{% if dateAttente.priceCotisation == 10 %}Membre{% elseif dateAttente.priceCotisation == 20 %}Membre bienfaiteur 20{% elseif dateAttente.priceCotisation == 25 %}Membre bienfaiteur 25{% elseif dateAttente.priceCotisation == 30 %}Membre bienfaiteur 30{% elseif dateAttente.priceCotisation == 40 %}Membre bienfaiteur 40{% elseif dateAttente.priceCotisation == 50 %}Membre bienfaiteur 50{% else %}Membre{% endif %}">
+                                  <input type="hidden" name="currency_code" value="EUR">
+                                  <button class="btn-primary btn">Payer</button>
+                                </form>
                               </div>
                             </div>
                           </div>
                         </div>
+                        {% set i = i + 1 %}
+                        {%  if i%2==0 %}
+                          <div class="col-xs-12"> </div>
+                        {%  endif %}
                     {% endfor %}
                     {% for dateOK in cotisOK %}
                       <div class="col-xs-6">
@@ -85,11 +91,14 @@
                           </div>
                         </div>
                       </div>
+                        {% set i = i + 1 %}
+                        {%  if i%2==0 %}
+                          <div class="col-xs-12"> </div>
+                        {%  endif %}
                     {% endfor %}
                 {% else %}
                   <p class="text-danger">Aucune cotisation n'est active et il n'est pas possible de cotiser actuellement.</p>
                 {% endif %}
-            </div>
           </div>
         </div>
 
