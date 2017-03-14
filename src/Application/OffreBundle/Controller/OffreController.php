@@ -120,7 +120,7 @@ class OffreController extends Controller
     public function showAction(Offers $offre)
     {
         $usercreation= false;
-        if ($this->getUser()==$offre->getUser()->getUserApp()) // if user is the creator of the offer
+        if ($this->getUser()==$offre->getUser()->getUserApp()) // if user is the offer creator
         {
             $date=new \DateTime('now'); 
             if ($offre->getDateexpire()>$date) // if user can modify the offer yet
@@ -146,7 +146,7 @@ class OffreController extends Controller
         $message="";
         if (($offre->getUser()->getUserApp()==$this->getUser())&&($offre->getDateexpire()>new \DateTime('now')))  // if user can modify the offer
         {
-            $OffersForm = $this->get('form.factory') // creating of the form for user
+            $OffersForm = $this->get('form.factory') // create the form for user
                 ->createNamed(
                     '',
                     Offers2Type::class,
@@ -159,14 +159,14 @@ class OffreController extends Controller
             $autorize = $offre->getUser()->getAutorized(); //user autorization
             $OffersForm->handleRequest($request); 
             
-            if ($OffersForm->isValid()) //if form is validated
+            if ($OffersForm->isValid()) //if form is valid
             {   
                 $formSubmited=true;
                 if ($offre->getAttachement()!=null) //if offer has attachement
                 {  
                     if ($OffersForm->get('deleteAttachement')->isClicked()) //if user want delete attachement
                     {
-                        $this->deleteAttachement($offre);  //delete attachement of offer
+                        $this->deleteAttachement($offre);  //delete attachement
                         $message="Pièce jointe supprimée";  //message for user
                         $em = $this->getDoctrine()->getManager();
                         $em->remove($offre->getAttachement());
@@ -242,8 +242,8 @@ class OffreController extends Controller
     {
         $em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
         $userOffre = null;
-        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult()); // search of useroffre with current user
-        if ($userOffre==null) // if he don't exist
+        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult()); // search useroffre with current user
+        if ($userOffre==null) // if he doesn't exist
         {
             $userOffre = new UserOffre($this->getUser()->getId()); // creation
             $userOffre->setUserApp($this->getUser()); //link with general user
