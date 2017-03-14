@@ -14,7 +14,7 @@ class DefaultController extends Controller
     {
         $users = $this->getDoctrine()->getRepository('AdminUserBundle:User')->findAll();
 
-        $offers = $this->getDoctrine()->getRepository('OffreBundle:Offers')->findAll();
+        $offers = $this->OffreValid();
 
         //Searching the static textes on the page... Maybe use the name instead of the Id that can change on the DB.
         $welcomeText = $this->getDoctrine()->getRepository('AdminUserBundle:StaticText')->find(1);
@@ -59,5 +59,18 @@ class DefaultController extends Controller
 
         return $incommingEvents;
     }
+
+    //list of valid offers
+    public function OffreValid()
+    {
+        $query=$this->getDoctrine()->getRepository('OffreBundle:Offers')->createQueryBuilder('u');
+        
+        $date=new \DateTime('now');
+        $query->where('u.dateexpire > :date') //select offers which are before its expiration date
+            ->setParameter('date', $date) 
+            ->andwhere('u.enabled = true'); //select offers which are enabled by the user
+        $query=$query->getQuery()->getResult();
+        return $query;
+    } 
 
 }
