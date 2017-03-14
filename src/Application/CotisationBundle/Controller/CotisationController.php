@@ -98,7 +98,6 @@ class CotisationController extends Controller
             }
 
         }
-
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
             "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
             "cotisOK" => $cotisOK,
