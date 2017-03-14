@@ -36,13 +36,13 @@ class AppKernel extends Kernel
             new Application\ChatBundle\ApplicationChatBundle(),
             new Application\CareerBundle\ApplicationCareerBundle(),
             new Application\YearbookBundle\ApplicationYearbookBundle(),
-            new Application\OffreBundle\OffreBundle(),
+            new Application\OffreBundle\OffreBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(); 
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
         }
 
         return $bundles;

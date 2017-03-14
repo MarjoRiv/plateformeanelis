@@ -61,7 +61,7 @@ class DefaultController extends Controller
     }
 
     //list of valid offers
-    public function OffreValid()
+    protected function OffreValid()
     {
         $query=$this->getDoctrine()->getRepository('OffreBundle:Offers')->createQueryBuilder('u');
         
