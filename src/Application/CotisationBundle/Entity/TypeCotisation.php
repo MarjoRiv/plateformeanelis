@@ -113,7 +113,7 @@ class TypeCotisation
 
     function __toString()
     {
-        return $this->getName();
+        return $this->getYearCotisation()->getYear()->format('Y').' - '.$this->getName();
     }
 
 

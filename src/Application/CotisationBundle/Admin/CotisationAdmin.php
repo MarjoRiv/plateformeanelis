@@ -17,12 +17,11 @@ class CotisationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            ->add('typeCotisation')
+            ->add('payed', null, array('label' => 'Payé ?'))
+            ->add('user', null, array('label' => 'Utilisateur'))
+            ->add('typeCotisation', null, array('label' => 'Date et Type de Cotisation'))
+            ->add('typeCotisation.price', null, array('label' => 'Prix'))
+
         ;
     }
 
@@ -33,12 +32,11 @@ class CotisationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            ->add('typeCotisation')
+            ->add('year', 'datetime', array('format' => 'Y','label' => 'Année'))
+            ->add('payed', null, array('label' => 'Payé ?'))
+            ->add('user', null, array('label' => 'Utilisateur'))
+            ->add('typeCotisation', null, array('label' => 'Date et Type de Cotisation'))
+            ->add('typeCotisation.price', null, array('label' => 'Prix'))
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -55,12 +53,13 @@ class CotisationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            ->add('typeCotisation')
+            ->add('year', null, array('label' => 'Année de Cotisation'))
+            ->add('payed', null, array('label' => 'Payé ?'))
+            ->add('user', null, array('label' => 'Utilisateur'))
+            ->add('typeCotisation', null,array(
+                'sortable' => 'typeCotisation',
+                'label' => 'Date et Type de Cotisation'
+            ))
         ;
     }
 
@@ -71,12 +70,11 @@ class CotisationAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('year')
-            ->add('nameCotisation')
-            ->add('priceCotisation')
-            ->add('payed')
-            ->add('user')
-            //->add('typeCotisation')
+            ->add('year', 'datetime', array('format' => 'Y','label' => 'Année'))
+            ->add('payed', null, array('label' => 'Payé ?'))
+            ->add('user', null, array('label' => 'Utilisateur'))
+            ->add('typeCotisation', null, array('label' => 'Date et Type de Cotisation'))
+            ->add('typeCotisation.price', null, array('label' => 'Prix'))
         ;
     }
 }

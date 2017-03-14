@@ -16,8 +16,7 @@ class YearCotisationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('year')
-            ->add('name')
+            ->add('name', null, array('label' => 'Année de Cotisation'))
             ->add('dateEnabled')
         ;
     }
@@ -29,9 +28,9 @@ class YearCotisationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('year')
-            ->add('name')
-            ->add('dateEnabled')
+            ->add('year', 'datetime', array('format' => 'Y',
+            'label' => 'Année de Cotisation'))
+            ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -48,9 +47,9 @@ class YearCotisationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('year')
-            ->add('name')
-            ->add('dateEnabled')
+            ->add('year', null, array('label' => 'Date de départ Cotisation'))
+            ->add('name', null, array('label' => 'Descriptif'))
+            ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
         ;
     }
 
@@ -61,9 +60,8 @@ class YearCotisationAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('year')
-            ->add('name')
-            ->add('dateEnabled')
+            ->add('year', null, array('label' => 'Date de départ Cotisation'))
+            ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
         ;
     }
 }

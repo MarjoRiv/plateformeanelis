@@ -35,19 +35,6 @@ class Cotisation
      */
     private $year;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="namecotisation", type="string", length=255)
-     */
-    private $nameCotisation;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pricecotisation", type="integer")
-     */
-    private $priceCotisation;
 
     /**
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="cotisations")
@@ -185,52 +172,6 @@ class Cotisation
     public function getYear()
     {
         return $this->year;
-    }
-
-
-    /**
-     * Set nameCotisation
-     *
-     * @param string $nameCotisation
-     * @return Cotisation
-     */
-    public function setNameCotisation($nameCotisation)
-    {
-        $this->nameCotisation = $nameCotisation;
-        return $this;
-    }
-
-    /**
-     * Get nameCotisation
-     *
-     * @return string
-     */
-    public function getNameCotisation()
-    {
-        return $this->nameCotisation;
-    }
-
-    /**
-     *
-     * Set priceCotisation
-     *
-     * @param integer $priceCotisation
-     * @return Cotisation
-     */
-    public function setPriceCotisation($priceCotisation)
-    {
-        $this->priceCotisation = $priceCotisation;
-        return $this;
-    }
-
-    /**
-     * Get priceCotisation
-     *
-     * @return integer
-     */
-    public function getPriceCotisation()
-    {
-        return $this->priceCotisation;
     }
 
     /**

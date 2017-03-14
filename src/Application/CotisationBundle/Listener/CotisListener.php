@@ -19,9 +19,6 @@ class CotisListener {
             $invoice->setCotisation($entity);
             $invoice->setPayed($entity->getPayed());
             $invoice->setDate(new \DateTime('now'));
-
-            $entity->setNameCotisation($entity->getTypeCotisation()->getName());
-            $entity->setPriceCotisation($entity->getTypeCotisation()->getPrice());
             $entity->setInvoice($invoice);
             
             $em->persist($invoice);

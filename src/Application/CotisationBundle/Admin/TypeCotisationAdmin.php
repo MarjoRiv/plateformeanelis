@@ -16,9 +16,9 @@ class TypeCotisationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name')
-            ->add('price')
-            ->add('yearCotisation')
+            ->add('name', null, array('label' => 'Descriptif'))
+            ->add('price', null, array('label' => 'Prix'))
+            ->add('yearCotisation', null, array('label' => 'Année de Cotisation'))
         ;
     }
 
@@ -29,9 +29,9 @@ class TypeCotisationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('name')
-            ->add('price')
-            ->add('yearCotisation')
+            ->add('name', null, array('label' => 'Descriptif'))
+            ->add('price', null, array('label' => 'Prix'))
+            ->add('yearCotisation', null, array('label' => 'Année de Cotisation'))
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -48,9 +48,9 @@ class TypeCotisationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('price')
-            ->add('yearCotisation')
+            ->add('name', null, array('label' => 'Descriptif'))
+            ->add('price', null, array('label' => 'Prix'))
+            ->add('yearCotisation', null, array('label' => 'Année de Cotisation'))
 
         ;
     }
@@ -62,9 +62,9 @@ class TypeCotisationAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('name')
-            ->add('price')
-            ->add('yearCotisation')
+            ->add('name', null, array('label' => 'Descriptif'))
+            ->add('price', null, array('label' => 'Prix'))
+            ->add('yearCotisation', null, array('label' => 'Année de Cotisation'))
 
         ;
     }

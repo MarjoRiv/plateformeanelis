@@ -67,7 +67,7 @@
                                   <input type="hidden" name="cmd" value="_s-xclick">
                                   <input type="hidden" name="hosted_button_id" value="M2LFT36X5JHZC">
                                   <input type="hidden" name="on0" value="Cotisation">
-                                  <input type="hidden" name="os0" value="{% if dateAttente.priceCotisation == 10 %}Membre{% elseif dateAttente.priceCotisation == 20 %}Membre bienfaiteur 20{% elseif dateAttente.priceCotisation == 25 %}Membre bienfaiteur 25{% elseif dateAttente.priceCotisation == 30 %}Membre bienfaiteur 30{% elseif dateAttente.priceCotisation == 40 %}Membre bienfaiteur 40{% elseif dateAttente.priceCotisation == 50 %}Membre bienfaiteur 50{% else %}Membre{% endif %}">
+                                  <input type="hidden" name="os0" value="{% if dateAttente.typeCotisation.price == 10 %}Membre{% elseif dateAttente.typeCotisation.price == 20 %}Membre bienfaiteur 20{% elseif dateAttente.typeCotisation.price == 25 %}Membre bienfaiteur 25{% elseif dateAttente.typeCotisation.price == 30 %}Membre bienfaiteur 30{% elseif dateAttente.typeCotisation.price == 40 %}Membre bienfaiteur 40{% elseif dateAttente.typeCotisation.price == 50 %}Membre bienfaiteur 50{% else %}Membre{% endif %}">
                                   <input type="hidden" name="currency_code" value="EUR">
                                   <button class="btn-primary btn">Payer</button>
                                 </form>
@@ -134,7 +134,7 @@
                             <td>{{ cotisationNumbers }}</td>
                             <td>{{ cotisation.year|date("Y") }}</td>
                             <td>{{ cotisation.typeCotisation.name }}</td>
-                            <td>{{ cotisation.priceCotisation }} €</td>
+                            <td>{{ cotisation.typeCotisation.price }} €</td>
                             <td>{% if cotisation.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
                             <td><a href="{{ path("application_cotisation_invoice_get", { "id" : cotisation.id }) }}"><i class="fa fa-eye"></i></a>    {% if not cotisation.payed %}
                                 <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></i></a>
