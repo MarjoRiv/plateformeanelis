@@ -2,8 +2,10 @@
 
 namespace Application\CotisationBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,27 +17,15 @@ class CotisationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = $options['choices'];
+        $random_string = base64_encode(random_bytes(10));
         $builder
-            /*->add('year', 'datetime', array(
-                'required' => true,
-                'widget' => 'single_text',
-                'format' => 'yyyy',
-                'data' => new \DateTime("now")
-                ))*/
-            ->add('year', ChoiceType::class, array(
-                'required' => true,
-                'choices' => array(
-                    "". Date('Y') ."" => "". Date('Y'). "",
-                    "". (Date('Y') + 1) ."" => "". (Date('Y') + 1) ."",
-                    "". (Date('Y') + 2) ."" => "". (Date('Y') + 2) ."",
-                    "". (Date('Y') + 3) ."" => "". (Date('Y') + 3) ."",
-                    "". (Date('Y') + 4) ."" => "". (Date('Y') + 4) ."",
-                )))
             ->add('typeCotisation', 'entity', array(
-                    'class' => 'ApplicationCotisationBundle:TypeCotisation',
-                    //'property' => 'name',
-                    'required' => true
+                'class' => 'ApplicationCotisationBundle:TypeCotisation',
+                'choices' => $choices,
+                'required' => true
             ))
+            ->add('submit'.$options['formId'], SubmitType::class, array('label' => 'Cotiser'))
         ;
     }
     
@@ -45,7 +35,9 @@ class CotisationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Application\CotisationBundle\Entity\Cotisation'
+            'data_class' => 'Application\CotisationBundle\Entity\Cotisation',
+            'choices' => null,
+            'formId' => null
         ));
     }
 
@@ -57,11 +49,7 @@ class CotisationType extends AbstractType
         return 'application_cotisationbundle_cotisation';
     }
 
-    public function buildYearChoices() {
-    $distance = 5;
-    $yearsBefore = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") - $distance));
-    $yearsAfter = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") + $distance));
-    return array_combine(range($yearsBefore, $yearsAfter), range($yearsBefore, $yearsAfter));
-}
+
+
 
 }
