@@ -22,17 +22,18 @@ class Cotisation
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", inversedBy="cotisation")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeCotisation;
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="year", type="date", nullable=false)
      */
     private $year;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typeCotisation;
 
     /**
      * @var string
@@ -67,6 +68,10 @@ class Cotisation
 
 
 
+
+
+
+
     public function __construct()
     {
         $this->payed = false;
@@ -76,9 +81,7 @@ class Cotisation
     }
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -86,26 +89,30 @@ class Cotisation
     }
 
     /**
-     * Set payed
-     *
-     * @param boolean $payed
-     * @return Cotisation
+     * @param int $id
      */
-    public function setPayed($payed)
+    public function setId($id)
     {
-        $this->payed = $payed;
-
-        return $this;
+        $this->id = $id;
     }
 
+
+
+
     /**
-     * Get payed
-     *
-     * @return boolean 
+     * @return bool
      */
     public function getPayed()
     {
         return $this->payed;
+    }
+
+    /**
+     * @param bool $payed
+     */
+    public function setPayed($payed)
+    {
+        $this->payed = $payed;
     }
 
     /**
@@ -117,14 +124,13 @@ class Cotisation
     public function setTypeCotisation(\Application\CotisationBundle\Entity\TypeCotisation $typeCotisation)
     {
         $this->typeCotisation = $typeCotisation;
-
         return $this;
     }
 
     /**
      * Get typeCotisation
      *
-     * @return \Application\CotisationBundle\Entity\TypeCotisation 
+     * @return \Application\CotisationBundle\Entity\TypeCotisation
      */
     public function getTypeCotisation()
     {
@@ -136,6 +142,7 @@ class Cotisation
         return $this->typeCotisation->name;
     }
 
+
     /**
      * Set user
      *
@@ -145,14 +152,13 @@ class Cotisation
     public function setUser(\Admin\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \Admin\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -168,19 +174,19 @@ class Cotisation
     public function setYear($year)
     {
         $this->year = $year;
-
         return $this;
     }
 
     /**
      * Get year
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getYear()
     {
         return $this->year;
     }
+
 
     /**
      * Set nameCotisation
@@ -191,14 +197,13 @@ class Cotisation
     public function setNameCotisation($nameCotisation)
     {
         $this->nameCotisation = $nameCotisation;
-
         return $this;
     }
 
     /**
      * Get nameCotisation
      *
-     * @return string 
+     * @return string
      */
     public function getNameCotisation()
     {
@@ -206,6 +211,7 @@ class Cotisation
     }
 
     /**
+     *
      * Set priceCotisation
      *
      * @param integer $priceCotisation
@@ -214,14 +220,13 @@ class Cotisation
     public function setPriceCotisation($priceCotisation)
     {
         $this->priceCotisation = $priceCotisation;
-
         return $this;
     }
 
     /**
      * Get priceCotisation
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriceCotisation()
     {
@@ -237,18 +242,18 @@ class Cotisation
     public function setInvoice(\Application\CotisationBundle\Entity\Invoice $invoice = null)
     {
         $this->invoice = $invoice;
-
         return $this;
     }
 
     /**
      * Get invoice
      *
-     * @return \Application\CotisationBundle\Entity\Invoice 
+     * @return \Application\CotisationBundle\Entity\Invoice
      */
     public function getInvoice()
     {
         return $this->invoice;
     }
+
 
 }

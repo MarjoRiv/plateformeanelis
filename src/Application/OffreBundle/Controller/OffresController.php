@@ -19,12 +19,12 @@ use Symfony\Component\Finder\Comparator\DateComparator;
 
 class OffresController extends Controller
 {	
-
+    //management of user request
     public function viewAction(Request $request)
     {
         
         $offerType = new Offers(); 
-        $OffersFormType = $this->get('form.factory')
+        $OffersFormType = $this->get('form.factory') //create filter form
             ->createNamed(
                 '',
                 FiltreViewType::class,
@@ -36,10 +36,10 @@ class OffresController extends Controller
             );
         $OffersFormType->handleRequest($request);
         
-        $results = $this->OfferSearch();
+        $results = $this->OfferSearch(); //list of valid offers
         $formSubmited = false;
         $onglet=1;
-        if ($OffersFormType->isValid()){
+        if ($OffersFormType->isValid()){ //if user use the filter form
                $results = $this->OfferFiltre($offerType->getType());
                $formSubmited = true;
         }
@@ -55,47 +55,47 @@ class OffresController extends Controller
             'resultsUser' => $resultsUser,
         ));
     }
-   
+   //list of valid offers
     protected function QueryOfferSearch()
     {
         $em=$this->getDoctrine()->getManager();
         $query=$em->getRepository('Application\OffreBundle\Entity\Offers')->createQueryBuilder('u');
         
         $date=new \DateTime('now');
-        $query->where('u.dateexpire > :date')
+        $query->where('u.dateexpire > :date') //select offers which are before its expiration date
             ->setParameter('date', $date)
-                ->andwhere('u.enabled = true');
+                ->andwhere('u.enabled = true'); //select offers which are enabled by the user
         
         $query=$query
-                ->orderBy('u.datepublished', 'DESC');
+                ->orderBy('u.datepublished', 'DESC'); 
         return $query;
     }
-
+    //list of offers
     protected function OfferSearch(){
-        $query=$this->QueryOfferSearch();
+        $query=$this->QueryOfferSearch(); //get valid offers
         $offers=null;
         $offers=$query->getQuery()->getResult();
         return $offers;
     }
-
+    // filter type
     protected function OfferFiltre (string $type){
-        $query=$this->QueryOfferSearch();
+        $query=$this->QueryOfferSearch(); //get valid offers
         $offers=null;
-        if ($type != null){
+        if ($type != null){ 
             if ($type != '' ){
-                $query->andwhere('u.type = :type')
+                $query->andwhere('u.type = :type') //filter offers with the type of the form
                 ->setParameter('type', $type);
             }
         }
         $offers=$query->getQuery()->getResult();
         return $offers;
     }
-
+    //list of offers belong to the user
     protected function OfferUser (){
         $em2 = $this->getDoctrine()->getManager()->getRepository('Application\OffreBundle\Entity\UserOffre')->createQueryBuilder('u');
         $userOffre = null;
         $offersUser=null;
-        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult())[0];
+        $userOffre = ($em2->where('u.UserApp = :user')->setParameter('user', $this->getUser())->getQuery()->getResult())[0]; //select offers of the usser
         if ($userOffre!=null)
         {
             $em=$this->getDoctrine()->getManager();

@@ -10,46 +10,62 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class TypeCotisationAdmin extends AbstractAdmin
 {
-    // Fields to be shown on create/edit forms
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->add('name', 'text', array('label' => 'Nom'))
-            ->add('price', 'number', array('label' => 'Prix'))
-            ->add('enabled')
-        ;
-    }
-
-    // Fields to be shown on filter forms
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('name')
+            ->add('price')
+            ->add('yearCotisation')
         ;
     }
 
-    // Fields to be shown on lists
+    /**
+     * @param ListMapper $listMapper
+     */
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
+            ->add('id')
+            ->add('name')
             ->add('price')
-            // add custom action links
-            ->add('_action', 'actions', array(
+            ->add('yearCotisation')
+            ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
+                    'delete' => array(),
                 )
             ))
         ;
     }
 
-    protected function configureShowFields(ShowMapper $show)
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
     {
-        $show
+        $formMapper
             ->add('name')
             ->add('price')
-            ;
+            ->add('yearCotisation')
+
+        ;
     }
 
+    /**
+     * @param ShowMapper $showMapper
+     */
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->add('id')
+            ->add('name')
+            ->add('price')
+            ->add('yearCotisation')
 
+        ;
+    }
 }
