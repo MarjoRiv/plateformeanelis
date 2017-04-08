@@ -2,7 +2,7 @@ services:
     sonata.admin.cotisationtype:
         class: Application\CotisationBundle\Admin\TypeCotisationAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Types de Cotisations" }
+            - { name: sonata.admin, manager_type: orm, group: "Cotisation", label: "Types de Cotisations" }
         arguments:
             - ~
             - Application\CotisationBundle\Entity\TypeCotisation
@@ -12,7 +12,7 @@ services:
     sonata.admin.cotisation:
         class: Application\CotisationBundle\Admin\CotisationAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Cotisations" }
+            - { name: sonata.admin, manager_type: orm, group: "Cotisation", label: "Cotisations" }
         arguments:
             - ~
             - Application\CotisationBundle\Entity\Cotisation
@@ -22,7 +22,7 @@ services:
     sonata.admin.invoice:
         class: Application\CotisationBundle\Admin\InvoiceAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Factures" }
+            - { name: sonata.admin, manager_type: orm, group: "Cotisation", label: "Factures" }
         arguments:
             - ~
             - Application\CotisationBundle\Entity\Invoice

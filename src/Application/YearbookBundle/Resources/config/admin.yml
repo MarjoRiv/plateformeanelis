@@ -2,7 +2,7 @@ services:
     sonata.admin.yearbook:
         class: Application\YearbookBundle\Admin\YearbookAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Yearbook" }
+            - { name: sonata.admin, manager_type: orm, group: "Yearbook", label: "Yearbook" }
         arguments:
             - ~
             - Application\YearbookBundle\Entity\Yearbook
@@ -12,7 +12,7 @@ services:
     sonata.admin.yearbookmessages:
         class: Application\YearbookBundle\Admin\YearbookMessagesAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Yearbook Messages" }
+            - { name: sonata.admin, manager_type: orm, group: "Yearbook", label: "Yearbook Messages" }
         arguments:
             - ~
             - Application\YearbookBundle\Entity\YearbookMessages

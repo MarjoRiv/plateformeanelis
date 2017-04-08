@@ -1165,5 +1165,10 @@ class User extends BaseUser
         return $this->nickname;
     }
 
+    function __toString()
+    {
+        return $this->getName().' '.$this->getSurname();
+    }
+
 
 }

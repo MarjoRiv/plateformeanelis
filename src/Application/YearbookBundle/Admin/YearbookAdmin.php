@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class YearbookAdmin extends AbstractAdmin
 {
@@ -45,6 +46,16 @@ class YearbookAdmin extends AbstractAdmin
             ))
         ;
     }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('id')
+            ->add('promotion')
+            ->add('activated')
+            ;
+    }
+
 
     protected function lstPromotions() {
         $result;

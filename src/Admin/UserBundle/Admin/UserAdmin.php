@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -29,6 +30,9 @@ class UserAdmin extends AbstractAdmin
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $roles = $this->getConfigurationPool()->getContainer()->getParameter('security.role_hierarchy.roles');
+        $rolesChoices = self::flattenRoles($roles);
+
         $formMapper
             ->add('username', 'text', array('label' => 'Username',
                 'required' => true))
@@ -108,11 +112,7 @@ class UserAdmin extends AbstractAdmin
 
             ->add('childrenNumber', 'number', array('label' => 'Nombre d\'enfants', 'required' => false))
 
-
-
-
-
-
+            ->add('roles', 'choice', array('choices' => $rolesChoices, 'multiple' => true, ))
 
         ;
     }
@@ -162,6 +162,78 @@ class UserAdmin extends AbstractAdmin
             $result["".$i] = $i;
         }
         return $result;
+    }
+
+    protected static function flattenRoles($rolesHierarchy)
+    {
+        $flatRoles = array();
+        foreach($rolesHierarchy as $roles) {
+
+            if(empty($roles)) {
+                continue;
+            }
+
+            foreach($roles as $role) {
+                if(!isset($flatRoles[$role])) {
+                    $flatRoles[$role] = $role;
+                }
+            }
+        }
+
+        return $flatRoles;
+    }
+
+    protected function configureShowFields(ShowMapper $show)
+    {
+        $show
+            ->add('username')
+
+            ->add('email')
+
+            ->add('name')
+
+            ->add('surname')
+
+            ->add('promotion')
+
+            ->add('filiere')
+
+            ->add('birthday')
+
+            ->add('maritalName')
+
+            ->add('nickname')
+
+            ->add('address')
+
+            ->add('postalcode')
+
+            ->add('city')
+
+            ->add('country')
+
+            ->add('telephone')
+
+            ->add('website')
+
+            ->add('socialFacebook')
+
+            ->add('socialTwitter')
+
+            ->add('socialGoogle')
+
+            ->add('socialYoutube')
+
+            ->add('socialInstagram')
+
+            ->add('biography')
+
+            ->add('maritalStatus')
+
+            ->add('childrenNumber')
+
+            ->add('roles')
+            ;
     }
 
 

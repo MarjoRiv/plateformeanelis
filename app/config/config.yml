@@ -96,7 +96,7 @@ fos_user:
                 sender_name:    ANELIS 
     change_password:
         form:
-            type: anelis_user_change_password
+            type: Admin\UserBundle\Form\ChangePasswordFormType
             name: anelis_user_change_password
 
 sonata_block:
@@ -105,6 +105,8 @@ sonata_block:
         # Enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts: [admin]
         # Your other blocks
 sonata_admin:
     title:      Administration
