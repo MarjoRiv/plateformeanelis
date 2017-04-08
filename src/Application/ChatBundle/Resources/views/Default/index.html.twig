@@ -39,7 +39,7 @@
                                                 {% for message in messages|reverse %}
                                                     {% if message.enabled == true %}
                                                         <div align="{% if app.user == message.user %}left{% else %}right{% endif %}">
-                                                            {% if message.user.nickname != null %} {{ message.user.nickname }} {% else %} {{ message.user.name }} {{ message.user.surname }} {% endif %} - {{ message.date|date("d/m/Y \@ H:i","Europe/Paris") }}
+                                                            {% if message.user.nickname != null %} {{ message.user.nickname }} ({{ message.user.surname }} {{ message.user.name }}) {% else %} {{ message.user.surname }} {{ message.user.name }} {% endif %} - {{ message.date|date("d/m/Y \@ H:i","Europe/Paris") }}
                                                         </div>
                                                     <div class="chat-message {% if app.user == message.user %}me{% else %}{% if message.user.id is divisible by(2) %}{% if message.user.promotion is divisible by(2) %}chat-primary{% else %}chat-indigo{% endif %}{% else %}{% if message.user.promotion is divisible by(2) %}chat-midnightblue{% else %}chat-success{% endif %}{% endif %}{% endif %}">
                                                         <div class="chat-contact">
