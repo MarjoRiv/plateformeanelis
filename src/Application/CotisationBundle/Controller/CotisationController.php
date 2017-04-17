@@ -15,13 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class CotisationController extends Controller
-{
+class CotisationController extends Controller {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $yearCotis = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findAll();
         $cotisOK = array();
@@ -30,15 +28,13 @@ class CotisationController extends Controller
         $dateCotisEnAttente = array();
         $returnForms = array();                                             //L'ensemble des formulaires de retour
 
-        $invoiceManager = new InvoiceManager($this);
-
-        foreach($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
+        foreach ($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
         {
-            $date = intval($cotisation->getYear()->format('Y'));            //Année courante
+            $date = intval($cotisation->getYearCotisation()->getYear());            //Année courante
             //On récupère seulement si l'année de cotisation n'est pas passée.
             if ($date >= intval(date("Y"))) {
                 if ($cotisation->getPayed()) {                              //Si la cotisation a bien été payée
-                    $cotisOK[] = $cotisation->getYear()->format('Y');
+                    $cotisOK[] = $cotisation->getYearCotisation()->getYear();
                 } else {                                                    //Si le paiement est en attente
                     $cotisEnAttente[] = $cotisation;
                     $dateCotisEnAttente[] = $date;
@@ -49,47 +45,22 @@ class CotisationController extends Controller
         $cotisation = new Cotisation();
         $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
 
-        foreach($yearCotis as $yearCotisation) {
+        foreach ($yearCotis as $yearCotisation) {
 
-            $date = intval($yearCotisation->getYear()->format('Y'));
-            $dateD = $yearCotisation->getYear();
-            $typesCotisationForYear = array(); //Permet de récupérer les différents types de cotisation pour une année
-            if(!in_array($date,$dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled())
-            {
+            $date = $yearCotisation->getYear();
+            if (!in_array($date, $dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled()) {
                 $cotisDispo[] = $date;
-                $allTypeCotisation = $em->getRepository('ApplicationCotisationBundle:TypeCotisation')->findAll();
-                foreach($allTypeCotisation as $type) //Je parcours les types de cotisation
-                {
-                    if(intval($type->getYearCotisation()->getYear()->format('Y')) == $date) //Si le type est de l'année parcourue
-                    {
-                        $typesCotisationForYear[] = $type;
-                    }
-                    usort($typesCotisationForYear,function (TypeCotisation $a, TypeCotisation $b)
-                    {
-                        return $a->getPrice() > $b->getPrice();
-                    });
-                }
 
+                $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_' . $yearCotisation->getId(), CotisationType::class, $cotisation,['choices' => $yearCotisation, 'formId' => $yearCotisation->getId()])->getForm();
 
-                $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_'.$yearCotisation->getId(), CotisationType::class, $cotisation,  [ 'choices' => $typesCotisationForYear , 'formId' => $yearCotisation->getId()])->getForm();
-
-                if($request->request->get('cotis_form_'.$yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
+                if ($request->request->get('cotis_form_' . $yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
                 {
 
-                    $cotisation->setYear($yearCotisation->getYear());
+                    $cotisation->setYearCotisation($yearCotisation);
+                    $cotisation->setPrice($request->request->get('cotis_form_' . $yearCotisation->getId())['price']);
 
-                    $formHandler = new CotisationHandler($returnCotisationForm, $request, $em, $invoiceManager);
+                    $formHandler = new CotisationHandler($returnCotisationForm, $request, $em);
                     if ($formHandler->process()) {
-                        // Getting the last id invoice inserted
-                        $repository = $this->getDoctrine()
-                            ->getRepository('ApplicationCotisationBundle:Invoice');
-                        $query = $repository->createQueryBuilder('p')
-                            ->orderBy('p.id', 'DESC')
-                            ->getQuery();
-
-                        $invoices = $query->getResult();
-
-
                         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
                     }
                 }
@@ -99,10 +70,10 @@ class CotisationController extends Controller
 
         }
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
-            "cotisDispo" => $cotisDispo, //Ici on envoi à la vue les années à afficher.
-            "cotisOK" => $cotisOK,
+            "cotisDispo"   => $cotisDispo, //Ici on envoi à la vue les années à afficher.
+            "cotisOK"      => $cotisOK,
             "cotisAttente" => $cotisEnAttente,
-            "forms" =>  $returnForms
+            "forms"        => $returnForms,
         ));
 
     }
@@ -142,14 +113,14 @@ class CotisationController extends Controller
 
     public function deleteAction(Cotisation $cotisation) {
 
-        if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->getInvoice()->getPayed()) {
+        if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->getPayed()) {
             $em = $this->getDoctrine()->getManager();
 
             $em->remove($cotisation);
 
             $em->flush();
         }
-        
+
         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
     }
 
@@ -157,7 +128,7 @@ class CotisationController extends Controller
 
         $cotisation = $this->getDoctrine()->getRepository('ApplicationCotisationBundle:Cotisation')->find($id);
         if (!$cotisation) {
-            return $this->redirect($request->headers->get('referer'));   
+            return $this->redirect($request->headers->get('referer'));
         }
 
         $username = $cotisation->getUser()->getUsername();
@@ -165,24 +136,23 @@ class CotisationController extends Controller
         $annee = $cotisation->getYear();
         $email = $cotisation->getUser()->getEmail();
 
-        $this->get ( 'session' )->getFlashBag ()->add ( 'success', 'Cotisation pour l\'utilisateur '. $username .' relancé par email.');
+        $this->get('session')->getFlashBag()->add('success', 'Cotisation pour l\'utilisateur ' . $username . ' relancé par email.');
         $mailer = $this->get('mailer');
         $message = $mailer->createMessage()
-            ->setSubject('ANELIS - Facture '. $id .' en attente de paiement')
+            ->setSubject('ANELIS - Facture ' . $id . ' en attente de paiement')
             ->setFrom('mailing@anelis.org')
             ->setTo($email)
             ->setBody(
                 $this->renderView(
                     'Emails/invoice_waiting.html.twig',
                     array(
-                        'surname' => $surname,
+                        'surname'   => $surname,
                         'idfacture' => $id,
-                        'annee' => $annee
+                        'annee'     => $annee,
                     )
                 ),
                 'text/html'
-            )
-        ;
+            );
         $mailer->send($message);
 
         return $this->redirect($request->headers->get('referer'));

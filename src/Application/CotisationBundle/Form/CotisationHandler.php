@@ -16,12 +16,11 @@ class CotisationHandler
     private $manager;
     private $invoiceManager;
 
-    public function __construct(Form $form, Request $request, $manager, InvoiceManager $invoiceManager)
+    public function __construct(Form $form, Request $request, $manager)
     {
         $this->form = $form;
         $this->request = $request;
         $this->manager = $manager;
-        $this->invoiceManager = $invoiceManager;
     }
 
     public function process()
@@ -40,8 +39,6 @@ class CotisationHandler
     }
 
     public function onSuccess(Cotisation $cotisation) {
-        $cotisation->setYear($cotisation->getTypeCotisation()->getYearCotisation()->getYear());
-        
         $this->manager->persist($cotisation);
         $this->manager->flush();
     }

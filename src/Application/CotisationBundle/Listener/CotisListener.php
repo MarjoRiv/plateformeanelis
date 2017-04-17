@@ -11,19 +11,6 @@ class CotisListener {
 
     public function postPersist(LifecycleEventArgs $args) {
 
-        $entity = $args->getEntity();
-        $em = $args->getEntityManager();
-
-        if ($entity instanceof Cotisation) {
-            $invoice = new Invoice();
-            $invoice->setCotisation($entity);
-            $invoice->setPayed($entity->getPayed());
-            $invoice->setDate(new \DateTime('now'));
-            $entity->setInvoice($invoice);
-            
-            $em->persist($invoice);
-            $em->flush();
-        }
     }
 
     public function postUpdate(LifecycleEventArgs $args)

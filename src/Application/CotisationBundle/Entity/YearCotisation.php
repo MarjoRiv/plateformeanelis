@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="YearCotisation")
  * @ORM\Entity(repositoryClass="Application\CotisationBundle\Repository\YearCotisationRepository")
  */
-class YearCotisation
-{
+class YearCotisation {
     /**
      * @var int
      *
@@ -24,16 +23,9 @@ class YearCotisation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="year", type="date", unique=true)
+     * @ORM\Column(name="year", type="integer", unique=true)
      */
     private $year;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
 
     /**
      * @var \DateTime
@@ -43,78 +35,183 @@ class YearCotisation
     private $dateEnabled;
 
     /**
-     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\TypeCotisation", mappedBy="yearCotisation",cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Application\CotisationBundle\Entity\Cotisation", mappedBy="yearCotisation",cascade={"remove", "persist"})
      */
-    private $typeCotisation;
+    private $cotisations;
+
+    /**
+     * @ORM\Column(name="reducedFeeAmount", type="integer")
+     */
+    private $reducedFeeAmount;
+
+    /**
+     * @ORM\Column(name="minAmount", type="integer")
+     */
+    private $minAmount;
+
+    /**
+     * @ORM\Column(name="proposedAmount1", type="integer")
+     */
+    private $proposedAmount1;
+
+    /**
+     * @ORM\Column(name="proposedAmount2", type="integer")
+     */
+    private $proposedAmount2;
+
+    /**
+     * @ORM\Column(name="proposedAmount3", type="integer")
+     */
+    private $proposedAmount3;
+
+    /**
+     * @ORM\Column(name="proposedAmount4", type="integer")
+     */
+    private $proposedAmount4;
 
 
     /**
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return \DateTime
      */
-    public function getYear()
-    {
+    public function getYear() {
         return $this->year;
     }
 
     /**
      * @param \DateTime $year
      */
-    public function setYear($year)
-    {
+    public function setYear($year) {
         $this->year = $year;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
     }
 
     /**
      * @return \DateTime
      */
-    public function getDateEnabled()
-    {
+    public function getDateEnabled() {
         return $this->dateEnabled;
     }
 
     /**
      * @param \DateTime $dateEnabled
      */
-    public function setDateEnabled($dateEnabled)
-    {
+    public function setDateEnabled($dateEnabled) {
         $this->dateEnabled = $dateEnabled;
     }
 
-    function __toString()
-    {
-        return $this->getName();
+    function __toString() {
+        return $this->year->format('%Y');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCotisations() {
+        return $this->cotisations;
+    }
+
+    /**
+     * @param mixed $cotisation
+     */
+    public function setCotisations($cotisation) {
+        $this->cotisations = $cotisation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMinAmount() {
+        return $this->minAmount;
+    }
+
+    /**
+     * @param mixed $minAmount
+     */
+    public function setMinAmount($minAmount) {
+        $this->minAmount = $minAmount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProposedAmount1() {
+        return $this->proposedAmount1;
+    }
+
+    /**
+     * @param mixed $proposedAmount1
+     */
+    public function setProposedAmount1($proposedAmount1) {
+        $this->proposedAmount1 = $proposedAmount1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProposedAmount2() {
+        return $this->proposedAmount2;
+    }
+
+    /**
+     * @param mixed $proposedAmount2
+     */
+    public function setProposedAmount2($proposedAmount2) {
+        $this->proposedAmount2 = $proposedAmount2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProposedAmount3() {
+        return $this->proposedAmount3;
+    }
+
+    /**
+     * @param mixed $proposedAmount3
+     */
+    public function setProposedAmount3($proposedAmount3) {
+        $this->proposedAmount3 = $proposedAmount3;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProposedAmount4() {
+        return $this->proposedAmount4;
+    }
+
+    /**
+     * @param mixed $proposedAmount4
+     */
+    public function setProposedAmount4($proposedAmount4) {
+        $this->proposedAmount4 = $proposedAmount4;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReducedFeeAmount() {
+        return $this->reducedFeeAmount;
+    }
+
+    /**
+     * @param mixed $reducedFeeAmount
+     */
+    public function setReducedFeeAmount($reducedFeeAmount) {
+        $this->reducedFeeAmount = $reducedFeeAmount;
     }
 
 
