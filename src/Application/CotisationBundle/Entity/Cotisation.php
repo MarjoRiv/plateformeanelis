@@ -21,6 +21,8 @@ class Cotisation {
     private $id;
 
     /**
+     * @var YearCotisation
+     *
      * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\YearCotisation", inversedBy="cotisations")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -48,7 +50,7 @@ class Cotisation {
 
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="paymentType", type="integer", nullable=true)
      */
@@ -126,22 +128,33 @@ class Cotisation {
     /**
      * @return int
      */
-    public function getPrice() {
+    public function getPricecotisation() {
         return $this->pricecotisation;
     }
 
     /**
-     * @param int $price
+     * @param int $pricecotisation
      */
-    public function setPrice($price) {
-        $this->pricecotisation = $price;
+    public function setPricecotisation($pricecotisation) {
+        $this->pricecotisation = $pricecotisation;
     }
+
+
 
     /**
      * @return int
      */
     public function getPaymentType() {
         return $this->paymentType;
+    }
+
+    /**
+     * @return string
+     *
+     * Retourne le libellé associé au type de paiement
+     */
+    public function getPaymentTypeLabel() {
+        return EnumTypePaiement::getStringFormat($this->paymentType);
     }
 
     /**

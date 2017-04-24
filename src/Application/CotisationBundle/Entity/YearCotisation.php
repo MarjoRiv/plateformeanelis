@@ -21,7 +21,7 @@ class YearCotisation {
     private $id;
 
     /**
-     * @var \DateTime
+     * @var \integer
      *
      * @ORM\Column(name="year", type="integer", unique=true)
      */
@@ -113,7 +113,7 @@ class YearCotisation {
     }
 
     function __toString() {
-        return $this->year->format('%Y');
+        return $this->year."";
     }
 
     /**

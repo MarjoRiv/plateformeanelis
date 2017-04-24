@@ -136,6 +136,8 @@ class CotisationController extends Controller {
         $annee = $cotisation->getYear();
         $email = $cotisation->getUser()->getEmail();
 
+        //TODO : A tester, c'est peut être pété ici
+
         $this->get('session')->getFlashBag()->add('success', 'Cotisation pour l\'utilisateur ' . $username . ' relancé par email.');
         $mailer = $this->get('mailer');
         $message = $mailer->createMessage()
