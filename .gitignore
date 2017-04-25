@@ -110,3 +110,6 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/sym,symfony,phpstorm
 /.rules/
+
+/bin/
+!/bin/console

@@ -57,9 +57,11 @@ dev_deploy_job:
     - php bin/console cache:clear
     - php bin/console assetic:dump
     - php bin/console security:check
-    - git checkout HEAD^
-    - git checkout master
-    - git merge origin/dev-master
+    - git config --global user.email "git@anelis.org"
+    - git config --global user.name "anelis"
+    - git checkout dev-master
+    - git branch -m master useless
+    - git branch -m dev-master master
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
     - git push clever master --force
   only:
