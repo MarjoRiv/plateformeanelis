@@ -16,8 +16,7 @@ class YearCotisationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name', null, array('label' => 'Année de Cotisation'))
-            ->add('dateEnabled')
+            ->add('year', null, array('label' => 'Année de Cotisation'))
         ;
     }
 
@@ -28,9 +27,15 @@ class YearCotisationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('year', 'datetime', array('format' => 'Y',
-            'label' => 'Année de Cotisation'))
+            ->add('year', null, array('label' => 'Année de Cotisation'))
             ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
+            ->add('minAmount', null, array('label' => 'Montant Minimum'))
+            ->add('reducedFeeAmount', null, array('label' => 'Tarif Réduit'))
+            ->add('proposedAmount1', null, array('label' => 'Montant Proposé 1'))
+            ->add('proposedAmount2', null, array('label' => 'Montant Proposé 2'))
+            ->add('proposedAmount3', null, array('label' => 'Montant Proposé 3'))
+            ->add('proposedAmount4', null, array('label' => 'Montant Proposé 4'))
+
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -46,10 +51,16 @@ class YearCotisationAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        //FIXME : Erreur si l'année de cotisation existe déjà.
         $formMapper
-            ->add('year', null, array('label' => 'Date de départ Cotisation'))
-            ->add('name', null, array('label' => 'Descriptif'))
+            ->add('year', null, array('label' => 'Année de Cotisation'))
             ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
+            ->add('minAmount', null, array('label' => 'Montant Minimum'))
+            ->add('reducedFeeAmount', null, array('label' => 'Tarif Réduit'))
+            ->add('proposedAmount1', null, array('label' => 'Montant Proposé 1'))
+            ->add('proposedAmount2', null, array('label' => 'Montant Proposé 2'))
+            ->add('proposedAmount3', null, array('label' => 'Montant Proposé 3'))
+            ->add('proposedAmount4', null, array('label' => 'Montant Proposé 4'))
         ;
     }
 
@@ -60,8 +71,14 @@ class YearCotisationAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('year', null, array('label' => 'Date de départ Cotisation'))
+            ->add('year', null, array('label' => 'Année de Cotisation'))
             ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
+            ->add('minAmount', null, array('label' => 'Montant Minimum'))
+            ->add('reducedFeeAmount', null, array('label' => 'Tarif Réduit'))
+            ->add('proposedAmount1', null, array('label' => 'Montant Proposé 1'))
+            ->add('proposedAmount2', null, array('label' => 'Montant Proposé 2'))
+            ->add('proposedAmount3', null, array('label' => 'Montant Proposé 3'))
+            ->add('proposedAmount4', null, array('label' => 'Montant Proposé 4'))
         ;
     }
 }

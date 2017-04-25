@@ -13,7 +13,7 @@
         </div>
 
         <div class="container">
-          <div class="jumbotron">
+          <div >
             <h3>Pourquoi Cotiser ?</h3>
             Cotiser permet à l'association d'évoluer et de subvenir aux différents besoins financiers comme la maintenance et l'hébergement de cette plateforme ou encore l'organisation d'évènements !
             Cela vous donne également des avantages comme la possibilité de proposer des offres aux ZZ et de consulter le profil des personnes !
@@ -33,8 +33,8 @@
                             <div class="col-xs-12 ">
                                 {{ form_start(forms[i]) }}
                               <div class="form-group">
-                              {{ form_label(forms[i].typeCotisation, "Type de cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
-                                {{ form_widget(forms[i].typeCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
+                              {{ form_label(forms[i].price, "Montant de ma cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
+                                {{ form_widget(forms[i].price, { 'attr' : { 'text-align' : 'center' } }) }}
                               </div>
                                 <div class="form-group col-xs-offset-4 ">
                                   {{ form_errors(forms[i]) }}
@@ -54,7 +54,7 @@
                         <div class="col-xs-6">
                           <div class="panel panel-orange">
                             <div class="panel-heading">
-                              <h4>Cotisation {{ dateAttente.getYear | date("Y")  }}</h4>
+                              <h4>Cotisation {{ dateAttente.getYearCotisation.getYear }}</h4>
                             </div>
                             <div class="panel-body">
                               <p class="text-info">Votre cotisation est en attente de validation, si vous ne souhaitez pas payer en ligne, vous pouvez régler :</p>
@@ -63,14 +63,7 @@
                                 <li>Par virement à l'IBAN suivant : <br/><b>FR76 1680 6050 0066 0746 3319 725</b></li>
                               </ul>
                               <div class="col-xs-offset-4">
-                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                                  <input type="hidden" name="cmd" value="_s-xclick">
-                                  <input type="hidden" name="hosted_button_id" value="M2LFT36X5JHZC">
-                                  <input type="hidden" name="on0" value="Cotisation">
-                                  <input type="hidden" name="os0" value="{% if dateAttente.typeCotisation.price == 10 %}Membre{% elseif dateAttente.typeCotisation.price == 20 %}Membre bienfaiteur 20{% elseif dateAttente.typeCotisation.price == 25 %}Membre bienfaiteur 25{% elseif dateAttente.typeCotisation.price == 30 %}Membre bienfaiteur 30{% elseif dateAttente.typeCotisation.price == 40 %}Membre bienfaiteur 40{% elseif dateAttente.typeCotisation.price == 50 %}Membre bienfaiteur 50{% else %}Membre{% endif %}">
-                                  <input type="hidden" name="currency_code" value="EUR">
-                                  <button class="btn-primary btn">Payer</button>
-                                </form>
+                                <button class="btn-primary btn">Payer</button>
                               </div>
                             </div>
                           </div>
@@ -120,10 +113,9 @@
                         <tr>
                           <th>#</th>
                           <th>Année</th>
-                          <th>Type</th>
                           <th>Prix</th>
                           <th>Statut</th>
-                          <th>Facture</th>
+                          <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -132,11 +124,10 @@
 
                           <tr>
                             <td>{{ cotisationNumbers }}</td>
-                            <td>{{ cotisation.year|date("Y") }}</td>
-                            <td>{{ cotisation.typeCotisation.name }}</td>
-                            <td>{{ cotisation.typeCotisation.price }} €</td>
+                            <td>{{ cotisation.yearCotisation.year }}</td>
+                            <td>{{ cotisation.price }} €</td>
                             <td>{% if cotisation.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
-                            <td><a href="{{ path("application_cotisation_invoice_get", { "id" : cotisation.id }) }}"><i class="fa fa-eye"></i></a>    {% if not cotisation.payed %}
+                            <td>{% if not cotisation.payed %}
                                 <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></i></a>
                                 {% endif %}</td>
                           </tr>
