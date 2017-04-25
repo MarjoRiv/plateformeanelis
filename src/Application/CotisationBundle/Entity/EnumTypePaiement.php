@@ -75,7 +75,18 @@ abstract class EnumTypePaiement {
      *
      * Retourne l'ensemble des valeurs disponibles dans l'enum. Pour des raisons d'affichage
      */
-    public static function getValues() {
+    public static function getLabelsFromValues() {
+        $values = array();
+
+        for ($i = -1; $i <= self::MAX_TYPE_NUM; $i++) {
+            $values[$i] = self::getStringFormat($i);
+        }
+
+        return $values;
+    }
+
+    public static function getValuesFromLabel()
+    {
         $values = array();
 
         for ($i = -1; $i <= self::MAX_TYPE_NUM; $i++) {
