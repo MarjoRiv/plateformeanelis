@@ -18,7 +18,7 @@ class CotisationType extends AbstractType {
         $yearCotisation = $options['choices'];
         $random_string = base64_encode(random_bytes(10));
         $builder
-            ->add('price', ChoiceType::class, array(
+            ->add('priceCotisation', ChoiceType::class, array(
                 'choices'      => [$yearCotisation->getMinAmount(), $yearCotisation->getProposedAmount1(),
                     $yearCotisation->getProposedAmount2(), $yearCotisation->getProposedAmount3(),
                     $yearCotisation->getProposedAmount4()],

@@ -33,8 +33,8 @@
                             <div class="col-xs-12 ">
                                 {{ form_start(forms[i]) }}
                               <div class="form-group">
-                              {{ form_label(forms[i].price, "Montant de ma cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
-                                {{ form_widget(forms[i].price, { 'attr' : { 'text-align' : 'center' } }) }}
+                              {{ form_label(forms[i].priceCotisation, "Montant de ma cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
+                                {{ form_widget(forms[i].priceCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
                               </div>
                                 <div class="form-group col-xs-offset-4 ">
                                   {{ form_errors(forms[i]) }}
@@ -125,7 +125,7 @@
                           <tr>
                             <td>{{ cotisationNumbers }}</td>
                             <td>{{ cotisation.yearCotisation.year }}</td>
-                            <td>{{ cotisation.price }} €</td>
+                            <td>{{ cotisation.priceCotisation }} €</td>
                             <td>{% if cotisation.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
                             <td>{% if not cotisation.payed %}
                                 <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></i></a>
