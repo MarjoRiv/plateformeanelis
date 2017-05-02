@@ -57,7 +57,7 @@ class CotisationController extends Controller {
                 {
 
                     $cotisation->setYearCotisation($yearCotisation);
-                    $cotisation->setPrice($request->request->get('cotis_form_' . $yearCotisation->getId())['price']);
+                    $cotisation->setPricecotisation($request->request->get('cotis_form_' . $yearCotisation->getId())['priceCotisation']);
 
                     $formHandler = new CotisationHandler($returnCotisationForm, $request, $em);
                     if ($formHandler->process()) {
