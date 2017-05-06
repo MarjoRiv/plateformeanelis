@@ -1,8 +1,47 @@
 {% extends "::application.html.twig" %} 
 
 {% block title %}Mes cotisations{% endblock %}
+{% for form in forms %}
+    {% form_theme form '@ApplicationCotisation/Form/fields.html.twig' %}
+{% endfor %}
+
+
 
   {% block body %}
+
+      <style>
+        .btn-circle {
+          width: 30px;
+          height: 30px;
+          text-align: center;
+          padding: 6px 0;
+          font-size: 12px;
+          line-height: 1.428571429;
+          border-radius: 15px;
+        }
+        .btn-circle.btn-lg {
+          width: 50px;
+          height: 50px;
+          padding: 13px 13px;
+          font-size: 18px;
+          line-height: 1.33;
+          border-radius: 25px;
+        }
+        .text-decal {
+          margin-right: -20px;
+        }
+        input[type="radio"]{
+          visibility: hidden;
+          margin-left: -20px;
+        }
+        .checked{
+          background-color: midnightblue;
+          margin-left: -10px;
+        }
+        .btn{
+          margin-right: 10px;
+        }
+      </style>
     <div id="page-content">
       <div id='wrap'>
         <div id="page-heading">
@@ -34,7 +73,7 @@
                                 {{ form_start(forms[i]) }}
                               <div class="form-group">
                               {{ form_label(forms[i].priceCotisation, "Montant de ma cotisation*", { 'label_attr' : { 'class' : 'col-sm-offset-1 col-sm-4 control-label' }})}}
-                                {{ form_widget(forms[i].priceCotisation, { 'attr' : { 'text-align' : 'center' } }) }}
+                                {{ form_widget(forms[i].priceCotisation) }}
                               </div>
                                 <div class="form-group col-xs-offset-4 ">
                                   {{ form_errors(forms[i]) }}

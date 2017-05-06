@@ -56,6 +56,13 @@ class Cotisation {
      */
     private $paymentType;
 
+    /**
+     * @var int
+     * Champ utilisé pour le montant de cotisation libre dans le formulaire.
+     * Non référencé en base
+     */
+    private $cotisationLibre;
+
     public function __construct() {
         $this->paymentType = -1;
         $this->payed = false;
@@ -162,6 +169,20 @@ class Cotisation {
      */
     public function setPaymentType($paymentType) {
         $this->paymentType = $paymentType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCotisationLibre() {
+        return $this->cotisationLibre;
+    }
+
+    /**
+     * @param int $cotisationLibre
+     */
+    public function setCotisationLibre($cotisationLibre) {
+        $this->cotisationLibre = $cotisationLibre;
     }
 
 
