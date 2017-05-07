@@ -55,10 +55,18 @@ class CotisationController extends Controller {
 
                 if ($request->request->get('cotis_form_' . $yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
                 {
-
                     $cotisation->setYearCotisation($yearCotisation);
-                    $cotisation->setPricecotisation($request->request->get('cotis_form_' . $yearCotisation->getId())['priceCotisation']);
+                    if($request->request->get('cotis_form_' . $yearCotisation->getId())['priceCotisation'] == 'Libre')
+                    {
+                        $cotisation->setPricecotisation($request->request->get('cotis_form_' . $yearCotisation->getId
+                                                                               ())['cotisationLibre']);
+                    }
+                    else
+                    {
+                        $cotisation->setPricecotisation($request->request->get('cotis_form_' . $yearCotisation->getId())['priceCotisation']);
+                    }
 
+                    //TODO : Le handler fout la merde.
                     $formHandler = new CotisationHandler($returnCotisationForm, $request, $em);
                     if ($formHandler->process()) {
                         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
