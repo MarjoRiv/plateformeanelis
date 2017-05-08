@@ -33,7 +33,7 @@ class CotisationController extends Controller {
             $date = intval($cotisation->getYearCotisation()->getYear());            //Année courante
             //On récupère seulement si l'année de cotisation n'est pas passée.
             if ($date >= intval(date("Y"))) {
-                if ($cotisation->getPayed()) {                              //Si la cotisation a bien été payée
+                if ($cotisation->isPayed()) {                              //Si la cotisation a bien été payée
                     $cotisOK[] = $cotisation->getYearCotisation()->getYear();
                 } else {                                                    //Si le paiement est en attente
                     $cotisEnAttente[] = $cotisation;
@@ -112,7 +112,7 @@ class CotisationController extends Controller {
 
     public function deleteAction(Cotisation $cotisation) {
 
-        if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->getPayed()) {
+        if ($cotisation->getUser() == $this->get('security.token_storage')->getToken()->getUser() && !$cotisation->isPayed()) {
             $em = $this->getDoctrine()->getManager();
 
             $em->remove($cotisation);

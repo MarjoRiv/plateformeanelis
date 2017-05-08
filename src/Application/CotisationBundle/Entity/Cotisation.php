@@ -87,7 +87,7 @@ class Cotisation {
     /**
      * @return bool
      */
-    public function getPayed() {
+    public function isPayed() {
         return $this->payed;
     }
 
