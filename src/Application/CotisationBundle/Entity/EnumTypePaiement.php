@@ -18,7 +18,7 @@ namespace Application\CotisationBundle\Entity;
  * récupère ce qu'il faut.
  */
 abstract class EnumTypePaiement {
-    const INCONNU  = -1; //Par défaut quand la cotisation n'est pas payé ou pour l'ancien modèle.
+    const NON_RENSEIGNE  = -1; //Par défaut quand la cotisation n'est pas payé ou pour l'ancien modèle.
     const CHEQUE   = 0;
     const CASH     = 1;
     const VIREMENT = 2;
@@ -42,7 +42,7 @@ abstract class EnumTypePaiement {
 
         switch ($value) {
             case -1:
-                $string = "Inconnu / Non payé";
+                $string = "Non Renseigné";
                 break;
             case 0:
                 $string = "Chèque";
