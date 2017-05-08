@@ -55,9 +55,8 @@ class CotisationController extends Controller {
 
                 if ($request->request->get('cotis_form_' . $yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
                 {
-
                     $cotisation->setYearCotisation($yearCotisation);
-                    $cotisation->setPricecotisation($request->request->get('cotis_form_' . $yearCotisation->getId())['priceCotisation']);
+
 
                     $formHandler = new CotisationHandler($returnCotisationForm, $request, $em);
                     if ($formHandler->process()) {

@@ -9,6 +9,10 @@ use Application\CotisationBundle\Manager\InvoiceManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class CotisationHandler
+ * @package Application\CotisationBundle\Form
+ */
 class CotisationHandler
 {
     private $form;
@@ -39,6 +43,10 @@ class CotisationHandler
     }
 
     public function onSuccess(Cotisation $cotisation) {
+        if($cotisation->getPricecotisation() == 'Libre')
+        {
+            $cotisation->setPricecotisation($cotisation->getCotisationLibre());
+        }
         $this->manager->persist($cotisation);
         $this->manager->flush();
     }

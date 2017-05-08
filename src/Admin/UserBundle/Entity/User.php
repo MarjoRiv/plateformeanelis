@@ -1167,7 +1167,7 @@ class User extends BaseUser
 
     function __toString()
     {
-        return $this->getName().' '.$this->getSurname();
+        return $this->getName().' '.$this->getSurname(). ' - '.$this->getPromotion();
     }
 
 

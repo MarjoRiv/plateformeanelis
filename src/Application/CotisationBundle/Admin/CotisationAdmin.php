@@ -53,7 +53,6 @@ class CotisationAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-            ->add('id')
             ->add('user', null, array('label' => 'Utilisateur'))
             ->add('yearCotisation', null, array('label' => 'Année'))
             ->add('pricecotisation', null, array('label' => 'Prix Payé'))
