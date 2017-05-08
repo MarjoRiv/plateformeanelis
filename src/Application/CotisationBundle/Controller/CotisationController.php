@@ -5,14 +5,27 @@ namespace Application\CotisationBundle\Controller;
 use Admin\UserBundle\Entity\User;
 use Application\CotisationBundle\ApplicationCotisationBundle;
 use Application\CotisationBundle\Entity\Cotisation;
+use Application\CotisationBundle\Entity\EnumTypePaiement;
 use Application\CotisationBundle\Entity\TypeCotisation;
 use Application\CotisationBundle\Form\CotisationHandler;
 use Application\CotisationBundle\Form\CotisationType;
 use Application\CotisationBundle\Manager\CotisationManager;
 use Application\CotisationBundle\Manager\InvoiceManager;
 use DateTime;
+use JMS\Payment\CoreBundle\Entity\ExtendedData;
+use JMS\Payment\CoreBundle\Entity\FinancialTransaction;
+use JMS\Payment\CoreBundle\Entity\Payment;
+use JMS\Payment\CoreBundle\Entity\PaymentInstruction;
+use JMS\Payment\CoreBundle\Form\ChoosePaymentMethodType;
+use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
+use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
+use JMS\Payment\CoreBundle\PluginController\Result;
+use JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+
 
 
 class CotisationController extends Controller {
@@ -157,5 +170,102 @@ class CotisationController extends Controller {
         $mailer->send($message);
 
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function paypalPaymentSuccessAction(Request $request, $year, $instId)
+    {
+
+        //TODO : Quand on saura si Paypal fait bien son boulot, on pourra voir si il y a besoin de plus de
+        // vérifications. Normalement avec ce système, l'utilisateur ne peux pas mettre la cotisation a payée en
+        // passant par la route de l'action puisqu'il lui faut plusieurs infos stockées en base (et hashée).
+        $em = $this->getDoctrine()->getManager();
+
+        $instruction = $em->getRepository('JMSPaymentCoreBundle:PaymentInstruction')->findOneBy(
+            array('id' => $instId)
+        );
+
+        if($instruction->getExtendedData()->get('express_checkout_token') == $request->query->get('token'))
+        {
+            $user = $this->getUser();
+
+            $yearCotisation = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findOneBy(
+                array('year' => $year)
+            );
+
+            $cotis = $em->getRepository('ApplicationCotisationBundle:Cotisation')->findOneBy(
+                array('user' => $user, 'yearCotisation' => $yearCotisation)
+            );
+
+            $cotis->setPayed(true);
+            $cotis->setPaymentType(EnumTypePaiement::PAYPAL);
+            $em->flush();
+            $em->persist($cotis);
+
+        }
+
+        return $this->redirect($this->generateUrl('application_cotisation_homepage'));
+
+    }
+
+    public function createPaymentAction(Request $request, $year)
+    {
+        $config = [
+            'paypal_express_checkout' => [
+                'return_url' => 'application_cotisation_homepage', UrlGeneratorInterface::ABSOLUTE_URL
+            ],
+        ];
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $ppc = $this->get('payment.plugin_controller');
+
+        $user = $this->getUser();
+
+        $yearCotisation = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findOneBy(
+            array('year' => $year)
+        );
+
+        $cotis = $em->getRepository('ApplicationCotisationBundle:Cotisation')->findOneBy(
+            array('user' => $user, 'yearCotisation' => $yearCotisation)
+        );
+
+        $instruction = new PaymentInstruction($cotis->getPricecotisation(),'EUR','paypal_express_checkout', new ExtendedData());
+
+
+        $transaction = new FinancialTransaction();
+        $transaction->setRequestedAmount($cotis->getPricecotisation());
+
+         $ppc->createPaymentInstruction($instruction);
+         $payment = $this->createPayment($instruction);
+         $payment->addTransaction($transaction);
+
+        $instruction->getExtendedData()->set('return_url', $this->generateUrl('application_cotisation_success_paypal', ['year' => $year, 'instId' => $instruction->getId()], UrlGeneratorInterface::ABSOLUTE_URL));
+        $instruction->getExtendedData()->set('cancel_url', $this->generateUrl('application_cotisation_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL));
+         $result = $ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
+         if ($result->getStatus() === Result::STATUS_PENDING) {
+
+             $ex = $result->getPluginException();
+             if ($ex instanceof ActionRequiredException) {
+                 $action = $ex->getAction();
+
+                 if ($action instanceof VisitUrl) {
+                     return $this->redirect($action->getUrl());
+                }
+            }
+         }
+        throw $result->getPluginException();
+    }
+
+    private function createPayment($instruction) {
+        $pendingTransaction = $instruction->getPendingTransaction();
+
+        if ($pendingTransaction !== null) {
+            return $pendingTransaction->getPayment();
+        }
+
+        $ppc = $this->get('payment.plugin_controller');
+
+        return $ppc->createPayment($instruction->getId(), $instruction->getAmount() - $instruction->getDepositedAmount());
     }
 }

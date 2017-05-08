@@ -120,6 +120,9 @@
                               </ul>
                               <div class="col-xs-offset-4">
                                 <button class="btn-primary btn">Payer</button>
+                                <a href="{{ path("application_cotisation_payer_paypal", { "year" : dateAttente.getYearCotisation.getYear })
+                                }}"><button class="btn-primary btn"><span class="glyphicon
+                                glyphicon-credit-card"></span>  Paypal</button></a>
                               </div>
                             </div>
                           </div>
@@ -204,5 +207,4 @@
       </div>
     </div>
     </div>
-
   {% endblock %}

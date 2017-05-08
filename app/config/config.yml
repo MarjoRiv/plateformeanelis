@@ -114,6 +114,16 @@ sonata_admin:
     templates:
         layout: AdminUserBundle::standard_layout.html.twig
 
+jms_payment_core:
+    encryption:
+        secret: def00000fcfa86e47e9945ba5e882e4cc3912f19d3053f404a2b893ef4133c5caed4a7c8c20e172fb0e84a7050ecf4033107af5f76b0b0eb64c4809c301227bfe353f094
+
+jms_payment_paypal:
+    username: anelis_api1.superbien.com
+    password: 96A2MA3Y9PB92L8Q
+    signature: AFcWxV21C7fd0v3bYYYRCpSSRl31A98V9WE7Q.PPOn8pRZM9hKQH6EYo
+    debug: true
+    useraction: commit
 
 #imports:
 #    - { resource: @AdminUserBundle/Resources/config/admin.xml }

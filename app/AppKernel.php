@@ -32,6 +32,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+            new JMS\Payment\CoreBundle\JMSPaymentCoreBundle(),
+            new JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle(),
             new Application\CotisationBundle\ApplicationCotisationBundle(),
             new Application\ChatBundle\ApplicationChatBundle(),
             new Application\CareerBundle\ApplicationCareerBundle(),
