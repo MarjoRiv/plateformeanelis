@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class CotisationType extends AbstractType {
     /**
@@ -35,11 +36,13 @@ class CotisationType extends AbstractType {
                     else
                         return $price;
                 },
+                'data' => $yearCotisation->getMinAmount(),
+                'empty_data' => $yearCotisation->getMinAmount(),
                 'required'     => true,
                 'expanded'     => true))
-            ->add('cotisationLibre', IntegerType::class, array(
+            ->add('cotisationLibre', MoneyType::class, array(
                 'constraints' => new GreaterThanOrEqual($yearCotisation->getMinAmount()),
-                'data' => $yearCotisation->getMinAmount(),
+                 'required' => false
 
             ))
             ->add('submit' . $options['formId'], SubmitType::class, array('label' => 'Cotiser'))

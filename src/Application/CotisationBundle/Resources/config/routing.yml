@@ -18,8 +18,19 @@ application_cotisation_delete:
     requirements:
         id: \d*
 
+application_cotisation_payer_paypal:
+    path: /cotisation/{year}/pay
+    defaults: { _controller: ApplicationCotisationBundle:Cotisation:createPayment }
+
+application_cotisation_success_paypal:
+    path: /cotisation/{year}/paypalOK
+    defaults: { _controller: ApplicationCotisationBundle:Cotisation:paypalPaymentSuccess }
+
 admin_cotisation_relancer:
     path:  /admin/cotisation/relancer/{id}
     defaults: { _controller: "ApplicationCotisationBundle:Cotisation:relancer" }
     requirements:
         id: \d*
+
+
+

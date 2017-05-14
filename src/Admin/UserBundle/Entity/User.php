@@ -2,6 +2,7 @@
 
 namespace Admin\UserBundle\Entity;
 
+use Application\CotisationBundle\Entity\Cotisation;
 use Application\MainBundle\Entity\Image;
 use Doctrine\ORM\Mapping as ORM; // To check
 use FOS\UserBundle\Model\User as BaseUser;
@@ -819,11 +820,14 @@ class User extends BaseUser
         return $this->country;
     }
 
+    /**
+     * @return bool
+     */
     public function isCotisant()
     {
         $cotisations = array_reverse($this->getCotisations()->toArray());
         foreach ($cotisations as $value) {
-            if ($value->getYear()->format('Y') == date('Y') && $value->getInvoice()->getPayed())
+            if ($value->isPayed() && $value->getYearCotisation()->getYear() == date('Y'))
                 return true;
         }
         return false;
@@ -1170,5 +1174,20 @@ class User extends BaseUser
         return $this->getName().' '.$this->getSurname(). ' - '.$this->getPromotion();
     }
 
+    /**
+     * @param int $year
+     * @return Cotisation
+     */
+    function getCotisationByYear($year)
+    {
+        foreach($this->getCotisations() as $cotisation )
+        {
+            if($cotisation->getYearCotisation()->getYear() == $year)
+            {
+                return $cotisation;
+            }
+        }
 
+        return null;
+    }
 }

@@ -63,6 +63,9 @@ class Cotisation {
      */
     private $cotisationLibre;
 
+    /** @ORM\OneToOne(targetEntity="JMS\Payment\CoreBundle\Entity\PaymentInstruction") */
+    private $paymentInstruction;
+
     public function __construct() {
         $this->paymentType = -1;
         $this->payed = false;
@@ -87,7 +90,7 @@ class Cotisation {
     /**
      * @return bool
      */
-    public function getPayed() {
+    public function isPayed() {
         return $this->payed;
     }
 
@@ -183,6 +186,20 @@ class Cotisation {
      */
     public function setCotisationLibre($cotisationLibre) {
         $this->cotisationLibre = $cotisationLibre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentInstruction() {
+        return $this->paymentInstruction;
+    }
+
+    /**
+     * @param mixed $paymentInstruction
+     */
+    public function setPaymentInstruction($paymentInstruction) {
+        $this->paymentInstruction = $paymentInstruction;
     }
 
 
