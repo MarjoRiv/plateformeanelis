@@ -5,6 +5,9 @@
     {% form_theme form '@ApplicationCotisation/Form/fields.html.twig' %}
 {% endfor %}
 
+{% for form in paypalForms %}
+    {% form_theme form '@ApplicationCotisation/Form/fieldsJMSPayment.html.twig' %}
+{% endfor %}
 
 
   {% block body %}
@@ -51,8 +54,8 @@
           margin-top:20px;
           margin-bottom: 20px;
         }
-        .formCotisationLibre input {
-          width: 75px;
+        .money_input {
+          width: 100px;
         }
       </style>
     <div id="page-content">
@@ -84,8 +87,8 @@
                             <p class="text-info">La cotisation pour l'année {{ dateDispo }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
                             <div class="col-xs-offset-2 col-xs-8 formCotisation">
                                 {{ form_start(forms[i]) }}
-                              <div class="form-group ">
-                              {{ form_label(forms[i].priceCotisation, "Montant de ma cotisation*")}}
+                              <div class="form-group">
+                              {{ form_label(forms[i].priceCotisation, "Montant de ma cotisation")}}
                                 {{ form_widget(forms[i].priceCotisation) }}
                                 <div class="formCotisationLibre">
                                     {{ form_label(forms[i].cotisationLibre)}}
@@ -117,12 +120,15 @@
                                 <ul>
                                 <li>Par chèque à l'ordre de l'<b>Association des Anciens Elèves de l'ISIMA</b></li>
                                 <li>Par virement à l'IBAN suivant : <br/><b>FR76 1680 6050 0066 0746 3319 725</b></li>
-                              </ul>
+                                <li>Vous pouvez également sélectionner une méthode de paiement en ligne ci-dessous.
+                                  Stripe arrivera bientôt pour payer vos cotisations en ligne !
+                                </li>
+                                </ul>
                               <div class="col-xs-offset-4">
-                                <button class="btn-primary btn">Payer</button>
-                                <a href="{{ path("application_cotisation_payer_paypal", { "year" : dateAttente.getYearCotisation.getYear })
-                                }}"><button class="btn-primary btn"><span class="glyphicon
-                                glyphicon-credit-card"></span>  Paypal</button></a>
+                                  {{ form_start(paypalForms[dateAttente.getYearCotisation.getYear]) }}
+                                  {{ form_widget(paypalForms[dateAttente.getYearCotisation.getYear]) }}
+                                    <input type="submit" class="btn btn-orange" value="Payer" />
+                                  {{ form_end(paypalForms[dateAttente.getYearCotisation.getYear]) }}
                               </div>
                             </div>
                           </div>

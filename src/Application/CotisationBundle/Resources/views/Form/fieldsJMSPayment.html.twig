@@ -34,7 +34,7 @@
 {%- endblock %}
 
 {% block money_widget -%}
-    <div class="input-group money_input">
+    <div class="input-group">
         {% set append = money_pattern starts with '{{' %}
         {% if not append %}
             <span class="input-group-addon">{{ money_pattern|replace({ '{{ widget }}':''}) }}</span>
@@ -180,7 +180,7 @@
     {% if 'radio-inline' in parent_label_class %}
         {{- form_label(form, null, { widget: parent() }) -}}
     {% else -%}
-        <label class="btn btn-midnightblue-alt btn-circle btn-lg"  {% if checked %} checked {% endif %}>
+        <label class="btn btn-orange-alt "  {% if checked %} checked {% endif %}>
             {{- form_label(form, null, { widget: parent() }) -}}
         </label>
     {%- endif %}

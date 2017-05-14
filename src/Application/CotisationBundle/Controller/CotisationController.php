@@ -16,6 +16,7 @@ use JMS\Payment\CoreBundle\Entity\ExtendedData;
 use JMS\Payment\CoreBundle\Entity\FinancialTransaction;
 use JMS\Payment\CoreBundle\Entity\Payment;
 use JMS\Payment\CoreBundle\Entity\PaymentInstruction;
+use JMS\Payment\CoreBundle\Exception\Exception;
 use JMS\Payment\CoreBundle\Form\ChoosePaymentMethodType;
 use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
@@ -40,6 +41,8 @@ class CotisationController extends Controller {
         $cotisEnAttente = array();
         $dateCotisEnAttente = array();
         $returnForms = array();                                             //L'ensemble des formulaires de retour
+        $paypalForms = array();
+
 
         foreach ($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
         {
@@ -64,6 +67,7 @@ class CotisationController extends Controller {
             if (!in_array($date, $dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled()) {
                 $cotisDispo[] = $date;
 
+                $cotisation->setPricecotisation($yearCotisation->getMinAmount());
                 $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_' . $yearCotisation->getId(), CotisationType::class, $cotisation,['choices' => $yearCotisation, 'formId' => $yearCotisation->getId()])->getForm();
 
                 if ($request->request->get('cotis_form_' . $yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
@@ -79,6 +83,42 @@ class CotisationController extends Controller {
 
                 $returnForms[] = $returnCotisationForm->createView();
             }
+            else if (in_array($date, $dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y"))
+                   && new DateTime() >= $yearCotisation->getDateEnabled())
+            {
+                $config = [
+                    'paypal_express_checkout' => [
+                        'return_url' => $this->generateUrl('application_cotisation_payer_paypal', ['year' => $yearCotisation->getYear()], UrlGeneratorInterface::ABSOLUTE_URL),
+                        'cancel_url' => $this->generateUrl('application_cotisation_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+                        'useraction' => 'commit',
+                    ],
+                ];
+
+                $paypalForm = $this->get('form.factory')->createNamedBuilder('paypalForm'.$yearCotisation->getId(),
+                                                        ChoosePaymentMethodType::class, null, [
+                    'amount'   => $this->getUser()->getCotisationByYear($yearCotisation->getYear())
+                        ->getPriceCotisation(),
+                    'currency' => 'EUR',
+                    'predefined_data' => $config,
+                ])->getForm();
+
+                $paypalForm->handleRequest($request);
+
+                if($paypalForm->isSubmitted() && $paypalForm->isValid()) {
+                    $ppc = $this->get('payment.plugin_controller');
+                    $ppc->createPaymentInstruction($instruction = $paypalForm->getData());
+
+                    $cotisation = $this->getUser()->getCotisationByYear($yearCotisation->getYear());
+                    $cotisation->setPaymentInstruction($instruction);
+                    $em->persist($cotisation);
+                    $em->flush($cotisation);
+                    dump($yearCotisation->getYear());
+                    return $this->redirect($this->generateUrl('application_cotisation_payer_paypal', ['year' =>
+                    $yearCotisation->getYear()]));
+                }
+
+                $paypalForms[$yearCotisation->getYear()] = $paypalForm->createView();
+            }
 
         }
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
@@ -86,6 +126,7 @@ class CotisationController extends Controller {
             "cotisOK"      => $cotisOK,
             "cotisAttente" => $cotisEnAttente,
             "forms"        => $returnForms,
+            "paypalForms"  => $paypalForms
         ));
 
     }
@@ -172,51 +213,20 @@ class CotisationController extends Controller {
         return $this->redirect($request->headers->get('referer'));
     }
 
-    public function paypalPaymentSuccessAction(Request $request, $year, $instId)
-    {
 
-        //TODO : Quand on saura si Paypal fait bien son boulot, on pourra voir si il y a besoin de plus de
-        // vérifications. Normalement avec ce système, l'utilisateur ne peux pas mettre la cotisation a payée en
-        // passant par la route de l'action puisqu'il lui faut plusieurs infos stockées en base (et hashée).
-        $em = $this->getDoctrine()->getManager();
-
-        $instruction = $em->getRepository('JMSPaymentCoreBundle:PaymentInstruction')->findOneBy(
-            array('id' => $instId)
-        );
-
-        if($instruction->getExtendedData()->get('express_checkout_token') == $request->query->get('token'))
-        {
-            $user = $this->getUser();
-
-            $yearCotisation = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findOneBy(
-                array('year' => $year)
-            );
-
-            $cotis = $em->getRepository('ApplicationCotisationBundle:Cotisation')->findOneBy(
-                array('user' => $user, 'yearCotisation' => $yearCotisation)
-            );
-
-            $cotis->setPayed(true);
-            $cotis->setPaymentType(EnumTypePaiement::PAYPAL);
-            $em->flush();
-            $em->persist($cotis);
-
-        }
-
-        return $this->redirect($this->generateUrl('application_cotisation_homepage'));
-
-    }
-
+    /**
+     * @param Request $request
+     * @param $year
+     * @return mixed
+     *
+     * Action particulière de paiement.
+     * Appellée une première fois pour lancer la transaction et rediriger vers paypal.
+     * Au retour du site, si Paypal réussi la transaction, l'utilisateur est renvoyé sur cette action qui vérifie
+     * auprès du service de paiement si la transaction est réussie. Si c'est le cas la cotisation est validée
+     * automatiquement. Dans le cas contraire, une pop-up invitant à envoyer un mail à l'Anelis est affichée.
+     */
     public function createPaymentAction(Request $request, $year)
     {
-        $config = [
-            'paypal_express_checkout' => [
-                'return_url' => 'application_cotisation_homepage', UrlGeneratorInterface::ABSOLUTE_URL
-            ],
-        ];
-
-
-
         $em = $this->getDoctrine()->getManager();
         $ppc = $this->get('payment.plugin_controller');
 
@@ -230,31 +240,34 @@ class CotisationController extends Controller {
             array('user' => $user, 'yearCotisation' => $yearCotisation)
         );
 
-        $instruction = new PaymentInstruction($cotis->getPricecotisation(),'EUR','paypal_express_checkout', new ExtendedData());
+        $payment = $this->createPayment($cotis->getPaymentInstruction());
+        $result = $ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
 
-
-        $transaction = new FinancialTransaction();
-        $transaction->setRequestedAmount($cotis->getPricecotisation());
-
-         $ppc->createPaymentInstruction($instruction);
-         $payment = $this->createPayment($instruction);
-         $payment->addTransaction($transaction);
-
-        $instruction->getExtendedData()->set('return_url', $this->generateUrl('application_cotisation_success_paypal', ['year' => $year, 'instId' => $instruction->getId()], UrlGeneratorInterface::ABSOLUTE_URL));
-        $instruction->getExtendedData()->set('cancel_url', $this->generateUrl('application_cotisation_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL));
-         $result = $ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
-         if ($result->getStatus() === Result::STATUS_PENDING) {
+         if ($result->getStatus() === Result::STATUS_PENDING) { //Statut en attente : on redirige vers Paypal
 
              $ex = $result->getPluginException();
              if ($ex instanceof ActionRequiredException) {
                  $action = $ex->getAction();
-
                  if ($action instanceof VisitUrl) {
                      return $this->redirect($action->getUrl());
                 }
             }
          }
-        throw $result->getPluginException();
+         else if ($result->getStatus() !== Result::STATUS_SUCCESS) //Erreur, on renvoi l'utilisateur vers la page
+             // avec une popup
+         {
+             //TODO : Passer le message dans la table STATIC_TEXT
+             $message='Le paiement n\'a pas abouti, veuillez contacter l\'Anelis pour plus d\'informations';
+             echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
+             return $this->redirect($this->generateUrl('application_cotisation_homepage'));
+         }
+
+         //Si la transaction a réussie, la cotisation est validée !
+         $cotis->setPayed(true);
+         $cotis->setPaymentType(EnumTypePaiement::PAYPAL);
+         $em->persist($cotis);
+         $em->flush($cotis);
+         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
     }
 
     private function createPayment($instruction) {

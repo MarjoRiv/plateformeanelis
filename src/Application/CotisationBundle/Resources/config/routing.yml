@@ -23,7 +23,7 @@ application_cotisation_payer_paypal:
     defaults: { _controller: ApplicationCotisationBundle:Cotisation:createPayment }
 
 application_cotisation_success_paypal:
-    path: /cotisation/{year}/{instId}/paypalOK
+    path: /cotisation/{year}/paypalOK
     defaults: { _controller: ApplicationCotisationBundle:Cotisation:paypalPaymentSuccess }
 
 admin_cotisation_relancer:
