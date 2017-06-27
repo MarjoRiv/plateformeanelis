@@ -112,7 +112,6 @@ class CotisationController extends Controller {
                     $cotisation->setPaymentInstruction($instruction);
                     $em->persist($cotisation);
                     $em->flush($cotisation);
-                    dump($yearCotisation->getYear());
                     return $this->redirect($this->generateUrl('application_cotisation_payer_paypal', ['year' =>
                     $yearCotisation->getYear()]));
                 }
