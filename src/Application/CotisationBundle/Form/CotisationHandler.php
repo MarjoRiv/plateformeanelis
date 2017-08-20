@@ -43,7 +43,7 @@ class CotisationHandler
     }
 
     public function onSuccess(Cotisation $cotisation) {
-        if($cotisation->getPricecotisation() == 'Libre')
+        if($cotisation->getCotisationLibre() != null)
         {
             $cotisation->setPricecotisation($cotisation->getCotisationLibre());
         }

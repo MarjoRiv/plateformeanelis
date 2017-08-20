@@ -57,7 +57,20 @@
         .money_input {
           width: 100px;
         }
+        .jumbotron {
+          padding: 15px;
+        }
+        .bg-danger {
+          margin-bottom: 20px;
+          font-weight: bold;
+        }
+
+        .ou {
+          margin-top:15px;
+          margin-bottom:15px;
+        }
       </style>
+
     <div id="page-content">
       <div id='wrap'>
         <div id="page-heading">
@@ -68,10 +81,8 @@
         </div>
 
         <div class="container">
-          <div >
-            <h3>Pourquoi Cotiser ?</h3>
-            Cotiser permet à l'association d'évoluer et de subvenir aux différents besoins financiers comme la maintenance et l'hébergement de cette plateforme ou encore l'organisation d'évènements !
-            Cela vous donne également des avantages comme la possibilité de proposer des offres aux ZZ et de consulter le profil des personnes !
+          <div class="jumbotron ">
+              {{ staticText  | raw}}
           </div>
           <h1>Mes cotisations</h1>
           <div class="row">
@@ -90,11 +101,25 @@
                               <div class="form-group">
                               {{ form_label(forms[i].priceCotisation, "Montant de ma cotisation")}}
                                 {{ form_widget(forms[i].priceCotisation) }}
+
+                                <div class="ou">
+                                  OU
+                                </div>
+
                                 <div class="formCotisationLibre">
                                     {{ form_label(forms[i].cotisationLibre)}}
                                     {{ form_widget(forms[i].cotisationLibre) }}
                                 </div>
                               </div>
+                                {% set j = 0 %}
+                                {% for error in showAmountError if showAmountError[j] != dateDispo %}
+                                    {% set j = j + 1 %}
+                                {% endfor %}
+                                {% if j < showAmountError | length %}
+                                  <div class="bg-danger"> Le champ Cotisation Libre est mal renseigné. Le montant
+                                    minimum de la cotisation {{ dateDispo }} est de 15
+                                    € minimum.</div>
+                                {% endif %}
                                 <div class="form-group col-xs-offset-4 ">
                                   {{ form_errors(forms[i]) }}
                                   {{ form_rest(forms[i]) }}
@@ -116,18 +141,18 @@
                               <h4>Cotisation {{ dateAttente.getYearCotisation.getYear }}</h4>
                             </div>
                             <div class="panel-body">
-                              <p class="text-info">Votre cotisation est en attente de validation, si vous ne souhaitez pas payer en ligne, vous pouvez régler :</p>
+                              <p class="text-info">Votre cotisation {{ dateAttente.getYearCotisation.getYear }} est en attente de validation, si vous ne
+                                souhaitez pas payer en ligne, vous pouvez régler :</p>
                                 <ul>
                                 <li>Par chèque à l'ordre de l'<b>Association des Anciens Elèves de l'ISIMA</b></li>
                                 <li>Par virement à l'IBAN suivant : <br/><b>FR76 1680 6050 0066 0746 3319 725</b></li>
-                                <li>Vous pouvez également sélectionner une méthode de paiement en ligne ci-dessous.
-                                  Stripe arrivera bientôt pour payer vos cotisations en ligne !
+                                <li>Vous pouvez également payer via Paypal
                                 </li>
                                 </ul>
                               <div class="col-xs-offset-4">
                                   {{ form_start(paypalForms[dateAttente.getYearCotisation.getYear]) }}
                                   {{ form_widget(paypalForms[dateAttente.getYearCotisation.getYear]) }}
-                                    <input type="submit" class="btn btn-orange" value="Payer" />
+                                <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-44px.png" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
                                   {{ form_end(paypalForms[dateAttente.getYearCotisation.getYear]) }}
                               </div>
                             </div>
@@ -193,7 +218,7 @@
                             <td>{{ cotisation.priceCotisation }} €</td>
                             <td>{% if cotisation.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
                             <td>{% if not cotisation.payed %}
-                                <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></i></a>
+                                <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></a>
                                 {% endif %}</td>
                           </tr>
                             {% set cotisationNumbers = cotisationNumbers + 1 %}

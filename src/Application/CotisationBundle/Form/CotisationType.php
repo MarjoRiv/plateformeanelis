@@ -29,12 +29,9 @@ class CotisationType extends AbstractType {
             ->add('priceCotisation', ChoiceType::class, array(
                 'choices'      => [$yearCotisation->getMinAmount(), $yearCotisation->getProposedAmount1(),
                     $yearCotisation->getProposedAmount2(), $yearCotisation->getProposedAmount3(),
-                    $yearCotisation->getProposedAmount4(),'Libre'],
+                    $yearCotisation->getProposedAmount4()],
                 'choice_label' => function ($price, $key, $index) {
-                    if($key != 5)
                         return $price . ' €';
-                    else
-                        return $price;
                 },
                 'data' => $yearCotisation->getMinAmount(),
                 'empty_data' => $yearCotisation->getMinAmount(),
