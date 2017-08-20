@@ -2,6 +2,7 @@
 
 namespace Application\CotisationBundle\Controller;
 
+use Admin\UserBundle\Entity\StaticText;
 use Admin\UserBundle\Entity\User;
 use Application\CotisationBundle\ApplicationCotisationBundle;
 use Application\CotisationBundle\Entity\Cotisation;
@@ -42,6 +43,9 @@ class CotisationController extends Controller {
         $dateCotisEnAttente = array();
         $returnForms = array();                                             //L'ensemble des formulaires de retour
         $paypalForms = array();
+        $showAmountError = array();
+
+        $staticTextCotisation = $em->getRepository('AdminUserBundle:StaticText')->find(2);
 
 
         foreach ($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
@@ -79,6 +83,10 @@ class CotisationController extends Controller {
                     if ($formHandler->process()) {
                         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
                     }
+                    else
+                    {
+                        $showAmountError[] = $date;
+                    }
                 }
 
                 $returnForms[] = $returnCotisationForm->createView();
@@ -99,8 +107,10 @@ class CotisationController extends Controller {
                     'amount'   => $this->getUser()->getCotisationByYear($yearCotisation->getYear())
                         ->getPriceCotisation(),
                     'currency' => 'EUR',
+                    'default_method' => 'paypal_express_checkout',
                     'predefined_data' => $config,
                 ])->getForm();
+
 
                 $paypalForm->handleRequest($request);
 
@@ -125,7 +135,9 @@ class CotisationController extends Controller {
             "cotisOK"      => $cotisOK,
             "cotisAttente" => $cotisEnAttente,
             "forms"        => $returnForms,
-            "paypalForms"  => $paypalForms
+            "paypalForms"  => $paypalForms,
+            "staticText"   => $staticTextCotisation->getStaticText(),
+            "showAmountError" => $showAmountError
         ));
 
     }
