@@ -1,0 +1,19 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+    {% block title %}Maintenance{% endblock %}
+
+        {% block optbody %}
+            class="focusedform"
+        {% endblock %}
+
+        {% block content %}
+            <div class="verticalcenter">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4 class="text-center" style="margin-bottom: 25px;">Désolé, la plateforme est en maintenance !</h4>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}

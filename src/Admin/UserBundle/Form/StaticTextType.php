@@ -26,7 +26,7 @@ class StaticTextType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\UserBundle\Entity\StaticText'
+            'data_class' => 'Admin\UserBundle\Entity\Parameters'
         ));
     }
 

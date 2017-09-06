@@ -3,7 +3,7 @@
 namespace Application\MainBundle\Controller;
 
 use Admin\UserBundle\Entity\Events;
-use Admin\UserBundle\Entity\StaticText;
+use Admin\UserBundle\Entity\Parameters;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -17,7 +17,7 @@ class DefaultController extends Controller
         $offers = $this->OffreValid();
 
         //Searching the static textes on the page... Maybe use the name instead of the Id that can change on the DB.
-        $welcomeText = $this->getDoctrine()->getRepository('AdminUserBundle:StaticText')->find(1);
+        $welcomeText = $this->getDoctrine()->getRepository('AdminUserBundle:Parameters')->findOneByName('anelis.accueil.welcomeText');
 
         $incommingEvents = $this->findIncommingEvents();
 
@@ -26,7 +26,7 @@ class DefaultController extends Controller
 
         return $this->render('ApplicationMainBundle:Default:index.html.twig', array(
             'users' => count($users),
-            'welcomeText' => $welcomeText->getStaticText(),
+            'welcomeText' => $welcomeText->getValue(),
             'events' => $incommingEvents,
             'offers' => count($offers)
         ));

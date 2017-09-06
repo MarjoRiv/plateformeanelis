@@ -21,9 +21,6 @@
                             <div class="panel panel-primary">
                               <div class="panel-heading">
                                 <h4>Bienvenue</h4>
-                                  {% if is_granted("ROLE_ADMIN") %}
-                                  <div align="right"><a class="btn btn-primary" href={{ path('admin_admin_user_statictext_edit',{'id' : 1}) }}><i class="fa fa-gear"></i></a></div>
-                                  {% endif %}
                               </div>
                             <div class="panel-body">
                                 <p>
@@ -68,7 +65,7 @@
                             </a>
                         </div>
                         <div class="col-md-3 col-xs-12 col-sm-6">
-                            <a class="info-tiles tiles-toyo" href="{{ path('offre_homepage') }}">
+                            <a class="info-tiles tiles-toyo" {#href="{{ path('offre_homepage') }}"#}>
                                 <div class="tiles-heading">Annonces</div>
                                 <div class="tiles-body-alt">
                                     <i class="fa fa-bullhorn"></i>
@@ -87,7 +84,7 @@
                                 </div>
                             </a>
                         </div>
-                        
+
                         <div class="col-md-3 col-xs-12 col-sm-6">
                             <a class="info-tiles tiles-alizarin" href="#">
                                 <div class="tiles-heading">Photos</div>
