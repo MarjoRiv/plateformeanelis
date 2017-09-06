@@ -3,7 +3,7 @@
 namespace Application\MainBundle\Controller;
 
 use Admin\UserBundle\Entity\Events;
-use Admin\UserBundle\Entity\StaticText;
+use Admin\UserBundle\Entity\Parameters;
 use Sonata\AdminBundle\SonataAdminBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -14,8 +14,10 @@ class DefaultController extends Controller
     {
         $users = $this->getDoctrine()->getRepository('AdminUserBundle:User')->findAll();
 
+        $offers = $this->OffreValid();
+
         //Searching the static textes on the page... Maybe use the name instead of the Id that can change on the DB.
-        $welcomeText = $this->getDoctrine()->getRepository('AdminUserBundle:StaticText')->find(1);
+        $welcomeText = $this->getDoctrine()->getRepository('AdminUserBundle:Parameters')->findOneByName('anelis.accueil.welcomeText');
 
         $incommingEvents = $this->findIncommingEvents();
 
@@ -24,8 +26,9 @@ class DefaultController extends Controller
 
         return $this->render('ApplicationMainBundle:Default:index.html.twig', array(
             'users' => count($users),
-            'welcomeText' => $welcomeText->getStaticText(),
-            'events' => $incommingEvents
+            'welcomeText' => $welcomeText->getValue(),
+            'events' => $incommingEvents,
+            'offers' => count($offers)
         ));
     }
 
@@ -56,5 +59,18 @@ class DefaultController extends Controller
 
         return $incommingEvents;
     }
+
+    //list of valid offers
+    protected function OffreValid()
+    {
+        $query=$this->getDoctrine()->getRepository('OffreBundle:Offers')->createQueryBuilder('u');
+        
+        $date=new \DateTime('now');
+        $query->where('u.dateexpire > :date') //select offers which are before its expiration date
+            ->setParameter('date', $date) 
+            ->andwhere('u.enabled = true'); //select offers which are enabled by the user
+        $query=$query->getQuery()->getResult();
+        return $query;
+    } 
 
 }

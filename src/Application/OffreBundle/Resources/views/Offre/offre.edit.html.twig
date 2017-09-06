@@ -1,0 +1,90 @@
+{% extends "::application.html.twig" %} 
+{% block title %}{{offre.title}}{% endblock %}
+
+{% block body %}
+<div id="page-content">
+  <div id='wrap'>
+    <div id="page-heading">
+      <ol class="breadcrumb">
+        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+        <li><a href="{{ path('offre_homepage') }}">Partage d'annonces</a></li>
+        <li class="active">{{offre.title}}</li>
+      </ol>
+    </div>
+    <div class="container">      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-primary">
+            <div class="form-horizontal tab-pane active" id="midifier">
+                {{ form_start(form) }}
+                <div class="col-md-10">
+                    <div class="col-sm-11" style="float:right; color:red;">
+                        {{ message }}
+                    </div> 
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.title, "Titre", { 'label_attr' : { 'class' : 'col-sm-3 control-label'} }) }}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.title, { 'attr' : { 'class' : 'form-control', 'maxlength' : '40'  } }) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                            <div class="col-sm-8">
+                                {{ form_widget(form.type, { 'attr' : { 'class' : 'form-control' } }) }}
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description, "Description", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'maxlength' : '2000' , 'style' : 'height:300px' } }) }}
+                        </div>
+                        <div class="col-sm-11">
+                            <label class="col-sm-2 control-label" style="float:right;" id="compteur"></label>
+                        </div>
+                    </div>
+                    <script>
+                        function updateKey(){
+                            $("label#compteur").html($("#description").val().length + "/2000");
+                        }
+                        $(document).ready(function(){
+                            $("#description").on("keydown", function(){
+                                setTimeout(updateKey, 100);
+                            });
+                        });
+                    </script>
+                    <div class="form-group">
+                        {{ form_label(form.attachement.file, "Pièce Jointe", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                        <div class="col-sm-5">
+                            {% if offre.attachement is not empty %}
+                                Le fichier actuelle est : {{ offre.attachement.filename }}
+                            {% endif %}
+                            {{ form_widget(form.attachement.file, { 'label_attr' : { 'class' : 'form-control' } }) }}
+                            La pièce jointe ne doit pas faire plus de 1 Mo.
+                        </div>
+                        <div class="col-sm-4" style="margin-top:10px;">
+                            {{ form_widget(form.deleteAttachement, { 'label_attr' : { 'class' : 'btn btn-default', 'type':'submit', 'id':'deleteAttachement', 'name':'deleteAttachement' } }) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled, "Disponible", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.enabled, { 'attr' : { 'class' : 'form-control' } }) }}
+                        </div>
+                    </div>
+                    <div class="btn-toolbar" style="text-align: center;">
+                        <button class="btn-primary btn">Modifier</button>
+                    </div>
+                </div>
+                {{ form_rest(form) }} 
+                                               
+            {{ form_end(form) }}   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

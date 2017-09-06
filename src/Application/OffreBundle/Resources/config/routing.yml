@@ -1,0 +1,19 @@
+#offre_edit:
+#    path:  /offre/{id}/edit
+#    defaults: { _controller: "OffreBundle:Offre:edit" }
+#    requirements:
+#        id: \d*
+#
+#offre_show:
+#    path:  /offre/{id}
+#    defaults: { _controller: "OffreBundle:Offre:show" }
+#    requirements:
+#        id: \d*
+#
+#offre_add:
+#    path:  /offre/add
+#    defaults: { _controller: "OffreBundle:Offre:add" }
+#
+#offre_homepage:
+#    path:     /offre
+#    defaults: { _controller: OffreBundle:Offres:view }

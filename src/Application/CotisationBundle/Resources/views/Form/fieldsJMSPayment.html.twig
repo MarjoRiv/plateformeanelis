@@ -1,0 +1,19 @@
+{% use "form_div_layout.html.twig" %}
+
+
+{% block form_label -%}
+    <div style="display: none;">
+        {{ parent() }}
+    </div>
+{%- endblock form_label %}
+
+{# Don't render the radio button's label #}
+{% block _jms_choose_payment_method_method_label %}
+{% endblock %}
+
+{# Hide each entry in the radio button #}
+{% block _jms_choose_payment_method_method_widget %}
+    <div style="display: none;">
+        {{ parent() }}
+    </div>
+{% endblock %}

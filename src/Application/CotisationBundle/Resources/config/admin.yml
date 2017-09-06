@@ -1,14 +1,10 @@
 services:
-    sonata.admin.cotisationtype:
-        class: Application\CotisationBundle\Admin\TypeCotisationAdmin
+    application_cotisation.admin.year_cotisation:
+        class: Application\CotisationBundle\Admin\YearCotisationAdmin
+        arguments: [~, Application\CotisationBundle\Entity\YearCotisation, ApplicationCotisationBundle:YearCotisationAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Cotisation", label: "Types de Cotisations" }
-        arguments:
-            - ~
-            - Application\CotisationBundle\Entity\TypeCotisation
-            - ~
-        calls:
-            - [ setTranslationDomain, [ApplicationCotisationBundle]]
+            - { name: sonata.admin, manager_type: orm, group: "Cotisation", label: "Années de Cotisation" }
+
     sonata.admin.cotisation:
         class: Application\CotisationBundle\Admin\CotisationAdmin
         tags:
@@ -19,28 +15,15 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ApplicationCotisationBundle]]
-    sonata.admin.invoice:
-        class: Application\CotisationBundle\Admin\InvoiceAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Cotisation", label: "Factures" }
-        arguments:
-            - ~
-            - Application\CotisationBundle\Entity\Invoice
-            - ~
-        calls:
-            - [ setTranslationDomain, [ApplicationCotisationBundle]]
 
     nouvelle.cotisation:
         class: Application\CotisationBundle\Listener\CotisListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 
-    update.invoice:
-        class: Application\CotisationBundle\Listener\CotisListener
-        tags:
-            - { name: doctrine.event_listener, event: postUpdate }
-
     update.user:
         class: Application\CotisationBundle\Listener\CotisListener
         tags:
             - { name: doctrine.event_listener, event: preUpdate }
+
+

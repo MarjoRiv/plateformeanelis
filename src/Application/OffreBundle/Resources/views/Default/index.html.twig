@@ -1,0 +1,150 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Partage d'annonces{% endblock %}
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                        <li class="active">Partage d'annonces</li>
+                    </ol>
+
+                    <h1>Partage d'annonces</h1>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li{% if onglet == 1 %} class="active"{% endif %}><a href="#afficher" data-toggle="tab">Annonces</a></li>
+                                        <li{% if onglet == 2 %} class="active"{% endif %}><a href="#mesOffres" data-toggle="tab">Mes annonces</a></li>
+                                    </ul>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="form-horizontal tab-pane{% if onglet == 1 or onglet > 2 %} active{% endif %}" id="afficher">
+                                        {{ form_start(formtype) }}
+                                            <div class="col-md-3" style="text-align: left; width: 300px; float:left;">
+                                                {{ form_errors(formtype) }}
+                                                <div class="form-group">
+                                                    {{ form_label(formtype.type, "Type", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                                    <div class="col-sm-6">
+                                                        {{ form_widget(formtype.type, { 'attr' : { 'class' : 'form-control' } }) }}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3" style="text-align: left; float:left;">
+                                                <div class="btn-toolbar">
+                                                    <button class="btn-primary btn">Filtrer</button>
+                                                </div>
+                                            </div>
+                                            
+                                            {{ form_rest(formtype) }} 
+                                        {{ form_end(formtype) }}
+                                            <div class="col-md-3" style="text-align: right; float: right;">
+                                                <div class="btn-toolbar">
+                                                    <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonce</button></a>
+                                                </div>
+                                            </div>
+
+                                            <br/><br/>
+                                            <br/><br/>
+
+                                        {% if results is not empty %}
+                                            {% for result in results %}
+                                            <a href="offre/{{ result.id }}">
+                                                <div class="col-sm-4" style="height: 240px;">
+                                                    <div class="panel panel-sky">
+                                                        <div class="panel-heading" style="text-align: center;">
+                                                            <h4>{{ result.title }}</h4>
+                                                        </div>
+                                                        <div class="panel-body" style="height: 190px;{% if (not result.enabled) or (result.dateexpire < date) %} background-color: #DADADA;{% endif %}">
+                                                            <div class="media">
+                                                                <div class="media-body">
+                                                                    <div style="height:115px; overflow:hidden;">
+                                                                        {{ result.description }}
+                                                                    </div>
+                                                                    <div style="white-space:nowrap; overflow:hidden;">
+                                                                        <hr style="margin:8px auto">
+                                                                        <span class="label label-default">{{ result.user.UserApp.username }}</span>
+                                                                        <span class="label label-default">{{ result.type }}</span>
+                                                                        <span class="label label-default">{{ result.datepublished|date('d-m') }}</span>
+                                                                        <span class="label label-default">Vues : {{ result.reading }}</span>
+                                                                        <hr style="margin:8px auto">
+                                                                    </div>  
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            {%  endfor %}
+                                        {% else %}
+                                            {% if formSubmited == true %}
+                                                <p class="alert-danger text-center">Aucune annonce n'a été trouvée. Désolé :(</p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+
+                                    
+                                    <div class="form-horizontal tab-pane{% if onglet == 2 %} active{% endif %}" id="mesOffres">
+                                        
+                                        <div style="text-align: right;">
+                                            <div class="btn-toolbar">
+                                                <a href="{{ path('offre_add') }}"><button class="btn-primary btn">Ajouter une annonce</button></a>
+                                            </div>
+                                        </div>
+
+                                        <br/>
+                                        {% if resultsUser is not empty %}
+                                        {% for result in resultsUser %}
+                                        <a href="offre/{{ result.id }}">
+                                            <div class="col-sm-4" style="height: 240px;">
+                                                <div class="panel panel-sky">
+                                                    <div class="panel-heading" style="text-align: center;">
+                                                        <h4>{{ result.title }}</h4>
+                                                    </div>
+                                                    <div class="panel-body" style="height: 190px;{% if (not result.enabled) or (result.dateexpire < date) %} background-color: #DADADA;{% endif %}">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <div style="height:115px; overflow:hidden;">
+                                                                    {{ result.description }}
+                                                                </div>
+                                                                <div style="white-space:nowrap; overflow:hidden;">
+                                                                    <hr style="margin:8px auto; ">
+                                                                    <span class="label label-default">{{ result.user.UserApp.username }}</span>
+                                                                    <span class="label label-default">{{ result.type }}</span>
+                                                                    <span class="label label-default">{{ result.datepublished|date('d-m') }}</span>
+                                                                    <span class="label label-default">Vues : {{ result.reading }}</span>
+                                                                    <hr style="margin:8px auto">
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        {%  endfor %}
+                                        {% else %}
+                                            {% if formSubmited == true %}
+                                                <p class="alert-danger text-center">Vous n'avez fait aucune annonces jusqu'à présent.</p>
+                                            {% endif %}
+                                        {% endif %}
+
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!--wrap -->
+        </div> <!-- page-content -->
+
+            {% endblock %}

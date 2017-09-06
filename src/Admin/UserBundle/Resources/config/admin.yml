@@ -9,11 +9,11 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [AdminUserBundle]]
-    admin_user.admin.static_text:
-        class: Admin\UserBundle\Admin\StaticTextAdmin
-        arguments: [~, Admin\UserBundle\Entity\StaticText, SonataAdminBundle:CRUD]
+    admin_user.admin.parameters:
+        class: Admin\UserBundle\Admin\ParametersAdmin
+        arguments: [~, Admin\UserBundle\Entity\Parameters, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: "Gestion du Contenu", label: "Textes Statiques"}
+            - {name: sonata.admin, manager_type: orm, group: "Gestion du Contenu", label: "Parametres de l'application"}
 
     admin_user.admin.events:
         class: Admin\UserBundle\Admin\EventsAdmin

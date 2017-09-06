@@ -1,4 +1,4 @@
-{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') and not object.invoice.payed %}
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') and not object.payed %}
     <a href="{{ path('admin_cotisation_relancer', {id: object.id}) }}" class="btn btn-sm btn-default view_link" title="Show entity board">
         <i class="fa fa-tachometer"></i> Relancer
     </a>

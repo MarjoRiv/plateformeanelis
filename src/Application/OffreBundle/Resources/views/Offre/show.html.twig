@@ -1,0 +1,92 @@
+{% extends "::application.html.twig" %} 
+
+{% block title %}Partage d'annonces{% endblock %}
+    {% block body %}
+        <div id="page-content">
+            <div id='wrap'>
+                <div id="page-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                        <li><a href="{{ path('offre_homepage') }}">Partage d'annonces</a></li>
+                        <li class="active">{{offre.title}}</li>
+                    </ol>
+
+                </div>
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-midnightblue">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="table-responsive">
+                                                {%if (offre.enabled is not empty and offre.enabled) or usercreation == true %}
+                                                <table class="table table-condensed">
+                                                    <h3><strong>{{ offre.title }}</strong></h3>  
+                                                    <tbody>
+                                                        {% if offre.type is not empty and offre.type != "" %}
+                                                        <tr>
+                                                            <td>Type</td>
+                                                            <td>{{ offre.type }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.datepublished is not empty and offre.datepublished != "" %}
+                                                        <tr>
+                                                            <td>Publié le</td>
+                                                            <td>{{ offre.datepublished|date('d-m-Y') }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.dateexpire is not empty and offre.dateexpire != "" %}
+                                                        <tr>
+                                                            <td>Expirera le</td>
+                                                            <td>{{ offre.dateexpire|date('d-m-Y') }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.attachement is not empty %}
+                                                        <tr>
+                                                            <td>Pièce Jointe</td>
+                                                            <td><a href="{{offre.attachement.getWebPath()}}" target="_blank">{{ offre.attachement.filename }}</a></td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if offre.user.UserApp is not empty %}
+                                                        <tr>
+                                                            <td>Partagée par</td>
+                                                            <td><a href="{{ path('user_show_profile', {'id' : offre.user.UserApp.id}) }} ">{{ offre.user.UserApp.surname }} {{ offre.user.UserApp.name }} (Promo {{ offre.user.UserApp.promotion }})</a></td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% if usercreation is not empty and usercreation == true %}
+                                                        <tr>
+                                                            <td>Disponible</td>
+                                                            <td>{% if offre.enabled %}Oui{% else %}Non{% endif %}</td>
+                                                        </tr>
+                                                        <tr class="btn-toolbar" style="text-align: center;">
+                                                            <td><a href="{{ path('offre_edit', {'id' : offre.id}) }}" ><button class="btn-primary btn">Modifier</button></a></td>
+                                                        </tr>
+                                                        {% endif %}
+                                                    </tbody>
+                                                </table>
+                                                {%else%}
+                                                <h3>Cette offre n'est plus disponible.</h3>
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                        {%if (offre.enabled is not empty and offre.enabled) or usercreation == true %}
+                                            <div class="col-md-6">
+                                                <h3>Description de l'annonce</h3>
+                                                {% if offre.description is not empty and offre.description != "" %}
+                                                    {{ offre.description|nl2br }}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+        {% endblock %}

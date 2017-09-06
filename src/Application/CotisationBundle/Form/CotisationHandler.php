@@ -9,6 +9,10 @@ use Application\CotisationBundle\Manager\InvoiceManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class CotisationHandler
+ * @package Application\CotisationBundle\Form
+ */
 class CotisationHandler
 {
     private $form;
@@ -16,12 +20,11 @@ class CotisationHandler
     private $manager;
     private $invoiceManager;
 
-    public function __construct(Form $form, Request $request, $manager, InvoiceManager $invoiceManager)
+    public function __construct(Form $form, Request $request, $manager)
     {
         $this->form = $form;
         $this->request = $request;
         $this->manager = $manager;
-        $this->invoiceManager = $invoiceManager;
     }
 
     public function process()
@@ -40,10 +43,10 @@ class CotisationHandler
     }
 
     public function onSuccess(Cotisation $cotisation) {
-        $date = new \DateTime();
-        $date->setDate($cotisation->getYear(), 1, 1);
-        $cotisation->setYear($date);
-        
+        if($cotisation->getCotisationLibre() != null)
+        {
+            $cotisation->setPricecotisation($cotisation->getCotisationLibre());
+        }
         $this->manager->persist($cotisation);
         $this->manager->flush();
     }

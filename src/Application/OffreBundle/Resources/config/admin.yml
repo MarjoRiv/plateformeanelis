@@ -1,0 +1,41 @@
+services:
+    sonata.admin.offres:
+        class: Application\OffreBundle\Admin\OffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "Offres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\Offers
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]
+    sonata.admin.userOffre:
+        class: Application\OffreBundle\Admin\UserOffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "UserOffres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\UserOffre
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]
+    sonata.admin.fileOffre:
+        class: Application\OffreBundle\Admin\FileOffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "FileOffres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\FileOffre
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]
+    sonata.admin.varOffre:
+        class: Application\OffreBundle\Admin\VarOffreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Annonces", label: "VariableOffres" }
+        arguments:
+            - ~
+            - Application\OffreBundle\Entity\OffreVar
+            - ~
+        calls:
+            - [ setTranslationDomain, [ApplicationOffreBundle]]

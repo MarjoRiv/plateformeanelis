@@ -2,66 +2,68 @@
 
 namespace Application\CotisationBundle\Form;
 
+use Application\CotisationBundle\Entity\YearCotisation;
+use Doctrine\ORM\EntityRepository;
+use Sonata\AdminBundle\Form\Type\Filter\NumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
-class CotisationType extends AbstractType
-{
-        /**
+class CotisationType extends AbstractType {
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
+     * @var YearCotisation $yearCotisation
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $yearCotisation = $options['choices'];
+        $random_string = base64_encode(random_bytes(10));
         $builder
-            /*->add('year', 'datetime', array(
-                'required' => true,
-                'widget' => 'single_text',
-                'format' => 'yyyy',
-                'data' => new \DateTime("now")
-                ))*/
-            ->add('year', ChoiceType::class, array(
-                'required' => true,
-                'choices' => array(
-                    "". Date('Y') ."" => "". Date('Y'). "",
-                    "". (Date('Y') + 1) ."" => "". (Date('Y') + 1) ."",
-                    "". (Date('Y') + 2) ."" => "". (Date('Y') + 2) ."",
-                    "". (Date('Y') + 3) ."" => "". (Date('Y') + 3) ."",
-                    "". (Date('Y') + 4) ."" => "". (Date('Y') + 4) ."",
-                )))
-            ->add('typeCotisation', 'entity', array(
-                    'class' => 'ApplicationCotisationBundle:TypeCotisation',
-                    //'property' => 'name',
-                    'required' => true
+            ->add('priceCotisation', ChoiceType::class, array(
+                'choices'      => [$yearCotisation->getMinAmount(), $yearCotisation->getProposedAmount1(),
+                    $yearCotisation->getProposedAmount2(), $yearCotisation->getProposedAmount3(),
+                    $yearCotisation->getProposedAmount4()],
+                'choice_label' => function ($price, $key, $index) {
+                        return $price . ' €';
+                },
+                'data' => $yearCotisation->getMinAmount(),
+                'empty_data' => $yearCotisation->getMinAmount(),
+                'required'     => true,
+                'expanded'     => true))
+            ->add('cotisationLibre', MoneyType::class, array(
+                'constraints' => new GreaterThanOrEqual($yearCotisation->getMinAmount()),
+                 'required' => false
+
             ))
-        ;
+            ->add('submit' . $options['formId'], SubmitType::class, array('label' => 'Cotiser'))
+            ;
+
+
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Application\CotisationBundle\Entity\Cotisation'
+            'choices' => null,
+            'formId'  => null,
         ));
     }
 
     /**
      * @return string
      */
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return 'application_cotisationbundle_cotisation';
     }
 
-    public function buildYearChoices() {
-    $distance = 5;
-    $yearsBefore = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") - $distance));
-    $yearsAfter = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") + $distance));
-    return array_combine(range($yearsBefore, $yearsAfter), range($yearsBefore, $yearsAfter));
-}
 
 }

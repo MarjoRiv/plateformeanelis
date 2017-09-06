@@ -57,24 +57,21 @@ dev_deploy_job:
     - php bin/console cache:clear
     - php bin/console assetic:dump
     - php bin/console security:check
-    - git checkout HEAD^
-    - git checkout master
-    - git merge origin/dev-master
+    - export MYSQL_ADDON_DB=b8ckkhfbd
+    - export MYSQL_ADDON_HOST=b8ckkhfbd-mysql.services.clever-cloud.com
+    - export MYSQL_ADDON_PASSWORD=Ggnbbgdz3mXwllw5t8Y
+    - export MYSQL_ADDON_PORT=3306
+    - export MYSQL_ADDON_USER=unvgkngpdptovj6i
+    - php bin/console doctrine:migrations:migrate -n
+    - git config --global user.email "git@anelis.org"
+    - git config --global user.name "anelis"
+    - git checkout $DEPLOY_BRANCH
+    - git branch -m master useless
+    - git branch -m $DEPLOY_BRANCH master
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
     - git push clever master --force
-  only:
-    - dev-master
+    when : manual
 
-prod_build_job:
-  stage: build
-  script:
-    - php composer.phar clear-cache
-    - php composer.phar install --no-dev
-    - php bin/console cache:clear --env=prod --no-debug
-    - php bin/console assetic:dump --env=prod --no-debug
-    - php bin/console security:check
-  only:
-    - master
 
 prod_deploy_job:
   stage: deploy
@@ -84,6 +81,12 @@ prod_deploy_job:
     - php bin/console cache:clear --env=prod --no-debug
     - php bin/console assetic:dump --env=prod --no-debug
     - php bin/console security:check
+    - export MYSQL_ADDON_DB=bx9ec5e8i
+    - export MYSQL_ADDON_HOST=bx9ec5e8i-mysql.services.clever-cloud.com
+    - export MYSQL_ADDON_PASSWORD=zh57HHep3c2m9JcR02O
+    - export MYSQL_ADDON_PORT=3306
+    - export MYSQL_ADDON_USER=utonpvagkojqiqbl
+    - php bin/console doctrine:migrations:migrate -n
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_12587561-459c-42ff-9a3f-80a5c3249589.git
     - git push clever master --force
   only:

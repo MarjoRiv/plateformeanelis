@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Cotisation
-{
+class Cotisation {
     /**
      * @var integer
      *
@@ -22,41 +21,18 @@ class Cotisation
     private $id;
 
     /**
-     * @var \DateTime
+     * @var YearCotisation
      *
-     * @ORM\Column(name="year", type="date", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\YearCotisation", inversedBy="cotisations")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $year;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Application\CotisationBundle\Entity\TypeCotisation")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typeCotisation;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="namecotisation", type="string", length=255)
-     */
-    private $nameCotisation;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pricecotisation", type="integer")
-     */
-    private $priceCotisation;
+    private $yearCotisation;
 
     /**
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="cotisations")
      */
     private $user;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Application\CotisationBundle\Entity\Invoice", mappedBy="cotisation", cascade={"remove", "persist"})
-     */
-    protected $invoice;
 
     /**
      * @var boolean
@@ -65,75 +41,64 @@ class Cotisation
      */
     private $payed;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pricecotisation", type="integer")
+     */
+    private $pricecotisation;
 
-
-    public function __construct()
-    {
-        $this->payed = false;
-        $this->typeCotisation = NULL;
-        $this->nameCotisation = "";
-        $this->priceCotisation = 0;
-    }
 
     /**
-     * Get id
+     * @var int
      *
-     * @return integer 
+     * @ORM\Column(name="paymentType", type="integer", nullable=true)
      */
-    public function getId()
-    {
+    private $paymentType;
+
+    /**
+     * @var int
+     * Champ utilisé pour le montant de cotisation libre dans le formulaire.
+     * Non référencé en base
+     */
+    private $cotisationLibre;
+
+    /** @ORM\OneToOne(targetEntity="JMS\Payment\CoreBundle\Entity\PaymentInstruction") */
+    private $paymentInstruction;
+
+    public function __construct() {
+        $this->paymentType = -1;
+        $this->payed = false;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set payed
-     *
-     * @param boolean $payed
-     * @return Cotisation
+     * @param int $id
      */
-    public function setPayed($payed)
-    {
-        $this->payed = $payed;
-
-        return $this;
+    public function setId($id) {
+        $this->id = $id;
     }
 
+
     /**
-     * Get payed
-     *
-     * @return boolean 
+     * @return bool
      */
-    public function getPayed()
-    {
+    public function isPayed() {
         return $this->payed;
     }
 
     /**
-     * Set typeCotisation
-     *
-     * @param \Application\CotisationBundle\Entity\TypeCotisation $typeCotisation
-     * @return Cotisation
+     * @param bool $payed
      */
-    public function setTypeCotisation(\Application\CotisationBundle\Entity\TypeCotisation $typeCotisation)
-    {
-        $this->typeCotisation = $typeCotisation;
-
-        return $this;
-    }
-
-    /**
-     * Get typeCotisation
-     *
-     * @return \Application\CotisationBundle\Entity\TypeCotisation 
-     */
-    public function getTypeCotisation()
-    {
-        return $this->typeCotisation;
-    }
-
-    public function getTypeCotisationName()
-    {
-        return $this->typeCotisation->name;
+    public function setPayed($payed) {
+        $this->payed = $payed;
     }
 
     /**
@@ -142,113 +107,100 @@ class Cotisation
      * @param \Admin\UserBundle\Entity\User $user
      * @return Cotisation
      */
-    public function setUser(\Admin\UserBundle\Entity\User $user = null)
-    {
+    public function setUser(\Admin\UserBundle\Entity\User $user = null) {
         $this->user = $user;
-
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \Admin\UserBundle\Entity\User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
     /**
-     * Set year
-     *
-     * @param \DateTime $year
-     * @return Cotisation
+     * @return mixed
      */
-    public function setYear($year)
-    {
-        $this->year = $year;
-
-        return $this;
+    public function getYearCotisation() {
+        return $this->yearCotisation;
     }
 
     /**
-     * Get year
-     *
-     * @return \DateTime 
+     * @param mixed $yearCotisation
      */
-    public function getYear()
-    {
-        return $this->year;
+    public function setYearCotisation($yearCotisation) {
+        $this->yearCotisation = $yearCotisation;
     }
 
     /**
-     * Set nameCotisation
-     *
-     * @param string $nameCotisation
-     * @return Cotisation
+     * @return int
      */
-    public function setNameCotisation($nameCotisation)
-    {
-        $this->nameCotisation = $nameCotisation;
-
-        return $this;
+    public function getPricecotisation() {
+        return $this->pricecotisation;
     }
 
     /**
-     * Get nameCotisation
-     *
-     * @return string 
+     * @param int $pricecotisation
      */
-    public function getNameCotisation()
-    {
-        return $this->nameCotisation;
+    public function setPricecotisation($pricecotisation) {
+        $this->pricecotisation = $pricecotisation;
+    }
+
+
+
+    /**
+     * @return int
+     */
+    public function getPaymentType() {
+        return $this->paymentType;
     }
 
     /**
-     * Set priceCotisation
+     * @return string
      *
-     * @param integer $priceCotisation
-     * @return Cotisation
+     * Retourne le libellé associé au type de paiement
      */
-    public function setPriceCotisation($priceCotisation)
-    {
-        $this->priceCotisation = $priceCotisation;
-
-        return $this;
+    public function getPaymentTypeLabel() {
+        return EnumTypePaiement::getStringFormat($this->paymentType);
     }
 
     /**
-     * Get priceCotisation
-     *
-     * @return integer 
+     * @param int $paymentType
      */
-    public function getPriceCotisation()
-    {
-        return $this->priceCotisation;
+    public function setPaymentType($paymentType) {
+        $this->paymentType = $paymentType;
     }
 
     /**
-     * Set invoice
-     *
-     * @param \Application\CotisationBundle\Entity\Invoice $invoice
-     * @return Cotisation
+     * @return int
      */
-    public function setInvoice(\Application\CotisationBundle\Entity\Invoice $invoice = null)
-    {
-        $this->invoice = $invoice;
-
-        return $this;
+    public function getCotisationLibre() {
+        return $this->cotisationLibre;
     }
 
     /**
-     * Get invoice
-     *
-     * @return \Application\CotisationBundle\Entity\Invoice 
+     * @param int $cotisationLibre
      */
-    public function getInvoice()
-    {
-        return $this->invoice;
+    public function setCotisationLibre($cotisationLibre) {
+        $this->cotisationLibre = $cotisationLibre;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentInstruction() {
+        return $this->paymentInstruction;
+    }
+
+    /**
+     * @param mixed $paymentInstruction
+     */
+    public function setPaymentInstruction($paymentInstruction) {
+        $this->paymentInstruction = $paymentInstruction;
+    }
+
 
 }
