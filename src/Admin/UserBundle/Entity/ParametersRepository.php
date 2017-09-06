@@ -9,7 +9,8 @@
 namespace Admin\UserBundle\Entity;
 
 
-use AEntityRepository;
+
+use Application\MainBundle\Repository\AEntityRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 

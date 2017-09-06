@@ -1,5 +1,5 @@
 <?php
-
+namespace Application\MainBundle\Repository;
 use Monolog\Logger;
 
 abstract class AEntityRepository extends \Doctrine\ORM\EntityRepository {
