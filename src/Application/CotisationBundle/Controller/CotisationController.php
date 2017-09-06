@@ -2,7 +2,7 @@
 
 namespace Application\CotisationBundle\Controller;
 
-use Admin\UserBundle\Entity\StaticText;
+use Admin\UserBundle\Entity\Parameters;
 use Admin\UserBundle\Entity\User;
 use Application\CotisationBundle\ApplicationCotisationBundle;
 use Application\CotisationBundle\Entity\Cotisation;
@@ -45,7 +45,7 @@ class CotisationController extends Controller {
         $paypalForms = array();
         $showAmountError = array();
 
-        $staticTextCotisation = $em->getRepository('AdminUserBundle:StaticText')->find(2);
+        $staticTextCotisation = $em->getRepository('AdminUserBundle:Parameters')->findOneByName('anelis.cotisation.staticCotisationText');
 
 
         foreach ($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
@@ -136,7 +136,7 @@ class CotisationController extends Controller {
             "cotisAttente" => $cotisEnAttente,
             "forms"        => $returnForms,
             "paypalForms"  => $paypalForms,
-            "staticText"   => $staticTextCotisation->getStaticText(),
+            "staticText"   => $staticTextCotisation->getValue(),
             "showAmountError" => $showAmountError
         ));
 

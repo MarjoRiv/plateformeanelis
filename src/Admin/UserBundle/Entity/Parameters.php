@@ -6,7 +6,7 @@ namespace Admin\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * StaticText
+ * Parameters
  * With this object, Admin can easily change several texts on the website like homepage text, agenda text, etc.
  * He can include HTML code in the staticText field, Twig will do the job !
  *
@@ -16,10 +16,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class StaticText
+class Parameters
 {
     /**
-     * @var integer
+     * @var integer Id du paramètre
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,18 +28,25 @@ class StaticText
     private $id;
 
     /**
-     * @var string
+     * @var string Nom du paramètre pour le retrouver plus facilement
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $name; //Head Title if there is one, else it's just there to describe (ex : "Bienvenue" "Texte d'acceuil"
+    private $name;
 
     /**
-     * @var string
+     * @var string Type à titre informatif
      *
-     * @ORM\Column(name="static_text", type="text")
+     * @ORM\Column(name="type", type="string", length=255)
      */
-    private $staticText; //The text/html you want to display
+    private $type;
+
+    /**
+     * @var string valeure
+     *
+     * @ORM\Column(name="value", type="text")
+     */
+    private $value;
 
 
     /**
@@ -59,7 +66,7 @@ class StaticText
      *
      * @param string $name
      *
-     * @return StaticText
+     * @return Parameters
      */
     public function setName($name)
     {
@@ -81,13 +88,13 @@ class StaticText
     /**
      * Set staticText
      *
-     * @param string $staticText
+     * @param string $value
      *
-     * @return StaticText
+     * @return Parameters
      */
-    public function setStaticText($staticText)
+    public function setValue($value)
     {
-        $this->staticText = $staticText;
+        $this->value = $value;
 
         return $this;
     }
@@ -97,9 +104,25 @@ class StaticText
      *
      * @return string
      */
-    public function getStaticText()
+    public function getValue()
     {
-        return $this->staticText;
+        return $this->value;
     }
+
+    /**
+     * @return string
+     */
+    public function getType() {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type) {
+        $this->type = $type;
+    }
+
+
 }
 
