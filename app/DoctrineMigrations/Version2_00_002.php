@@ -130,7 +130,7 @@ class Version2_00_002 extends AbstractMigration {
             $column = $table->getColumn('id');
             if($table->getPrimaryKey() == null)
             {
-                $this->addSql('ALTER TABLE events ADD PRIMARY KEY (id)');
+                $this->addSql('ALTER TABLE Events ADD PRIMARY KEY (id)');
             }
         }catch(SchemaException $e)
         {}
@@ -138,261 +138,261 @@ class Version2_00_002 extends AbstractMigration {
         try {
             $table = $schema->getTable('events');
             $column = $table->getColumn('id');
-            $this->addSql('ALTER TABLE events CHANGE id id INT AUTO_INCREMENT NOT NULL');
+            $this->addSql('ALTER TABLE Events CHANGE id id INT AUTO_INCREMENT NOT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('locked');
-            $this->addSql('ALTER TABLE user DROP locked');
+            $this->addSql('ALTER TABLE User DROP locked');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('expired');
-            $this->addSql('ALTER TABLE user DROP expired');
+            $this->addSql('ALTER TABLE User DROP expired');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('expires_at');
-            $this->addSql('ALTER TABLE user DROP expires_at');
+            $this->addSql('ALTER TABLE User DROP expires_at');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('credentials_expired');
-            $this->addSql('ALTER TABLE user DROP credentials_expired');
+            $this->addSql('ALTER TABLE User DROP credentials_expired');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('credentials_expire_at');
-            $this->addSql('ALTER TABLE user DROP credentials_expire_at');
+            $this->addSql('ALTER TABLE User DROP credentials_expire_at');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('username');
-            $this->addSql('ALTER TABLE user CHANGE username username VARCHAR(180) NOT NULL');
+            $this->addSql('ALTER TABLE User CHANGE username username VARCHAR(180) NOT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('username_canonical');
-            $this->addSql('ALTER TABLE user CHANGE username_canonical username_canonical VARCHAR(180) NOT NULL');
+            $this->addSql('ALTER TABLE User CHANGE username_canonical username_canonical VARCHAR(180) NOT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('email');
-            $this->addSql('ALTER TABLE user CHANGE email email VARCHAR(180) NOT NULL');
+            $this->addSql('ALTER TABLE User CHANGE email email VARCHAR(180) NOT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('email_canonical');
-            $this->addSql('ALTER TABLE user CHANGE email_canonical email_canonical VARCHAR(180) NOT NULL');
+            $this->addSql('ALTER TABLE User CHANGE email_canonical email_canonical VARCHAR(180) NOT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('salt');
-            $this->addSql('ALTER TABLE user CHANGE salt salt VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE salt salt VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('confirmation_token');
-            $this->addSql('ALTER TABLE user CHANGE confirmation_token confirmation_token VARCHAR(180) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE confirmation_token confirmation_token VARCHAR(180) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('maritalName');
-            $this->addSql('ALTER TABLE user  CHANGE maritalName maritalName VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE maritalName maritalName VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('address');
-            $this->addSql('ALTER TABLE user  CHANGE address address LONGTEXT DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE address address LONGTEXT DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('postalcode');
-            $this->addSql('ALTER TABLE user  CHANGE postalcode postalcode VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE postalcode postalcode VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('city');
-            $this->addSql('ALTER TABLE user CHANGE city city VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE city city VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('country');
-            $this->addSql('ALTER TABLE user CHANGE country country VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE country country VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('telephone');
-            $this->addSql('ALTER TABLE user CHANGE telephone telephone VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE telephone telephone VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('website');
-            $this->addSql('ALTER TABLE user CHANGE website website VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE website website VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('socialFacebook');
-            $this->addSql('ALTER TABLE user CHANGE socialFacebook socialFacebook VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE socialFacebook socialFacebook VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('socialTwitter');
-            $this->addSql('ALTER TABLE user CHANGE socialTwitter socialTwitter VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE socialTwitter socialTwitter VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('socialLinkedin');
-            $this->addSql('ALTER TABLE user CHANGE socialLinkedin socialLinkedin VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE socialLinkedin socialLinkedin VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('socialGoogle');
-            $this->addSql('ALTER TABLE user CHANGE socialGoogle socialGoogle VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE socialGoogle socialGoogle VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('socialYoutube');
-            $this->addSql('ALTER TABLE user  CHANGE socialYoutube socialYoutube VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE socialYoutube socialYoutube VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('socialInstagram');
-            $this->addSql('ALTER TABLE user CHANGE socialInstagram socialInstagram VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE socialInstagram socialInstagram VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('biography');
-            $this->addSql('ALTER TABLE user  CHANGE biography biography LONGTEXT DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE biography biography LONGTEXT DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('maritalStatus');
-            $this->addSql('ALTER TABLE user  CHANGE maritalStatus maritalStatus VARCHAR(255) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE maritalStatus maritalStatus VARCHAR(255) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('childrenNumber');
-            $this->addSql('ALTER TABLE user CHANGE childrenNumber childrenNumber INT DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE childrenNumber childrenNumber INT DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('isEmailValid');
-            $this->addSql('ALTER TABLE user CHANGE isEmailValid isEmailValid TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE isEmailValid isEmailValid TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('mlInformations');
-            $this->addSql('ALTER TABLE user CHANGE mlInformations mlInformations TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE mlInformations mlInformations TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('mlEmployment');
-            $this->addSql('ALTER TABLE user CHANGE mlEmployment mlEmployment TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE mlEmployment mlEmployment TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('mlEvents');
-            $this->addSql('ALTER TABLE user CHANGE mlEvents mlEvents TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE mlEvents mlEvents TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('mlIsimaNews');
-            $this->addSql('ALTER TABLE user  CHANGE mlIsimaNews mlIsimaNews TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE mlIsimaNews mlIsimaNews TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('isAlive');
-            $this->addSql('ALTER TABLE user  CHANGE isAlive isAlive TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE isAlive isAlive TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('isGraduated');
-            $this->addSql('ALTER TABLE user  CHANGE isGraduated isGraduated TINYINT(1) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User  CHANGE isGraduated isGraduated TINYINT(1) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $column = $table->getColumn('nickname');
-            $this->addSql('ALTER TABLE user CHANGE nickname nickname VARCHAR(60) DEFAULT NULL');
+            $this->addSql('ALTER TABLE User CHANGE nickname nickname VARCHAR(60) DEFAULT NULL');
         }catch(SchemaException $e)
         {}
 
         try {
-            $table = $schema->getTable('user');
+            $table = $schema->getTable('User');
             $index = $table->getIndex('UNIQ_2DA17977C05FB297');
         }catch(SchemaException $e)
         {
-            $this->addSql('CREATE UNIQUE INDEX UNIQ_2DA17977C05FB297 ON user (confirmation_token);');
+            $this->addSql('CREATE UNIQUE INDEX UNIQ_2DA17977C05FB297 ON User (confirmation_token);');
         }
 
         try {
@@ -400,7 +400,7 @@ class Version2_00_002 extends AbstractMigration {
             $column = $table->getColumn('paymentInstruction_id');
         }catch(SchemaException $e)
         {
-            $this->addSql('ALTER TABLE cotisation ADD paymentInstruction_id INT DEFAULT NULL;');
+            $this->addSql('ALTER TABLE Cotisation ADD paymentInstruction_id INT DEFAULT NULL;');
         }
 
         try {
@@ -408,7 +408,7 @@ class Version2_00_002 extends AbstractMigration {
             $fk = $table->getForeignKey('FK_E139D13DFD913E4D');
         }catch(SchemaException $e)
         {
-            $this->addSql('ALTER TABLE cotisation ADD CONSTRAINT FK_E139D13DFD913E4D FOREIGN KEY (paymentInstruction_id) REFERENCES payment_instructions (id);');
+            $this->addSql('ALTER TABLE Cotisation ADD CONSTRAINT FK_E139D13DFD913E4D FOREIGN KEY (paymentInstruction_id) REFERENCES payment_instructions (id);');
         }
 
         try {
@@ -416,12 +416,12 @@ class Version2_00_002 extends AbstractMigration {
             $index = $table->getIndex('UNIQ_E139D13DFD913E4D');
         }catch(SchemaException $e)
         {
-            $this->addSql('CREATE UNIQUE INDEX UNIQ_E139D13DFD913E4D ON cotisation (paymentInstruction_id);');
+            $this->addSql('CREATE UNIQUE INDEX UNIQ_E139D13DFD913E4D ON Cotisation (paymentInstruction_id);');
         }
 
         try {
             $table = $schema->getTable('statictext');
-            $this->addSql('DROP TABLE STATICTEXT;');
+            $this->addSql('DROP TABLE StaticText;');
         }catch(SchemaException $e)
         {}
 
