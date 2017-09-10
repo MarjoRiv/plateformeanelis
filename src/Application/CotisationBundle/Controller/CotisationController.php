@@ -44,6 +44,7 @@ class CotisationController extends Controller {
         $returnForms = array();                                             //L'ensemble des formulaires de retour
         $paypalForms = array();
         $showAmountError = array();
+        $cotisationText = $em->getRepository('AdminUserBundle:Parameters')->findOneByName('anelis.cotisation.cotisationEnAttenteText');
 
         $staticTextCotisation = $em->getRepository('AdminUserBundle:Parameters')->findOneByName('anelis.cotisation.staticCotisationText');
 
@@ -137,7 +138,8 @@ class CotisationController extends Controller {
             "forms"        => $returnForms,
             "paypalForms"  => $paypalForms,
             "staticText"   => $staticTextCotisation->getValue(),
-            "showAmountError" => $showAmountError
+            "showAmountError" => $showAmountError,
+            "cotisText" => $cotisationText->getValue()
         ));
 
     }
