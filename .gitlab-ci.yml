@@ -65,8 +65,8 @@ dev_deploy_job:
     - git config --global user.email "git@anelis.org"
     - git config --global user.name "anelis"
     - git checkout $DEPLOY_BRANCH
-    - if [ $DEPLOY_BRANCH != "master"]; then git branch -m master useless ; fi
-    - if [ $DEPLOY_BRANCH != "master"]; then git branch -m $DEPLOY_BRANCH master ; fi
+    - if [ $DEPLOY_BRANCH != "master" ]; then git branch -m master useless ; fi
+    - if [ $DEPLOY_BRANCH != "master" ]; then git branch -m $DEPLOY_BRANCH master ; fi
     - git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_8051048c-728c-47fe-b887-b5f4c6df109a.git
     - git push clever master --force
   when: manual
