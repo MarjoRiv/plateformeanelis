@@ -1,14 +1,16 @@
 {% extends "::application.html.twig" %} 
 
 {% block title %}Mes cotisations{% endblock %}
-{% for form in forms %}
-    {% form_theme form '@ApplicationCotisation/Form/fields.html.twig' %}
-{% endfor %}
 
-{% for form in paypalForms %}
-    {% form_theme form '@ApplicationCotisation/Form/fieldsJMSPayment.html.twig' %}
-{% endfor %}
-
+{% if data|length > 0 %}
+  {% for i in 0..data|length -1 %}
+      {% if data[i]['statut'] == 0 %}
+          {% form_theme data[i]['form'] '@ApplicationCotisation/Form/fields.html.twig' %}
+      {% elseif data[i]['statut'] == 1 %}
+          {% form_theme data[i]['form'] '@ApplicationCotisation/Form/fieldsJMSPayment.html.twig' %}
+      {% endif %}
+  {% endfor %}
+{% endif %}
 
   {% block stylesheets %}
       {{ parent() }}
@@ -28,108 +30,83 @@
 
         <div class="container">
           <div class="jumbotron ">
-              {{ staticText  | raw}}
+              {{ parameters['cotisation'] | raw }}
           </div>
           <h1>Mes cotisations</h1>
           <div class="row">
-                {% if (cotisDispo | length > 0) or (cotisAttente | length > 0) or (cotisOK | length > 0)%}
-                    {% set i = 0 %}
-                    {% if cotisDispo | length > 0 %}
-                      <h3>Cotisations ouvertes</h3>
-                    {% endif %}
-                    {% for dateDispo in cotisDispo %}
-                      <div class="col-xs-6">
-                        <div class="panel panel-orange">
-                          <div class="panel-heading">
-                            <h4>Cotisation {{ dateDispo }}</h4>
-                          </div>
-                          <div class="panel-body">
-                            <p class="text-info">La cotisation pour l'année {{ dateDispo }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
-                            <div class="col-xs-offset-2 col-xs-8 formCotisation">
-                                {{ form_start(forms[i]) }}
-                              <div class="form-group">
-                              {{ form_label(forms[i].priceCotisation, "Montant de ma cotisation")}}
-                                {{ form_widget(forms[i].priceCotisation) }}
-
-                                <div class="ou">
-                                  OU
-                                </div>
-
-                                <div class="formCotisationLibre">
-                                    {{ form_label(forms[i].cotisationLibre)}}
-                                    {{ form_widget(forms[i].cotisationLibre) }}
-                                </div>
+                {% if data | length > 0 %}
+                    {% for i in 0..data|length - 1%}
+                        {% if data[i]['statut'] == 2 %}
+                          <div class="col-xs-6">
+                            <div class="panel panel-midnightblue">
+                              <div class="panel-heading">
+                                <h4>Cotisation {{ data[i]['yearCotisation'].year }}</h4>
                               </div>
-                                {% set j = 0 %}
-                                {% for error in showAmountError if showAmountError[j] != dateDispo %}
-                                    {% set j = j + 1 %}
-                                {% endfor %}
-                                {% if j < showAmountError | length %}
-                                  <div class="bg-danger"> Le champ Cotisation Libre est mal renseigné. Le montant
-                                    minimum de la cotisation {{ dateDispo }} est de 15
-                                    € minimum.</div>
-                                {% endif %}
-                                <div class="form-group col-xs-offset-4 ">
-                                  {{ form_errors(forms[i]) }}
-                                  {{ form_rest(forms[i]) }}
-                                </div>
-                                {{ form_end(forms[i]) }}
-                          </div>
-                        </div>
-                      </div>
-                      </div>
-                      {% set i = i + 1 %}
-                        {%  if i%2==0 %}
-                          <div class="col-xs-12"> </div>
-                      {%  endif %}
-                    {% endfor %}
-                    {% if cotisAttente | length > 0 %}
-                      <h3>Cotisations en attente de paiement</h3>
-                    {% endif %}
-                    {% for dateAttente in cotisAttente %}
-                        <div class="col-xs-6">
-                          <div class="panel panel-orange">
-                            <div class="panel-heading">
-                              <h4>Cotisation {{ dateAttente.getYearCotisation.getYear }}</h4>
-                            </div>
-                            <div class="panel-body">
-                              <p class="text-info"> Votre cotisation {{ dateAttente.getYearCotisation.getYear }} d'un
-                                montant de {{ dateAttente.priceCotisation }} € est
-                                en attente de validation
-                                <br/>
-                                  {{ cotisText | raw }}
-                              <div class="col-xs-offset-4">
-                                  {{ form_start(paypalForms[dateAttente.getYearCotisation.getYear]) }}
-                                  {{ form_widget(paypalForms[dateAttente.getYearCotisation.getYear]) }}
-                                <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-44px.png" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
-                                  {{ form_end(paypalForms[dateAttente.getYearCotisation.getYear]) }}
+                              <div class="panel-body">
+                                <p class="text-info">Vous avez déjà cotisé pour l'année {{ data[i]['yearCotisation'].year }}, merci de votre aide !</p>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        {% set i = i + 1 %}
-                        {%  if i%2==0 %}
-                          <div class="col-xs-12"> </div>
-                        {%  endif %}
-                    {% endfor %}
-                    {% if cotisOK | length > 0 %}
-                      <h3>Cotisations payées</h3>
-                    {% endif %}
-                    {% for dateOK in cotisOK %}
-                      <div class="col-xs-6">
-                        <div class="panel panel-midnightblue">
-                          <div class="panel-heading">
-                            <h4>Cotisation {{ dateOK }}</h4>
+                        {% elseif data[i]['statut'] == 1 %}
+                          <div class="col-xs-6">
+                            <div class="panel panel-orange">
+                              <div class="panel-heading">
+                                <h4>Cotisation {{ data[i]['yearCotisation'].year }}</h4>
+                              </div>
+                              <div class="panel-body">
+                                <p class="text-info"> Votre cotisation {{ data[i]['yearCotisation'].year }} d'un
+                                  montant de {{ data[i]['cotisation'].priceCotisation }} € est
+                                  en attente de validation
+                                  <br/>
+                                    {{ parameters['enAttente'] | raw }}
+                                <div class="col-xs-offset-4">
+                                    {{ form_start(data[i]['form']) }}
+                                    {{ form_widget(data[i]['form']) }}
+                                  <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-44px.png" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
+                                    {{ form_end(data[i]['form']) }}
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div class="panel-body">
-                            <p class="text-info">Vous avez déjà cotisé pour l'année {{ dateOK }}, merci de votre aide !</p>
+                        {% elseif data[i]['statut'] == 0 %}
+                          <div class="col-xs-6">
+                            <div class="panel panel-orange">
+                              <div class="panel-heading">
+                                <h4>Cotisation {{ data[i]['yearCotisation'].year }}</h4>
+                              </div>
+                              <div class="panel-body">
+                                <p class="text-info">La cotisation pour l'année {{ data[i]['yearCotisation'].year }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
+                                <div class="col-xs-offset-2 col-xs-8 formCotisation">
+                                    {{ form_start( data[i]['form']) }}
+                                  <div class="form-group">
+                                      {{ form_label(data[i]['form'].priceCotisation, "Montant de ma cotisation")}}
+                                      {{ form_widget(data[i]['form'].priceCotisation) }}
+
+                                    <div class="ou">
+                                      OU
+                                    </div>
+
+                                    <div class="formCotisationLibre">
+                                        {{ form_label(data[i]['form'].cotisationLibre)}}
+                                        {{ form_widget(data[i]['form'].cotisationLibre) }}
+                                    </div>
+                                  </div>
+
+                                    {% if data[i]['showError'] != null and data[i]['showError'] %}
+                                      <div class="bg-danger"> Le champ Cotisation Libre est mal renseigné. Le montant
+                                        minimum de la cotisation {{ dateDispo }} est de 15
+                                        € minimum.</div>
+                                    {% endif %}
+                                  <div class="form-group col-xs-offset-4 ">
+                                      {{ form_errors(data[i]['form']) }}
+                                      {{ form_rest(data[i]['form']) }}
+                                  </div>
+                                    {{ form_end(data[i]['form']) }}
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                        {% set i = i + 1 %}
-                        {%  if i%2==0 %}
-                          <div class="col-xs-12"> </div>
-                        {%  endif %}
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                   <p class="text-danger">Aucune cotisation n'est active et il n'est pas possible de cotiser actuellement.</p>
