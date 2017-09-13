@@ -54,16 +54,16 @@
                                 <h4>Cotisation {{ data[i]['yearCotisation'].year }}</h4>
                               </div>
                               <div class="panel-body">
-                                <p class="text-info"> Votre cotisation {{ data[i]['yearCotisation'].year }} d'un
+                                  Votre cotisation {{ data[i]['yearCotisation'].year }} d'un
                                   montant de {{ data[i]['cotisation'].priceCotisation }} € est
                                   en attente de validation
                                   <br/>
                                     {{ parameters['enAttente'] | raw }}
-                                <div class="col-xs-offset-4">
-                                    {{ form_start(data[i]['form']) }}
-                                    {{ form_widget(data[i]['form']) }}
-                                  <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-44px.png" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
-                                    {{ form_end(data[i]['form']) }}
+                                  <div class="col-xs-offset-4">
+                                      {{ form_start(data[i]['form']) }}
+                                      {{ form_widget(data[i]['form']) }}
+                                    <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-rect-paypal-44px.png" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
+                                      {{ form_end(data[i]['form']) }}
                                 </div>
                               </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <h4>Cotisation {{ data[i]['yearCotisation'].year }}</h4>
                               </div>
                               <div class="panel-body">
-                                <p class="text-info">La cotisation pour l'année {{ data[i]['yearCotisation'].year }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
+                                <p>La cotisation pour l'année {{ data[i]['yearCotisation'].year }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
                                 <div class="col-xs-offset-2 col-xs-8 formCotisation">
                                     {{ form_start( data[i]['form']) }}
                                   <div class="form-group">
@@ -92,9 +92,10 @@
                                     </div>
                                   </div>
 
-                                    {% if data[i]['showError'] != null and data[i]['showError'] %}
+                                    {% if data[i]['showError'] %}
                                       <div class="bg-danger"> Le champ Cotisation Libre est mal renseigné. Le montant
-                                        minimum de la cotisation {{ dateDispo }} est de 15
+                                        minimum de la cotisation {{ data[i]['yearCotisation'].year }} est de {{
+                                          data[i]['yearCotisation'].minAmount }}
                                         € minimum.</div>
                                     {% endif %}
                                   <div class="form-group col-xs-offset-4 ">
@@ -155,7 +156,8 @@
                         </tbody>
                       </table>
                     {% else %}
-                      <p class="text-danger"><strong>Aucune cotisation n'a été trouvé pour votre compte. N'hésitez pas à effectuer une demande de cotisation.</strong></p>
+                      <p class="text-danger"><strong>Aucune cotisation n'a été trouvée pour votre compte. N'hésitez
+                          pas à effectuer une demande de cotisation.</strong></p>
                     {% endif %}
 
 
