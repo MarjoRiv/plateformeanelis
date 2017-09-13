@@ -66,6 +66,11 @@ class Cotisation {
     /** @ORM\OneToOne(targetEntity="JMS\Payment\CoreBundle\Entity\PaymentInstruction") */
     private $paymentInstruction;
 
+    /**
+     * @ORM\Column(name="datePaiement", type="date", nullable=true)
+     */
+    private $datePaiement;
+
     public function __construct() {
         $this->paymentType = -1;
         $this->payed = false;
@@ -201,6 +206,21 @@ class Cotisation {
     public function setPaymentInstruction($paymentInstruction) {
         $this->paymentInstruction = $paymentInstruction;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDatePaiement() {
+        return $this->datePaiement;
+    }
+
+    /**
+     * @param mixed $datePaiement
+     */
+    public function setDatePaiement($datePaiement) {
+        $this->datePaiement = $datePaiement;
+    }
+
 
 
 }

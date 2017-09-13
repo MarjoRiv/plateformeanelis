@@ -135,6 +135,8 @@
                           <th>Année</th>
                           <th>Prix</th>
                           <th>Statut</th>
+                          <th>Type de paiement</th>
+                          <th>Date de paiement</th>
                           <th></th>
                         </tr>
                         </thead>
@@ -147,7 +149,21 @@
                             <td>{{ cotisation.yearCotisation.year }}</td>
                             <td>{{ cotisation.priceCotisation }} €</td>
                             <td>{% if cotisation.payed %}<button class="btn btn-success">Payé</button>{% else %}<button class="btn btn-danger">En attente de paiement</button>{% endif %}</td>
-                            <td>{% if not cotisation.payed %}
+                              <td>
+                                  {% if cotisation.payed %}
+                                      {{ cotisation.getPaymentTypeLabel() }}
+                                  {% else %}
+                                      -
+                                  {% endif %}
+                              </td>
+                              <td>
+                                  {% if cotisation.datePaiement is not null %}
+                                      {{ cotisation.datePaiement }}
+                                  {% else %}
+                                      -
+                                  {% endif %}
+                              </td>
+                              <td>{% if not cotisation.payed %}
                                 <a href="{{ path("application_cotisation_delete", { "id" : cotisation.id }) }}"><span class="glyphicon glyphicon-trash"></span></a>
                                 {% endif %}</td>
                           </tr>
