@@ -49,8 +49,6 @@ class CotisationController extends Controller {
             return $a->getYear() > $b->getYear();
         });
 
-
-        dump($yearCotisations);
         $i = 0;
         $data = array();
         foreach($yearCotisations as $year)
@@ -58,7 +56,6 @@ class CotisationController extends Controller {
             $data[$i]['yearCotisation'] = $year;
 
             $cotisation = $user->getCotisationByYear($year->getYear());
-            dump($cotisation);
             if($cotisation != null)
             {
                 $data[$i]['cotisation'] = $cotisation;
@@ -132,7 +129,6 @@ class CotisationController extends Controller {
         }
 
 
-        dump($data);
         return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
             "data" => $data,
             "parameters" => $parameters,
