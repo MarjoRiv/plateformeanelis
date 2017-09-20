@@ -12,7 +12,7 @@ class YearCotisationRepository extends AEntityRepository
         $yearCotisationEnabled =  $this->getEntityManager()->createQuery(
             'SELECT yc
                   FROM ApplicationCotisationBundle:YearCotisation yc
-                  WHERE CURRENT_DATE() > yc.dateEnabled
+                  WHERE CURRENT_DATE() >= yc.dateEnabled
                   '
         );
 

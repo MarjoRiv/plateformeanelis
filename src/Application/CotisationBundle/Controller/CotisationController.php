@@ -103,10 +103,12 @@ class CotisationController extends Controller {
             {
                 $data[$i]['statut'] = 0;
                 $data[$i]['showError'] = false;
+                $data[$i]['showCotisationReduite'] = $user->getIntPromotion() >= $year->getPromoReduiteMax();
+
                 $cotisationCreated = new Cotisation();
                 $cotisationCreated->setUser($this->get('security.token_storage')->getToken()->getUser());
 
-                $cotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_' . $year->getId(), CotisationType::class, $cotisationCreated,['choices' => $year, 'formId' => $year->getId()])->getForm();
+                $cotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_' . $year->getId(), CotisationType::class, $cotisationCreated,['choices' => $year, 'formId' => $year->getId(), 'user' => $user])->getForm();
 
                 if ($request->request->get('cotis_form_' . $year->getId()) != null) //Récupération du bon formulaire envoyé
                 {
@@ -135,37 +137,6 @@ class CotisationController extends Controller {
         ));
     }
 
-    /*
-    public function addAction(Request $request) {
-        $invoiceManager = new InvoiceManager($this);
-        $cotisation = new Cotisation();
-        $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(CotisationType::class, $cotisation);
-        $formHandler = new CotisationHandler($form, $request, $em, $invoiceManager);
-            
-        if ($formHandler->process()) {
-            // Getting the last id invoice inserted 
-            $repository = $this->getDoctrine()
-                ->getRepository('ApplicationCotisationBundle:Invoice');
-            $query = $repository->createQueryBuilder('p')
-                ->orderBy('p.id', 'DESC')
-                ->getQuery();
-
-            $invoices = $query->getResult();
-            $last_cotisation_id = $invoices[0]->getId();
-
-            return $this->redirect($this->generateUrl('application_cotisation_invoice_get', array(
-                'id' => $last_cotisation_id
-               )));
-        }
-        else {
-            return $this->render('ApplicationCotisationBundle:Default:add.html.twig', array(
-                "form" => $form->createView(),
-            ));
-        }
-    }*/
 
     public function deleteAction(Cotisation $cotisation) {
 

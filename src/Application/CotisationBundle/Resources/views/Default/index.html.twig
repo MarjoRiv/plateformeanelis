@@ -76,6 +76,10 @@
                               </div>
                               <div class="panel-body">
                                 <p>La cotisation pour l'année {{ data[i]['yearCotisation'].year }} est ouverte ! Vous pouvez cotiser dès maintenant pour profiter aux plus vite des avantages !</p>
+                                {% if data[i]['showCotisationReduite'] %}
+                                <p>Votre promotion n'est pas encore diplomée ou vient de l'être, vous bénéficiez
+                                  donc du tarif réduit</p>
+                                {% endif %}
                                 <div class="col-xs-offset-2 col-xs-8 formCotisation">
                                     {{ form_start( data[i]['form']) }}
                                   <div class="form-group">
@@ -94,8 +98,12 @@
 
                                     {% if data[i]['showError'] %}
                                       <div class="bg-danger"> Le champ Cotisation Libre est mal renseigné. Le montant
-                                        minimum de la cotisation {{ data[i]['yearCotisation'].year }} est de {{
-                                          data[i]['yearCotisation'].minAmount }}
+                                        minimum de la cotisation {{ data[i]['yearCotisation'].year }} est de
+                                        {% if data[i]['showCotisationReduite'] %}
+                                            {{ data[i]['yearCotisation'].reducedFeeAmount }}
+                                        {% else %}
+                                            {{ data[i]['yearCotisation'].minAmount }}
+                                        {% endif %}
                                         € minimum.</div>
                                     {% endif %}
                                   <div class="form-group col-xs-offset-4 ">

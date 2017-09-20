@@ -602,6 +602,10 @@ class User extends BaseUser
         return $this->promotion;
     }
 
+    public function getIntPromotion()
+    {
+        return intval($this->promotion);
+    }
 
     /**
      * Set filiere

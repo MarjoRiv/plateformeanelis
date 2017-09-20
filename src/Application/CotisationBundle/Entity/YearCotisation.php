@@ -28,6 +28,13 @@ class YearCotisation {
     private $year;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="promoReduiteMax", type="integer")
+     */
+    private $promoReduiteMax;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateEnabled", type="datetime")
@@ -212,6 +219,20 @@ class YearCotisation {
      */
     public function setReducedFeeAmount($reducedFeeAmount) {
         $this->reducedFeeAmount = $reducedFeeAmount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPromoReduiteMax() {
+        return $this->promoReduiteMax;
+    }
+
+    /**
+     * @param mixed $promoReduiteMax
+     */
+    public function setPromoReduiteMax($promoReduiteMax) {
+        $this->promoReduiteMax = $promoReduiteMax;
     }
 
 

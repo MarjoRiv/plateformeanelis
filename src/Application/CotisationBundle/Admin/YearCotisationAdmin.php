@@ -28,6 +28,7 @@ class YearCotisationAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('year', null, array('label' => 'Année de Cotisation'))
+            ->add('promoReduiteMax', null, array('label' => 'Promo Tarif Réduit Max'))
             ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
             ->add('minAmount', null, array('label' => 'Montant Minimum'))
             ->add('reducedFeeAmount', null, array('label' => 'Tarif Réduit'))
@@ -54,6 +55,7 @@ class YearCotisationAdmin extends AbstractAdmin
         //FIXME : Erreur si l'année de cotisation existe déjà.
         $formMapper
             ->add('year', null, array('label' => 'Année de Cotisation'))
+            ->add('promoReduiteMax', null, array('label' => 'Promo Tarif Réduit Max'))
             ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
             ->add('minAmount', null, array('label' => 'Montant Minimum'))
             ->add('reducedFeeAmount', null, array('label' => 'Tarif Réduit'))
@@ -72,6 +74,7 @@ class YearCotisationAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('year', null, array('label' => 'Année de Cotisation'))
+            ->add('promoReduiteMax', null, array('label' => 'Promo Tarif Réduit Max'))
             ->add('dateEnabled', null, array('label' => 'Date d\'activation'))
             ->add('minAmount', null, array('label' => 'Montant Minimum'))
             ->add('reducedFeeAmount', null, array('label' => 'Tarif Réduit'))
