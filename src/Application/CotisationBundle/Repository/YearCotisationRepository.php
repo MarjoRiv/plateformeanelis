@@ -22,7 +22,6 @@ class YearCotisationRepository extends AEntityRepository
         foreach($yearCotisationEnabled->getResult() as $year)
         {
             $year->getDateEnabled()->setTimezone(new \DateTimeZone('Europe/Paris'));
-            dump([$year->getDateEnabled()->getTimestamp(), time()]);
             if($year->getYear() >= intval(date('Y')) && $year->getDateEnabled()->getTimestamp() <= time())
             {
                 $yearCotisation[] = $year;
