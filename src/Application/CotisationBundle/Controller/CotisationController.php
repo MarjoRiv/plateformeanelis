@@ -104,6 +104,7 @@ class CotisationController extends Controller {
                 $data[$i]['statut'] = 0;
                 $data[$i]['showError'] = false;
                 $data[$i]['showCotisationReduite'] = $user->getIntPromotion() >= $year->getPromoReduiteMax();
+                $data[$i]['cotisationReduiteText'] = $parametersRepo->findOneByName('anelis.cotisation.cotisationReduiteText')->getValue();
 
                 $cotisationCreated = new Cotisation();
                 $cotisationCreated->setUser($this->get('security.token_storage')->getToken()->getUser());

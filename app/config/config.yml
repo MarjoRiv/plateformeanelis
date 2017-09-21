@@ -69,6 +69,7 @@ doctrine:
         auto_mapping: true
         dql:
           datetime_functions:
+            date: DoctrineExtensions\Query\Mysql\Date
             strtodate: DoctrineExtensions\Query\Mysql\StrToDate
 
 

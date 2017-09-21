@@ -3,6 +3,8 @@
 namespace Application\CotisationBundle\Repository;
 
 use Application\MainBundle\Repository\AEntityRepository;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 class YearCotisationRepository extends AEntityRepository
@@ -12,15 +14,16 @@ class YearCotisationRepository extends AEntityRepository
         $yearCotisationEnabled =  $this->getEntityManager()->createQuery(
             'SELECT yc
                   FROM ApplicationCotisationBundle:YearCotisation yc
-                  WHERE CURRENT_DATE() >= yc.dateEnabled
                   '
         );
 
-
+        date_default_timezone_set("Europe/Paris");
         $yearCotisation = array();
         foreach($yearCotisationEnabled->getResult() as $year)
         {
-            if($year->getYear() >= intval(date('Y')))
+            $year->getDateEnabled()->setTimezone(new \DateTimeZone('Europe/Paris'));
+            dump([$year->getDateEnabled()->getTimestamp(), time()]);
+            if($year->getYear() >= intval(date('Y')) && $year->getDateEnabled()->getTimestamp() <= time())
             {
                 $yearCotisation[] = $year;
             }

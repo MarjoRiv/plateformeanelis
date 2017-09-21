@@ -53,7 +53,8 @@ class CotisationType extends AbstractType {
                 'expanded'     => true))
             ->add('cotisationLibre', MoneyType::class, array(
                 'constraints' => $constraint,
-                 'required' => false
+                 'required' => false,
+                'scale' => 0
 
             ))
             ->add('submit' . $options['formId'], SubmitType::class, array('label' => 'Cotiser'))
