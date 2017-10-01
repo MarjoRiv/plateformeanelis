@@ -24,12 +24,26 @@ class CotisationType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $yearCotisation = $options['choices'];
+        $user = $options['user'];
+        if($user->getIntPromotion() >= $yearCotisation->getPromoReduiteMax())
+        {
+            $choices = [$yearCotisation->getReducedFeeAmount(), $yearCotisation->getMinAmount(),
+                $yearCotisation->getProposedAmount1(), $yearCotisation->getProposedAmount2(),
+                $yearCotisation->getProposedAmount3()];
+            $constraint = new GreaterThanOrEqual($yearCotisation->getReducedFeeAmount());
+
+        }
+        else
+        {
+            $choices = [$yearCotisation->getMinAmount(), $yearCotisation->getProposedAmount1(),
+                $yearCotisation->getProposedAmount2(), $yearCotisation->getProposedAmount3(),
+                $yearCotisation->getProposedAmount4()];
+            $constraint = new GreaterThanOrEqual($yearCotisation->getMinAmount());
+        }
         $random_string = base64_encode(random_bytes(10));
         $builder
             ->add('priceCotisation', ChoiceType::class, array(
-                'choices'      => [$yearCotisation->getMinAmount(), $yearCotisation->getProposedAmount1(),
-                    $yearCotisation->getProposedAmount2(), $yearCotisation->getProposedAmount3(),
-                    $yearCotisation->getProposedAmount4()],
+                'choices'      => $choices,
                 'choice_label' => function ($price, $key, $index) {
                         return $price . ' €';
                 },
@@ -38,8 +52,9 @@ class CotisationType extends AbstractType {
                 'required'     => true,
                 'expanded'     => true))
             ->add('cotisationLibre', MoneyType::class, array(
-                'constraints' => new GreaterThanOrEqual($yearCotisation->getMinAmount()),
-                 'required' => false
+                'constraints' => $constraint,
+                 'required' => false,
+                'scale' => 0
 
             ))
             ->add('submit' . $options['formId'], SubmitType::class, array('label' => 'Cotiser'))
@@ -55,6 +70,7 @@ class CotisationType extends AbstractType {
         $resolver->setDefaults(array(
             'choices' => null,
             'formId'  => null,
+            'user' => null
         ));
     }
 

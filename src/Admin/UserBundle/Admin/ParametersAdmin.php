@@ -17,7 +17,6 @@ class ParametersAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('name')
-            ->add('staticText')
         ;
     }
 
@@ -29,7 +28,8 @@ class ParametersAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('staticText')
+            ->add('type')
+            ->add('value')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -46,8 +46,10 @@ class ParametersAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('id')
             ->add('name')
-            ->add('staticText')
+            ->add('type')
+            ->add('value')
         ;
     }
 
@@ -59,7 +61,8 @@ class ParametersAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('staticText')
+            ->add('type')
+            ->add('value')
         ;
     }
 }
