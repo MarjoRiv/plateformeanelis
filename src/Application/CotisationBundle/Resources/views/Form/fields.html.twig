@@ -153,7 +153,7 @@
             }) -}}
         {% endfor -%}
     {%- else -%}
-        <div data-toggle="buttons" {{ block('widget_container_attributes') }}>
+        <div data-toggle="buttons" class="buttongroup" {{ block('widget_container_attributes') }}>
             {%- for child in form %}
                 {{- form_widget(child, {
                     parent_label_class: label_attr.class|default(''),

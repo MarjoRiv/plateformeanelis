@@ -62,6 +62,8 @@ dev_deploy_job:
     - export MYSQL_ADDON_PORT=3306
     - export MYSQL_ADDON_USER=unvgkngpdptovj6i
     - php bin/console doctrine:migrations:migrate -n
+    # En cas de besoin de compte admin en dev, l'ajouter ici.
+    - php bin/console fos:user:promote kevin.bourgeix.2018 --super
     - git config --global user.email "git@anelis.org"
     - git config --global user.name "anelis"
     - git checkout $DEPLOY_BRANCH

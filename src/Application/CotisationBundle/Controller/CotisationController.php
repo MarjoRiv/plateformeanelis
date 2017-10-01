@@ -36,144 +36,108 @@ class CotisationController extends Controller {
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $yearCotis = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findAll();
-        $cotisOK = array();
-        $cotisDispo = array();
-        $cotisEnAttente = array();
-        $dateCotisEnAttente = array();
-        $returnForms = array();                                             //L'ensemble des formulaires de retour
-        $paypalForms = array();
-        $showAmountError = array();
+        $parametersRepo = $em->getRepository('AdminUserBundle:Parameters');
+        $cotisationsRepo = $em->getRepository('ApplicationCotisationBundle:Cotisation');
+        $yearCotisations = $em->getRepository('ApplicationCotisationBundle:YearCotisation')->findAllActive();
+        $user = $this->getUser();
 
-        $staticTextCotisation = $em->getRepository('AdminUserBundle:Parameters')->findOneByName('anelis.cotisation.staticCotisationText');
+        $parameters['enAttente'] = $parametersRepo->findOneByName('anelis.cotisation.cotisationEnAttenteText')->getValue();
+        $parameters['cotisation'] = $parametersRepo->findOneByName('anelis.cotisation.staticCotisationText')->getValue();
 
 
-        foreach ($this->getUser()->getCotisations() as $cotisation)          //Récupération des années de cotisation
+        usort($yearCotisations, function ($a, $b) {
+            return $a->getYear() > $b->getYear();
+        });
+
+        $i = 0;
+        $data = array();
+        foreach($yearCotisations as $year)
         {
-            $date = intval($cotisation->getYearCotisation()->getYear());            //Année courante
-            //On récupère seulement si l'année de cotisation n'est pas passée.
-            if ($date >= intval(date("Y"))) {
-                if ($cotisation->isPayed()) {                              //Si la cotisation a bien été payée
-                    $cotisOK[] = $cotisation->getYearCotisation()->getYear();
-                } else {                                                    //Si le paiement est en attente
-                    $cotisEnAttente[] = $cotisation;
-                    $dateCotisEnAttente[] = $date;
+            $data[$i]['yearCotisation'] = $year;
+
+            $cotisation = $user->getCotisationByYear($year->getYear());
+            if($cotisation != null)
+            {
+                $data[$i]['cotisation'] = $cotisation;
+                if($cotisation->isPayed())
+                {
+                    $data[$i]['statut'] = 2;
+                }
+                else
+                {
+                    $data[$i]['statut'] = 1;
+                    $config = [
+                        'paypal_express_checkout' => [
+                            'return_url' => $this->generateUrl('application_cotisation_payer_paypal', ['year' => $year->getYear()], UrlGeneratorInterface::ABSOLUTE_URL),
+                            'cancel_url' => $this->generateUrl('application_cotisation_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+                            'useraction' => 'commit',
+                        ],
+                    ];
+                    $paypalForm = $this->get('form.factory')->createNamedBuilder('paypalForm'.$year->getId(),
+                                                                                 ChoosePaymentMethodType::class, null, [
+                                                                                     'amount'   => $this->getUser()->getCotisationByYear($year->getYear())
+                                                                                         ->getPriceCotisation(),
+                                                                                     'currency' => 'EUR',
+                                                                                     'default_method' => 'paypal_express_checkout',
+                                                                                     'predefined_data' => $config,
+                                                                                 ])->getForm();
+
+                    $paypalForm->handleRequest($request);
+
+                    if($paypalForm->isSubmitted() && $paypalForm->isValid()) {
+                        $ppc = $this->get('payment.plugin_controller');
+                        $ppc->createPaymentInstruction($instruction = $paypalForm->getData());
+
+                        $cotisation = $this->getUser()->getCotisationByYear($year->getYear());
+                        $cotisation->setPaymentInstruction($instruction);
+                        $em->persist($cotisation);
+                        $em->flush($cotisation);
+                        return $this->redirect($this->generateUrl('application_cotisation_payer_paypal', ['year' =>
+                                                                                                              $year->getYear()]));
+                    }
+
+                    $data[$i]['form'] = $paypalForm->createView();
                 }
             }
-        }
+            else
+            {
+                $data[$i]['statut'] = 0;
+                $data[$i]['showError'] = false;
+                $data[$i]['showCotisationReduite'] = $user->getIntPromotion() >= $year->getPromoReduiteMax();
+                $data[$i]['cotisationReduiteText'] = $parametersRepo->findOneByName('anelis.cotisation.cotisationReduiteText')->getValue();
 
-        $cotisation = new Cotisation();
-        $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
+                $cotisationCreated = new Cotisation();
+                $cotisationCreated->setUser($this->get('security.token_storage')->getToken()->getUser());
 
-        foreach ($yearCotis as $yearCotisation) {
+                $cotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_' . $year->getId(), CotisationType::class, $cotisationCreated,['choices' => $year, 'formId' => $year->getId(), 'user' => $user])->getForm();
 
-            $date = $yearCotisation->getYear();
-            if (!in_array($date, $dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y")) && new DateTime() >= $yearCotisation->getDateEnabled()) {
-                $cotisDispo[] = $date;
-
-                $cotisation->setPricecotisation($yearCotisation->getMinAmount());
-                $returnCotisationForm = $this->get('form.factory')->createNamedBuilder('cotis_form_' . $yearCotisation->getId(), CotisationType::class, $cotisation,['choices' => $yearCotisation, 'formId' => $yearCotisation->getId()])->getForm();
-
-                if ($request->request->get('cotis_form_' . $yearCotisation->getId()) != null) //Récupération du bon formulaire envoyé
+                if ($request->request->get('cotis_form_' . $year->getId()) != null) //Récupération du bon formulaire envoyé
                 {
-                    $cotisation->setYearCotisation($yearCotisation);
 
-
-                    $formHandler = new CotisationHandler($returnCotisationForm, $request, $em);
+                    $cotisationCreated->setYearCotisation($year);
+                    $formHandler = new CotisationHandler($cotisationForm, $request, $em);
                     if ($formHandler->process()) {
                         return $this->redirect($this->generateUrl('application_cotisation_homepage'));
                     }
                     else
                     {
-                        $showAmountError[] = $date;
+                        $data[$i]['showError'] = true;
                     }
                 }
 
-                $returnForms[] = $returnCotisationForm->createView();
+                $data[$i]['form'] = $cotisationForm->createView();
+
             }
-            else if (in_array($date, $dateCotisEnAttente) && !in_array($date, $cotisOK) && $date >= intval(date("Y"))
-                   && new DateTime() >= $yearCotisation->getDateEnabled())
-            {
-                $config = [
-                    'paypal_express_checkout' => [
-                        'return_url' => $this->generateUrl('application_cotisation_payer_paypal', ['year' => $yearCotisation->getYear()], UrlGeneratorInterface::ABSOLUTE_URL),
-                        'cancel_url' => $this->generateUrl('application_cotisation_homepage', array(), UrlGeneratorInterface::ABSOLUTE_URL),
-                        'useraction' => 'commit',
-                    ],
-                ];
-
-                $paypalForm = $this->get('form.factory')->createNamedBuilder('paypalForm'.$yearCotisation->getId(),
-                                                        ChoosePaymentMethodType::class, null, [
-                    'amount'   => $this->getUser()->getCotisationByYear($yearCotisation->getYear())
-                        ->getPriceCotisation(),
-                    'currency' => 'EUR',
-                    'default_method' => 'paypal_express_checkout',
-                    'predefined_data' => $config,
-                ])->getForm();
-
-
-                $paypalForm->handleRequest($request);
-
-                if($paypalForm->isSubmitted() && $paypalForm->isValid()) {
-                    $ppc = $this->get('payment.plugin_controller');
-                    $ppc->createPaymentInstruction($instruction = $paypalForm->getData());
-
-                    $cotisation = $this->getUser()->getCotisationByYear($yearCotisation->getYear());
-                    $cotisation->setPaymentInstruction($instruction);
-                    $em->persist($cotisation);
-                    $em->flush($cotisation);
-                    return $this->redirect($this->generateUrl('application_cotisation_payer_paypal', ['year' =>
-                    $yearCotisation->getYear()]));
-                }
-
-                $paypalForms[$yearCotisation->getYear()] = $paypalForm->createView();
-            }
-
+            $i++;
         }
-        return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
-            "cotisDispo"   => $cotisDispo, //Ici on envoi à la vue les années à afficher.
-            "cotisOK"      => $cotisOK,
-            "cotisAttente" => $cotisEnAttente,
-            "forms"        => $returnForms,
-            "paypalForms"  => $paypalForms,
-            "staticText"   => $staticTextCotisation->getValue(),
-            "showAmountError" => $showAmountError
-        ));
 
+
+        return $this->render('ApplicationCotisationBundle:Default:index.html.twig', array(
+            "data" => $data,
+            "parameters" => $parameters,
+        ));
     }
 
-
-    /*
-    public function addAction(Request $request) {
-        $invoiceManager = new InvoiceManager($this);
-        $cotisation = new Cotisation();
-        $cotisation->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(CotisationType::class, $cotisation);
-        $formHandler = new CotisationHandler($form, $request, $em, $invoiceManager);
-            
-        if ($formHandler->process()) {
-            // Getting the last id invoice inserted 
-            $repository = $this->getDoctrine()
-                ->getRepository('ApplicationCotisationBundle:Invoice');
-            $query = $repository->createQueryBuilder('p')
-                ->orderBy('p.id', 'DESC')
-                ->getQuery();
-
-            $invoices = $query->getResult();
-            $last_cotisation_id = $invoices[0]->getId();
-
-            return $this->redirect($this->generateUrl('application_cotisation_invoice_get', array(
-                'id' => $last_cotisation_id
-               )));
-        }
-        else {
-            return $this->render('ApplicationCotisationBundle:Default:add.html.twig', array(
-                "form" => $form->createView(),
-            ));
-        }
-    }*/
 
     public function deleteAction(Cotisation $cotisation) {
 

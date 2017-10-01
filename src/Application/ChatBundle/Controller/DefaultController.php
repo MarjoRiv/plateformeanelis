@@ -14,7 +14,6 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $message = new Message();
-        //var_dump($this->getUser());
         $message->setUser($this->getUser());
         $form = $this->createForm(MessageType::class, $message);
         $em = $this->getDoctrine()->getManager();
