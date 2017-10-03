@@ -164,7 +164,7 @@
                               </td>
                               <td>
                                   {% if cotisation.datePaiement is not null %}
-                                      {{ cotisation.datePaiement }}
+                                      {{ cotisation.datePaiement | date('d-m-Y') }}
                                   {% else %}
                                       -
                                   {% endif %}

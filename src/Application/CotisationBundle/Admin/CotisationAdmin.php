@@ -24,7 +24,8 @@ class CotisationAdmin extends AbstractAdmin {
             ->add('pricecotisation', null, array('label' => 'Prix Payé'))
             ->add('yearCotisation', null, array('label' => 'Année de Cotisation'))
             ->add('paymentType', null, array(), 'choice', array('label' => 'Type de Paiement', 'choices' =>
-                EnumTypePaiement::getValuesFromLabel()));
+                EnumTypePaiement::getValuesFromLabel()))
+            ->add('datePaiement', null, array('label' => 'Date de Paiement'));
     }
 
     /**
@@ -39,6 +40,7 @@ class CotisationAdmin extends AbstractAdmin {
             ->add('payed', null, array('label' => 'Payée ?'))
             ->add('paymentType', 'choice', array('label' => 'Type de Paiement', 'choices' =>
                 EnumTypePaiement::getLabelsFromValues()))
+            ->add('datePaiement', null, array('label' => 'Date de Paiement'))
             ->add('_action', null, array(
                 'actions' => array(
                     'show'         => array(),
@@ -57,6 +59,7 @@ class CotisationAdmin extends AbstractAdmin {
             ->add('yearCotisation', null, array('label' => 'Année'))
             ->add('pricecotisation', null, array('label' => 'Prix Payé'))
             ->add('payed', null, array('label' => 'Payée ?'))
+            ->add('datePaiement', null, array('label' => 'Date de Paiement'))
             ->add('paymentType', 'choice', array('label' => 'Type de Paiement', 'choices' => EnumTypePaiement::getValuesFromLabel()));
     }
 
@@ -70,6 +73,7 @@ class CotisationAdmin extends AbstractAdmin {
             ->add('yearcotisation', null, array('label' => 'Année'))
             ->add('pricecotisation', null, array('label' => 'Prix Payé'))
             ->add('payed', null, array('label' => 'Payée ?'))
+            ->add('datePaiement', null, array('label' => 'Date de Paiement'))
             ->add('paymentType', 'choice', array('label' => 'Type de Paiement', 'choices' =>
                 EnumTypePaiement::getLabelsFromValues()));
     }
