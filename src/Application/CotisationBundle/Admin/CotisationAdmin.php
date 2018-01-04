@@ -13,6 +13,13 @@ use Sonata\AdminBundle\Form\Type\Filter\ChoiceType;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class CotisationAdmin extends AbstractAdmin {
+
+
+    protected $datagridValues = array(
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'datePaiement',
+    );
+    
     /**
      * @param DatagridMapper $datagridMapper
      */
