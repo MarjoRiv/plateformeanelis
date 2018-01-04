@@ -81,7 +81,6 @@ class CotisationController extends Controller {
                                                                                      'default_method' => 'paypal_express_checkout',
                                                                                      'predefined_data' => $config,
                                                                                  ])->getForm();
-
                     $paypalForm->handleRequest($request);
 
                     if($paypalForm->isSubmitted() && $paypalForm->isValid()) {
@@ -240,7 +239,9 @@ class CotisationController extends Controller {
          //Si la transaction a réussie, la cotisation est validée !
          $cotis->setPayed(true);
          $cotis->setPaymentType(EnumTypePaiement::PAYPAL);
-         $em->persist($cotis);
+         $cotis->setDatePaiement(new DateTime());
+
+        $em->persist($cotis);
          $em->flush($cotis);
          return $this->redirect($this->generateUrl('application_cotisation_homepage'));
     }

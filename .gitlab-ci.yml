@@ -55,7 +55,6 @@ dev_deploy_job:
     - php composer.phar install
     - php bin/console cache:clear
     - php bin/console assetic:dump
-    - php bin/console security:check
     - export MYSQL_ADDON_DB=b8ckkhfbd
     - export MYSQL_ADDON_HOST=b8ckkhfbd-mysql.services.clever-cloud.com
     - export MYSQL_ADDON_PASSWORD=Ggnbbgdz3mXwllw5t8Y
@@ -80,7 +79,7 @@ prod_deploy_job:
     - php composer.phar install --no-dev
     - php bin/console cache:clear --env=prod --no-debug
     - php bin/console assetic:dump --env=prod --no-debug
-    - php bin/console security:check
+    # TODO : Régler les security Check + mettre les variables d'environnement sur GitLab
     - export MYSQL_ADDON_DB=bx9ec5e8i
     - export MYSQL_ADDON_HOST=bx9ec5e8i-mysql.services.clever-cloud.com
     - export MYSQL_ADDON_PASSWORD=zh57HHep3c2m9JcR02O
