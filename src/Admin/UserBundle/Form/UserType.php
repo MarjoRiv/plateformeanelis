@@ -2,6 +2,7 @@
 
 namespace Admin\UserBundle\Form;
 
+use Admin\UserBundle\Entity\SubscriberRepository;
 use Admin\UserBundle\Form\TelType;
 use Application\MainBundle\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
@@ -12,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,6 +25,7 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $pattern = 'ml%';
         $builder
             ->add('email', EmailType::class, array(
                 'required' => true
@@ -116,18 +119,15 @@ class UserType extends AbstractType
             ->add('childrenNumber', IntegerType::class, array(
                 'required' => false
                 ))
-            ->add('mlInformations', CheckboxType::class, array(
+            ->add('childrenNumber', IntegerType::class, array(
                 'required' => false
                 ))
-            ->add('mlEmployment', CheckboxType::class, array(
-                'required' => false
-                ))
-            ->add('mlEvents', CheckboxType::class, array(
-                'required' => false
-                ))
-            ->add('mlIsimaNews', CheckboxType::class, array(
-                'required' => false
-                ))
+            ->add('newsletters', EntityType::class, array(
+                'class'        => 'AdminUserBundle:Newsletter',
+                'multiple'     => true,
+                'expanded'      => true
+            ))
+                             
         ;
     }
     

@@ -126,10 +126,6 @@ class UserAdmin extends AbstractAdmin
             ->add('filiere')
             ->add('name')
             ->add('isEmailValid')
-            ->add('mlInformations')
-            ->add('mlEmployment')
-            ->add('mlEvents')
-            ->add('mlIsimaNews')
         ;
     }
 
