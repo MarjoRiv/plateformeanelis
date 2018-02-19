@@ -3,8 +3,6 @@
 namespace Admin\UserBundle\Controller;
 
 use Admin\UserBundle\Entity\User;
-use Admin\UserBundle\Entity\Newsletter;
-use Admin\UserBundle\Form\NewsLetterType;
 use Admin\UserBundle\Form\UserHandler;
 use Admin\UserBundle\Form\UserType;
 use Admin\UserBundle\Manager\UserManager;
@@ -55,27 +53,21 @@ class ProfilController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         
-
-
+        $entity = new UserType();
         $form = $this->createForm(UserType::class, $user);
         $formHandler = new UserHandler($form, $request, $em);
+            
         if ($formHandler->process()) {
             //TODO : Search why we use this LogManager and where...
             //LogManager::save($this, "Modification de l'utilisateur " . $user->getId());
             $this->get('session')->getFlashBag()->add('success', "L'utilisateur a été modifié.");
 
         }
-        $listnewsletter = $em->getRepository("AdminUserBundle:Newsletter")->findall();
 
         return $this->render('AdminUserBundle:Profile:user.edit.html.twig', array(
                 "form" => $form->createView(),
-
         ));
         
-    }
-
-    public function showAllNewsLetter(){
-        return $this->getDoctrine()->getRepository("AdminUserBundle:Subscriber")->findall();
     }
 
 }

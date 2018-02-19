@@ -20,9 +20,3 @@ services:
         arguments: [~, Admin\UserBundle\Entity\Events, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: "Gestion du Contenu", label: "Evènements"}
-    admin_user.admin.newsletter:
-        class: Admin\UserBundle\Admin\NewsletterAdmin
-        arguments: [~, Admin\UserBundle\Entity\Newsletter, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: "Gestion des newsletters", label: "newsletter"}
-
