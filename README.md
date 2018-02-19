@@ -1,3 +1,3 @@
 Plateforme ANELIS
 
-Faites-vous plaisir !# plateformeanelis
+Faites-vous plaisir !
