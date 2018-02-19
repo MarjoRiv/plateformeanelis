@@ -6,19 +6,10 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class NewsletterAdmin extends AbstractAdmin
 {
-	/**
-     * @param RouteCollection $collection
-     */
-	protected function configureRoutes(RouteCollection $collection)
-	{
-	$collection->add('mailjetexport', $this->getRouterIdParameter().'/mailjetexport');
-	}
-	
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -47,10 +38,8 @@ class NewsletterAdmin extends AbstractAdmin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-					'mailjetexport' => array('template' => 'AdminUserBundle:CRUD:list__action_mailjetexport.html.twig')
-                    )
                 )
-            )
+            ))
         ;
     }
 

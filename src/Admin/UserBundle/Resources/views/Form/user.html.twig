@@ -266,14 +266,10 @@
                     </div>
                     <div class="tab-pane" id="newsletters">
                         {% for newsletter in form.newsletters %}
-                            
-                             <div class="form-group">
-                                    {{ form_label(newsletter, "Nom de la newsletter \n commentaire \n Fréquence d'envoi" , { 'label_attr' : { 'class' : 'col-sm-3 control-label' } })|nl2br }}
-                                <div >
-                                    {{ form_label(newsletter, newsletter , { 'label_attr' : { 'class' : 'col-sm-3 control-label' } })|nl2br }}
-                                    <div class="col-sm-6">
-                                        {{ form_widget(newsletter, { 'attr' : { 'class' : 'form-control' } }) }}
-                                    </div>
+                            <div class="form-group">
+                                {{ form_label(newsletter, newsletter , { 'label_attr' : { 'class' : 'col-sm-3 control-label' } })|nl2br }}
+                                <div class="col-sm-6">
+                                    {{ form_widget(newsletter, { 'attr' : { 'class' : 'form-control' } }) }}
                                 </div>
                             </div>
                         {% endfor %}
