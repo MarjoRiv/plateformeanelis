@@ -22,3 +22,4 @@ services:
         class: Admin\UserBundle\Form\TelType
         tags:
             - { name: form.type, alias: tel }
+

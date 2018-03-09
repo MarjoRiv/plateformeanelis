@@ -1,3 +1,7 @@
+admin_mailing:
+    resource: "@AdminMailingBundle/Resources/config/routing.yml"
+    prefix:   /
+
 offre:
     resource: "@OffreBundle/Resources/config/routing.yml"
     prefix:   /

@@ -3,6 +3,7 @@
 namespace Admin\UserBundle\Entity;
 
 use Application\CotisationBundle\Entity\Cotisation;
+use Admin\MailingBundle\Entity\Newsletter;
 use Application\MainBundle\Entity\Image;
 use Doctrine\ORM\Mapping as ORM; // To check
 use FOS\UserBundle\Model\User as BaseUser;
@@ -241,32 +242,16 @@ class User extends BaseUser
     protected $isGraduated;
 
     /**
-     * @var boolean
+     * @var ArrayCollection Admin\MailingBundle\Entity\Newsletter $newsletters
+     * Owning Side
      *
-     * @ORM\Column(name="mlInformations", type="boolean", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Admin\MailingBundle\Entity\Newsletter", inversedBy="users", cascade={"persist", "merge"})
+     * @ORM\JoinTable(name="subscriber",
+     *   joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *   inverseJoinColumns={@ORM\JoinColumn(name="newsletter_id", referencedColumnName="id")}
+     * )
      */
-    protected $mlInformations;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="mlEmployment", type="boolean", nullable=true)
-     */
-    protected $mlEmployment;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="mlEvents", type="boolean", nullable=true)
-     */
-    protected $mlEvents;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="mlIsimaNews", type="boolean", nullable=true)
-     */
-    protected $mlIsimaNews;
+    private $newsletters;
 
     public function __construct()
     {
@@ -305,12 +290,8 @@ class User extends BaseUser
         $this->avatar               = new Image();
         $this->avatar->setMandatory(false);
         $this->avatar->setFilter(Image::$FILTER_USER_AVATAR);
-
+        $this->newsletters          = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cotisations          = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->mlInformations       = false;
-        $this->mlEmployment         = false;
-        $this->mlEvents             = false;
-        $this->mlIsimaNews          = false;
     }
 
 
@@ -391,6 +372,16 @@ class User extends BaseUser
     public function getAddress()
     {
         return $this->address;
+    }
+	
+	/**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -990,97 +981,6 @@ class User extends BaseUser
         return $this->socialInstagram;
     }
 
-    /**
-     * Set mlInformations
-     *
-     * @param boolean $mlInformations
-     * @return User
-     */
-    public function setMlInformations($mlInformations)
-    {
-        $this->mlInformations = $mlInformations;
-
-        return $this;
-    }
-
-    /**
-     * Get mlInformations
-     *
-     * @return boolean 
-     */
-    public function getMlInformations()
-    {
-        return $this->mlInformations;
-    }
-
-    /**
-     * Set mlEmployment
-     *
-     * @param boolean $mlEmployment
-     * @return User
-     */
-    public function setMlEmployment($mlEmployment)
-    {
-        $this->mlEmployment = $mlEmployment;
-
-        return $this;
-    }
-
-    /**
-     * Get mlEmployment
-     *
-     * @return boolean 
-     */
-    public function getMlEmployment()
-    {
-        return $this->mlEmployment;
-    }
-
-    /**
-     * Set mlEvents
-     *
-     * @param boolean $mlEvents
-     * @return User
-     */
-    public function setMlEvents($mlEvents)
-    {
-        $this->mlEvents = $mlEvents;
-
-        return $this;
-    }
-
-    /**
-     * Get mlEvents
-     *
-     * @return boolean 
-     */
-    public function getMlEvents()
-    {
-        return $this->mlEvents;
-    }
-
-    /**
-     * Set mlIsimaNews
-     *
-     * @param boolean $mlIsimaNews
-     * @return User
-     */
-    public function setMlIsimaNews($mlIsimaNews)
-    {
-        $this->mlIsimaNews = $mlIsimaNews;
-
-        return $this;
-    }
-
-    /**
-     * Get mlIsimaNews
-     *
-     * @return boolean 
-     */
-    public function getMlIsimaNews()
-    {
-        return $this->mlIsimaNews;
-    }
 
     /**
      * Get expiresAt
@@ -1193,5 +1093,42 @@ class User extends BaseUser
         }
 
         return null;
+    }
+
+
+    /**
+    * Add Newsletter
+    *
+    * @param \Admin\MailingBundle\Entity\Newsletter $newsletter
+    */
+    public function addNewsletter(\Admin\MailingBundle\Entity\Newsletter $newsletter)
+    {
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->newsletters->contains($newsletter)) {
+            $this->newsletters->add($newsletter);
+        }
+    }
+ 
+    public function setNewsletters($items)
+    {
+        if ($items instanceof ArrayCollection || is_array($items)) {
+            foreach ($items as $item) {
+                $this->addNewsletter($item);
+            }
+        } elseif ($items instanceof Admin\MailingBundle\Entity\Newsletter) {
+            $this->addNewsletter($items);
+        } else {
+            throw new Exception("$items must be an instance of newsletters or ArrayCollection");
+        }
+    }
+ 
+    /**
+     * Get ArrayCollection
+     *
+     * @return ArrayCollection $newsletters
+     */
+    public function getNewsletters()
+    {
+        return $this->newsletters;
     }
 }

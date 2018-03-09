@@ -20,3 +20,4 @@ services:
         arguments: [~, Admin\UserBundle\Entity\Events, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: "Gestion du Contenu", label: "Evènements"}
+
