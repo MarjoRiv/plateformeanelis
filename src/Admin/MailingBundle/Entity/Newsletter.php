@@ -108,7 +108,7 @@ class Newsletter
         return $this->newsletter;
     }
     public function __toString() {
-        return $this->newsletter."\n  ".$this->getcommentaire(). " \n ".$this->getfrequence();
+        return $this->newsletter."\n ".$this->getcommentaire(). " \n ".$this->getfrequence();
     }
     /**
      * Setcommentaire
@@ -226,6 +226,7 @@ class Newsletter
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->mailjet_id  = "0";
+
     }
 }
 

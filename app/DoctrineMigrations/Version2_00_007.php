@@ -20,8 +20,9 @@ class Version2_00_007 extends AbstractMigration {
               $table = $schema->getTable('newsletter');
           }
           catch(SchemaException $e){
-           $this->addSql('CREATE TABLE newsletter (id INT AUTO_INCREMENT NOT NULL, newsletter VARCHAR(255) NOT NULL, commentaire VARCHAR(255) NOT NULL, frequence VARCHAR(255) NOT NULL, mailjet_id VARCHAR(255) NOT NULL DEFAULT "0", PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
+           $this->addSql('CREATE TABLE newsletter (id INT AUTO_INCREMENT NOT NULL, newsletter VARCHAR(255) NOT NULL, commentaire VARCHAR(255) , frequence VARCHAR(255), mailjet_id VARCHAR(255) NOT NULL DEFAULT "0", PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;');
            //on remplie la table newsletter avec les 4 newsletters précédantes
+           $this->addSql('INSERT INTO `newsletter` (`id`, `newsletter`, `commentaire`, `frequence`) VALUES(1,"Newsletter Anelis","Actualité sur la vie de ISIMA et de l\'Anelis, des anciens (naissance, mariage, création d\'entreprise...) et du BDE","6 par an");');
            $this->addSql('INSERT INTO `newsletter` (`id`, `newsletter`, `commentaire`, `frequence`) VALUES(1,"mlEmployments","Recherche d\'emploi","mensuel");');
            $this->addSql('INSERT INTO `newsletter` (`id`, `newsletter`, `commentaire`, `frequence`) VALUES(2,"mlEvents","Tous les événements en France","mensuel");');
            $this->addSql('INSERT INTO `newsletter` (`id`, `newsletter`, `commentaire`, `frequence`) VALUES(3,"mlInformations","Information à ne pas louper","annuel");');
