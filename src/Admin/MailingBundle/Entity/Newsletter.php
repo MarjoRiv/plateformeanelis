@@ -57,14 +57,14 @@ class Newsletter
      *
      * @ORM\Column(name="mailjet_id", type="string")
      */
-    private $mailjet_id ;
+    private $mailjet_id = "0";
 
     /**
-     * Setid
+     * Set id
      *
      * @param integer $id
      *
-     * @return newsletter
+     * @return Events
      */
     public function setId($id)
     {
@@ -74,7 +74,7 @@ class Newsletter
     }
 
     /**
-     * Getid
+     * Get id
      *
      * @return integer 
      */
@@ -85,11 +85,11 @@ class Newsletter
 
 
     /**
-     * setnewsletter
+     * Set newsletter
      *
      * @param string $newsletter
      *
-     * @return newsletter
+     * @return Events
      */
     public function setnewsletter($newsletter)
     {
@@ -99,7 +99,7 @@ class Newsletter
     }
 
     /**
-     * getnewsletter
+     * Get newsletter
      *
      * @return string
      */
@@ -108,14 +108,14 @@ class Newsletter
         return $this->newsletter;
     }
     public function __toString() {
-        return $this->newsletter."\n ".$this->getcommentaire(). " \n ".$this->getfrequence();
+        return $this->newsletter."\n  ".$this->getcommentaire(). " \n ".$this->getfrequence();
     }
     /**
-     * Setcommentaire
+     * Set commentaire
      *
      * @param string $commentaire
      *
-     * @return newsletter
+     * @return Events
      */
     public function setcommentaire($commentaire)
     {
@@ -125,7 +125,7 @@ class Newsletter
     }
 
     /**
-     * Getcommentaire
+     * Get commentaire
      *
      * @return string
      */
@@ -135,11 +135,11 @@ class Newsletter
     }
 
     /**
-     * Setfrequence
+     * Set frequence
      *
      * @param string $frequence
      *
-     * @return newsletter
+     * @return Events
      */
     public function setfrequence($frequence)
     {
@@ -149,7 +149,7 @@ class Newsletter
     }
 
     /**
-     * Getfrequence
+     * Get frequence
      *
      * @return string
      */
@@ -166,7 +166,7 @@ class Newsletter
     }
 
     /**
-     * Getmailjet_id
+     * Get mailjet_id
      *
      * @return string 
      */
@@ -177,9 +177,9 @@ class Newsletter
 
 
     /**
-     * AddUser
+     * Add User
      *
-     * @param $user
+     * @param \Admin\UserBundle\Entity\User $user
      */
     public function adduser(\Admin\UserBundle\Entity\User $user)
     {
@@ -209,7 +209,7 @@ class Newsletter
     }
  
     /**
-     * Geruser
+     * Get ArrayCollection
      *
      * @return ArrayCollection $users
      */
@@ -225,8 +225,6 @@ class Newsletter
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->mailjet_id  = "0";
-
     }
 }
 

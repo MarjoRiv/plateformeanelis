@@ -65,7 +65,7 @@ class CRUDController extends Controller
      *
      * @param string $list_id  L'ID mailjet d'une liste de diffusion
      *
-     * @return array|string $result La liste des utilisateurs. 0 S'il y'a eu une erreur lors du contact avec Mailjet. 1 si la liste n'a pas été trouvée.
+     * @return array|int $result La liste des utilisateurs. 0 S'il y'a eu une erreur lors du contact avec Mailjet. 1 si la liste n'a pas été trouvée.
 	 *
      */
 	private function mailjetGetAllUsers($list_id){
@@ -73,20 +73,18 @@ class CRUDController extends Controller
 
 		//Récupération de tous les contacts de la liste Mailjet
 		$mj = new \Mailjet\Client(getenv('MJ_PUBLIC_KEY'), getenv('MJ_PRIVATE_KEY'));
-		$result = '0';
+		$result = 0;
 		
 		//On récupère les utilisateurs de la liste Mailjet dont l'ID est celui passé en paramètre
-		$response = $mj->get(Resources::$Contactslist, ['id' => $list_id]);
-		if (!$response->success()){
+		$response = $mj->get(Resources::$Listrecipient, ['filters' => ['ContactsList' => $list_id]]);
+		if ($response->success()){
+			if(!empty($response->getData())){
+				$result = $mj->get(Resources::$Contact, ['contactslist' => $list_id]);
+			}
 			
 			//Si la liste n'existe pas, on renvoie 1
-			if(array_key_exists("StatusCode", $response->getData()) && $response->getData()["StatusCode"]== 404){
-				$result = '1';
-			}
+			else $result = 1;
 		}
-		
-		//Sinon on récupère la liste des utilisateurs inscrits à la liste Mailjet en question
-		else $result = $mj->get(Resources::$Contact, ['contactslist' => $list_id]);
 		
 		//On retourne la liste des contacts, 0 si Mailjet n'a pas pu être contacté, 1 si la liste n'existe pas
 		return $result;   
@@ -173,8 +171,8 @@ class CRUDController extends Controller
 			
 			//Récupération de tous les utilisateurs de la liste Mailjet concernée
 			$users = self::mailjetGetAllUsers($list_id);
-			if ($users != '0'){
-				if ($users != '1'){
+			if ($users != 0){
+				if ($users != 1){
 					self::mailjetDeleteList($list_id, $users);
 				
 					// Export de la liste des contacts de la BD vers Mailjet
