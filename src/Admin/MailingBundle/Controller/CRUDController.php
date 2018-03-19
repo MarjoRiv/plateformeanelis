@@ -49,11 +49,15 @@ class CRUDController extends Controller
 		
 		//Création du tableau avec tous les noms et les adresses mail
 		foreach ($all_users->toArray() as $user){
-			$new_user = array (
-				'Email'  => $user->getEmail(),
-				'Name' => $user->getName()
-			);
-			array_push($users, $new_user);
+			
+			//Ne prendre que les utilisateurs avec des adresses e-mail valides
+			if ($user->getIsEmailValid()){
+				$new_user = array (
+					'Email'  => $user->getEmail(),
+					'Name' => $user->getName()
+				);
+				array_push($users, $new_user);
+			}
 		}
 		
 		//Retourner la liste des utilisateurs
@@ -150,6 +154,34 @@ class CRUDController extends Controller
 	}
 	
 	/**
+     * Ajoute une nouvelle liste sur Mailjet
+     *
+     * @param int $id  L'ID d'une liste dans la BD
+     *
+     * @return string 
+	 *
+     */
+	private function mailjetAddList($id){
+		
+		//Récupération du nom de la liste à ajouter
+		$em = $this->getDoctrine()->getManager();
+		$newsletter = $em->getRepository('AdminMailingBundle:Newsletter')->find($id);
+		$name = $newsletter->getNewsletter();
+		
+		//Ajout de la liste dans Mailjet
+		$mj = new \Mailjet\Client(getenv('MJ_PUBLIC_KEY'), getenv('MJ_PRIVATE_KEY'));
+		$mj->post(Resources::$Contactslist, ['body' => ['name' => $name]]);
+		
+		//Mise en place de la List ID Mailjet dans la BD
+		$response = $mj->get(Resources::$Contactslist, ['filters' => ['name' => $name]]);
+		$list_id = $response->getData()[0]['ID'];
+		$newsletter->setMailjetId((string)$list_id);
+		$em->flush();
+	
+		return $list_id;
+	}
+	
+	/**
      * Action relative au clic sur le bouton "Maijet Export"
      *
      * @param int $id  L'ID de la ligne cliquée
@@ -197,9 +229,10 @@ class CRUDController extends Controller
 			}
 		}
 		
-		//Sinon, retourner un message d'erreur
+		//Sinon, ajouter la nouvelle liste dans Mailjet
 		else{
-			$this->addFlash('sonata_flash_error', 'List ID Mailjet non assignée');
+			$list_id = self::mailjetAddList($id);
+			$this->addFlash('sonata_flash_success', 'Export réussi, nouvelle liste crée avec ID = '.$list_id);
 		}
 		
 		//Revenir sur la page avec la liste des newsletters
