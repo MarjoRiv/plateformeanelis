@@ -2,7 +2,6 @@
 
 namespace Admin\MailingBundle\Controller;
 
-require __DIR__ . '/../../../../vendor/autoload.php';
 use \Mailjet\Resources;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
@@ -201,38 +200,34 @@ class CRUDController extends Controller
 		$list_id = self::getDBListID($id);
 		
 		//Si la liste a un ID Mailjet assigné
-		if ($list_id != '0'){
+		if ($list_id == '0'){
+			$list_id = self::mailjetAddList($id);
+			$this->addFlash('sonata_flash_success', 'Nouvelle liste crée avec ID = '.$list_id);
+		}
 			
-			//Récupération de tous les utilisateurs de la liste Mailjet concernée
-			$users = self::mailjetGetAllUsers($list_id);
-			if ($users != '0'){
-				if ($users != '1'){
-					self::mailjetDeleteList($list_id, $users);
-				
-					// Export de la liste des contacts de la BD vers Mailjet
-					$users = self::getDBUsers($id);
-					self::mailjetExportList($list_id, $users);
-						
-						//Message indiquant un succès
-						$this->addFlash('sonata_flash_success', 'Export réussi');
-				}
-				
-				//Si la liste à supprimer n'a pas été trouvée sur Mailjet, afficher un message d'erreur
-				else{
-					$this->addFlash('sonata_flash_error', 'Aucune liste mailjet trouvée avec ID = '.$list_id);
-				}
+		//Récupération de tous les utilisateurs de la liste Mailjet concernée
+		$users = self::mailjetGetAllUsers($list_id);
+		if ($users != '0'){
+			if ($users != '1'){
+				self::mailjetDeleteList($list_id, $users);
+			
+				// Export de la liste des contacts de la BD vers Mailjet
+				$users = self::getDBUsers($id);
+				self::mailjetExportList($list_id, $users);
+					
+					//Message indiquant un succès
+					$this->addFlash('sonata_flash_success', 'Export réussi');
 			}
 			
-			//Si on n'a pas réussi à accéder à Mailjet, afficher un message d'erreur
+			//Si la liste à supprimer n'a pas été trouvée sur Mailjet, afficher un message d'erreur
 			else{
-				$this->addFlash('sonata_flash_error', 'Impossible de joindre Mailjet');
+				$this->addFlash('sonata_flash_error', 'Aucune liste mailjet trouvée avec ID = '.$list_id);
 			}
 		}
 		
-		//Sinon, ajouter la nouvelle liste dans Mailjet
+		//Si on n'a pas réussi à accéder à Mailjet, afficher un message d'erreur
 		else{
-			$list_id = self::mailjetAddList($id);
-			$this->addFlash('sonata_flash_success', 'Export réussi, nouvelle liste crée avec ID = '.$list_id);
+			$this->addFlash('sonata_flash_error', 'Impossible de joindre Mailjet');
 		}
 		
 		//Revenir sur la page avec la liste des newsletters
