@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class CRUDController extends Controller
+class MailingController extends Controller
 {	
 	/**
      * Récupère le Mailjet_ID d'une liste de diffusion de la BD.
@@ -127,14 +127,14 @@ class CRUDController extends Controller
 	/**
      * Supprime les utilisateurs une liste Mailjet
      *
-     * @param string $list_id  L'ID mailjet d'une liste de diffusion
+     * @param string $list_id  L'ID mailjet d'une liste de diffusion-
 	 * @param array $users La liste des utilisateurs à supprimer
      *
      * @return int 0
 	 *
      */
 	private function mailjetDeleteList($list_id, $users){
-	
+
 		//Ajout des contacts à la liste
 		$mj = new \Mailjet\Client(getenv('MJ_PUBLIC_KEY'), getenv('MJ_PRIVATE_KEY'));
 		$body = [
@@ -288,7 +288,7 @@ class CRUDController extends Controller
         if (!$listeUser) {
         	$this->addFlash('sonata_flash_error', 'Erreur sur la récupération des utilisateur');
 	        throw $this->createNotFoundException(
-	            'Aucun user trouvé :  '.$id
+	            'Aucun user trouvé'
 	        );
     	}
     	return $listeUser;
