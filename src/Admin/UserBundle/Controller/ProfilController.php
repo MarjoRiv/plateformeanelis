@@ -66,9 +66,16 @@ class ProfilController extends Controller
 
         }
 
+        $newsletters = $em->getRepository('AdminMailingBundle:Newsletter')->findAll();
+        $newsletter_data = array();
+        foreach($newsletters as $newsletter)
+        {
+            $newsletter_data[strval($newsletter->getId())] = $newsletter;
+        }
+
         return $this->render('AdminUserBundle:Profile:user.edit.html.twig', array(
                 "form" => $form->createView(),
-
+                "newsletter_data" => $newsletter_data
         ));
         
     }

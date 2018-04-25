@@ -44,7 +44,7 @@ class NewsletterAdmin extends AbstractAdmin
             ->add('newsletter')
             ->add('commentaire')
             ->add('frequence')
-            ->add('mailjet_id','integer')
+            ->add('mailjet_id')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -65,9 +65,9 @@ class NewsletterAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('newsletter','text', array('label' => 'Nom de la newsletter'))
-            ->add('commentaire', 'text')
-            ->add('frequence','text', array('label' => 'Fréquence d\'envoi de la newsletter'))
-            ->add('mailjet_id','integer', array('label' => 'id de mailjet' ))
+            ->add('commentaire', 'text',array('required' => false))
+            ->add('frequence','text', array('label' => 'Fréquence d\'envoi de la newsletter','required' => false))
+            ->add('mailjet_id','text', array('label' => 'id de mailjet','required' => false))
             ->add('users',ModelAutocompleteType::class, array(
                 'required' => true,
                 'multiple' => true,

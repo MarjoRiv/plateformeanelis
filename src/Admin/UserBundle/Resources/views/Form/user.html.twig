@@ -265,17 +265,26 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="newsletters">
-                        {% for newsletter in form.newsletters %}
-                             <div class="form-group">
-                                    {{ form_label(newsletter, "Nom de la newsletter \n commentaire \n Fréquence d'envoi" , { 'label_attr' : { 'class' : 'col-sm-3 control-label' } })|nl2br }}
-                                <div >
-                                    {{ form_label(newsletter, newsletter , { 'label_attr' : { 'class' : 'col-sm-3 control-label' } })|nl2br }}
-                                    <div class="col-sm-6">
-                                        {{ form_widget(newsletter, { 'attr' : { 'class' : 'form-control' } }) }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Newsletter</th>
+                                <th>Description</th>
+                                <th>Fréquence</th>
+                                <th>Abonnement</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for newsletter in form.newsletters %}
+                                <tr>
+                                    <td>{{ newsletter_data[newsletter.vars.value].newsletter }}</td>
+                                    <td>{{ newsletter_data[newsletter.vars.value].commentaire }}</td>
+                                    <td>{{ newsletter_data[newsletter.vars.value].frequence }}</td>
+                                    <td>{{ form_widget(newsletter, { 'attr' : { 'class' : 'form-control' } }) }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
