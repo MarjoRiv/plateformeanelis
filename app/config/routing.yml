@@ -1,8 +1,3 @@
-admin_import:
-    resource: "@AdminImportBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 admin_mailing:
     resource: "@AdminMailingBundle/Resources/config/routing.yml"
     prefix:   /
