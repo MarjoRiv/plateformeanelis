@@ -31,7 +31,7 @@ class UserImport
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastRunDate", type="date")
+     * @ORM\Column(name="lastRunDate", type="date", nullable=true)
      */
     private $lastRunDate;
 
@@ -106,23 +106,26 @@ class UserImport
         return $this->lastRunDate;
     }
 
-    /**
-     * @return UserImportState
-     */
-    public function getState(): UserImportState
+
+    public function getState()
     {
         return $this->state;
     }
 
-    /**
-     * @param UserImportState $state
-     */
-    public function setState(UserImportState $state): void
+
+    public function setState(int $state): void
     {
         $this->state = $state;
     }
 
+    public function getLines()
+    {
+        return $this->lines;
+    }
 
-
+    public function addLine(UserImportLine $line)
+    {
+        $this->lines[] = $line;
+    }
 }
 

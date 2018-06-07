@@ -1,0 +1,22 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% form_theme form '@ApplicationCotisation/Form/fields.html.twig' %}
+
+{% block content %}
+
+    <!-- Gestion des erreurs -->
+    <div class="alert-error">
+        {% if errors['header'] %}
+            <h4>Erreur : Header CSV incorrect, champs manquants :
+            {% for error in errors["header_errors"] %}
+                {{ error }},
+            {% endfor %}
+            </h4>
+        {% endif %}
+    </div>
+
+    <!-- Formulaire -->
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

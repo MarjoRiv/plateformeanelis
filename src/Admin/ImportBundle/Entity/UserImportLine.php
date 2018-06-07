@@ -303,5 +303,71 @@ class UserImportLine
     {
         return $this->telephone;
     }
+
+    /**
+     * @return int
+     */
+    public function getState(): int
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param int $state
+     */
+    public function setState(int $state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImport()
+    {
+        return $this->import;
+    }
+
+    /**
+     * @param mixed $import
+     */
+    public function setImport($import): void
+    {
+        $this->import = $import;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @param mixed $errors
+     */
+    public function setErrors($errors): void
+    {
+        $this->errors = $errors;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAction(): int
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param int $action
+     */
+    public function setAction(int $action): void
+    {
+        $this->action = $action;
+    }
+
+
 }
 

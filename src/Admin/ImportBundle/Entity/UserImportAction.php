@@ -54,5 +54,24 @@ class UserImportAction
 
         return $values;
     }
+
+    public static function getIntValueFromString(string $value)
+    {
+        $value_formated = strtoupper($value);
+        switch($value) {
+            case "CREATE":
+                return 0;
+                break;
+            case "UPDATE":
+                return 1;
+                break;
+            case "DELETE":
+                return 2;
+                break;
+            default:
+                return -1;
+                break;
+        }
+    }
 }
 
