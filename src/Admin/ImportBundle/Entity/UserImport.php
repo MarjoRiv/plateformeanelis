@@ -118,6 +118,9 @@ class UserImport
         $this->state = $state;
     }
 
+    /**
+     * @return UserImportLine[]
+     */
     public function getLines()
     {
         return $this->lines;

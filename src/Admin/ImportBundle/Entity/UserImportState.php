@@ -41,7 +41,7 @@ class UserImportState
     public static function getLabelsFromValues() {
         $values = array();
 
-        for ($i = -1; $i <= self::MAX_TYPE_NUM; $i++) {
+        for ($i = 0; $i <= self::MAX_TYPE_NUM; $i++) {
             $values[$i] = self::getStringFormat($i);
         }
 
@@ -52,7 +52,7 @@ class UserImportState
     {
         $values = array();
 
-        for ($i = -1; $i <= self::MAX_TYPE_NUM; $i++) {
+        for ($i = 0; $i <= self::MAX_TYPE_NUM; $i++) {
             $values[self::getStringFormat($i)] = $i;
         }
 

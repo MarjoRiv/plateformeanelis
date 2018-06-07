@@ -2,6 +2,7 @@
 
 namespace Admin\ImportBundle\Admin;
 
+use Admin\ImportBundle\Entity\UserImportState;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -14,16 +15,16 @@ class UserImportAdmin extends AbstractAdmin
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->clearExcept(['create', 'list']);
+        $collection->clearExcept(['create', 'list', 'edit']);
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('createdDate')
-            ->add('lastRunDate')
-            ->add('state')
+            ->add('id', null, array('label' => 'Id'))
+            ->add('createdDate', null, array('label' => 'Création'))
+            ->add('lastRunDate', null, array('label' => 'Dernier lancement'))
+            ->add('state', 'choice', array('label' => 'Etat', 'choices' => UserImportState::getLabelsFromValues()))
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),

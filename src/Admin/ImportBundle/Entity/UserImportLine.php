@@ -61,7 +61,7 @@ class UserImportLine
      *
      * @ORM\Column(name="filliere", type="string", length=255)
      */
-    private $filliere;
+    private $filiere;
 
     /**
      * @var string
@@ -235,13 +235,13 @@ class UserImportLine
     /**
      * Set filliere
      *
-     * @param string $filliere
+     * @param string $filiere
      *
      * @return UserImportLine
      */
-    public function setFilliere($filliere)
+    public function setFiliere($filiere)
     {
-        $this->filliere = $filliere;
+        $this->filiere = $filiere;
 
         return $this;
     }
@@ -251,9 +251,9 @@ class UserImportLine
      *
      * @return string
      */
-    public function getFilliere()
+    public function getFiliere()
     {
-        return $this->filliere;
+        return $this->filiere;
     }
 
     /**

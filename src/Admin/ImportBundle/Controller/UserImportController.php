@@ -8,6 +8,7 @@ use Admin\ImportBundle\Entity\UserImportLine;
 use Admin\ImportBundle\Entity\UserImportLineState;
 use Admin\ImportBundle\Entity\UserImportState;
 use Admin\ImportBundle\Form\UserImportFileType;
+use Admin\ImportBundle\Form\UserImportLinesEditType;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
@@ -55,7 +56,7 @@ class UserImportController extends CRUDController
                         $line->setState(UserImportLineState::TODO);
                         $line->setAction(UserImportAction::getIntValueFromString($data['action']));
                         $line->setAdresse($data['adresse']);
-                        $line->setFilliere($data['filiere']);
+                        $line->setFiliere($data['filiere']);
                         $line->setImport($import);
                         $line->setLogin($data['login']);
                         $line->setMail($data['mail']);
@@ -90,6 +91,31 @@ class UserImportController extends CRUDController
         return parent::listAction();
     }
 
+    public function editAction($id = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        //TODO : Exception
+        $import = $em->getRepository('AdminImportBundle:UserImport')->find($id);
+        $lines = $import->getLines();
+
+        $form = $this->get('form.factory')->createNamedBuilder('form',
+            UserImportLinesEditType::class, array('lines' => $lines), array('state' => $import->getState()))->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            //On verra ça plus tard
+        }
+
+        return  $this->render('AdminImportBundle:Default:edit.html.twig', array(
+            "form" => $form->createView()
+        ));
+
+
+    }
 
     //TODO : A déplacer dans une classe UserImportBusiness
     private function getSerializer()

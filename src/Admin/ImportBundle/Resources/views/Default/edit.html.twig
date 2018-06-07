@@ -1,0 +1,51 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% form_theme form '@ApplicationCotisation/Form/fields.html.twig' %}
+
+{% block content %}
+
+    <!-- Gestion des erreurs -->
+    <div class="alert-error">
+
+    </div>
+
+    <!-- Formulaire -->
+    <table class="table table-striped">
+        {% set i = 1 %}
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Login</th>
+                <th>Mail</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Promo</th>
+                <th>Filiere</th>
+                <th>Adresse</th>
+                <th>Telephone</th>
+                <th>Etat</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in form.lines %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ form_row(line.login) }}</td>
+                <td>{{ form_row(line.mail) }}</td>
+                <td>{{ form_row(line.prenom) }}</td>
+                <td>{{ form_row(line.nom) }}</td>
+                <td>{{ form_row(line.promo) }}</td>
+                <td>{{ form_row(line.filiere) }}</td>
+                <td>{{ form_row(line.adresse) }}</td>
+                <td>{{ form_row(line.telephone) }}</td>
+                <td>{{ form_row(line.state) }}</td>
+                <td>{{ form_row(line.action) }}</td>
+            </tr>
+            {% set i = i + 1 %}
+            {% endfor %}
+        </tbody>
+        {{ form_row(form.check) }}
+        {{ form_row(form.submit) }}
+    </table>
+{% endblock %}
