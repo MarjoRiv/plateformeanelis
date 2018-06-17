@@ -56,7 +56,7 @@ doctrine:
         port:     "%env(MYSQL_ADDON_PORT)%"
         dbname:   "%env(MYSQL_ADDON_DB)%"
         user:     "%env(MYSQL_ADDON_USER)%"
-        password: ""
+        password: "%env(MYSQL_ADDON_PASSWORD)%"
         charset:  UTF8
         logging:  true
         # if using pdo_sqlite as your database driver:
