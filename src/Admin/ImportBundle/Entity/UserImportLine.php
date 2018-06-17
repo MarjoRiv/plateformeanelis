@@ -24,56 +24,56 @@ class UserImportLine
     /**
      * @var string
      *
-     * @ORM\Column(name="login", type="string", length=255)
+     * @ORM\Column(name="login", type="string", length=255, nullable=true)
      */
     private $login;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255)
+     * @ORM\Column(name="mail", type="string", length=255, nullable=true)
      */
     private $mail;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="promo", type="string", length=255)
+     * @ORM\Column(name="promo", type="string", length=255, nullable=true)
      */
     private $promo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="filliere", type="string", length=255)
+     * @ORM\Column(name="filliere", type="string", length=255, nullable=true)
      */
     private $filiere;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=255)
+     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
      */
     private $telephone;
 
@@ -85,12 +85,12 @@ class UserImportLine
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Admin\ImportBundle\Entity\UserImport", inversedBy="lines")
+     * @ORM\ManyToOne(targetEntity="Admin\ImportBundle\Entity\UserImport", inversedBy="lines", cascade={"persist"})
      */
     private $import;
 
     /**
-     * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLineError")
+     * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLineError", cascade={"persist"})
      */
     private $errors;
 
@@ -315,8 +315,9 @@ class UserImportLine
     /**
      * @param int $state
      */
-    public function setState(int $state): void
+    public function setState($state): void
     {
+        if ($state == null) $state = 0; //FIXME : Le temps d'un débug
         $this->state = $state;
     }
 
@@ -363,8 +364,9 @@ class UserImportLine
     /**
      * @param int $action
      */
-    public function setAction(int $action): void
+    public function setAction($action): void
     {
+        if ($action == null) $action = 0; //FIXME : Le temps d'un débug
         $this->action = $action;
     }
 

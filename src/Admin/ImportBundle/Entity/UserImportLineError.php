@@ -31,14 +31,9 @@ class UserImportLineError
     /**
      * @var bool
      *
-     * @ORM\Column(name="login_cant_generate", type="boolean")
-     */
-    private $loginCantGenerate;
-
-    /**
-     * @var bool
-     *
      * @ORM\Column(name="login_ko", type="boolean")
+     * Dans un CREATE/UPDATE lorsque le login renseigné ne correspond pas au formalisme.
+     * Peut survenir lorsque la promo est incorrecte et que le login est généré
      */
     private $loginKo;
 
@@ -46,13 +41,42 @@ class UserImportLineError
      * @var bool
      *
      * @ORM\Column(name="login_not_found", type="boolean")
+     * Dans un UPDATE lorsque le login n'est pas trouvé en base
      */
     private $loginNotFound;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="prenom_not_found", type="boolean")
+     */
+    private $prenomNotFound;
+
+/**
+     * @var bool
+     * @ORM\Column(name="nom_not_found", type="boolean")
+     */
+    private $nomNotFound;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="login_already_exists", type="boolean")
+     */
+    private $loginAlreadyExists;
 
     /**
      * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLine")
      */
     private $line;
+
+    public function __construct()
+    {
+        $this->emailKo = false;
+        $this->loginKo = false;
+        $this->loginNotFound = false;
+        $this->prenomNotFound = false;
+        $this->nomNotFound = false;
+        $this->loginAlreadyExists = false;
+    }
 
 
     /**
@@ -87,30 +111,6 @@ class UserImportLineError
     public function getEmailKo()
     {
         return $this->emailKo;
-    }
-
-    /**
-     * Set loginCantGenerate
-     *
-     * @param boolean $loginCantGenerate
-     *
-     * @return UserImportLineError
-     */
-    public function setLoginCantGenerate($loginCantGenerate)
-    {
-        $this->loginCantGenerate = $loginCantGenerate;
-
-        return $this;
-    }
-
-    /**
-     * Get loginCantGenerate
-     *
-     * @return bool
-     */
-    public function getLoginCantGenerate()
-    {
-        return $this->loginCantGenerate;
     }
 
     /**
@@ -159,6 +159,82 @@ class UserImportLineError
     public function getLoginNotFound()
     {
         return $this->loginNotFound;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrenomNotFound(): bool
+    {
+        return $this->prenomNotFound;
+    }
+
+    /**
+     * @param bool $prenomNotFound
+     */
+    public function setPrenomNotFound(bool $prenomNotFound): void
+    {
+        $this->prenomNotFound = $prenomNotFound;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNomNotFound(): bool
+    {
+        return $this->nomNotFound;
+    }
+
+    /**
+     * @param bool $nomNotFound
+     */
+    public function setNomNotFound(bool $nomNotFound): void
+    {
+        $this->nomNotFound = $nomNotFound;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLine()
+    {
+        return $this->line;
+    }
+
+    /**
+     * @param mixed $line
+     */
+    public function setLine($line): void
+    {
+        $this->line = $line;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLoginAlreadyExists(): bool
+    {
+        return $this->loginAlreadyExists;
+    }
+
+    /**
+     * @param bool $loginAlreadyExists
+     */
+    public function setLoginAlreadyExists(bool $loginAlreadyExists): void
+    {
+        $this->loginAlreadyExists = $loginAlreadyExists;
+    }
+
+
+
+    public function isLineError()
+    {
+        return $this->emailKo ||
+            $this->loginKo ||
+            $this->loginNotFound ||
+            $this->nomNotFound ||
+            $this->prenomNotFound ||
+            $this->loginAlreadyExists;
     }
 }
 

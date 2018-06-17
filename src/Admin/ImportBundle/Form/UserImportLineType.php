@@ -19,22 +19,23 @@ class UserImportLineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('login', TextType::class, array('label' => false))
-            ->add('mail', EmailType::class, array('label' => false))
-            ->add('prenom', TextType::class, array('label' => false))
-            ->add('nom', TextType::class, array('label' => false))
-            ->add('promo', IntegerType::class, array('label' => false))
-            ->add('filiere', TextType::class, array('label' => false))
-            ->add('adresse', TextType::class, array('label' => false))
-            ->add('telephone', TextType::class, array('label' => false))
-            ->add('state', ChoiceType::class, array('attr' => array('disabled' => 'disabled'),'choices' => UserImportLineState::getValuesFromLabel(), 'label' => false))
-            ->add('action', ChoiceType::class, array('attr' => array('disabled' => 'disabled'), 'choices' => UserImportAction::getValuesFromLabel(), 'label' => false));
+            ->add('login', TextType::class, array('label' => false, 'required' => false))
+            ->add('mail', EmailType::class, array('label' => false, 'required' => false))
+            ->add('prenom', TextType::class, array('label' => false, 'required' => false))
+            ->add('nom', TextType::class, array('label' => false, 'required' => false))
+            ->add('promo', IntegerType::class, array('label' => false, 'required' => false))
+            ->add('filiere', TextType::class, array('label' => false, 'required' => false))
+            ->add('adresse', TextType::class, array('label' => false, 'required' => false))
+            ->add('telephone', TextType::class, array('label' => false, 'required' => false))
+            ->add('state', ChoiceType::class, array('attr' => array('read_only' => true),'choices' => UserImportLineState::getValuesFromLabel(), 'label' => false))
+            ->add('action', ChoiceType::class, array('attr' => array('read_only' => true), 'choices' => UserImportAction::getValuesFromLabel(), 'label' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => UserImportLine::class,
+            'state' => null
         ));
     }
 }

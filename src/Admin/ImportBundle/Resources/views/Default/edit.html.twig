@@ -10,6 +10,7 @@
     </div>
 
     <!-- Formulaire -->
+    {{ form_start(form) }}
     <table class="table table-striped">
         {% set i = 1 %}
         <thead>
@@ -45,7 +46,8 @@
             {% set i = i + 1 %}
             {% endfor %}
         </tbody>
-        {{ form_row(form.check) }}
-        {{ form_row(form.submit) }}
     </table>
+    {{ form_row(form.check) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
 {% endblock %}

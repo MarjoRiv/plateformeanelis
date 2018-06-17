@@ -10,4 +10,10 @@ namespace Admin\ImportBundle\Repository;
  */
 class UserImportLineErrorRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function clean()
+    {
+       return $this->getEntityManager()->createQuery(
+           'DELETE FROM AdminImportBundle:UserImportLineError u WHERE u.id NOT IN (SELECT DISTINCT IDENTITY(u2.errors) from AdminImportBundle:UserImportLine u2)'
+       )->execute();
+    }
 }

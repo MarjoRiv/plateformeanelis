@@ -27,4 +27,12 @@ class UserImportLinesEditType extends AbstractType
             ->add('submit', SubmitType::class, array('label' => 'Importer',
                 'attr' => array('disabled' => $options['state'] == 0 ? 'disabled' : false)));
     }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => null,
+            'state' => null
+        ));
+    }
 }
