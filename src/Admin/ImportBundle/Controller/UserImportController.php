@@ -50,8 +50,6 @@ class UserImportController extends CRUDController
              */
             $datas = $this->decodeFile($fileForm['file']->getData(), $csvSerializer);
             $error_headers = $this->checkHeader($datas);
-            dump($error_headers);
-            dump($datas);
             if(count($error_headers) == 0)
             {
                 $errors['header'] = false;
@@ -143,7 +141,6 @@ class UserImportController extends CRUDController
             else
             {
                 $lines = $this->getOKKOLines($form->getData()['lines']);
-                dump($lines);
                 $this->importLines($um,$lines['ok']);
                 //TODO : Ajouter l'import CSV.
 //                if(!empty($lines['ko']))
@@ -380,7 +377,6 @@ class UserImportController extends CRUDController
     {
         foreach($lines as $line)
         {
-            dump($line);
             switch($line->getAction())
             {
                 case UserImportAction::CREATE:
