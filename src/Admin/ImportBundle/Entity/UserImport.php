@@ -2,6 +2,7 @@
 
 namespace Admin\ImportBundle\Entity;
 
+use Admin\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +28,20 @@ class UserImport
      * @ORM\Column(name="createdDate", type="date")
      */
     private $createdDate;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
+     */
+    private $createdBy;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="import_name", type="string")
+     */
+    private $importName;
 
     /**
      * @var \DateTime
@@ -129,6 +144,38 @@ class UserImport
     public function addLine(UserImportLine $line)
     {
         $this->lines[] = $line;
+    }
+
+    /**
+     * @return User
+     */
+    public function getCreatedBy(): User
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param User $createdBy
+     */
+    public function setCreatedBy(User $createdBy): void
+    {
+        $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImportName(): string
+    {
+        return $this->importName;
+    }
+
+    /**
+     * @param string $importName
+     */
+    public function setImportName(string $importName): void
+    {
+        $this->importName = $importName;
     }
 }
 

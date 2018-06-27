@@ -23,7 +23,7 @@ class UserImportLineType extends AbstractType
             ->add('mail', EmailType::class, array('label' => false, 'required' => false))
             ->add('prenom', TextType::class, array('label' => false, 'required' => false))
             ->add('nom', TextType::class, array('label' => false, 'required' => false))
-            ->add('promo', IntegerType::class, array('label' => false, 'required' => false))
+            ->add('promo', TextType::class, array('label' => false, 'required' => false))
             ->add('filiere', TextType::class, array('label' => false, 'required' => false))
             ->add('adresse', TextType::class, array('label' => false, 'required' => false))
             ->add('telephone', TextType::class, array('label' => false, 'required' => false))

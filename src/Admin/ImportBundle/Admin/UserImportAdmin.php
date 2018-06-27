@@ -23,6 +23,8 @@ class UserImportAdmin extends AbstractAdmin
         $listMapper
             ->add('id', null, array('label' => 'Id'))
             ->add('createdDate', null, array('label' => 'Création'))
+            ->add('createdBy', null, array('label' => 'Créé par'))
+            ->add('importName', null, array('label' => 'Nom de l\'import'))
             ->add('lastRunDate', null, array('label' => 'Dernier lancement'))
             ->add('state', 'choice', array('label' => 'Etat', 'choices' => UserImportState::getLabelsFromValues()))
             ->add('_action', null, array(

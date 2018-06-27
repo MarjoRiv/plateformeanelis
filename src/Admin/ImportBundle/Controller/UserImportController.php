@@ -12,16 +12,10 @@ use Admin\ImportBundle\Form\UserImportFileType;
 use Admin\ImportBundle\Form\UserImportLinesEditType;
 use Admin\UserBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\PersistentCollection;
 use FOS\UserBundle\Model\UserManager;
-use function GuzzleHttp\default_ca_bundle;
-use function GuzzleHttp\Psr7\str;
 use Sonata\AdminBundle\Controller\CRUDController;
-use Symfony\Component\ExpressionLanguage\Tests\Node\Obj;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -29,7 +23,9 @@ class UserImportController extends CRUDController
 {
 
     private $RFC_5322_Standard_Mail_REGEXP = '/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD';
-    private $ANELIS_Login_REGEXP = '/\S+\.\S+\.[0-9]{4}\Z/m';
+    private $ANELIS_Login_REGEXP = '/\A\S+\.\S+\.[0-9]{4}\Z/m';
+    private $ANELIS_Promo_REGEXP = '/\A[0-9]{4}\Z/';
+    private $BATCH_SIZE = 80;
 
     public function createAction()
     {
@@ -44,6 +40,7 @@ class UserImportController extends CRUDController
 
         $fileForm->handleRequest($request);
         $fileFormView = $fileForm->createView();
+        $errors['header'] = false;
         if($fileForm->isSubmitted() && $fileForm->isValid()) {
             /**
              * @var $datas UploadedFile
@@ -52,44 +49,33 @@ class UserImportController extends CRUDController
             $error_headers = $this->checkHeader($datas);
             if(count($error_headers) == 0)
             {
-                $errors['header'] = false;
-                $import = new UserImport();
-                $import->setCreatedDate(new \DateTime());
-                $import->setState(UserImportState::TODO);
-                $import->setLastRunDate(null);
-
-                if(isset($datas[0]))
+                $totalBatch = intval(count($datas) / $this->BATCH_SIZE + 1);
+                dump($totalBatch);
+                foreach(range(1,$totalBatch) as $i)
                 {
-                    foreach ($datas as $data) //TODO :  Fonction
-                    {
-                        $line = new UserImportLine();
-                        $line->setState(UserImportLineState::TODO);
-                        $line->setAction(UserImportAction::getIntValueFromString($data['action']));
-                        $line->setAdresse($data['adresse']);
-                        $line->setFiliere($data['filiere']);
-                        $line->setImport($import);
-                        $line->setLogin($data['login']);
-                        $line->setMail($data['mail']);
-                        $line->setPromo($data['promo']);
-                        $line->setTelephone($data['telephone']);
-                        $line->setNom($data['nom']);
-                        $line->setPrenom($data['prenom']);
+                    $import = new UserImport();
+                    $import->setImportName($fileForm['name']->getData().'_'.$i);
+                    $import->setCreatedBy($this->getUser());
+                    $import->setCreatedDate(new \DateTime());
+                    $import->setState(UserImportState::TODO);
+                    $import->setLastRunDate(null);
 
-                        $import->addLine($line);
-
-                        $em->persist($line);
-                        $em->persist($import);
-                        $em->flush();
-                    }
+                    $import_id = $this->importBatch($em,array_slice($datas, ($i-1)*$this->BATCH_SIZE, $this->BATCH_SIZE), $import);
                 }
+
+                return $this->listAction();
             }
             else
             {
                 $errors['header'] = true;
                 $errors['header_errors'] = $error_headers;
+
+                return $this->render('AdminImportBundle:Default:create.html.twig', array(
+                    "form" => $fileFormView,
+                    "errors" => $errors
+                ));
             }
         }
-
         return $this->render('AdminImportBundle:Default:create.html.twig', array(
             "form" => $fileFormView,
             "errors" => $errors
@@ -141,8 +127,9 @@ class UserImportController extends CRUDController
             else
             {
                 $lines = $this->getOKKOLines($form->getData()['lines']);
-                $this->importLines($um,$lines['ok']);
-                //TODO : Ajouter l'import CSV.
+                $sendMail = $form['mail']->getData();
+                $this->importLines($um,$lines['ok'],$sendMail);
+                //TODO : Ajouter l'export CSV.
 //                if(!empty($lines['ko']))
 //                {
 //                    $csv = $this->getSerializer()->serialize($lines['ko'],'csv');
@@ -158,7 +145,7 @@ class UserImportController extends CRUDController
             }
         }
 
-        return  $this->render('AdminImportBundle:Default:edit.html.twig', array(
+        return $this->render('AdminImportBundle:Default:edit.html.twig', array(
             "form" => $form->createView()
         ));
 
@@ -244,7 +231,7 @@ class UserImportController extends CRUDController
 
     private function checkLineCreate(ObjectManager $em, UserImportLine $line)
     {
-        $errors = $this->basicLineCheck($line);
+        $errors = $this->basicLineCheck($line,$em);
 
         //TODO : Un peu d'optimisation ici à faire
 
@@ -273,7 +260,7 @@ class UserImportController extends CRUDController
     private function checkLineUpdate(ObjectManager $em, UserImportLine $line)
     {
         $user = $em->getRepository('AdminUserBundle:User')->findOneBy(['username' => $line->getLogin()]);
-        $errors = $this->basicLineCheck($line, true);
+        $errors = $this->basicLineCheck($line, $em, true);
 
         $errors->setLoginNotFound($user == null);
 
@@ -313,7 +300,7 @@ class UserImportController extends CRUDController
      *
      * Calcul les erreurs de base pour n'importe quel type de check.
      */
-    private function basicLineCheck(UserImportLine $line, $update = false) : UserImportLineError
+    private function basicLineCheck(UserImportLine $line, ObjectManager $em, $update = false) : UserImportLineError
     {
         $errors = new UserImportLineError();
 
@@ -321,7 +308,9 @@ class UserImportController extends CRUDController
 
         $errors->setPrenomNotFound(!$this->checkPresence($line->getPrenom()));
 
-        $errors->setEmailKo(!$this->checkMail($line->getMail()));
+        $errors->setEmailKo(!$this->checkMail($line->getMail(), $em));
+
+        $errors->setPromoFormatKo(!$this->checkPromo($line->getPromo()));
 
         return $errors;
     }
@@ -336,9 +325,10 @@ class UserImportController extends CRUDController
         return $line_object != null && (!$update? strcmp($line_object,"") != 0 : true) && strcmp($line_object, "-");
     }
 
-    private function checkMail(string $email)
+    private function checkMail(string $email, ObjectManager $em)
     {
-        return preg_match($this->RFC_5322_Standard_Mail_REGEXP, $email);
+        $users = $em->getRepository('AdminUserBundle:User')->findBy(['email' => $email]);
+        return preg_match($this->RFC_5322_Standard_Mail_REGEXP, $email) && empty($users);
     }
 
     private function checkLogin(string $login)
@@ -346,9 +336,17 @@ class UserImportController extends CRUDController
         return preg_match($this->ANELIS_Login_REGEXP, $login);
     }
 
-    private function generateLogin(string $prenom, string $nom, int $promo)
+    private function checkPromo(string $promo)
     {
-        return strtolower($prenom).".".strtolower($nom).".".$promo;
+        return preg_match($this->ANELIS_Promo_REGEXP, $promo);
+    }
+
+    private function generateLogin(string $prenom, string $nom, string $promo)
+    {
+        $login = strtolower($prenom).".".strtolower($nom).".".$promo;
+        $login = str_replace(' ', '', $login);
+        $login = htmlspecialchars($login);
+        return $login;
     }
 
     private function getOKKOLines($lines)
@@ -373,14 +371,14 @@ class UserImportController extends CRUDController
         ];
     }
 
-    private function importLines(UserManager $um, $lines)
+    private function importLines(UserManager $um, $lines, bool $sendMail = false)
     {
         foreach($lines as $line)
         {
             switch($line->getAction())
             {
                 case UserImportAction::CREATE:
-                    $this->importLineCreate($um,$line);
+                    $this->importLineCreate($um,$line,$sendMail);
                     break;
                 case UserImportAction::UPDATE:
                     $this->importLineUpdate($um,$line);
@@ -394,13 +392,19 @@ class UserImportController extends CRUDController
         }
     }
 
-    private function importLineCreate(UserManager $um,UserImportLine $line)
+    private function importLineCreate(UserManager $um,UserImportLine $line, bool $sendMail)
     {
         $user = $um->createUser();
         $user = $this->updateUser($user, $line);
         $user->setUsername($line->getLogin());
         $user->setPlainPassword("hello");
         $um->updateUser($user);
+//        if($sendMail)
+//        {
+//            $mailer = $this->get('fos_user.mailer');
+//            $mailer->sendResettingEmailMessage($user);
+//        }
+
     }
 
     private function importLineUpdate(UserManager $um, UserImportLine $line)
@@ -430,21 +434,48 @@ class UserImportController extends CRUDController
         if(strcmp($line->getMail(),"") != 0)
             $user->setEmail($line->getMail());
 
-        if(strcmp($line->getFiliere(),"-"))
+        if(strcmp($line->getFiliere(),"-") == 0)
             $user->setFiliere("");
         else if(strcmp($line->getFiliere(),"") != 0)
             $user->setFiliere($line->getFiliere());
 
-        if(strcmp($line->getTelephone(),"-"))
+        if(strcmp($line->getTelephone(),"-") == 0)
             $user->setTelephone("");
         else if(strcmp($line->getTelephone(),"") != 0)
             $user->setTelephone($line->getTelephone());
 
-        if(strcmp($line->getAdresse(),"-"))
+        if(strcmp($line->getAdresse(),"-") == 0)
             $user->setAddress("");
         else if(strcmp($line->getAdresse(),"") != 0)
             $user->setAddress($line->getAdresse());
 
         return $user;
+    }
+
+    private function importBatch(ObjectManager $em, $datas, UserImport $import)
+    {
+        foreach ($datas as $data)
+        {
+            $line = new UserImportLine();
+            $line->setState(UserImportLineState::TODO);
+            $line->setAction(UserImportAction::getIntValueFromString($data['action']));
+            $line->setAdresse($data['adresse']);
+            $line->setFiliere($data['filiere']);
+            $line->setImport($import);
+            $line->setLogin($data['login']);
+            $line->setMail($data['mail']);
+            $line->setPromo($data['promo']);
+            $line->setTelephone($data['telephone']);
+            $line->setNom($data['nom']);
+            $line->setPrenom($data['prenom']);
+
+            $import->addLine($line);
+
+            $em->persist($line);
+        }
+        $em->persist($import);
+        $em->flush();
+
+        return $import->getId();
     }
 }
