@@ -64,6 +64,12 @@ class UserImportLineError
     private $loginAlreadyExists;
 
     /**
+     * @var bool
+     * @ORM\Column(name="promo_format_ko", type="boolean")
+     */
+    private $promoFormatKo;
+
+    /**
      * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLine")
      */
     private $line;
@@ -76,6 +82,7 @@ class UserImportLineError
         $this->prenomNotFound = false;
         $this->nomNotFound = false;
         $this->loginAlreadyExists = false;
+        $this->promoFormatKo = false;
     }
 
 
@@ -225,6 +232,23 @@ class UserImportLineError
         $this->loginAlreadyExists = $loginAlreadyExists;
     }
 
+    /**
+     * @return bool
+     */
+    public function isPromoFormatKo(): bool
+    {
+        return $this->promoFormatKo;
+    }
+
+    /**
+     * @param bool $promoFormatKo
+     */
+    public function setPromoFormatKo(bool $promoFormatKo): void
+    {
+        $this->promoFormatKo = $promoFormatKo;
+    }
+
+
 
 
     public function isLineError()
@@ -234,7 +258,8 @@ class UserImportLineError
             $this->loginNotFound ||
             $this->nomNotFound ||
             $this->prenomNotFound ||
-            $this->loginAlreadyExists;
+            $this->loginAlreadyExists ||
+            $this->promoFormatKo;
     }
 }
 
