@@ -70,6 +70,12 @@ class UserImportLineError
     private $promoFormatKo;
 
     /**
+     * @var bool
+     * @ORM\Column(name="password_ko", type="boolean")
+     */
+    private $passwordKo;
+
+    /**
      * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLine")
      */
     private $line;
@@ -83,6 +89,7 @@ class UserImportLineError
         $this->nomNotFound = false;
         $this->loginAlreadyExists = false;
         $this->promoFormatKo = false;
+        $this->passwordKo = false;
     }
 
 
@@ -248,10 +255,26 @@ class UserImportLineError
         $this->promoFormatKo = $promoFormatKo;
     }
 
+    /**
+     * @return bool
+     */
+    public function isPasswordKo(): bool
+    {
+        return $this->passwordKo;
+    }
+
+    /**
+     * @param bool $passwordKo
+     */
+    public function setPasswordKo(bool $passwordKo): void
+    {
+        $this->passwordKo = $passwordKo;
+    }
 
 
 
-    public function isLineError()
+
+    public function isLineErrorCreate()
     {
         return $this->emailKo ||
             $this->loginKo ||
@@ -259,7 +282,18 @@ class UserImportLineError
             $this->nomNotFound ||
             $this->prenomNotFound ||
             $this->loginAlreadyExists ||
+            $this->promoFormatKo ||
+            $this->passwordKo;
+    }
+
+    public function isLineErrorUpdate()
+    {
+        return $this->emailKo ||
+            $this->loginKo ||
+            $this->loginNotFound ||
             $this->promoFormatKo;
     }
+
+
 }
 

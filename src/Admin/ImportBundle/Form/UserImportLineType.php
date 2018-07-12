@@ -27,6 +27,7 @@ class UserImportLineType extends AbstractType
             ->add('filiere', TextType::class, array('label' => false, 'required' => false))
             ->add('adresse', TextType::class, array('label' => false, 'required' => false))
             ->add('telephone', TextType::class, array('label' => false, 'required' => false))
+            ->add('password', TextType::class, array('label' => false, 'required' => false))
             ->add('state', ChoiceType::class, array('attr' => array('read_only' => true),'choices' => UserImportLineState::getValuesFromLabel(), 'label' => false))
             ->add('action', ChoiceType::class, array('attr' => array('read_only' => true), 'choices' => UserImportAction::getValuesFromLabel(), 'label' => false));
     }

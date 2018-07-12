@@ -100,6 +100,11 @@ class UserImportLine
      */
     private $action;
 
+    /**
+     * @var string
+     * @ORM\Column(name="password", type="string")
+     */
+    private $password;
 
 
     /**
@@ -369,6 +374,24 @@ class UserImportLine
         if ($action == null) $action = 0; //FIXME : Le temps d'un débug
         $this->action = $action;
     }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+
 
 
 }

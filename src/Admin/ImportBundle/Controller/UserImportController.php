@@ -134,6 +134,9 @@ class UserImportController extends CRUDController
 //                    $csv = $this->getSerializer()->serialize($lines['ko'],'csv');
 //                }
 
+                $this->cleanImport($em, $lines['ko']);
+                $this->cleanImport($em, $lines['ok']);
+
                 $import->setState(UserImportState::TERMINE);
                 $import->setLastRunDate(new \DateTime());
 
@@ -172,7 +175,7 @@ class UserImportController extends CRUDController
 
     private function checkHeader(array $datas)
     {
-        $headers = ['action', 'login', 'mail', 'prenom', 'nom', 'promo', 'filiere', 'adresse', 'telephone'];
+        $headers = ['action', 'login', 'mail', 'prenom', 'nom', 'promo', 'filiere', 'adresse', 'telephone', 'password'];
         $ko_headers = array();
 
         if(isset($datas[0]))        //CSV Multi-lignes
@@ -245,7 +248,7 @@ class UserImportController extends CRUDController
             $user = $em->getRepository('AdminUserBundle:User')->findOneBy(['username' => $line->getLogin()]);
             $errors->setLoginAlreadyExists($user != null);
         }
-        $lineError = $errors->isLineError();
+        $lineError = $errors->isLineErrorCreate();
 
         $line->setState($lineError ? UserImportLineState::ERROR : UserImportLineState::PRET);
         $line->setErrors($errors);
@@ -264,7 +267,7 @@ class UserImportController extends CRUDController
         $errors->setLoginNotFound($user == null);
 
 
-        $lineError = $errors->isLineError();
+        $lineError = $errors->isLineErrorUpdate();
 
         $line->setState($lineError ? UserImportLineState::ERROR : UserImportLineState::PRET);
         $line->setErrors($errors);
@@ -282,7 +285,7 @@ class UserImportController extends CRUDController
 
         $errors->setLoginNotFound($user == null);
 
-        $lineError = $errors->isLineError();
+        $lineError = $errors->isLineErrorCreate();
 
         $line->setState($lineError ? UserImportLineState::ERROR : UserImportLineState::PRET);
         $line->setErrors($errors);
@@ -310,6 +313,8 @@ class UserImportController extends CRUDController
         $errors->setEmailKo(!$this->checkMail($line->getMail(), $em));
 
         $errors->setPromoFormatKo(!$this->checkPromo($line->getPromo()));
+
+        $errors->setPasswordKo(!$this->checkPresence($line->getPassword()));
 
         return $errors;
     }
@@ -388,6 +393,7 @@ class UserImportController extends CRUDController
                 default:
                     break;
             }
+
         }
     }
 
@@ -396,13 +402,8 @@ class UserImportController extends CRUDController
         $user = $um->createUser();
         $user = $this->updateUser($user, $line);
         $user->setUsername($line->getLogin());
-        $user->setPlainPassword("hello");
+        $user->setPlainPassword($line->getPassword());
         $um->updateUser($user);
-//        if($sendMail)
-//        {
-//            $mailer = $this->get('fos_user.mailer');
-//            $mailer->sendResettingEmailMessage($user);
-//        }
 
     }
 
@@ -448,6 +449,9 @@ class UserImportController extends CRUDController
         else if(strcmp($line->getAdresse(),"") != 0)
             $user->setAddress($line->getAdresse());
 
+        if(strcmp($line->getPassword(), "") != 0 && strcmp($line->getPassword(), "-") != 0)
+            $user->setPlainPassword($line->getPassword());
+
         return $user;
     }
 
@@ -467,6 +471,7 @@ class UserImportController extends CRUDController
             $line->setTelephone($data['telephone']);
             $line->setNom($data['nom']);
             $line->setPrenom($data['prenom']);
+            $line->setPassword($data['password']);
 
             $import->addLine($line);
 
@@ -476,5 +481,21 @@ class UserImportController extends CRUDController
         $em->flush();
 
         return $import->getId();
+    }
+
+    /**
+     * @param ObjectManager $em
+     * @param $lines
+     *
+     * Supprimer des informations qui sont chiffrées à la suite de l'import des tables (password, etc)
+     */
+    private function cleanImport(ObjectManager $em, $lines) : void
+    {
+        foreach($lines as $line)
+        {
+            $line->setPassword("");
+            $em->persist($line);
+            $em->flush();
+        }
     }
 }
