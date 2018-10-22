@@ -1,0 +1,8 @@
+services:
+    sonata.admin.userimport:
+        class: Admin\ImportBundle\Admin\UserImportAdmin
+        arguments: [~, AdminImportBundle:UserImport, AdminImportBundle:UserImport]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Outils, label: Import d'Utilisateurs }
+        calls:
+            - [ setTranslationDomain, [AdminMailingBundle]]

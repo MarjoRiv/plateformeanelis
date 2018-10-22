@@ -41,6 +41,7 @@ class AppKernel extends Kernel
             new Application\OffreBundle\OffreBundle(),
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Admin\MailingBundle\AdminMailingBundle(),
+            new Admin\ImportBundle\AdminImportBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
