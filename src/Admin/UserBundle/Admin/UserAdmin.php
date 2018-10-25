@@ -64,7 +64,7 @@ class UserAdmin extends AbstractAdmin
 
             ->add('promotion', ChoiceType::class, array(
                 'choices' => $this->lstPromotions(),
-                'required' => true,
+                'required' => true
             ))
 
             ->add('filiere', ChoiceType::class, array(
@@ -74,9 +74,17 @@ class UserAdmin extends AbstractAdmin
                     'F3' => 'F3',
                     'F4' => 'F4',
                     'F5' => 'F5',
-                    'FI' => 'FI',
+                    'FI' => 'FI'
                     ),
                 'required' => true
+            ))
+
+            ->add('genre', ChoiceType::class, array(
+                'choices' => array(
+                    'M' => 'M',
+                    'F' => 'F'
+                    ),
+                'required' => false
             ))
 
             ->add('birthday', DateType::class, array('label' => 'Date de naissance', 'required' => true))
@@ -115,7 +123,7 @@ class UserAdmin extends AbstractAdmin
                     'En couple' => 'En couple',
                     'Fiancé(e)' => 'Fiancé(e)',
                     'Marié(e)' => 'Marié(e)',
-                    'En union libre' => 'En union libre',
+                    'En union libre' => 'En union libre'
                 ),
                 'required' => false
             ))
