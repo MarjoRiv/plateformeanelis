@@ -2,6 +2,7 @@
 
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Dotenv\Dotenv;
 
 // If you don't want to setup permissions the proper way, just uncomment the following PHP line
 // read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
@@ -20,7 +21,16 @@ use Symfony\Component\HttpFoundation\Request;
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
 
-require_once __DIR__.'/../app/AppKernel.php';
+// The check is to ensure we don't use .env in production
+if (!isset(getenv()['MYSQL_ADDON_HOST'])) {
+    if (!class_exists(Dotenv::class)) {
+        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+    }
+    if (!file_exists(__DIR__.'/../.env')) {
+        throw new \RuntimeException('No environment (/server) variables are set. This means you are using default .env file but this file does not exists.');
+    }
+    (new Dotenv())->load(__DIR__.'/../.env');
+}
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
