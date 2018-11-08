@@ -76,7 +76,7 @@ class UserImportLineError
     private $passwordKo;
 
     /**
-     * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLine")
+     * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLine", mappedBy="errors")
      */
     private $line;
 

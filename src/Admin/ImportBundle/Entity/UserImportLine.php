@@ -78,6 +78,13 @@ class UserImportLine
     private $telephone;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     */
+    private $password;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="state", type="integer")
@@ -90,7 +97,8 @@ class UserImportLine
     private $import;
 
     /**
-     * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLineError", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Admin\ImportBundle\Entity\UserImportLineError", cascade={"persist"}, inversedBy="line")
+     * @ORM\JoinColumn(name="errors_id", referencedColumnName="id")
      */
     private $errors;
 
@@ -99,12 +107,6 @@ class UserImportLine
      * @ORM\Column(name="action", type="integer")
      */
     private $action;
-
-    /**
-     * @var string
-     * @ORM\Column(name="password", type="string")
-     */
-    private $password;
 
 
     /**
@@ -378,7 +380,7 @@ class UserImportLine
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -386,7 +388,7 @@ class UserImportLine
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }
