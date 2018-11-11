@@ -34,21 +34,12 @@
         <ul class="nav navbar-nav pull-right toolbar">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">{{ app.user.surname }} {{ app.user.name }}<i class="fa fa-caret-down"></i></span>
-                {% if app.user.avatar.extension is empty %}
-                                <img src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ app.user.username }}" style="width: auto;" />
-                            {% else %}
-                                <img src="{{ asset(app.user.avatar.webPath) }}" alt="{{ app.user.username }}" style="width: auto;" />
-                            {% endif %}
-                </a>
+                <img src="{{ asset(app.user.avatarWebPath) }}" alt="{{ app.user.username }}" style="width: auto;" />
                 <ul class="dropdown-menu userinfo arrow">
                     <li class="username">
                         <a href="{{ path('user_show_profile', { 'id' : app.user.id }) }}">
                             <div class="pull-left">
-                            {% if app.user.avatar.extension is empty %}
-                                <img src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ app.user.username }}" />
-                            {% else %}
-                                <img src="{{ asset(app.user.avatar.webPath) }}" alt="{{ app.user.username }}" />
-                            {% endif %}
+                                <img src="{{ asset(app.user.avatarWebPath) }}" alt="{{ app.user.username }}" />
                             </div>
                             <div class="pull-right"><h5>Salut {{ app.user.surname }} !</h5></div>
                         </a>
