@@ -12,6 +12,18 @@ require __DIR__.'/../app/autoload.php';
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
+use Symfony\Component\Dotenv\Dotenv;
+
+// The check is to ensure we don't use .env in production
+if (!isset(getenv()['MYSQL_ADDON_HOST'])) {
+    if (!class_exists(Dotenv::class)) {
+        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+    }
+    if (!file_exists(__DIR__.'/../.env')) {
+        throw new \RuntimeException('No environment (/server) variables are set. This means you are using default .env file but this file does not exists.');
+    }
+    (new Dotenv())->load(__DIR__.'/../.env');
+}
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');

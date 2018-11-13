@@ -1,14 +1,6 @@
-
 # Created by https://www.gitignore.io/api/sym,symfony,phpstorm
 
-#!! ERROR: sym is undefined. Use list command to see defined gitignore types !!#
-
 ### Symfony ###
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
 
 # Email spool folder
 /app/spool/*
@@ -24,9 +16,9 @@
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
+.env
 
 # Managed by Composer
-/app/bootstrap.php.cache
 /var/bootstrap.php.cache
 /bin/*
 !bin/console
@@ -38,7 +30,6 @@
 /web/uploads/
 
 # PHPUnit
-/app/phpunit.xml
 /phpunit.xml
 
 # Build data
@@ -103,10 +94,10 @@ fabric.properties
 ### PhpStorm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
-# modules.xml
-# .idea/misc.xml
-# *.ipr
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
 
 # End of https://www.gitignore.io/api/sym,symfony,phpstorm
 /.rules/
