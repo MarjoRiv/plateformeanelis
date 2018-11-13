@@ -1,178 +1,178 @@
 {% extends "::application.html.twig" %} 
-
 {% block title %}Annuaire{% endblock %}
-    {% block body %}
-        <div id="page-content">
-            <div id='wrap'>
-                <div id="page-heading">
-                    <ol class="breadcrumb">
-                        <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
-                        <li class="active">Annuaire</li>
-                    </ol>
 
-                    <h1>Annuaire</h1>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h4>
-                                    <ul class="nav nav-tabs">
-                                        <li{% if geoform != true %} class="active"{% endif %}><a href="#rechercheZZ" data-toggle="tab">Rechercher un ZZ</a></li>
-                                        <li{% if geoform == true %} class="active"{% endif %}><a href="#rechercheGeoloc" data-toggle="tab">Recherche Géolocalisée</a></li>
-                                    </ul>
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="form-horizontal tab-pane{% if geoform != true %} active{% endif %}" id="rechercheZZ">
-                                        {{ form_start(form) }}
-                                            <div class="col-md-6">
-                                                {{ form_errors(form) }}
-                                                <div class="form-group">
-                                                    {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-6">
-                                                        {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-6">
-                                                        {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
+{% block body %}
+    <div id="page-content">
+        <div id='wrap'>
+            <div id="page-heading">
+                <ol class="breadcrumb">
+                    <li><a href="{{ path('application_main_homepage') }}">Plateforme</a></li>
+                    <li class="active">Annuaire</li>
+                </ol>
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6"><form class="form-horizontal">
-                                                <div class="form-group">
-                                                    {{ form_label(form.name, "Nom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-6">
-                                                        {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    {{ form_label(form.surname, "Prénom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-6">
-                                                        {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div style="text-align: center;">
-                                                <div class="btn-toolbar">
-                                                    <button class="btn-primary btn">Rechercher</button>
-                                                </div>
-                                            </div>
-
-                                            {{ form_rest(form) }} 
-                                        </div>
-                                    {{ form_end(form) }}
-
-                                    <div class="form-horizontal tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
-
-                                        {{ form_start(formm) }}
-                                            <div class="col-md-6">
-                                                {{ form_errors(formm) }}
-                                                <div class="form-group">
-                                                    {{ form_label(formm.country, "Pays", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-6">
-                                                        {{ form_widget(formm.country, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6"><form class="form-horizontal">
-                                                {{ form_errors(formm) }}
-                                                <div class="form-group">
-                                                    {{ form_label(formm.city, "Ville", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                    <div class="col-sm-6">
-                                                        {{ form_widget(formm.city, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                    </div>
-                                                    <div class="form-group">
-                                                        {{ form_label(formm.postalcode, "Departement/Code Postal", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
-                                                        <div class="col-sm-6">
-                                                            {{ form_widget(formm.postalcode, { 'attr' : { 'class' : 'form-control' } }) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div style="text-align: center;">
-                                            <div class="btn-toolbar">
-                                                <button class="btn-primary btn">Rechercher</button>
+                <h1>Annuaire</h1>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>
+                                <ul class="nav nav-tabs">
+                                    <li{% if geoform != true %} class="active"{% endif %}><a href="#rechercheZZ" data-toggle="tab">Rechercher un ZZ</a></li>
+                                    <li{% if geoform == true %} class="active"{% endif %}><a href="#rechercheGeoloc" data-toggle="tab">Recherche Géolocalisée</a></li>
+                                </ul>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="form-horizontal tab-pane{% if geoform != true %} active{% endif %}" id="rechercheZZ">
+                                    {{ form_start(form) }}
+                                    <div class="col-md-6">
+                                        {{ form_errors(form) }}
+                                        <div class="form-group">
+                                            {{ form_label(form.promotion, "Promotion", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(form.promotion, { 'attr' : { 'class' : 'form-control' } }) }}
                                             </div>
                                         </div>
-                                        {{ form_rest(formm) }} 
+                                        <div class="form-group">
+                                            {{ form_label(form.filiere, "Filière", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(form.filiere, { 'attr' : { 'class' : 'form-control' } }) }}
+
+                                            </div>
                                         </div>
                                     </div>
-                                    {{ form_end(formm) }}
-                                </div>
-                                </div>
-                                {% if results is not empty %}
-                                    {% set promotionActivated = get_promotion_activated() %}
-                                    {% for result in results %}
-                                        <div class="col-sm-4" style="height: 240px;">
-                                            <div class="panel panel-sky">
-                                                <div class="panel-heading" style="text-align: center;">
-                                                    <h4>{{ result.name }} {{ result.surname }}</h4>
-                                                    {% if not result.isAlive %}
-                                                        <p class="pull-right" style="color: black;">R.I.P &lt;3</p>
-                                                    {% else %}
-                                                        {% if result.promotion == promotionActivated and result.id != app.user.id %}
-                                                        <div class="options">
-                                                            <strong><a href="{{ path("application_yearbook_newmessage", { "id" : result.id }) }}"><i class="fa fa-pencil"></i> Yearbook</a></strong>
-                                                        </div>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                </div>
-                                                <div class="panel-body" style="height: 190px;{% if not result.isAlive %}background-color: #DADADA;{% endif %}">
-                                                    <div class="media">
-
-                                                        <a class="pull-left" href="{{ path("user_show_profile", { "id" : result.id }) }}">
-                                                            {% if result.avatar is not empty %}
-                                                                <img class="media-object dp img-circle" src="{{ asset(result.avatar.webPath) }}" alt="{{ result.username }}"  />
-                                                                {% else %}
-                                                                <img class="media-object dp img-circle" src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ result.username }}" />
-                                                            {% endif %}
-                                                        </a>
-                                                        <div class="media-body">
-                                                            {% if not result.isAlive %}
-                                                                <h5>" A quitté ce monde, restera ZZ à tout jamais. "</h5>
-                                                            {% else %}
-                                                                <h5>{{ result.getLastCareer|raw }}</h5>
-                                                            {% endif %}
-                                                            <hr style="margin:8px auto">
-                                                            <span class="label label-default">{{ result.filiere }}</span>
-                                                            <span class="label label-default">{{ result.promotion }}</span>
-                                                            <hr style="margin:8px auto">
-                                                            {% if result.promotion <= "now"|date('Y')-1 %}
-                                                                <span class="badge badge-warning">ZZ+</span>
-                                                            {% else %}
-                                                                <span class="badge badge-info">ZZ</span>
-                                                            {% endif %}
-                                                            {% if result.isGraduated %}
-                                                                <span class="badge badge-success">Diplômé</span>
-                                                            {% endif %}
-                                                            {% if result.isCotisant %}
-                                                                <span class="badge badge-primary">Cotisant</span>
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form_label(form.name, "Nom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
                                             </div>
                                         </div>
-                                        {%  endfor %}
-                                        {% else %}
-                                        {% if formSubmited == true %}
-                                            <p class="alert-danger text-center">Aucun résultat suivant vos critères n'a été trouvé. Désolé :(</p>
-                                        {% endif %}
-                                    {% endif %}
+                                        <div class="form-group">
+                                            {{ form_label(form.surname, "Prénom", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(form.surname, { 'attr' : { 'class' : 'form-control' } }) }}
+                                            </div>
+                                        </div>
+                                    </div>
 
+
+                                    <div style="text-align: center;">
+                                        <div class="btn-toolbar">
+                                            <button class="btn-primary btn">Rechercher</button>
+                                        </div>
+                                    </div>
+
+                                    {{ form_rest(form) }}
+                                    {{ form_end(form) }}
+                                </div>
+
+                                <div class="form-horizontal tab-pane{% if geoform == true %} active{% endif %}" id="rechercheGeoloc">
+                                    {{ form_start(formm) }}
+                                    <div class="col-md-6">
+                                        {{ form_errors(formm) }}
+                                        <div class="form-group">
+                                            {{ form_label(formm.country, "Pays", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(formm.country, { 'attr' : { 'class' : 'form-control' } }) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_errors(formm) }}
+                                        <div class="form-group">
+                                            {{ form_label(formm.city, "Ville", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(formm.city, { 'attr' : { 'class' : 'form-control' } }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(formm.postalcode, "Departement/Code Postal", { 'label_attr' : { 'class' : 'col-sm-3 control-label' } }) }}
+                                            <div class="col-sm-6">
+                                                {{ form_widget(formm.postalcode, { 'attr' : { 'class' : 'form-control' } }) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div style="text-align: center;">
+                                        <div class="btn-toolbar">
+                                            <button class="btn-primary btn">Rechercher</button>
+                                        </div>
+                                    </div>
+
+                                    {{ form_rest(formm) }}
+                                    {{ form_end(formm) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {% if results is not empty %}
+                        {% set promotionActivated = get_promotion_activated() %}
+                        {% for result in results %}
+                            <div class="col-sm-4" style="height: 240px;">
+                                <div class="panel panel-sky">
+                                    <div class="panel-heading" style="text-align: center;">
+                                        <h4>{{ result.name }} {{ result.surname }}</h4>
+                                        {% if not result.isAlive %}
+                                            <p class="pull-right" style="color: black;">R.I.P &lt;3</p>
+                                        {% else %}
+                                            {% if result.promotion == promotionActivated and result.id != app.user.id %}
+                                                <div class="options">
+                                                    <strong><a href="{{ path("application_yearbook_newmessage", { "id" : result.id }) }}"><i class="fa fa-pencil"></i> Yearbook</a></strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="panel-body" style="height: 190px;{% if not result.isAlive %}background-color: #DADADA;{% endif %}">
+                                        <div class="media">
+
+                                            <a class="pull-left" href="{{ path("user_show_profile", { "id" : result.id }) }}">
+                                                {% if result.avatar is not empty %}
+                                                    <img class="media-object dp img-circle" src="{{ asset(result.avatar.webPath) }}" alt="{{ result.username }}"  />
+                                                {% else %}
+                                                    <img class="media-object dp img-circle" src="{{ asset(app.user.avatar.defaultWebPath) }}" alt="{{ result.username }}" />
+                                                {% endif %}
+                                            </a>
+                                            <div class="media-body">
+                                                {% if not result.isAlive %}
+                                                    <h5>" A quitté ce monde, restera ZZ à tout jamais. "</h5>
+                                                {% else %}
+                                                    <h5>{{ result.getLastCareer|raw }}</h5>
+                                                {% endif %}
+                                                <hr style="margin:8px auto">
+                                                <span class="label label-default">{{ result.filiere }}</span>
+                                                <span class="label label-default">{{ result.promotion }}</span>
+                                                <hr style="margin:8px auto">
+                                                {% if result.promotion <= "now"|date('Y')-1 %}
+                                                    <span class="badge badge-warning">ZZ+</span>
+                                                {% else %}
+                                                    <span class="badge badge-info">ZZ</span>
+                                                {% endif %}
+                                                {% if result.isGraduated %}
+                                                    <span class="badge badge-success">Diplômé</span>
+                                                {% endif %}
+                                                {% if result.isCotisant %}
+                                                    <span class="badge badge-primary">Cotisant</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
-
-                        </div> <!--wrap -->
-                    </div> <!-- page-content -->
-
-                {% endblock %}
+                        {%  endfor %}
+                    {% else %}
+                        {% if formSubmited == true %}
+                            <p class="alert-danger text-center">Aucun résultat suivant vos critères n'a été trouvé. Désolé :(</p>
+                        {% endif %}
+                    {% endif %}
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!--wrap -->
+    </div> <!-- page-content -->
+{% endblock %}
