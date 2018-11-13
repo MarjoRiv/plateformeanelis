@@ -8,6 +8,13 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -34,85 +41,96 @@ class UserAdmin extends AbstractAdmin
         $rolesChoices = self::flattenRoles($roles);
 
         $formMapper
-            ->add('username', 'text', array('label' => 'Username',
+            ->add('username', TextType::class, array('label' => 'Username',
                 'required' => true))
             /**
              * Actually, living an empty field does not update the password while editing.
              * At user creation, it throws an error if the field is empty
              */
-            ->add('plainpassword', 'password', array('label' => 'Mot de Passe* (Laissez vide pour ne pas le changer)',
+            ->add('plainpassword', PasswordType::class, array('label' => 'Mot de Passe* (Laissez vide pour ne pas le changer)',
                 'required' => false))
 
-            ->add('email', 'text', array('label' => 'Email',
+            ->add('email', TextType::class, array('label' => 'Email',
                 'required' => true))
 
-            ->add('name', 'text', array('label' => 'Nom',
+            ->add('isEmailValid', CheckboxType::class, array('label' => 'Email valide ?',
+                'required' => false))
+
+            ->add('name', TextType::class, array('label' => 'Nom',
                 'required' => true))
 
-            ->add('surname', 'text', array('label' => 'Prénom',
+            ->add('surname', TextType::class, array('label' => 'Prénom',
                 'required' => true))
 
-            ->add('promotion', 'choice', array(
+            ->add('promotion', ChoiceType::class, array(
                 'choices' => $this->lstPromotions(),
-                'required' => true,
+                'required' => true
             ))
 
-            ->add('filiere', 'choice', array(
+            ->add('filiere', ChoiceType::class, array(
                 'choices' => array(
                     'F1' => 'F1',
                     'F2' => 'F2',
                     'F3' => 'F3',
                     'F4' => 'F4',
                     'F5' => 'F5',
-                    'FI' => 'FI',
+                    'FI' => 'FI'
                     ),
                 'required' => true
             ))
 
-            ->add('birthday', 'birthday', array('label' => 'Date de naissance', 'required' => true))
+            ->add('genre', ChoiceType::class, array(
+                'choices' => array(
+                    'M' => 'M',
+                    'F' => 'F'
+                    ),
+                'required' => false
+            ))
 
-            ->add('maritalName', 'text', array('label' => 'Nom Marital', 'required' => false))
+            ->add('birthday', DateType::class, array('label' => 'Date de naissance', 'required' => true))
 
-            ->add('nickname', 'text', array('label' => 'Surnom', 'required' => false))
+            ->add('maritalName', TextType::class, array('label' => 'Nom Marital', 'required' => false))
 
-            ->add('address', 'text', array('label' => 'Adresse', 'required' => false))
+            ->add('nickname', TextType::class, array('label' => 'Surnom', 'required' => false))
 
-            ->add('postalcode', 'text', array('label' => 'Code Postal', 'required' => false))
+            ->add('address', TextType::class, array('label' => 'Adresse', 'required' => false))
 
-            ->add('city', 'text', array('label' => 'Ville', 'required' => false))
+            ->add('postalcode', TextType::class, array('label' => 'Code Postal', 'required' => false))
 
-            ->add('country', 'text', array('label' => 'Pays', 'required' => false))
+            ->add('city', TextType::class, array('label' => 'Ville', 'required' => false))
+
+            ->add('country', TextType::class, array('label' => 'Pays', 'required' => false))
 
             ->add('telephone', TelType::class, array('label' => 'Numéro de Téléphone', 'required' => false))
 
-            ->add('website', 'text', array('label' => 'Site Web', 'required' => false))
+            ->add('website', TextType::class, array('label' => 'Site Web', 'required' => false))
 
-            ->add('socialFacebook', 'text', array('label' => 'Lien Facebook', 'required' => false))
+            ->add('socialFacebook', TextType::class, array('label' => 'Lien Facebook', 'required' => false))
 
-            ->add('socialTwitter', 'text', array('label' => 'Lien Twitter', 'required' => false))
+            ->add('socialTwitter', TextType::class, array('label' => 'Lien Twitter', 'required' => false))
 
-            ->add('socialGoogle', 'text', array('label' => 'Lien Google+', 'required' => false))
+            ->add('socialGoogle', TextType::class, array('label' => 'Lien Google+', 'required' => false))
 
-            ->add('socialYoutube', 'text', array('label' => 'Chaine Youtube', 'required' => false))
+            ->add('socialYoutube', TextType::class, array('label' => 'Chaine Youtube', 'required' => false))
 
-            ->add('socialInstagram', 'text', array('label' => 'Page Instagram', 'required' => false))
+            ->add('socialInstagram', TextType::class, array('label' => 'Page Instagram', 'required' => false))
 
-            ->add('biography', 'textarea', array('label' => 'Biographie', 'required' => false))
+            ->add('biography', TextareaType::class, array('label' => 'Biographie', 'required' => false))
 
-            ->add('maritalStatus', 'choice', array(
+            ->add('maritalStatus', ChoiceType::class, array(
                 'choices'   => array(
                     'Célibataire' => 'Célibataire',
                     'En couple' => 'En couple',
                     'Fiancé(e)' => 'Fiancé(e)',
                     'Marié(e)' => 'Marié(e)',
-                    'En union libre' => 'En union libre',
+                    'En union libre' => 'En union libre'
                 ),
                 'required' => false
             ))
 
-            ->add('childrenNumber', 'number', array('label' => 'Nombre d\'enfants', 'required' => false))
+            ->add('childrenNumber', IntegerType::class, array('label' => 'Nombre d\'enfants', 'required' => false))
 
-            ->add('roles', 'choice', array('choices' => $rolesChoices, 'multiple' => true, ))
+            ->add('roles', ChoiceType::class, array('choices' => $rolesChoices, 'multiple' => true, ))
 
         ;
     }

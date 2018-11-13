@@ -33,16 +33,74 @@
             {% for line in form.lines %}
             <tr>
                 <td>{{ i }}</td>
-                <td>{{ form_row(line.login) }}</td>
-                <td>{{ form_row(line.mail) }}</td>
-                <td>{{ form_row(line.prenom) }}</td>
-                <td>{{ form_row(line.nom) }}</td>
-                <td>{{ form_row(line.promo) }}</td>
+
+                <!-- LOGIN -->
+                <td>
+                {% if (form.lines.vars.value[i-1].errors.loginKo or form.lines.vars.value[i-1].errors.loginNotFound or form.lines.vars.value[i-1].errors.loginAlreadyExists) %}
+                    {{ form_row(line.login, { 'attr': {'class': 'label-danger'} }) }}
+                {% else %}
+                    {{ form_row(line.login) }}
+                {% endif %}
+                </td>
+
+                <!-- EMAIL -->
+                <td>
+                {% if form.lines.vars.value[i-1].errors.emailKo %}
+                    {{ form_row(line.mail, { 'attr': {'class': 'label-danger'} }) }}
+                {% else %}
+                    {{ form_row(line.mail) }}
+                {% endif %}
+                </td>
+
+                <!-- PRENOM -->
+                <td>
+                {% if form.lines.vars.value[i-1].errors.prenomNotFound %}
+                    {{ form_row(line.prenom, { 'attr': {'class': 'label-danger'} }) }}
+                {% else %}
+                    {{ form_row(line.prenom) }}
+                {% endif %}
+                </td>
+
+                <!-- NOM -->
+                <td>
+                {% if form.lines.vars.value[i-1].errors.nomNotFound %}
+                    {{ form_row(line.nom, { 'attr': {'class': 'label-danger'} }) }}
+                {% else %}
+                    {{ form_row(line.nom) }}
+                {% endif %}
+                </td>
+
+                <!-- PROMO -->
+                <td>
+                {% if form.lines.vars.value[i-1].errors.promoFormatKo %}
+                    {{ form_row(line.promo, { 'attr': {'class': 'label-danger'} }) }}
+                {% else %}
+                    {{ form_row(line.promo) }}
+                {% endif %}
+                </td>
+
+                <!-- FILIERE -->
                 <td>{{ form_row(line.filiere) }}</td>
+
+                <!-- ADDRESSE -->
                 <td>{{ form_row(line.adresse) }}</td>
+
+                <!-- TELEPHONE -->
                 <td>{{ form_row(line.telephone) }}</td>
-                <td>{{ form_row(line.password) }}</td>
+
+                <!-- PASSWORD -->
+                <td>
+                {% if form.lines.vars.value[i-1].errors.passwordKo %}
+                    {{ form_row(line.password, { 'attr': {'class': 'label-danger'} }) }}
+                {% else %}
+                    {{ form_row(line.password) }}
+                {% endif %}
+                </td>
+
+                <!-- STATE -->
                 <td>{{ form_row(line.state) }}</td>
+
+                <!-- ACTION -->
                 <td>{{ form_row(line.action) }}</td>
             </tr>
             {% set i = i + 1 %}
