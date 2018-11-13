@@ -454,6 +454,25 @@ class User extends BaseUser
     }
 
     /**
+     * Get avatarWebPath
+     *
+     * Return avatar path if condition or valids (avatar image exists), otherwise return default path of avatar.
+     *
+     * @return string a path to avatar path or default avatar path 
+     */
+    public function getAvatarWebPath()
+    {
+        if(empty($this->avatar) || empty($this->avatar->getExtension()) || !file_exists($this->avatar->getWebPath()))
+        {
+            return Image::getDefaultWebPathByFilter(Image::$FILTER_USER_AVATAR);
+        }
+        else
+        {
+            return $this->avatar->getWebPath();
+        }
+    }
+
+    /**
      * Set website
      *
      * @param string $website
