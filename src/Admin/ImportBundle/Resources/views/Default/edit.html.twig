@@ -36,7 +36,7 @@
 
                 <!-- LOGIN -->
                 <td>
-                {% if (form.lines.vars.value[i-1].errors.loginKo or form.lines.vars.value[i-1].errors.loginNotFound or form.lines.vars.value[i-1].errors.loginAlreadyExists) %}
+                {% if form.lines.vars.value[i-1].errors and (form.lines.vars.value[i-1].errors.loginKo or form.lines.vars.value[i-1].errors.loginNotFound or form.lines.vars.value[i-1].errors.loginAlreadyExists) %}
                     {{ form_row(line.login, { 'attr': {'class': 'label-danger'} }) }}
                 {% else %}
                     {{ form_row(line.login) }}
@@ -45,7 +45,7 @@
 
                 <!-- EMAIL -->
                 <td>
-                {% if form.lines.vars.value[i-1].errors.emailKo %}
+                {% if form.lines.vars.value[i-1].errors and form.lines.vars.value[i-1].errors.emailKo %}
                     {{ form_row(line.mail, { 'attr': {'class': 'label-danger'} }) }}
                 {% else %}
                     {{ form_row(line.mail) }}
@@ -54,7 +54,7 @@
 
                 <!-- PRENOM -->
                 <td>
-                {% if form.lines.vars.value[i-1].errors.prenomNotFound %}
+                {% if form.lines.vars.value[i-1].errors and form.lines.vars.value[i-1].errors.prenomNotFound %}
                     {{ form_row(line.prenom, { 'attr': {'class': 'label-danger'} }) }}
                 {% else %}
                     {{ form_row(line.prenom) }}
@@ -63,7 +63,7 @@
 
                 <!-- NOM -->
                 <td>
-                {% if form.lines.vars.value[i-1].errors.nomNotFound %}
+                {% if form.lines.vars.value[i-1].errors and form.lines.vars.value[i-1].errors.nomNotFound %}
                     {{ form_row(line.nom, { 'attr': {'class': 'label-danger'} }) }}
                 {% else %}
                     {{ form_row(line.nom) }}
@@ -72,7 +72,7 @@
 
                 <!-- PROMO -->
                 <td>
-                {% if form.lines.vars.value[i-1].errors.promoFormatKo %}
+                {% if form.lines.vars.value[i-1].errors and form.lines.vars.value[i-1].errors.promoFormatKo %}
                     {{ form_row(line.promo, { 'attr': {'class': 'label-danger'} }) }}
                 {% else %}
                     {{ form_row(line.promo) }}
@@ -90,7 +90,7 @@
 
                 <!-- PASSWORD -->
                 <td>
-                {% if form.lines.vars.value[i-1].errors.passwordKo %}
+                {% if form.lines.vars.value[i-1].errors and form.lines.vars.value[i-1].errors.passwordKo %}
                     {{ form_row(line.password, { 'attr': {'class': 'label-danger'} }) }}
                 {% else %}
                     {{ form_row(line.password) }}
