@@ -115,7 +115,11 @@
                             <div class="col-sm-4" style="height: 240px;">
                                 <div class="panel panel-sky">
                                     <div class="panel-heading" style="text-align: center;">
-                                        <h4>{{ result.name }} {{ result.surname }}</h4>
+										<h4> 
+											<a  class="fa fa-inverse fa-name " href="{{ path("user_show_profile", { "id" : result.id }) }}">
+												{{ result.name }} {{ result.surname }}   
+											</a>
+										</h4>
                                         {% if not result.isAlive %}
                                             <p class="pull-right" style="color: black;">R.I.P &lt;3</p>
                                         {% else %}

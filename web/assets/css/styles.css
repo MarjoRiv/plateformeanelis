@@ -4883,6 +4883,8 @@ i.visible-print {
 .fa-stack-2x {
   font-size: 2em;
 }
+
+.fa-name:hover,
 .fa-inverse {
   color: #ffffff;
 }
