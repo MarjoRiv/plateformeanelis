@@ -114,10 +114,9 @@
                         {% for result in results %}
                             <div class="col-sm-4" style="height: 240px;">
                                 <div class="panel panel-sky">
-                                    <div class="panel-heading fa-name" style="text-align: center;">
+                                    <div class="panel-heading" >
                                         <a href="{{ path("user_show_profile", { "id" : result.id }) }}">
-                                            <h4 class="fa fa-inverse" style="...">
-
+                                            <h4 class="fa fa-inverse">
 												{{ result.name }} {{ result.surname }}
                                             </h4>
                                         </a>
