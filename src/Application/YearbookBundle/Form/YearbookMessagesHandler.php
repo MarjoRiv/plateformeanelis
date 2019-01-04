@@ -3,7 +3,6 @@
 namespace Application\YearbookBundle\Form;
 
 use Application\YearbookBundle\Entity\YearbookMessages;
-use Application\YearbookBundle\Manager\YearbookMessagesManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 

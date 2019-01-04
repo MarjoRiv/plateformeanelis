@@ -6,6 +6,6 @@ use Application\MainBundle\Model\BaseManager;
 
 class YearbookMessagesManager extends BaseManager {
     public function getNamespaceEntity() {
-        return 'ApplicationYearbookBundle:YearbookMessages';
+        return 'ApplicationYearbookBundle:YearbookMessage';
     }
 }

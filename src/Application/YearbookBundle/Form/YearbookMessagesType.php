@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class YearbookMessagesType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -20,7 +20,7 @@ class YearbookMessagesType extends AbstractType
                 'required' => true))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Marjorie
+ * Date: 04/01/2019
+ * Time: 11:30
+ */
 
 namespace Application\YearbookBundle\Entity;
 
@@ -20,21 +26,17 @@ class Yearbook
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var integer
-     *
-     * @ORM\Column(name="promotion", type="integer")
+     * @ORM\Column (name="promotion",type="integer")
      */
     private $promotion;
 
     /**
      * @var boolean
-     *
-     * @ORM\Column(name="activated", type="boolean")
+     * @ORM\Column (name="activated", type="boolean")
      */
     private $activated;
-
     /**
      * @ORM\OneToMany(targetEntity="Application\YearbookBundle\Entity\YearbookMessages", mappedBy="yearbook", cascade={"remove", "persist"})
      * @ORM\OrderBy({"id" = "DESC"})
@@ -48,17 +50,20 @@ class Yearbook
     public function __construct()
     {
         $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->activated = false;  
+        $this->activated = false;
     }
 
+
+    /**
+     * ToString
+     * @return string
+     */
     public function __toString() {
         return (string)$this->getPromotion();
     }
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -66,22 +71,7 @@ class Yearbook
     }
 
     /**
-     * Set promotion
-     *
-     * @param integer $promotion
-     * @return Yearbook
-     */
-    public function setPromotion($promotion)
-    {
-        $this->promotion = $promotion;
-
-        return $this;
-    }
-
-    /**
-     * Get promotion
-     *
-     * @return integer 
+     * @return int
      */
     public function getPromotion()
     {
@@ -89,44 +79,49 @@ class Yearbook
     }
 
     /**
-     * Set activated
-     *
-     * @param boolean $activated
-     * @return Yearbook
+     * @param int $promotion
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActivated()
+    {
+        return $this->activated;
+    }
+
+    /**
+     * @param bool $activated
      */
     public function setActivated($activated)
     {
         $this->activated = $activated;
-
-        return $this;
     }
 
     /**
-     * Get activated
-     *
-     * @return boolean 
+     * @return mixed
      */
-    public function getActivated()
+    public function getMessages()
     {
-        return $this->activated;
+        return $this->messages;
     }
 
     /**
      * Add messages
      *
      * @param \Application\YearbookBundle\Entity\YearbookMessages $messages
-     * @return Yearbook
      */
     public function addMessage(\Application\YearbookBundle\Entity\YearbookMessages $messages)
     {
-        $this->messages[] = $messages;
-
-        return $this;
+        $this->messages->add($messages);
     }
 
     /**
-     * Remove messages
-     *
+     * Remove message
      * @param \Application\YearbookBundle\Entity\YearbookMessages $messages
      */
     public function removeMessage(\Application\YearbookBundle\Entity\YearbookMessages $messages)
@@ -134,13 +129,4 @@ class Yearbook
         $this->messages->removeElement($messages);
     }
 
-    /**
-     * Get messages
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMessages()
-    {
-        return $this->messages;
-    }
 }

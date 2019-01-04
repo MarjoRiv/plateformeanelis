@@ -2,7 +2,6 @@
 
 namespace Application\YearbookBundle\Twig\Extension;
 use Doctrine\ORM\EntityManager;
-use Twig_Function;
 use Twig_SimpleFunction;
 
 class YearbookExtension extends \Twig_Extension
@@ -25,12 +24,14 @@ class YearbookExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'is_yearbook_activated' => new \Twig_Function_Method($this, 'getStatus'),
-            'get_promotion_activated' => new \Twig_Function_Method($this, 'getPromotionActivated'),
+            //'is_yearbook_activated' => new \Twig_Function_Method($this, 'getStatus'),
+           // 'get_promotion_activated' => new \Twig_Function_Method($this, 'getPromotionActivated'),
+             new Twig_SimpleFunction('is_yearbook_activated', array($this, 'getStatus')),
+             new Twig_SimpleFunction('get_promotion_activated', array($this, 'getPromotionActivated')),
         );
     }
     
-    // Retourne TRUE si un Yearbook est activé pour l'année courrante
+    // Retourne TRUE si un Yearbook est activé pour l'année courante
     public function getStatus()
     {
         $messages = $this->em->getRepository('ApplicationYearbookBundle:Yearbook')->findBy(array(
@@ -44,7 +45,7 @@ class YearbookExtension extends \Twig_Extension
         return FALSE;
     }
 
-    // Retourne l'année courante si la promotion de l'année courante est activé. 0000 sinon
+    // Retourne l'année courante si la promotion de l'année courante est activéé. 0000 sinon
     public function getPromotionActivated() {
         $messages = $this->em->getRepository('ApplicationYearbookBundle:Yearbook')->findBy(array(
             'promotion' => date('Y'),

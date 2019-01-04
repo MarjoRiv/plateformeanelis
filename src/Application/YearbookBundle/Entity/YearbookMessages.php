@@ -1,15 +1,22 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Marjorie
+ * Date: 04/01/2019
+ * Time: 11:41
+ */
 
 namespace Application\YearbookBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * YearbookMessages
  *
  * @ORM\Table()
  * @ORM\Entity
  */
+
 class YearbookMessages
 {
     /**
@@ -52,16 +59,25 @@ class YearbookMessages
      * @ORM\JoinColumn(nullable=false)
      */
     private $yearbook;
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="createDate", type="datetime")
+     */
+    private  $createDate;
+
+    /**
+     * YearbookMessage constructor
+     */
 
     public function __construct() {
-
+        $this->createDate=new \DateTime();
     }
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -84,7 +100,7 @@ class YearbookMessages
     /**
      * Get message
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -107,7 +123,7 @@ class YearbookMessages
     /**
      * Get userFrom
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \Admin\UserBundle\Entity\User
      */
     public function getUserFrom()
     {
@@ -130,7 +146,7 @@ class YearbookMessages
     /**
      * Get userTo
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \Admin\UserBundle\Entity\User
      */
     public function getUserTo()
     {
@@ -153,10 +169,19 @@ class YearbookMessages
     /**
      * Get yearbook
      *
-     * @return \Application\YearbookBundle\Entity\Yearbook 
+     * @return \Application\YearbookBundle\Entity\Yearbook
      */
     public function getYearbook()
     {
         return $this->yearbook;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
 }

@@ -4,4 +4,4 @@ services:
         tags:
             - { name: twig.extension }
         arguments:
-            em: "@doctrine.orm.entity_manager"
+            em: "@doctrine.orm.default_entity_manager"

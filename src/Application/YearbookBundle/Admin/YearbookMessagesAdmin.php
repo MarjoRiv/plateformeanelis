@@ -29,6 +29,7 @@ class YearbookMessagesAdmin extends AbstractAdmin
         ->add('userFrom')
         ->add('userTo')
         ->add('yearbook')
+        ->add('createDate')
         ;
     }
 
@@ -41,6 +42,7 @@ class YearbookMessagesAdmin extends AbstractAdmin
             ->add('userTo')
             ->add('message')
             ->add('yearbook')
+            ->add('createDate')
             // add custom action links
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -58,6 +60,7 @@ class YearbookMessagesAdmin extends AbstractAdmin
            ->add('userTo')
            ->add('message')
            ->add('yearbook')
+           ->add('createDate')
        ;
     }
 

@@ -4,7 +4,7 @@ application_yearbook_listmessages:
 
 application_yearbook_newmessage:
     path:     /yearbook/new/{id}
-    defaults: { _controller: ApplicationYearbookBundle:Default:add }
+    defaults: { _controller: ApplicationYearbookBundle:Default:new }
     requirements:
         id: \d*
 

@@ -15,7 +15,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: "Yearbook", label: "Yearbook Messages" }
         arguments:
             - ~
-            - Application\YearbookBundle\Entity\YearbookMessages
+            - Application\YearbookBundle\Entity\YearbookMessage
             - ~
         calls:
             - [ setTranslationDomain, [ApplicationYearbookBundle]]
