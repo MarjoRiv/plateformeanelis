@@ -17,11 +17,16 @@
                     <table>
                         <tr>
                             <td>
-                                {%  include "ApplicationYearbookBundle:Default:listFrom.html.twig" %}
+                                {%  include "ApplicationYearbookBundle:Default:users.html.twig" %}
                             </td>
                             <td>
                                 {%  include "ApplicationYearbookBundle:Default:listTo.html.twig" %}
                             </td>
+                        </tr>
+                        <tr>
+                            {%  if user is defined %}
+                                 {%  include "ApplicationYearbookBundle:Default:update.html.twig" %}
+                            {% endif %}
                         </tr>
 
                     </table>

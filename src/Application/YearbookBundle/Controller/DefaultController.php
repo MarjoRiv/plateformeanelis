@@ -22,21 +22,36 @@ class DefaultController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request, User $userTo=null)
     {
         $doctrine = $this->getDoctrine();
         $business= new BusinessManager();
-        $user =$this->get('security.token_storage')->getToken()->getUser()->getId();
-        $messagesTo = $business->listMessagesTo($doctrine,$user);
-        $messagesFrom = $business->listMessagesFrom($doctrine,$user);
+        $userFrom =$this->get('security.token_storage')->getToken()->getUser()->getId();
+        $messagesTo = $business->listMessagesReceived($doctrine,$userFrom);
+        $messagesFrom = $business->listMessagesSend($doctrine,$userFrom);
+        $listUsersNotSend=$business->listUsersNotSend($doctrine,$userFrom);
+        $listUsersSend=$business->listUsersSend($doctrine,$userFrom);
+        $yearbookmessages=null;
+
+        if(isset($userTo))
+        {
+            $yearbookmessages = $business->getMessage($doctrine,$userTo,$userFrom);
+        }
+        $form = $this->createForm(YearbookMessagesType::class, $yearbookmessages);
+
         return $this->render('ApplicationYearbookBundle:Default:list.html.twig', array(
                 'messagesTo' => $messagesTo,
-                'messagesFrom' => $messagesFrom
+                'messagesFrom' => $messagesFrom,
+                'listUsersNotSend' => $listUsersNotSend,
+                'listUsersSend' => $listUsersSend,
+                'form' => $form->createView(),
+                'user' => $userTo,
             )
         );
     }
 
     /**
+     * show the list of messages received
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listToAction()
@@ -44,7 +59,7 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $business= new BusinessManager();
         $user =$this->get('security.token_storage')->getToken()->getUser()->getId();
-        $messages = $business->listMessagesTo($doctrine,$user);
+        $messages = $business->listMessagesReceived($doctrine,$user);
         return $this->render('ApplicationYearbookBundle:Default:listTo.html.twig', array(
                 'messagesTo' => $messages
             )
@@ -52,6 +67,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * show the list messages send
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listFromAction()
@@ -59,7 +75,7 @@ class DefaultController extends Controller
         $doctrine = $this->getDoctrine();
         $business= new BusinessManager();
         $user =$this->get('security.token_storage')->getToken()->getUser()->getId();
-        $messages = $business->listMessagesFrom($doctrine,$user);
+        $messages = $business->listMessagesSend($doctrine,$user);
         return $this->render('ApplicationYearbookBundle:Default:listFrom.html.twig', array(
                 'messagesFrom' => $messages
             )
@@ -68,6 +84,7 @@ class DefaultController extends Controller
 
 
     /**
+     * show shortcut yearbook in menu
      * @param null $userId
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -75,7 +92,7 @@ class DefaultController extends Controller
     {
         $doctrine = $this->getDoctrine();
         $business= new BusinessManager();
-        $messages = $business->messagesUser($doctrine,$userId);
+        $messages = $business->listMessagesReceived($doctrine,$userId);
         $number = count($messages);
         // Retourne le nombre de messages à valider pour l'utilisateur userId
         return $this->render('ApplicationYearbookBundle:Default:menu.html.twig', array(
@@ -85,6 +102,7 @@ class DefaultController extends Controller
     }
 
     /**
+     * create message
      * @param Request $request
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
@@ -96,25 +114,17 @@ class DefaultController extends Controller
            return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
 
-        //TODO: Faire la logique dans le BusinessManager
+
 
          $em = $this->getDoctrine()->getManager();
-        $yearbookmessages = new YearbookMessages();
-        $yearbookmessages->setUserFrom($this->get('security.token_storage')->getToken()->getUser());
-        $yearbookmessages->setUserTo($user);
-
-        $yearbookmessages->setYearbook($this->getDoctrine()->getRepository('ApplicationYearbookBundle:Yearbook')->findBy(array(
-                'promotion' => date('Y'),
-                'activated' => TRUE
-            )
-        )[0]);
-
+        $business= new BusinessManager();
+        $yearbookmessages = $business->newMessage($user);
         $form = $this->createForm(YearbookMessagesType::class, $yearbookmessages);
         $formHandler = new YearbookMessagesHandler($form, $request, $em);
 
         if ($formHandler->process()) {
 
-            // Si un message vient d'être envoyé, on envoie un email à celui qui l'a reçu
+            // TODO:Si un message vient d'être envoyé, on envoie un email à celui qui l'a reçu (essayer de les envoyer pour les mails de la journée)
 
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
@@ -126,16 +136,39 @@ class DefaultController extends Controller
         ));
     }
 
+    /**
+     * update message
+     * @param Request $request
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateAction(Request $request, User $user) {
 
+        $doctrine = $this->getDoctrine();
+        $business= new BusinessManager();
+        $sender= $this->get('security.token_storage')->getToken()->getUser();
+        $yearbookmessages = $business->getMessage($doctrine,$user,$sender);
+        $form = $this->createForm(YearbookMessagesType::class, $yearbookmessages);
+
+        return $this->render('ApplicationYearbookBundle:Default:list.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user,
+
+        ));
+    }
+
+    /**
+     * delete message
+     * @param YearbookMessages $yearbookmessage
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(YearbookMessages $yearbookmessage) {
-        //TODO: Faire la logique dans le BusinessManager
-
         if ($yearbookmessage->getUserTo() != $this->get('security.token_storage')->getToken()->getUser()) {
             return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
         }
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($yearbookmessage);
-        $em->flush();
+        $business= new BusinessManager();
+        $doctrine = $this->getDoctrine();
+        $business->deleteMessage($doctrine,$yearbookmessage);
 
         return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
     }

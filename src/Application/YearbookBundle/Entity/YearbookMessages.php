@@ -177,7 +177,7 @@ class YearbookMessages
     }
 
     /**
-     * @return mixed
+     * @return \Datetime
      */
     public function getCreateDate()
     {

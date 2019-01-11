@@ -24,8 +24,7 @@ class YearbookExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            //'is_yearbook_activated' => new \Twig_Function_Method($this, 'getStatus'),
-           // 'get_promotion_activated' => new \Twig_Function_Method($this, 'getPromotionActivated'),
+            //  changement de Twig_Function_Method en Twig_SimpleFunction car la première est dépréciée
              new Twig_SimpleFunction('is_yearbook_activated', array($this, 'getStatus')),
              new Twig_SimpleFunction('get_promotion_activated', array($this, 'getPromotionActivated')),
         );

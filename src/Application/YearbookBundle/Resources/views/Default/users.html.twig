@@ -1,0 +1,29 @@
+<div class="panel-body">
+    <hr>
+    {% if listUsersSend is not empty and listUsersNotSend is not empty %}
+        {% if listUsersSend is not empty %}
+            {% for user in listUsersSend %}
+                <p>
+                    <a href="{{ path("application_yearbook_updatemessage", { "id" : user.id }) }}">
+                        {{ user.surname }} {{ user.name }}
+                    </a>
+
+                </p>
+
+            {% endfor %}
+        {% endif %}
+        {% if listUsersNotSend is not empty %}
+            {% for user in listUsersNotSend %}
+                <p>
+                    <a href="{{ path("application_yearbook_newmessage", { "id" : user.id }) }}">
+                        {{ user.surname }} {{ user.name }}
+                    </a>
+
+                </p>
+
+            {% endfor %}
+        {% endif %}
+    {%  else %}
+        <p class="alert-warning text-center">Aucune personne trouvée.</p>
+    {% endif %}
+</div>

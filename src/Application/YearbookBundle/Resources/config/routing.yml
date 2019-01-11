@@ -7,6 +7,11 @@ application_yearbook_newmessage:
     defaults: { _controller: ApplicationYearbookBundle:Default:new }
     requirements:
         id: \d*
+application_yearbook_updatemessage:
+    path: /yearbook/list/{id}
+    defaults : {_controller: ApplicationYearbookBundle:Default:list}
+    requirements:
+        id: \d*
 
 application_yearbook_delete:
     path:  /yearbook/{id}/delete
