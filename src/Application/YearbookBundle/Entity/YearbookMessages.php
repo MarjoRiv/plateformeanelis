@@ -66,6 +66,14 @@ class YearbookMessages
     private  $createDate;
 
     /**
+     * @param \DateTime $createDate
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+    }
+
+    /**
      * YearbookMessage constructor
      */
 

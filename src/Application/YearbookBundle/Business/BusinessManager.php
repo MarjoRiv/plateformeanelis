@@ -10,6 +10,7 @@ namespace Application\YearbookBundle\Business;
 
 
 use Admin\UserBundle\Form\ChangePasswordFormType;
+use Application\YearbookBundle\Entity\YearbookMessages;
 
 class BusinessManager
 {
@@ -119,14 +120,14 @@ class BusinessManager
      * @param $user
      * @return YearbookMessages
      */
-    public function newMessage($user)
+    public function newMessage($doctrine,$user,$userFrom)
     {
         $yearbookmessages = new YearbookMessages();
-        $yearbookmessages->setUserFrom($this->get('security.token_storage')->getToken()->getUser());
+        $yearbookmessages->setUserFrom($userFrom);
         $yearbookmessages->setUserTo($user);
         $yearbookmessages->setCreateDate(new \DateTime());
 
-        $yearbookmessages->setYearbook($this->getDoctrine()->getRepository('ApplicationYearbookBundle:Yearbook')->findBy(array(
+        $yearbookmessages->setYearbook($doctrine->getRepository('ApplicationYearbookBundle:Yearbook')->findBy(array(
                 'promotion' => date('Y'),
                 'activated' => TRUE
             )

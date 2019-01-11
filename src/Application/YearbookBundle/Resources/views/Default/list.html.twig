@@ -24,7 +24,7 @@
                             </td>
                         </tr>
                         <tr>
-                            {%  if user is defined %}
+                            {%  if user is not null %}
                                  {%  include "ApplicationYearbookBundle:Default:update.html.twig" %}
                             {% endif %}
                         </tr>

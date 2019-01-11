@@ -32,13 +32,19 @@ class DefaultController extends Controller
         $listUsersNotSend=$business->listUsersNotSend($doctrine,$userFrom);
         $listUsersSend=$business->listUsersSend($doctrine,$userFrom);
         $yearbookmessages=null;
-
+        $em = $this->getDoctrine()->getManager();
         if(isset($userTo))
         {
             $yearbookmessages = $business->getMessage($doctrine,$userTo,$userFrom);
+
         }
         $form = $this->createForm(YearbookMessagesType::class, $yearbookmessages);
+        $formHandler = new YearbookMessagesHandler($form, $request, $em);
 
+        if ($formHandler->process()) {
+
+            return $this->redirect($this->generateUrl('application_yearbook_listmessages'));
+        }
         return $this->render('ApplicationYearbookBundle:Default:list.html.twig', array(
                 'messagesTo' => $messagesTo,
                 'messagesFrom' => $messagesFrom,
@@ -115,10 +121,10 @@ class DefaultController extends Controller
         }
 
 
-
-         $em = $this->getDoctrine()->getManager();
+         $doctrine=$this->getDoctrine();
+         $em = $doctrine->getManager();
         $business= new BusinessManager();
-        $yearbookmessages = $business->newMessage($user);
+        $yearbookmessages = $business->newMessage($doctrine,$user,$this->get('security.token_storage')->getToken()->getUser());
         $form = $this->createForm(YearbookMessagesType::class, $yearbookmessages);
         $formHandler = new YearbookMessagesHandler($form, $request, $em);
 
