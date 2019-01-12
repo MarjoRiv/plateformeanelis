@@ -72,11 +72,13 @@ class BusinessManager
                 FROM AdminUserBundle:User u 
                 WHERE
                  u.promotion = :promo
+                 AND u.id <> :iduser
                  AND u.id NOT IN 
                 (SELECT DISTINCT  IDENTITY(ym.userTo)
                  FROM ApplicationYearbookBundle:YearbookMessages ym
                  WHERE ym.userFrom = :userFrom)
                  ORDER  BY u.name ASC, u.surname ASC')
+        ->setParameter('iduser', $userFrom)
         ->setParameter('userFrom', $userFrom)
             ->setParameter('promo',date('Y'));
 
@@ -101,11 +103,13 @@ class BusinessManager
                 FROM AdminUserBundle:User u 
                 WHERE
                  u.promotion = :promo
+                 AND u.id <> :iduser
                  AND u.id IN 
                 (SELECT DISTINCT  IDENTITY(ym.userTo)
                  FROM ApplicationYearbookBundle:YearbookMessages ym
                  WHERE ym.userFrom = :userFrom)
                  ORDER  BY u.name ASC, u.surname ASC')
+            ->setParameter('iduser', $userFrom)
             ->setParameter('userFrom', $userFrom)
             ->setParameter('promo',date('Y'));
 
@@ -149,7 +153,7 @@ class BusinessManager
     }
 
     /**
-     * update a message
+     * get a message send by userFrom to user
      * @param $doctrine
      * @param $user
      * @param $userFrom
@@ -163,14 +167,6 @@ class BusinessManager
                 'userFrom' => $userFrom)
             );
 
-        //->createQueryBuilder('ym');
-
-        /*$query->where('ym.userTo = :userTo') //select messages send to userTo
-            ->setParameter('userTo', $user)
-            ->andwhere('ym.userFrom = :userFrom')
-            ->setParameter('userFrom',$userFrom); //select messages send by the user to userTo
-        */
-        //$query=$query->getQuery()->getResult();
         return $query;
     }
 }

@@ -25,7 +25,11 @@
                         </tr>
                         <tr>
                             {%  if user is not null %}
-                                 {%  include "ApplicationYearbookBundle:Default:update.html.twig" %}
+                                {%  if already is null %}
+                                    {%  include "ApplicationYearbookBundle:Default:new.html.twig" %}
+                                {% else %}
+                                    {%  include "ApplicationYearbookBundle:Default:update.html.twig" %}
+                                {% endif %}
                             {% endif %}
                         </tr>
 

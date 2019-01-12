@@ -8,8 +8,8 @@ application_yearbook_newmessage:
     requirements:
         id: \d*
 application_yearbook_updatemessage:
-    path: /yearbook/list/{id}
-    defaults : {_controller: ApplicationYearbookBundle:Default:list}
+    path: /yearbook/update/{id}
+    defaults : {_controller: ApplicationYearbookBundle:Default:update}
     requirements:
         id: \d*
 
