@@ -40,7 +40,7 @@
         "symfony/serializer": "*"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^3.2",
+        "symfony/phpunit-bridge": "*",
         "symfony/dotenv": "^4.1"
     },
     "scripts": {

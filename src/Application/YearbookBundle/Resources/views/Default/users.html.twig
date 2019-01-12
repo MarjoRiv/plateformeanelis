@@ -1,6 +1,5 @@
 <div class="panel-body">
     <hr>
-    {% if listUsersSend is not empty and listUsersNotSend is not empty %}
         {% if listUsersSend is not empty %}
             {% for user in listUsersSend %}
                 <p>
@@ -23,7 +22,7 @@
 
             {% endfor %}
         {% endif %}
-    {%  else %}
+    {%  if listUsersSend is empty and listUsersNotSend is empty %}
         <p class="alert-warning text-center">Aucune personne trouvée.</p>
     {% endif %}
 </div>
