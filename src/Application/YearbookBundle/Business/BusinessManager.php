@@ -66,30 +66,32 @@ class BusinessManager
      */
     public function listUsersNotSend($doctrine,$userFrom)
     {
-        $query = $doctrine->getManager()
-            ->createQuery('       
-                SELECT u
-                FROM AdminUserBundle:User u 
-                WHERE
-                 u.promotion = :promo
-                 AND u.id <> :iduser
-                 AND u.id NOT IN 
-                (SELECT DISTINCT  IDENTITY(ym.userTo)
-                 FROM ApplicationYearbookBundle:YearbookMessages ym
-                 WHERE ym.userFrom = :userFrom)
-                 ORDER  BY u.name ASC, u.surname ASC')
-        ->setParameter('iduser', $userFrom)
-        ->setParameter('userFrom', $userFrom)
-            ->setParameter('promo',date('Y'));
+        $query = $this->listUsersNotSeparated($doctrine, $userFrom);
+        $query= $query->andWhere('  u.id NOT IN (:query)')
+            ->orderBy('u.name', 'ASC')
+            ->orderBy('u.surname', 'ASC')
+            ->setParameter('query', $this->listUserSended($doctrine->getManager(), $userFrom));
 
-
-
-        $query=$query->getResult();
+        $query = $query->getQuery()->getResult();
 
         return $query;
     }
 
 
+    /**
+     * return all the students to whom the user has send a message
+     * @param $em
+     * @param $userFrom
+     * @return mixed
+     */
+    private function listUserSended($em, $userFrom)
+    {
+        $query = $em->getRepository('ApplicationYearbookBundle:YearbookMessages')->createQueryBuilder('ym');
+        $query->select('IDENTITY(ym.userTo)')
+                ->where('ym.userFrom = :userFrom')
+                ->setParameter('userFrom', $userFrom);
+        return $query->getQuery()->getResult();
+    }
     /**
      * Return list of users of zz3 who have received message from user
      * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
@@ -97,21 +99,15 @@ class BusinessManager
      */
     public function listUsersSend($doctrine,$userFrom)
     {
-        $query = $doctrine->getManager()
-            ->createQuery('
-                SELECT u
-                FROM AdminUserBundle:User u 
-                WHERE
-                 u.promotion = :promo
-                 AND u.id <> :iduser
-                 AND u.id IN 
-                (SELECT DISTINCT  IDENTITY(ym.userTo)
-                 FROM ApplicationYearbookBundle:YearbookMessages ym
-                 WHERE ym.userFrom = :userFrom)
-                 ORDER  BY u.name ASC, u.surname ASC')
-            ->setParameter('iduser', $userFrom)
-            ->setParameter('userFrom', $userFrom)
-            ->setParameter('promo',date('Y'));
+        $query = $this->listUsersNotSeparated($doctrine, $userFrom);
+        $query= $query->andWhere('  u.id IN (:query)')
+            ->orderBy('u.name', 'ASC')
+            ->orderBy('u.surname', 'ASC')
+            ->setParameter('query', $this->listUserSended($doctrine->getManager(), $userFrom));
+
+        $query = $query->getQuery()->getResult();
+
+        return $query;
 
 
 
@@ -167,6 +163,24 @@ class BusinessManager
                 'userFrom' => $userFrom)
             );
 
+        return $query;
+    }
+
+    /**
+     * Return all the zz3 without the user if it's also a zz3
+     * @param $doctrine
+     * @param $userFrom
+     * @return mixed
+     */
+    private function listUsersNotSeparated($doctrine, $userFrom)
+    {
+        $query = $doctrine->getManager()
+            ->getRepository('AdminUserBundle:User')
+            ->createQueryBuilder('u')
+            ->where('u.promotion = :promo')
+            ->andWhere(' u.id <> :iduser')
+            ->setParameter('iduser', $userFrom)
+            ->setParameter('promo', date('Y'));
         return $query;
     }
 }
