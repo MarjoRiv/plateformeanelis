@@ -1,4 +1,9 @@
 {% extends "::application.html.twig" %} 
+{% block stylesheets %}
+  {{ parent() }}
+
+  <link href="{{ asset('assets/css/yearbook.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
 
 {% block title %}Yearbook{% endblock %}
     {% block body %}
@@ -13,28 +18,26 @@
               </ol>
             </div>
             <div class="container">
-                <div class="panel panel-primary">
-                    <table>
-                        <tr>
-                            <td>
+                <div class="lists" >
+                     <table>
+                         <tr>
+                             <td class="listusers">
                                 {%  include "ApplicationYearbookBundle:Default:users.html.twig" %}
                             </td>
                             <td>
                                 {%  include "ApplicationYearbookBundle:Default:listTo.html.twig" %}
                             </td>
-                        </tr>
-                        <tr>
-                            {%  if user is not null %}
-                                {%  if already is null %}
-                                    {%  include "ApplicationYearbookBundle:Default:new.html.twig" %}
-                                {% else %}
-                                    {%  include "ApplicationYearbookBundle:Default:update.html.twig" %}
-                                {% endif %}
-                            {% endif %}
-                        </tr>
-
-                    </table>
-
+                         </tr>
+                     </table>
+                </div>
+                <div>
+                    {%  if user is not null %}
+                        {%  if already is null %}
+                            {%  include "ApplicationYearbookBundle:Default:new.html.twig" %}
+                        {% else %}
+                            {%  include "ApplicationYearbookBundle:Default:update.html.twig" %}
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
           </div>

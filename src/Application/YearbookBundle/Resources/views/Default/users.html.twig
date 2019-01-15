@@ -1,5 +1,5 @@
-<div class="panel-body">
     <hr>
+
         {% if listUsersSend is not empty %}
             {% for user in listUsersSend %}
                 <p>
@@ -25,4 +25,3 @@
     {%  if listUsersSend is empty and listUsersNotSend is empty %}
         <p class="alert-warning text-center">Aucune personne trouvée.</p>
     {% endif %}
-</div>
